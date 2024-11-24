@@ -1,18 +1,21 @@
 #pragma once
 #include "ResourceBase.h"
-class Texture : public ResourceBase
+class Texture :
+    public ResourceBase
 {
 public:
     Texture();
     virtual ~Texture();
 public:
-	void Load(const wstring& _path);
-	const LONG& GetWidth() const { return m_bitInfo.bmWidth; }
-	const LONG& GetHeight()const { return m_bitInfo.bmHeight; }
-	const HDC& GetTexDC()const { return m_hDC; }
+    void loadBmp(const wstring& path);
+    const HDC& getTextureDC() const { return _hdc; }
+    const LONG& getWidth() const { return _bitInfo.bmWidth; }
+    const LONG& getHeight()const { return _bitInfo.bmHeight; }
+    void setTransParent(COLORREF transparent) { _transparent = transparent; }
+    const COLORREF& getTransparent() { return _transparent; }
 private:
-	HDC  m_hDC;  
-	HBITMAP m_hBit;
-	BITMAP m_bitInfo;
+    HDC _hdc = {};
+    HBITMAP _hBitmap = {};
+    BITMAP  _bitInfo = {};
+    COLORREF _transparent = RGB(255, 0, 255); // Åõ¸íÃ³¸® ¹«½¼»ö±ò
 };
-

@@ -2,25 +2,22 @@
 class Scene;
 class SceneManager
 {
-	DECLARE_SINGLE(SceneManager);
+	DECLARE_SINGLETON(SceneManager);
 public:
-	void Init(); // start
-	void Update();
-	void Render(HDC _hdc);
+	void init();
+	void update();
+	void render(HDC _hdc);
 public:
-	void RegisterScene(const wstring& _sceneName, 
+	void registerScene(const wstring& _sceneName, 
 					std::shared_ptr<Scene> _scene);
-	void LoadScene(const wstring& _sceneName);
+	void loadScene(const wstring& _sceneName);
 public:
-	const std::shared_ptr<Scene>& GetCurrentScene() const
+	const std::shared_ptr<Scene>& getCurrentScene() const
 	{
-		return m_pCurrentScene;
+		return _currentScene;
 	}
 private:
-	// ¾ÀµéÀ» mapÀ¸·Î °ü¸®
-	map<wstring, std::shared_ptr<Scene>> m_mapScenes;
-	//Scene* m_pCurrentScene;
-	// ÇöÀç ¾À
-	std::shared_ptr<Scene> m_pCurrentScene;
+	map<wstring, std::shared_ptr<Scene>> _sceneMap;
+	std::shared_ptr<Scene> _currentScene;
 };
 

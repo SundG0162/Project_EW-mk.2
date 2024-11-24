@@ -5,35 +5,35 @@ enum class SOUND_CHANNEL //사운드마다 채널
 {
 	BGM, EFFECT, END
 };
-struct tSoundInfo
+struct SoundInfo
 {
-	FMOD::Sound* pSound; // 실제 사운드 메모리
-	bool IsLoop;		// 사운드마다 루프할지말지
+	FMOD::Sound* sound; // 실제 사운드 메모리
+	bool isLoop;		// 사운드마다 루프할지말지
 };
 class Texture;
 class ResourceManager
 {
-	DECLARE_SINGLE(ResourceManager);
+	DECLARE_SINGLETON(ResourceManager);
 public:
-	void Init();
-	const wchar_t* GetResPath() const { return m_resourcePath; }
+	void init();
+	const wchar_t* getResourcePath() const { return _resourcePath; }
 public:
-	Texture* TextureLoad(const wstring& _key, const wstring& _path);
-	Texture* TextureFind(const wstring& _key);
-	void Release();
+	Texture* textureLoad(const wstring& _key, const wstring& _path);
+	Texture* textureFind(const wstring& _key);
+	void release();
 public:
-	void LoadSound(const wstring& _key, const wstring& _path, bool _isLoop);
-	void Play(const wstring& _key);
-	void Stop(SOUND_CHANNEL _channel);
-	void Volume(SOUND_CHANNEL _channel, float _vol);
-	void Pause(SOUND_CHANNEL _channel, bool _ispause);
+	void loadSound(const wstring& _key, const wstring& _path, bool _isLoop);
+	void play(const wstring& _key);
+	void stop(SOUND_CHANNEL _channel);
+	void volume(SOUND_CHANNEL _channel, float _vol);
+	void pause(SOUND_CHANNEL _channel, bool _ispause);
 private:
-	tSoundInfo* FindSound(const wstring& _key);
+	SoundInfo* findSound(const wstring& _key);
 private:
-	wchar_t m_resourcePath[255] = {};
-	map<wstring, Texture*> m_mapTextures;
-	map<wstring, tSoundInfo*> m_mapSounds;
-	FMOD::System* m_pSoundSystem; // 사운드 시스템
-	FMOD::Channel* m_pChannel[(UINT)SOUND_CHANNEL::END]; // 오디오 채널
+	wchar_t _resourcePath[255] = {};
+	map<wstring, Texture*> _textureMap;
+	map<wstring, SoundInfo*> _soundMap;
+	FMOD::System* _soundSystem; // 사운드 시스템
+	FMOD::Channel* _channels[(UINT)SOUND_CHANNEL::END]; // 오디오 채널
 };
 

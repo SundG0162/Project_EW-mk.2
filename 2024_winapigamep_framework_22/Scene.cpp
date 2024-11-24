@@ -8,76 +8,57 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	Release();
+	release();
 }
 
-void Scene::Update()
+void Scene::update()
 {
-	//for (UINT i = 0; i < (UINT)LAYER::END; ++i)
-	//{
-	//	for (size_t j = 0; j < m_vecObj[i].size();)
-	//	{
-	//		if (!m_vecObj[i][j]->GetIsDead())
-	//			m_vecObj[i][j++]->Update();
-	//		else
-	//			m_vecObj[i].erase(m_vecObj[i].begin() + j);
-	//	}
-	//}
 	for (UINT i = 0; i < (UINT)LAYER::END; ++i)
 	{
-		for (size_t j = 0; j < m_vecObj[i].size(); ++j)
+		for (size_t j = 0; j < _objects[i].size(); ++j)
 		{
-			if (!m_vecObj[i][j]->GetIsDead())
-				m_vecObj[i][j]->Update();
+			if (!_objects[i][j]->isDead())
+				_objects[i][j]->update();
 		}
 	}
 	
 }
 
-void Scene::LateUpdate()
+void Scene::lateUpdate()
 {
 	for (size_t i = 0; i < (UINT)LAYER::END; i++)
 	{
-		for (UINT j = 0; j < m_vecObj[i].size(); ++j)
+		for (UINT j = 0; j < _objects[i].size(); ++j)
 		{
-			m_vecObj[i][j]->LateUpdate();
+			_objects[i][j]->lateUpdate();
 		}
 	}
 }
 
-void Scene::Render(HDC _hdc)
+void Scene::render(HDC _hdc)
 { 
-	//for (UINT i = 0; i < (UINT)LAYER::END; ++i)
-	//{
-	//	for (size_t j = 0; j < m_vecObj[i].size(); ++j)
-	//	{
-	//		if (!m_vecObj[i][j]->GetIsDead())
-	//			m_vecObj[i][j]->Render(_hdc);
-	//	}
-	//}
 	for (UINT i = 0; i < (UINT)LAYER::END; ++i)
 	{
-		for (size_t j = 0; j < m_vecObj[i].size();)
+		for (size_t j = 0; j < _objects[i].size();)
 		{
-			if (!m_vecObj[i][j]->GetIsDead())
-				m_vecObj[i][j++]->Render(_hdc);
+			if (!_objects[i][j]->isDead())
+				_objects[i][j++]->render(_hdc);
 			else
-				m_vecObj[i].erase(m_vecObj[i].begin() + j);
+				_objects[i].erase(_objects[i].begin() + j);
 		}
 	}
 
 }
 
-void Scene::Release()
+void Scene::release()
 {
-	// 오브젝트 삭제.
 	for (size_t i = 0; i < (UINT)LAYER::END; i++)
 	{
-		for (UINT j = 0; j < m_vecObj[i].size(); ++j)
+		for (UINT j = 0; j < _objects[i].size(); ++j)
 		{
-			delete m_vecObj[i][j];
+			delete _objects[i][j];
 		}
-		m_vecObj[i].clear();
+		_objects[i].clear();
 	}
-	GET_SINGLE(CollisionManager)->CheckReset();
+	GET_SINGLETON(CollisionManager)->checkReset();
 }

@@ -1,67 +1,64 @@
 #include "pch.h"
 #include "Animator.h"
-#include "Animation.h"
+#include "AnimationClip.h"
+
 Animator::Animator()
-	: m_pCurrentAnimation(nullptr)
-	, m_IsRepeat(false)
+	: _currentClip(nullptr)
+	, _isRepeat(false)
+	, _repeatCount(0)
 {
 }
 
 Animator::~Animator()
 {
-	map<wstring, Animation*>::iterator iter;
-	for (iter = m_mapAnimations.begin(); iter != m_mapAnimations.end(); ++iter)
+	map<wstring, AnimationClip*>::iterator iter;
+	for (iter = _animationMap.begin(); iter != _animationMap.end(); ++iter)
 	{
 		if (iter->second != nullptr)
+		{
+			iter->second->release();
 			delete iter->second;
+		}
 	}
-	m_mapAnimations.clear();
+	_animationMap.clear();
 }
 
-void Animator::LateUpdate()
+void Animator::lateUpdate()
 {
-	if (nullptr != m_pCurrentAnimation)
-		m_pCurrentAnimation->Update();
+	if (_currentClip != nullptr)
+		_currentClip->update();
 }
 
-void Animator::Render(HDC _hdc)
+void Animator::render(HDC hdc)
 {
-	if (nullptr != m_pCurrentAnimation)
-		m_pCurrentAnimation->Render(_hdc);
+	if (_currentClip != nullptr)
+		_currentClip->render(hdc);
 }
 
-void Animator::CreateAnimation(const wstring& _strName, Texture* _pTex, Vec2 _vLT, Vec2 _vSliceSize, Vec2 _vStep, UINT _framecount, float _fDuration, bool _isRotate)
+void Animator::createAnimation(const wstring& name, vector<Sprite*>& sprites, float duration)
 {
-	Animation* pAnim = FindAnimation(_strName);
-	if (pAnim != nullptr)
-		return;
-
-	pAnim = new Animation;
-	pAnim->SetName(_strName);
-	pAnim->SetAnimator(this);
-	pAnim->Create(_pTex, _vLT, _vSliceSize, _vStep, _framecount, _fDuration, _isRotate);
-	m_mapAnimations.insert({ _strName,pAnim });
+	AnimationClip* clip = new AnimationClip;
+	clip->create(sprites, duration);
+	clip->setAnimator(this);
+	_animationMap.insert({ name, clip });
 }
 
-Animation* Animator::FindAnimation(const wstring& _strName)
+AnimationClip* Animator::findAnimation(const wstring& name)
 {
-	map<wstring, Animation*>::iterator iter = m_mapAnimations.find(_strName);
-	if (iter == m_mapAnimations.end())
-		return nullptr;
-	return iter->second;
+	AnimationClip* clip = _animationMap[name];
+	return clip;
 }
 
-void Animator::PlayAnimation(const wstring& _strName, bool _IsRepeat, int _repeatcnt)
+void Animator::playAnimation(const wstring& name, bool isRepeat, int repeatCount)
 {
-	m_pCurrentAnimation = FindAnimation(_strName);
-	m_pCurrentAnimation->SetFrame(0);
-	m_IsRepeat = _IsRepeat;
-	m_repeatcnt = _repeatcnt;
+	AnimationClip* clip = findAnimation(name);
+	clip->setFrame(0);
+	_currentClip = clip;
+	_isRepeat = isRepeat;
+	_repeatCount = repeatCount;
 }
 
-void Animator::StopAnimation()
+void Animator::stopAnimation()
 {
-	m_pCurrentAnimation = nullptr;
+	_currentClip = nullptr;
 }
-
-

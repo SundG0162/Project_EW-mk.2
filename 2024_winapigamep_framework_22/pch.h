@@ -19,7 +19,7 @@
 // My Header
 #include "Define.h"
 #include "Enums.h"
-#include "Vec2.h"
+#include "Vector2.h"
 
 // 각종 lib
 #pragma comment(lib, "winmm.lib")
@@ -31,11 +31,28 @@
 using std::vector;
 using std::map;
 using std::wstring;
+using int8 = __int8;
+using int16 = __int16;
+using int32 = __int32;
+using int64 = __int64;
+using uint8 = unsigned __int8;
+using uint16 = unsigned __int16;
+using uint32 = unsigned __int32;
+using uint64 = unsigned __int64;
 
 // 각종 define
 #define PI 3.14159265f
 #define SCREEN_WIDTH  1280
 #define SCREEN_HEIGHT 720
+
+#define DELTATIME GET_SINGLETON(TimeManager)->getDeltaTime()
+
+#define SAFE_DELETE(ptr)        \
+    if (ptr)                    \
+    {                            \
+        delete ptr;                \
+        ptr = nullptr;            \
+    }
 
 // 디버깅용 콘솔창
 #ifdef _DEBUG

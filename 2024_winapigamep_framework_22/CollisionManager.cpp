@@ -4,22 +4,22 @@
 #include "Scene.h"
 #include "Object.h"
 #include "Collider.h"
-void CollisionManager::Update()
+void CollisionManager::update()
 {
 	for (UINT Row = 0; Row < (UINT)LAYER::END; ++Row)
 	{
 		for (UINT Col = Row; Col < (UINT)LAYER::END; ++Col)
 		{
-			if (m_arrLayer[Row] & (1 << Col))
+			if (_layers[Row] & (1 << Col))
 			{
 				//int a = 0;
-				CollisionLayerUpdate((LAYER)Row, (LAYER)Col);
+				collisionLayerupdate((LAYER)Row, (LAYER)Col);
 			}
 		}
 	}
 }
 
-void CollisionManager::CheckLayer(LAYER _left, LAYER _right)
+void CollisionManager::checkLayer(LAYER _left, LAYER _right)
 {
 	// 작은쪽을 행으로 씁시다.
 	// 작은 값을 LAYER의 행으로, 큰 값을 열
@@ -33,81 +33,81 @@ void CollisionManager::CheckLayer(LAYER _left, LAYER _right)
 
 	//// 비트 연산
 	// 체크가 되어있다면
-	if (m_arrLayer[Row] & (1 << Col))
+	if (_layers[Row] & (1 << Col))
 	{
 		// 체크 풀기
-		m_arrLayer[Row] &= ~(1 << Col);
+		_layers[Row] &= ~(1 << Col);
 	}
 	// 체크가 안되어있다면r
 	else
 	{
-		m_arrLayer[Row] |= (1 << Col);
+		_layers[Row] |= (1 << Col);
 	}
 	int a = 0;
 }
 
-void CollisionManager::CheckReset()
+void CollisionManager::checkReset()
 {
 	// 메모리 초기화
-	memset(m_arrLayer, 0, sizeof(UINT) * (UINT)LAYER::END);
+	memset(_layers, 0, sizeof(UINT) * (UINT)LAYER::END);
 }
 
-void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
+void CollisionManager::collisionLayerupdate(LAYER _left, LAYER _right)
 {
-	std::shared_ptr<Scene> pCurrentScene = GET_SINGLE(SceneManager)->GetCurrentScene();
-	const vector<Object*>& vecLeftLayer = pCurrentScene->GetLayerObjects(_left);
-	const vector<Object*>& vecRightLayer = pCurrentScene->GetLayerObjects(_right);
+	std::shared_ptr<Scene> pCurrentScene = GET_SINGLETON(SceneManager)->getCurrentScene();
+	const vector<Object*>& vecLeftLayer = pCurrentScene->getLayerObjects(_left);
+	const vector<Object*>& vecRightLayer = pCurrentScene->getLayerObjects(_right);
 	map<ULONGLONG, bool>::iterator iter;
 	for (size_t i = 0; i < vecLeftLayer.size(); ++i)
 	{
-		Collider* pLeftCollider = vecLeftLayer[i]->GetComponent<Collider>();
+		Collider* pLeftCollider = vecLeftLayer[i]->getComponent<Collider>();
 		// 충돌체 없는 경우
 		if (nullptr == pLeftCollider)
 			continue;
 		for (size_t j = 0; j < vecRightLayer.size(); j++)
 		{
-			Collider* pRightCollider = vecRightLayer[j]->GetComponent<Collider>();
+			Collider* pRightCollider = vecRightLayer[j]->getComponent<Collider>();
 			// 충돌체가 없거나, 자기자신과의 충돌인 경우
 			if (nullptr == pRightCollider || vecLeftLayer[i] == vecRightLayer[j])
 				continue;
 
 			COLLIDER_ID colliderID; // 두 충돌체로만 만들 수 있는 ID
- 			colliderID.left_ID = pLeftCollider->GetID();
-			colliderID.right_ID = pRightCollider->GetID();
+ 			colliderID.left_ID = pLeftCollider->getID();
+			colliderID.right_ID = pRightCollider->getID();
 
-			iter = m_mapCollisionInfo.find(colliderID.ID);
+			iter = _coliisionInfoMap.find(colliderID.ID);
 			// 이전 프레임 충돌한 적 없다.
-			if (iter == m_mapCollisionInfo.end())
+			if (iter == _coliisionInfoMap.end())
 			{
 				// 충돌 정보가 미등록된 상태인 경우 등록(충돌하지 않았다로)
-				m_mapCollisionInfo.insert({ colliderID.ID, false });
+				_coliisionInfoMap.insert({ colliderID.ID, false });
 				//m_mapCollisionInfo[colliderID.ID] = false;
-				iter = m_mapCollisionInfo.find(colliderID.ID);
+				iter = _coliisionInfoMap.find(colliderID.ID);
 			}
 
-			if (IsCollision(pLeftCollider, pRightCollider))
+			if (isCollision(pLeftCollider, pRightCollider))
 			{
 				// 이전에도 충돌중
 				if (iter->second)
 				{
-					if (vecLeftLayer[i]->GetIsDead() || vecRightLayer[j]->GetIsDead())
+					if (vecLeftLayer[i]->isDead() || vecRightLayer[j]->isDead())
 					{
-						pLeftCollider->ExitCollision(pRightCollider);
-						pRightCollider->ExitCollision(pLeftCollider);
+						pLeftCollider->exitCollision(pRightCollider);
+						pRightCollider->exitCollision(pLeftCollider);
 						iter->second = false;
 					}
 					else
 					{
-						pLeftCollider->StayCollision(pRightCollider);
-						pRightCollider->StayCollision(pLeftCollider);
+						pLeftCollider->stayCollision(pRightCollider);
+						pRightCollider->stayCollision(pLeftCollider);
 					}
 				}
 				else // 이전에 충돌 x
 				{
-					if (!vecLeftLayer[i]->GetIsDead() && !vecRightLayer[j]->GetIsDead())
+					if (!vecLeftLayer[i]->isDead() && !vecRightLayer[j]->isDead())
 					{
-						pLeftCollider->EnterCollision(pRightCollider);
-						pRightCollider->EnterCollision(pLeftCollider);
+						pLeftCollider->enterCollision(pRightCollider);
+						pRightCollider->enterCollision(pLeftCollider);
 						iter->second = true;
 					}
 				}
@@ -116,8 +116,8 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 			{
 				if (iter->second) // 근데 이전에 충돌중
 				{
-					pLeftCollider->ExitCollision(pRightCollider);
-					pRightCollider->ExitCollision(pLeftCollider);
+					pLeftCollider->exitCollision(pRightCollider);
+					pRightCollider->exitCollision(pLeftCollider);
 					iter->second = false;
 				}
 			}
@@ -125,12 +125,12 @@ void CollisionManager::CollisionLayerUpdate(LAYER _left, LAYER _right)
 	}
 }
 
-bool CollisionManager::IsCollision(Collider* _left, Collider* _right)
+bool CollisionManager::isCollision(Collider* _left, Collider* _right)
 {
-	Vec2 vLeftPos = _left->GetLatedUpatedPos();
-	Vec2 vRightPos = _right->GetLatedUpatedPos();
-	Vec2 vLeftSize = _left->GetSize();
-	Vec2 vRightSize = _right->GetSize();
+	Vector2 vLeftPos = _left->getPosition();
+	Vector2 vRightPos = _right->getPosition();
+	Vector2 vLeftSize = _left->getSize();
+	Vector2 vRightSize = _right->getSize();
 
 	RECT leftRt = RECT_MAKE(vLeftPos.x, vLeftPos.y, vLeftSize.x, vLeftSize.y);
 	RECT rightRt = RECT_MAKE(vRightPos.x, vRightPos.y, vRightSize.x, vRightSize.y);

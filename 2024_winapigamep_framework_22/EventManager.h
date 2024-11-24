@@ -1,26 +1,26 @@
 #pragma once
 class Object;
-struct tEvent
+struct Event
 {
-	EVENT_TYPE eveType;
-	Object* obj;
-	LAYER objType;
+	EVENT_TYPE eventType;
+	Object* object;
+	LAYER objectLayer;
 public:
-	bool operator==(const tEvent& other)
+	bool operator==(const Event& other)
 	{
-		return eveType == other.eveType && obj == other.obj;
+		return eventType == other.eventType && object == other.object;
 	}
 };
 class EventManager
 {
-	DECLARE_SINGLE(EventManager);
+	DECLARE_SINGLETON(EventManager);
 public:
-	void Update();
-	void DeleteObject(Object* _pObj);
+	void update();
+	void deleteObject(Object* _pObj);
 	// todo..
 private:
-	void Excute(const tEvent& _eve);
+	void excute(const Event& _eve);
 private:
-	vector<tEvent> m_vecEvent;
-	vector<Object*> m_vecDead;
+	vector<Event> _events;
+	vector<Object*> _deadObjects;
 };

@@ -6,12 +6,12 @@ public:
 	Component();
 	virtual ~Component();
 public:
-	virtual void LateUpdate() abstract;
-	virtual void Render(HDC _hdc) abstract;
+	virtual void lateUpdate() abstract;
+	virtual void render(HDC _hdc) abstract;
 public:
-	void SetOwner(Object* _owner) { m_pOwner = _owner; }
-	Object* GetOwner() const { return m_pOwner; }
+	void setOwner(Object* _owner) { _owner = _owner; }
+	Object* getOwner() const { return _owner; }
 private:
-	Object* m_pOwner;
+	Object* _owner;
 };
 

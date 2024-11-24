@@ -7,23 +7,21 @@ public:
 	Scene();
 	virtual ~Scene(); // °¡»ó ¼Ò¸êÀÚ
 public:
-	virtual void Init() abstract;
-	virtual void Update();
-	virtual void LateUpdate();
-	virtual void Render(HDC _hdc);
-	virtual void Release();
+	virtual void init() abstract;
+	virtual void update();
+	virtual void lateUpdate();
+	virtual void render(HDC _hdc);
+	virtual void release();
 public:
-	void AddObject(Object* _obj, LAYER _type)
+	void addObject(Object* _obj, LAYER _type)
 	{
-		m_vecObj[(UINT)_type].push_back(_obj);
+		_objects[(UINT)_type].push_back(_obj);
 	}
-	const vector<Object*>& GetLayerObjects(LAYER _type)
+	const vector<Object*>& getLayerObjects(LAYER _type)
 	{
-		return m_vecObj[(UINT)_type];
+		return _objects[(UINT)_type];
 	}
 private:
-	//Object m_obj;
-	//Object* m_pObj;
-	vector<Object*> m_vecObj[(UINT)LAYER::END];
+	vector<Object*> _objects[(UINT)LAYER::END];
 };
 

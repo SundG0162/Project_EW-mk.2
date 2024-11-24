@@ -1,55 +1,48 @@
 #include "pch.h"
 #include "SceneManager.h"
 #include "Scene.h"
-#include "TitleScene.h"
-#include "GameScene.h"
-void SceneManager::Init()
+void SceneManager::init()
 {
-	m_pCurrentScene = nullptr;
+	_currentScene = nullptr;
 
 	// ¾À µî·Ï
-	RegisterScene(L"TitleScene",std::make_shared<TitleScene>());
-	RegisterScene(L"GameScene",std::make_shared<GameScene>());
-
-	// ¾À ·Îµå
-	LoadScene(L"TitleScene");
 }
 
-void SceneManager::Update()
+void SceneManager::update()
 {
-	if (m_pCurrentScene == nullptr)
+	if (_currentScene == nullptr)
 		return;
-	m_pCurrentScene->Update();
-	m_pCurrentScene->LateUpdate();
+	_currentScene->update();
+	_currentScene->lateUpdate();
 }
 
-void SceneManager::Render(HDC _hdc)
+void SceneManager::render(HDC _hdc)
 {
-	if (m_pCurrentScene == nullptr)
+	if (_currentScene == nullptr)
 		return;
-	m_pCurrentScene->Render(_hdc);
+	_currentScene->render(_hdc);
 }
 
-void SceneManager::RegisterScene(const wstring& _sceneName, std::shared_ptr<Scene> _scene)
+void SceneManager::registerScene(const wstring& _sceneName, std::shared_ptr<Scene> _scene)
 {
 	if (_sceneName.empty() || _scene == nullptr)
 		return;
-	m_mapScenes.insert(m_mapScenes.end(), {_sceneName, _scene});
+	_sceneMap.insert(_sceneMap.end(), {_sceneName, _scene});
 }
 
-void SceneManager::LoadScene(const wstring& _sceneName)
+void SceneManager::loadScene(const wstring& _sceneName)
 {
 	// ¾ÀÀÌ ÀÖÀ¸¸é
-	if (m_pCurrentScene != nullptr)
+	if (_currentScene != nullptr)
 	{
-		m_pCurrentScene->Release();
-		m_pCurrentScene = nullptr;
+		_currentScene->release();
+		_currentScene = nullptr;
 	}
 
-	auto iter = m_mapScenes.find(_sceneName);
-	if (iter != m_mapScenes.end())
+	auto iter = _sceneMap.find(_sceneName);
+	if (iter != _sceneMap.end())
 	{
-		m_pCurrentScene = iter->second;
-		m_pCurrentScene->Init();
+		_currentScene = iter->second;
+		_currentScene->init();
 	}
 }

@@ -7,9 +7,9 @@ public:
 	GDISelector(HDC _hdc, HFONT _font);
 	~GDISelector();
 private:
-	HDC		m_hDC;
-	HPEN	m_hDefaultPen;
-	HBRUSH	m_hDefaultBrush;
-	HFONT   m_hDefaultFont;
-	HFONT	m_hFont;
+	HDC		_hDC;
+	HPEN	_hDefaultPen;
+	HBRUSH	_hDefaultBrush;
+	HFONT   _hDefaultFont;
+	HFONT	_hFont;
 };

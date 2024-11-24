@@ -4,66 +4,40 @@
 #include "InputManager.h"
 #include "Component.h"
 Object::Object()
-	: m_vPos{}
-	, m_vSize{}
-	, m_IsDie(false)
+	: _position{}
+	, _size{}
+	, _isDead(false)
 {
 }
 
 Object::~Object()
 {
-	for (Component* com : m_vecComponents)
+	for (Component* com : _components)
 	{
 		if (com != nullptr)
 			delete com;
 	}
-	m_vecComponents.clear();
+	_components.clear();
 }
 
-void Object::LateUpdate()
+void Object::lateUpdate()
 {
-	for (Component* com : m_vecComponents)
+	for (Component* com : _components)
 	{
 		if (com)
 		{
-			com->LateUpdate();
+			com->lateUpdate();
 		}
 	}
 }
 
-void Object::ComponentRender(HDC _hdc)
+void Object::componentrender(HDC _hdc)
 {
-	for (Component* com : m_vecComponents)
+	for (Component* com : _components)
 	{
 		if (com)
 		{
-			com->Render(_hdc);
+			com->render(_hdc);
 		}
 	}
 }
-
-void Object::EnterCollision(Collider* _other)
-{
-}
-
-void Object::StayCollision(Collider* _other)
-{
-}
-
-void Object::ExitCollision(Collider* _other)
-{
-}
-
-//void Object::Update()
-//{
-//	if (GET_KEY(KEY_TYPE::LEFT))
-//		m_vPos.x -= 100.f * fDT;
-//	if (GET_KEY(KEY_TYPE::RIGHT))
-//		m_vPos.x += 100.f * fDT;
-//}
-//
-//void Object::Render(HDC _hdc)
-//{
-//	RECT_RENDER(_hdc, m_vPos.x, m_vPos.y
-//		, m_vSize.x, m_vSize.y);
-//}

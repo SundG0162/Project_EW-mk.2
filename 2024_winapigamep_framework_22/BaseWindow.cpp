@@ -3,8 +3,8 @@
 #include "Resource.h"
 #include "Core.h"
 BaseWindow::BaseWindow()
-	: m_hWnd(nullptr)
-	, m_hInst(nullptr)
+	: _hWnd(nullptr)
+	, _hInstance(nullptr)
 {
 }
 
@@ -12,16 +12,16 @@ BaseWindow::~BaseWindow()
 {
 }
 
-int BaseWindow::Run(HINSTANCE _hInst, LPWSTR _lpCmdline, int _CmdShow)
+int BaseWindow::run(HINSTANCE hInst, LPWSTR lpCmdline, int nCmdShow)
 {
-    this->m_hInst = _hInst;
-    this->MyRegisterClass();
+    this->_hInstance = hInst;
+    this->myRegisterClass();
     this->createWindow();
-    this->showWindow(_CmdShow);
+    this->showWindow(nCmdShow);
     this->updateWindow();
-    if (!GET_SINGLE(Core)->Init(m_hWnd))
-        MessageBox(m_hWnd, L"Core Init Error", L"Error", MB_OK);
-    return this->MessageLoop();
+    if (!GET_SINGLETON(Core)->init(_hWnd))
+        MessageBox(_hWnd, L"Core init Error", L"Error", MB_OK);
+    return this->messageLoop();
 }
 
 LRESULT BaseWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -46,7 +46,7 @@ LRESULT BaseWindow::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
     return 0;
 }
 
-ATOM BaseWindow::MyRegisterClass()
+ATOM BaseWindow::myRegisterClass()
 {
     WNDCLASSEXW wcex;
 
@@ -56,8 +56,8 @@ ATOM BaseWindow::MyRegisterClass()
     wcex.lpfnWndProc = BaseWindow::WndProc;
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
-    wcex.hInstance = m_hInst;
-    wcex.hIcon = LoadIcon(m_hInst, MAKEINTRESOURCE(IDI_MY2024WINAPIGAMEPFRAMEWORK22));
+    wcex.hInstance = _hInstance;
+    wcex.hIcon = LoadIcon(_hInstance, MAKEINTRESOURCE(IDI_MY2024WINAPIGAMEPFRAMEWORK22));
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
     wcex.lpszMenuName = nullptr;
@@ -75,7 +75,7 @@ void BaseWindow::createWindow()
     int Winposx = ResolutionX / 2 - SCREEN_WIDTH / 2;
     int Winposy = ResolutionY / 2 - SCREEN_HEIGHT / 2;
 
-    m_hWnd = CreateWindowW(
+    _hWnd = CreateWindowW(
         L"2-2 Gamep", // 윈도우 클래스 식별자
         L"준용의 윈도우",   // 제목
         WS_OVERLAPPEDWINDOW, // 윈도우 어떤 스타일로 만들것인가
@@ -85,7 +85,7 @@ void BaseWindow::createWindow()
         SCREEN_HEIGHT,             // ★ 해상도Y
         nullptr,       // 부모 윈도우 어쩌구라서 무시
         nullptr,       // 메뉴쓸꺼냐
-        m_hInst,     // 내 프로그램 인스턴스 값 
+        _hInstance,     // 내 프로그램 인스턴스 값 
         nullptr);      // 자식 윈도우 관련된것 무시
 
     // 윈도우 사이즈 조정(타이틀, 메뉴 계싼하지 않도록)
@@ -93,22 +93,22 @@ void BaseWindow::createWindow()
                  Winposx + SCREEN_WIDTH,
                  Winposy + SCREEN_HEIGHT };
     AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
-    MoveWindow(m_hWnd, Winposx, Winposy,
+    MoveWindow(_hWnd, Winposx, Winposy,
         rt.right - rt.left, rt.bottom - rt.top, false);
 }
 
-void BaseWindow::showWindow(int _CmdShow)
+void BaseWindow::showWindow(int nCmdShow)
 {
     // global namespace
-    ::ShowWindow(m_hWnd, _CmdShow);
+    ::ShowWindow(_hWnd, nCmdShow);
 }
 
 void BaseWindow::updateWindow()
 {
-    ::UpdateWindow(m_hWnd); // WM_PAINT
+    ::UpdateWindow(_hWnd); // WM_PAINT
 }
 
-int BaseWindow::MessageLoop()
+int BaseWindow::messageLoop()
 {
     MSG msg;
     memset(&msg, 0, sizeof(msg)); // 0 초기화
@@ -124,9 +124,9 @@ int BaseWindow::MessageLoop()
         else
         {
             // 메인 코드
-            GET_SINGLE(Core)->GameLoop();
+            GET_SINGLETON(Core)->gameLoop();
         }
     }
-    GET_SINGLE(Core)->CleanUp();
+    GET_SINGLETON(Core)->cleanUp();
     return (int)msg.wParam;
 }

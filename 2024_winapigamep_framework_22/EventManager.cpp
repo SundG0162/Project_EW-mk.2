@@ -1,42 +1,42 @@
 #include "pch.h"
 #include "EventManager.h"
 #include "Object.h"
-void EventManager::Update()
+void EventManager::update()
 {
 	// 이전 프레임에서 등록해둔 
-	for (Object* obj : m_vecDead)
+	for (Object* obj : _deadObjects)
 	{
 		if (obj != nullptr)
 			delete obj;
 	}
-	m_vecDead.clear();
+	_deadObjects.clear();
 
-	for (auto& eve : m_vecEvent)
-		Excute(eve);
-	m_vecEvent.clear();
+	for (auto& eve : _events)
+		excute(eve);
+	_events.clear();
 }
 
-void EventManager::DeleteObject(Object* _pObj)
+void EventManager::deleteObject(Object* _pObj)
 {
-	tEvent eve = {};
-	eve.eveType = EVENT_TYPE::DELETE_OBJECT;
-	eve.obj = _pObj;
+	Event eve = {};
+	eve.eventType = EVENT_TYPE::DELETE_OBJECT;
+	eve.object = _pObj;
 
-	if (std::find(m_vecEvent.begin(), m_vecEvent.end(), eve) == m_vecEvent.end())
+	if (std::find(_events.begin(), _events.end(), eve) == _events.end())
 	{
-		m_vecEvent.push_back(eve);
+		_events.push_back(eve);
 	}
 }
 
-void EventManager::Excute(const tEvent& _eve)
+void EventManager::excute(const Event& _eve)
 {
-	switch (_eve.eveType)
+	switch (_eve.eventType)
 	{
 	case EVENT_TYPE::DELETE_OBJECT:
 	{
-		Object* pDeadObj = _eve.obj;
-		pDeadObj->SetDead();
-		m_vecDead.push_back(pDeadObj);
+		Object* pDeadObj = _eve.object;
+		pDeadObj->setDead();
+		_deadObjects.push_back(pDeadObj);
 	}
 	break;
 	case EVENT_TYPE::CREATE_OBJECT:

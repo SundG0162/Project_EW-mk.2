@@ -1,22 +1,19 @@
 #pragma once
 class TimeManager
 {
-	DECLARE_SINGLE(TimeManager);
+	DECLARE_SINGLETON(TimeManager);
 public:
-	void Init();
-	void Update();
+	void init();
+	void update();
 public:
-	const float& GetDT() const { return m_dT; }
+	const float& getDeltaTime() const { return _deltaTime; }
 private:
-	// Delta time
-	LARGE_INTEGER m_llPrevCnt = {};
-	LARGE_INTEGER m_llCurCnt = {};
-	LARGE_INTEGER m_llFrequency = {};
-	float		  m_dT = 0.f;
-
-	// FPS(Frame Per Second)
-	UINT		  m_fps = 0;
-	UINT		  m_framecnt = 0;
-	float		  m_frametime = 0.f;
+	LARGE_INTEGER _prevCount = {};
+	LARGE_INTEGER _currentCount = {};
+	LARGE_INTEGER _frequency = {};
+	float		  _deltaTime = 0.f;
+	UINT		  _fps = 0;
+	UINT		  _frameCount = 0;
+	float		  _frameTime = 0.f;
 };
 
