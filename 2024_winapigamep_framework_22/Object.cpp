@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Object.h"
-#include "TimeManager.h"
-#include "InputManager.h"
 #include "Component.h"
+
+
 Object::Object()
 	: _position{}
 	, _size{}
@@ -12,32 +12,31 @@ Object::Object()
 
 Object::~Object()
 {
-	for (Component* com : _components)
-	{
-		if (com != nullptr)
-			delete com;
-	}
-	_components.clear();
 }
 
 void Object::lateUpdate()
 {
-	for (Component* com : _components)
+	componentUpdate();
+}
+
+void Object::componentUpdate()
+{
+	for (Component* compo : _components)
 	{
-		if (com)
+		if (compo)
 		{
-			com->lateUpdate();
+			compo->lateUpdate();
 		}
 	}
 }
 
-void Object::componentrender(HDC hDC)
+void Object::componentRender(HDC hdc)
 {
-	for (Component* com : _components)
+	for (Component* compo : _components)
 	{
-		if (com)
+		if (compo)
 		{
-			com->render(hDC);
+			compo->render(hdc);
 		}
 	}
 }

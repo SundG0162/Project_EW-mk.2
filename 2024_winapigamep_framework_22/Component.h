@@ -9,7 +9,7 @@ public:
 	virtual void lateUpdate() abstract;
 	virtual void render(HDC hDC) abstract;
 public:
-	void setOwner(Object* _owner) { _owner = _owner; }
+	void setOwner(Object* owner) { _owner = owner; }
 	Object* getOwner() const { return _owner; }
 protected:
 	Object* _owner;

@@ -9,10 +9,10 @@ void ResourceManager::init()
 	//::SetWindowText(GET_SINGLE(Core)->GetHwnd(), m_resourcePath);
 
  	FMOD::System_Create(&_soundSystem); // 시스템 생성 함수
-	// 채널수, 사운드 모드
-	//if (_soundSystem != nullptr)
-		//_soundSystem->init((int)SOUND_CHANNEL::END, FMOD_init_NORMAL, nullptr);
+	if (_soundSystem != nullptr)
+		_soundSystem->init((int)SOUND_CHANNEL::END, FMOD_INIT_NORMAL, nullptr);
 
+	textureLoad(L"Test", L"Texture\\Test.bmp");
 }
 
 Texture* ResourceManager::textureLoad(const wstring& _key, const wstring& _path)

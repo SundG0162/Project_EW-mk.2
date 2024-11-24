@@ -16,8 +16,7 @@ Collider::~Collider()
 
 void Collider::lateUpdate()
 {
-	const Object* pOwner = getOwner();
-	Vector2 vPos = pOwner->getPosition();
+	Vector2 vPos = _owner->getPosition();
 	_position = vPos + _offset;
 }
 

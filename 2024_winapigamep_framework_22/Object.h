@@ -1,5 +1,4 @@
 #pragma once
-class Collider;
 class Component;
 class Object
 {
@@ -8,47 +7,42 @@ public:
 	virtual ~Object();
 public:
 	virtual void update() abstract;
+	virtual void render(HDC hdc) abstract;
 	virtual void lateUpdate();
-	virtual void render(HDC hDC) abstract;
-	void componentrender(HDC hDC);
-public:
-	void setPosition(Vector2 _vPos) { _position = _vPos; }
-	void setSize(Vector2 _vSize) { _size = _vSize; }
-	const Vector2& getPosition() const { return _position; }
-	const Vector2& getSize() const { return _size; }
-public:
-	const bool& isDead() const { return _isDead; }
-	void setDead() { _isDead = true; }
-	void setTag(wstring _name) { _tag = _name; }
-	const wstring& getTag() const { return _tag; }
-
-private:
-	bool _isDead;
-	wstring _tag;
+	virtual void componentUpdate();
+	virtual void componentRender(HDC hdc);
 public:
 	template<typename T>
 	T* addComponent()
 	{
-		T* com = new T;
-		com->SetOwner(this);
-		_components.push_back(com);
-		return com;
+		T* component = new T;
+		component->setOwner(this);
+		_components.push_back(component);
+		return component;
 	}
 	template<typename T>
 	T* getComponent()
 	{
 		T* component = nullptr;
-		for (Component* com : _components)
+		for (Component* compo : _components)
 		{
-			component = dynamic_cast<T*>(com);
+			component = dynamic_cast<T*>(compo);
 			if (component)
 				break;
 		}
 		return component;
 	}
+public:
+	void setPos(const Vector2& pos) { _position = pos; }
+	const Vector2& getPosition() { return _position; }
+	void setSize(const Vector2& size) { _size = size; }
+	const Vector2& getSize() { return _size; }
+	void setDead() { _isDead = true; }
+	const bool& isDead() { return _isDead; }
 protected:
 	Vector2 _position;
 	Vector2 _size;
+	bool _isDead;
+
 	vector<Component*> _components;
 };
-

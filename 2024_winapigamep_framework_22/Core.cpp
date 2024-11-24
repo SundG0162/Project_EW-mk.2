@@ -10,14 +10,14 @@ bool Core::init(HWND _hwnd)
 {
 	// 변수 초기화
 	_hWnd = _hwnd;
-	hDC = ::GetDC(_hWnd);
+	_hDC = ::GetDC(_hWnd);
 	_hBackDC = 0;
 	_hBitmap = 0;
 
 	// 더블 버퍼링
 	// 1. 생성(세팅)
-	_hBitmap = ::CreateCompatibleBitmap(hDC, SCREEN_WIDTH, SCREEN_HEIGHT);
-	_hBackDC =::CreateCompatibleDC(hDC);
+	_hBitmap = ::CreateCompatibleBitmap(_hDC, SCREEN_WIDTH, SCREEN_HEIGHT);
+	_hBackDC =::CreateCompatibleDC(_hDC);
 
 	// 2. 연결
 	::SelectObject(_hBackDC,_hBitmap);
@@ -39,7 +39,7 @@ void Core::cleanUp()
 	// 생성한순서 반대로 삭제
 	::DeleteDC(_hBackDC);	//createdc한거
 	::DeleteObject(_hBitmap); // createbitmap 한거
-	::ReleaseDC(_hWnd, hDC);
+	::ReleaseDC(_hWnd, _hDC);
 	for (int i = 0; i < (UINT)PEN_TYPE::END; ++i)
 	{
 		DeleteObject(_colorPens[i]);
@@ -84,11 +84,11 @@ void Core::mainupdate()
 void Core::mainrender()
 {
 	// 1. clear
-	::PatBlt(_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, WHITENESS);
+	::PatBlt(_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
 	// 2. render
 	GET_SINGLETON(SceneManager)->render(_hBackDC);
 	// 3. display	
-	::BitBlt(hDC, 0,0, SCREEN_WIDTH,SCREEN_HEIGHT,
+	::BitBlt(_hDC, 0,0, SCREEN_WIDTH,SCREEN_HEIGHT,
 			_hBackDC,0,0, SRCCOPY);
 
  //	::TransparentBlt();

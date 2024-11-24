@@ -39,7 +39,7 @@ void Animator::createAnimation(const wstring& name, vector<Sprite*>& sprites, fl
 {
 	AnimationClip* clip = new AnimationClip;
 	clip->create(sprites, duration);
-	clip->setAnimator(this);
+	clip->init(this);
 	_animationMap.insert({ name, clip });
 }
 

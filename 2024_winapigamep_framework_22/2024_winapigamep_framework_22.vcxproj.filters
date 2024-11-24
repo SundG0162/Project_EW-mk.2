@@ -121,6 +121,15 @@
     <ClInclude Include="Animator.h">
       <Filter>Engine\06. Component\Animator</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Engine\06. Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObject.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -192,6 +201,15 @@
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Engine\06. Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Engine\06. Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObject.cpp">
+      <Filter>Engine\03. Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
