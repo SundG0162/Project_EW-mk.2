@@ -31,13 +31,13 @@ void Object::lateUpdate()
 	}
 }
 
-void Object::componentrender(HDC _hdc)
+void Object::componentrender(HDC hDC)
 {
 	for (Component* com : _components)
 	{
 		if (com)
 		{
-			com->render(_hdc);
+			com->render(hDC);
 		}
 	}
 }

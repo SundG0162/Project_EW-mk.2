@@ -10,7 +10,7 @@ public:
 	virtual void init() abstract;
 	virtual void update();
 	virtual void lateUpdate();
-	virtual void render(HDC _hdc);
+	virtual void render(HDC hDC);
 	virtual void release();
 public:
 	void addObject(Object* _obj, LAYER _type)

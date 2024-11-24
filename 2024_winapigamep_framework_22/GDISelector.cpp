@@ -1,45 +1,45 @@
 #include "pch.h"
 #include "GDISelector.h"
 #include "Core.h"
-GDISelector::GDISelector(HDC _hdc, PEN_TYPE _ePen)
-	: _hDC(_hdc)
+GDISelector::GDISelector(HDC hDC, PEN_TYPE _ePen)
+	: hDC(hDC)
 	, _hDefaultBrush(nullptr)
 	, _hDefaultPen(nullptr)
 	, _hDefaultFont(nullptr)
 	, _hFont(nullptr)
 {
 	HPEN hColorPen = Core::GetInstance()->getPen(_ePen);
-	_hDefaultPen = (HPEN)SelectObject(_hdc, hColorPen);
+	_hDefaultPen = (HPEN)SelectObject(hDC, hColorPen);
 }
 
-GDISelector::GDISelector(HDC _hdc, BRUSH_TYPE _eBrush)
-	: _hDC(_hdc)
+GDISelector::GDISelector(HDC hDC, BRUSH_TYPE _eBrush)
+	: hDC(hDC)
 	, _hDefaultBrush(nullptr)
 	, _hDefaultPen(nullptr)
 	, _hDefaultFont(nullptr)
 	, _hFont(nullptr)
 {
 	HBRUSH hColorBrush = Core::GetInstance()->getBrush(_eBrush);
-	_hDefaultBrush = (HBRUSH)SelectObject(_hdc, hColorBrush);
+	_hDefaultBrush = (HBRUSH)SelectObject(hDC, hColorBrush);
 }
 
-GDISelector::GDISelector(HDC _hdc, HFONT _font)
-	: _hDC(_hdc)
+GDISelector::GDISelector(HDC hDC, HFONT _font)
+	: hDC(hDC)
 	, _hDefaultBrush(nullptr)
 	, _hDefaultPen(nullptr)
 	, _hDefaultFont(nullptr)
 	, _hFont(nullptr)
 {
 	_hFont = _font;
-	_hDefaultFont = (HFONT)SelectObject(_hdc, _hFont);
-	SetBkMode(_hdc, TRANSPARENT);
+	_hDefaultFont = (HFONT)SelectObject(hDC, _hFont);
+	SetBkMode(hDC, TRANSPARENT);
 }
 
 GDISelector::~GDISelector()
 {
-	SelectObject(_hDC, _hDefaultPen);
-	SelectObject(_hDC, _hDefaultBrush);
-	SelectObject(_hDC, _hDefaultFont);
+	SelectObject(hDC, _hDefaultPen);
+	SelectObject(hDC, _hDefaultBrush);
+	SelectObject(hDC, _hDefaultFont);
 	if (nullptr != _hFont)
 		DeleteObject(_hFont);
 }

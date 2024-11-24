@@ -4,9 +4,11 @@
 #include "Sprite.h"
 #include "Object.h"
 #include "TimeManager.h"
+#include "SpriteRenderer.h"
 
 AnimationClip::AnimationClip()
 	: _animator(nullptr)
+	, _spriteRenderer(nullptr)
 	, _currentFrame(0)
 	, _duration(0.f)
 	, _timer(0.f)
@@ -31,15 +33,11 @@ void AnimationClip::update()
 		_currentFrame++;
 		//OnAnimationEnd.Invoke(1, 2, 3);
 	}
+	_spriteRenderer->setSprite(_sprites[_currentFrame]);
 }
 
 void AnimationClip::render(HDC hdc)
 {
-	Object* owner = _animator->getOwner();
-	Sprite* sprite = _sprites[_currentFrame];
-	Vector2 pos = owner->getPosition();
-	Vector2 size = sprite->getSize();
-	TransparentBlt(hdc, pos.x - size.x / 2, pos.y - size.y / 2, size.x, size.y, sprite->getSpriteDC(), 0, 0, size.x, size.y, sprite->getTransparent());
 }
 
 void AnimationClip::release()
@@ -51,8 +49,15 @@ void AnimationClip::release()
 	_sprites.clear();
 }
 
+void AnimationClip::init(Animator* animator)
+{
+	_animator = animator;
+	_spriteRenderer = _animator->getOwner()->getComponent<SpriteRenderer>();
+}
+
 void AnimationClip::create(vector<Sprite*>& sprites, float duration)
 {
 	_sprites = sprites;
 	_duration = duration;
 }
+

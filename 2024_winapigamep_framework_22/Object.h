@@ -9,8 +9,8 @@ public:
 public:
 	virtual void update() abstract;
 	virtual void lateUpdate();
-	virtual void render(HDC _hdc) abstract;
-	void componentrender(HDC _hdc);
+	virtual void render(HDC hDC) abstract;
+	void componentrender(HDC hDC);
 public:
 	void setPosition(Vector2 _vPos) { _position = _vPos; }
 	void setSize(Vector2 _vSize) { _size = _vSize; }

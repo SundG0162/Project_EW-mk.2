@@ -7,11 +7,11 @@ public:
 	virtual ~Component();
 public:
 	virtual void lateUpdate() abstract;
-	virtual void render(HDC _hdc) abstract;
+	virtual void render(HDC hDC) abstract;
 public:
 	void setOwner(Object* _owner) { _owner = _owner; }
 	Object* getOwner() const { return _owner; }
-private:
+protected:
 	Object* _owner;
 };
 

@@ -16,11 +16,11 @@ void SceneManager::update()
 	_currentScene->lateUpdate();
 }
 
-void SceneManager::render(HDC _hdc)
+void SceneManager::render(HDC hDC)
 {
 	if (_currentScene == nullptr)
 		return;
-	_currentScene->render(_hdc);
+	_currentScene->render(hDC);
 }
 
 void SceneManager::registerScene(const wstring& _sceneName, std::shared_ptr<Scene> _scene)

@@ -35,14 +35,14 @@ void Scene::lateUpdate()
 	}
 }
 
-void Scene::render(HDC _hdc)
+void Scene::render(HDC hDC)
 { 
 	for (UINT i = 0; i < (UINT)LAYER::END; ++i)
 	{
 		for (size_t j = 0; j < _objects[i].size();)
 		{
 			if (!_objects[i][j]->isDead())
-				_objects[i][j++]->render(_hdc);
+				_objects[i][j++]->render(hDC);
 			else
 				_objects[i].erase(_objects[i].begin() + j);
 		}

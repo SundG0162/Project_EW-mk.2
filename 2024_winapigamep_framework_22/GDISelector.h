@@ -2,12 +2,12 @@
 class GDISelector
 {
 public:
-	GDISelector(HDC _hdc, PEN_TYPE _ePen);
-	GDISelector(HDC _hdc, BRUSH_TYPE _eBrush);
-	GDISelector(HDC _hdc, HFONT _font);
+	GDISelector(HDC hDC, PEN_TYPE _ePen);
+	GDISelector(HDC hDC, BRUSH_TYPE _eBrush);
+	GDISelector(HDC hDC, HFONT _font);
 	~GDISelector();
 private:
-	HDC		_hDC;
+	HDC		hDC;
 	HPEN	_hDefaultPen;
 	HBRUSH	_hDefaultBrush;
 	HFONT   _hDefaultFont;

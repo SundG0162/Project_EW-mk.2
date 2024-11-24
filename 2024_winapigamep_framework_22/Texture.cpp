@@ -8,16 +8,16 @@ Texture::Texture()
 
 Texture::~Texture()
 {
-	DeleteDC(_hdc);
+	DeleteDC(hDC);
 	DeleteObject(_hBitmap);
 }
 
 void Texture::loadBmp(const wstring& path)
 {
 	_hBitmap = (HBITMAP)LoadImage(nullptr, path.c_str(), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE);
-	_hdc = CreateCompatibleDC(GET_SINGLETON(Core)->getMainDC());
+	hDC = CreateCompatibleDC(GET_SINGLETON(Core)->getMainDC());
 	if (_hBitmap == nullptr)
 		MessageBox(GET_SINGLETON(Core)->getHWnd(), path.c_str(), L"Fail to Load Image", MB_OK);
-	SelectObject(_hdc, _hBitmap);
+	SelectObject(hDC, _hBitmap);
 	GetObject(_hBitmap, sizeof(BITMAP), &_bitInfo);
 }

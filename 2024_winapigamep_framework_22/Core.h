@@ -13,7 +13,7 @@ private:
 	void createGDI();
 public:
 	const HWND& getHWnd() const { return _hWnd; }
-	const HDC& getMainDC() const { return _hDC; }
+	const HDC& getMainDC() const { return hDC; }
 	const HBRUSH& getBrush(BRUSH_TYPE type)
 	{
 		return _colorBrushes[(UINT)type];
@@ -28,7 +28,7 @@ private:
 	HPEN _colorPens[(UINT)PEN_TYPE::END] = {};
 
 	HWND _hWnd;
-	HDC  _hDC;
+	HDC  hDC;
 	HDC  _hBackDC;
 	HBITMAP _hBitmap;
 };

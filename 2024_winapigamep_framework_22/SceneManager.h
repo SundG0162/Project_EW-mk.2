@@ -6,7 +6,7 @@ class SceneManager
 public:
 	void init();
 	void update();
-	void render(HDC _hdc);
+	void render(HDC hDC);
 public:
 	void registerScene(const wstring& _sceneName, 
 					std::shared_ptr<Scene> _scene);

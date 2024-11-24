@@ -21,14 +21,14 @@ void Collider::lateUpdate()
 	_position = vPos + _offset;
 }
 
-void Collider::render(HDC _hdc)
+void Collider::render(HDC hDC)
 {
 	PEN_TYPE ePen = PEN_TYPE::GREEN;
 	if (_showDebug)
 		ePen = PEN_TYPE::RED;
-	GDISelector pen(_hdc, ePen);
-	GDISelector brush(_hdc, BRUSH_TYPE::HOLLOW);
-	RECT_render(_hdc, _position.x, _position.y,
+	GDISelector pen(hDC, ePen);
+	GDISelector brush(hDC, BRUSH_TYPE::HOLLOW);
+	RECT_render(hDC, _position.x, _position.y,
 		_size.x, _size.y);
 }
 
