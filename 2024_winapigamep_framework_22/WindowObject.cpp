@@ -16,10 +16,8 @@ WindowObject::~WindowObject()
 
 void WindowObject::update()
 {
-	static Vector2 pos = { 100,400 };
+	_window->moveWindow(_position);
 	_window->update();
-	_window->moveWindow(pos);
-	pos.x += 200 * DELTATIME;
 }
 
 void WindowObject::render(HDC hdc)

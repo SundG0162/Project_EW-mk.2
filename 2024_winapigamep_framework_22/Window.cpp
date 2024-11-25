@@ -2,6 +2,7 @@
 #include "BaseWindow.h"
 #include "Window.h"
 #include "Core.h"
+#include "TimeManager.h"
 #include <functional>
 
 Window::Window(const Vector2& position, const Vector2& size)
@@ -47,6 +48,13 @@ Window::~Window()
 {
 }
 
+void Window::openTween()
+{
+	_goalSize = _size;
+	_size.y = 0;
+	_isTweenEnd = false;
+}
+
 void Window::handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curPos)
 {
 	_position = curPos;
@@ -65,6 +73,15 @@ void Window::moveWindow(const Vector2& pos)
 
 void Window::update()
 {
+	if (!_isTweenEnd)
+	{
+		_timer += DELTATIME;
+		_size.y = std::lerp(0, _goalSize.y, utils::Ease::outCubic(_timer));
+		if (_timer > 1)
+			_isTweenEnd = true;
+		moveWindow(_position);
+		return;
+	}
 	RECT currentRect;
 	GetWindowRect(_hWnd, &currentRect);
 	if (currentRect.top != _prevRect.top || currentRect.bottom != _prevRect.bottom || currentRect.left != _prevRect.left || currentRect.right != _prevRect.right)

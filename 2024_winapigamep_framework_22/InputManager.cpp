@@ -11,16 +11,16 @@ void InputManager::update()
 {
 
 	//GetActiveWindow(); // 창을 여러개 띄울때 맨 위에있는 윈도우
-	HWND hWnd = GetFocus(); // 지금 딱 포커싱한거
-	if (hWnd == nullptr)
-	{
-		for (int i = 0; i < (int)KEY_TYPE::LAST; ++i)
-		{
-			_keys[i].isPrevCheck = false;
-			_keys[i].state = KEY_STATE::NONE;
-		}
-		return;
-	 }
+	//HWND hWnd = GetFocus(); // 지금 딱 포커싱한거
+	//if (hWnd == nullptr)
+	//{
+	//	for (int i = 0; i < (int)KEY_TYPE::LAST; ++i)
+	//	{
+	//		_keys[i].isPrevCheck = false;
+	//		_keys[i].state = KEY_STATE::NONE;
+	//	}
+	//	return;
+	// }
 	for (int i = 0; i < (int)KEY_TYPE::LAST; ++i)
 	{
 		// 키가 눌렸다.

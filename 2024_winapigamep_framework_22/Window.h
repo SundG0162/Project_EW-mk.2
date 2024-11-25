@@ -10,6 +10,7 @@ public:
 	void update();
 	void render(HDC hdc);
 public:
+	void openTween();
 	void handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curPos);
 	void close();
 	void moveWindow(const Vector2& pos);
@@ -28,8 +29,10 @@ protected:
 	HDC _hDC;
 	Vector2 _position;
 	Vector2 _size;
-
 private:
-	bool _isInvoked = false;
 	RECT _prevRect;
+
+	float _timer = 0.f;
+	Vector2 _goalSize;
+	bool _isTweenEnd = true;
 };

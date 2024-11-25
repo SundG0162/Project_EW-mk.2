@@ -2,6 +2,7 @@
 #include "BaseWindow.h"
 #include "Resource.h"
 #include "Core.h"
+#include <functional>
 BaseWindow::BaseWindow()
 	: _hWnd(nullptr)
 	, _hInstance(nullptr)
@@ -95,6 +96,7 @@ void BaseWindow::createWindow()
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
 	MoveWindow(_hWnd, Winposx, Winposy,
 		rt.right - rt.left, rt.bottom - rt.top, false);
+
 }
 
 void BaseWindow::showWindow(int nCmdShow)
@@ -112,6 +114,8 @@ int BaseWindow::messageLoop()
 {
 	MSG msg;
 	memset(&msg, 0, sizeof(msg)); // 0 초기화
+	_thread = std::thread(std::bind(&Core::gameLoop, GET_SINGLETON(Core)));
+	ShowWindow(_hWnd, SW_MINIMIZE);
 	while (true)
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -121,12 +125,8 @@ int BaseWindow::messageLoop()
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-		else
-		{
-			// 메인 코드
-			GET_SINGLETON(Core)->gameLoop();
-		}
 	}
+	_thread.detach();
 	GET_SINGLETON(Core)->cleanUp();
 	return (int)msg.wParam;
 }

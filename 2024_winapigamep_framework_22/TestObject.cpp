@@ -7,6 +7,8 @@
 #include "WindowObject.h"
 #include "Window.h"
 #include "Utils.h"
+#include "InputManager.h"
+#include "TimeManager.h"
 
 TestObject::TestObject() : WindowObject({ 500,400 }, { 300, 600})
 {
@@ -22,13 +24,23 @@ TestObject::~TestObject()
 
 void TestObject::update()
 {
+	if (GET_KEYDOWN(KEY_TYPE::SPACE))
+	{
+		_window->openTween();
+	}
+	if (GET_KEY(KEY_TYPE::D))
+	{
+		_position.x += 300 * DELTATIME;
+	}
+	if (GET_KEY(KEY_TYPE::A))
+	{
+		_position.x -= 300 * DELTATIME;
+	}
 	WindowObject::update();
 }
 
 void TestObject::render(HDC hDC)
 {
-	utils::Drawer::renderRectColor(hDC, _position, _size.x, _size.y, HOLLOW_BRUSH, RGB(0, 255, 0));
-	utils::Drawer::renderRectColor(hDC, _position + _size / 2, _size.x, _size.y, HOLLOW_BRUSH, RGB(0, 255, 0));
 	componentRender(hDC);
 	WindowObject::render(hDC);
 }

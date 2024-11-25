@@ -1,4 +1,5 @@
 #pragma once
+#include <thread>
 class BaseWindow
 {
 public:
@@ -15,6 +16,7 @@ private:
 	void updateWindow(); // 4
 	int  messageLoop(); // 5
 private:
+	std::thread _thread;
 	HINSTANCE _hInstance;
 	HWND	  _hWnd;
 };

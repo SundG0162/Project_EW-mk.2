@@ -22,8 +22,6 @@ public:							\
 #define GET_CENTERPOS(pos, size) {pos.x + size.x / 2, pos.y + size.y / 2}
 #define GET_LEFTTOPPOS(pos, size) {pos.x - size.x / 2, pos.y - size.y / 2}
 
-#define TO_LISTENER(func, inst) std::bind(func, inst)
-
 // render ∏≈≈©∑Œ
 #define RECT_render(hdc, posx, posy, sizex, sizey) Rectangle(hdc, (int)(posx-sizex/2), (int)(posy-sizey/2), (int)(posx+sizex/2), (int)(posy+sizey/2))
 #define ELLIPSE_render(hdc, posx, posy, sizex, sizey) Ellipse(hdc, (int)(posx-sizex/2), (int)(posy-sizey/2), (int)(posx+sizex/2), (int)(posy+sizey/2))
