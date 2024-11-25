@@ -41,6 +41,9 @@
     <Filter Include="Engine\06. Component\Physics">
       <UniqueIdentifier>{c045dca5-2b86-4504-8ca0-1dab63c21939}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03.Windows">
+      <UniqueIdentifier>{e2715499-01d7-4ac7-97b4-aed651e8fc43}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2024_winapigamep_framework_22.h">
@@ -130,6 +133,18 @@
     <ClInclude Include="TestObject.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Engine\03.Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowObject.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Engine\07. Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -210,6 +225,15 @@
     </ClCompile>
     <ClCompile Include="TestObject.cpp">
       <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Engine\03.Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowObject.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

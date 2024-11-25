@@ -1,6 +1,6 @@
 #pragma once
-#include "Object.h"
-class TestObject : public Object
+#include "WindowObject.h"
+class TestObject : public WindowObject
 {
 public:
 	TestObject();

@@ -12,7 +12,6 @@ public:							\
 	}							\
 
 #define GET_SINGLETON(type) type::GetInstance()
-#define fDT GET_SINGLETON(TimeManager)->GetDT()
 
 #define KEY_CHECK(key, state) InputManager::GetInstance()->getKey(key) == state
 #define GET_KEYNONE(key) KEY_CHECK(key, KEY_STATE::NONE)
@@ -20,6 +19,11 @@ public:							\
 #define GET_KEYDOWN(key) KEY_CHECK(key, KEY_STATE::DOWN)
 #define GET_KEY(key) KEY_CHECK(key, KEY_STATE::PRESS)
 #define GET_MOUSEPOS GET_SINGLETON(InputManager)->getMousePos()
+#define GET_CENTERPOS(pos, size) {pos.x + size.x / 2, pos.y + size.y / 2}
+#define GET_LEFTTOPPOS(pos, size) {pos.x - size.x / 2, pos.y - size.y / 2}
+
+#define TO_LISTENER(func, inst) std::bind(func, inst)
+
 // render ∏≈≈©∑Œ
 #define RECT_render(hdc, posx, posy, sizex, sizey) Rectangle(hdc, (int)(posx-sizex/2), (int)(posy-sizey/2), (int)(posx+sizex/2), (int)(posy+sizey/2))
 #define ELLIPSE_render(hdc, posx, posy, sizex, sizey) Ellipse(hdc, (int)(posx-sizex/2), (int)(posy-sizey/2), (int)(posx+sizex/2), (int)(posy+sizey/2))

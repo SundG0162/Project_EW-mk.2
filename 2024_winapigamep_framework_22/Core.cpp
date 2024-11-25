@@ -6,10 +6,11 @@
 #include "ResourceManager.h"
 #include "CollisionManager.h"
 #include "EventManager.h"
-bool Core::init(HWND _hwnd)
+bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 {
 	// 변수 초기화
 	_hWnd = _hwnd;
+	_hInstance = hInstance;
 	_hDC = ::GetDC(_hWnd);
 	_hBackDC = 0;
 	_hBitmap = 0;

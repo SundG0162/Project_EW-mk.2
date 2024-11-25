@@ -1,0 +1,82 @@
+#include "pch.h"
+#include "BaseWindow.h"
+#include "Window.h"
+#include "Core.h"
+#include <functional>
+
+Window::Window(const Vector2& position, const Vector2& size)
+	: _thread{}
+	, _hWnd(nullptr)
+	, _hMainDC(nullptr)
+	, _hDC(nullptr)
+	, _position{ position }
+	, _size{ size }
+{
+	WNDCLASS wc = { 0 }; // 구조체를 0으로 초기화
+
+	wc.lpfnWndProc = BaseWindow::wndProc; // 윈도우 프로시저 함수 설정
+	wc.hInstance = GET_SINGLETON(Core)->getHInstance(); // 인스턴스 핸들 설정
+	wc.lpszClassName = L"엄준식"; // 클래스 이름 설정
+	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // 배경색 설정
+
+	RegisterClass(&wc);
+	Vector2 fixed = GET_LEFTTOPPOS(position, size);
+
+	_hWnd = CreateWindowEx(
+		0,                          // 확장 스타일
+		L"엄준식",                  // 윈도우 클래스 이름
+		L"",            // 윈도우 타이틀
+		WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,        // 윈도우 스타일
+		fixed.x, fixed.y,                       // 위치 (x, y)
+		size.x,size.y,                   // 크기 (width, height)
+		NULL,                       // 부모 윈도우 핸들
+		NULL,                       // 메뉴 핸들
+		GET_SINGLETON(Core)->getHInstance(), // 인스턴스 핸들
+		NULL                        // 추가 애플리케이션 데이터
+	);
+	ShowWindow(_hWnd, SW_SHOW);
+	GetWindowRect(_hWnd, &_prevRect);
+	_hMainDC = GET_SINGLETON(Core)->getMainDC();
+	_hDC = GetDC(_hWnd);
+	/*_thread = std::thread(std::bind(&Window::render, this));
+	_thread.join();*/
+	OnWindowMoveEvent += std::bind(&Window::handleOnWindowMoveEvent, this, std::placeholders::_1, std::placeholders::_2);
+}
+
+Window::~Window()
+{
+}
+
+void Window::handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curPos)
+{
+	_position = curPos;
+}
+
+void Window::close()
+{
+}
+
+void Window::moveWindow(const Vector2& pos)
+{
+	Vector2 leftTop = GET_LEFTTOPPOS(pos, _size);
+	SetWindowPos(_hWnd, NULL, leftTop.x, leftTop.y, _size.x, _size.y, SWP_NOZORDER);
+	_position = pos;
+}
+
+void Window::update()
+{
+	RECT currentRect;
+	GetWindowRect(_hWnd, &currentRect);
+	if (currentRect.top != _prevRect.top || currentRect.bottom != _prevRect.bottom || currentRect.left != _prevRect.left || currentRect.right != _prevRect.right)
+	{
+		Vector2 prevPosition = { _prevRect.right - _size.x / 2, _prevRect.bottom - _size.y / 2 };
+		Vector2 currentPosition = { currentRect.right - _size.x / 2, currentRect.bottom - _size.y / 2 };
+		OnWindowMoveEvent.invoke(prevPosition, currentPosition);
+	}
+	_prevRect = currentRect;
+}
+
+void Window::render(HDC hdc)
+{
+	BitBlt(_hDC, 0, 0, _size.x, _size.y, hdc, _position.x - _size.x / 2, _position.y - _size.y / 2, SRCCOPY);
+}

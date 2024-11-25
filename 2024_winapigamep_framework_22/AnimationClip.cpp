@@ -13,7 +13,6 @@ AnimationClip::AnimationClip()
 	, _duration(0.f)
 	, _timer(0.f)
 {
-	//OnAnimationEnd = Action<int, int, int>();
 }
 
 AnimationClip::~AnimationClip()
@@ -31,7 +30,6 @@ void AnimationClip::update()
 	{
 		_timer = 0.f;
 		_currentFrame++;
-		//OnAnimationEnd.Invoke(1, 2, 3);
 	}
 	_spriteRenderer->setSprite(_sprites[_currentFrame]);
 }

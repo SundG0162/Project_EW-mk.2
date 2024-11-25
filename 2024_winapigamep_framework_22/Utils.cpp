@@ -86,7 +86,7 @@ void utils::Drawer::renderLineColor(HDC hdc, Vector from, Vector to, COLORREF co
 Sprite* utils::SpriteParser::textureToSprite(Texture* texture)
 {
     Sprite* sprite = new Sprite(texture, 0,0, texture->getWidth(), texture->getHeight());
-    return nullptr;
+    return sprite;
 }
 
 Sprite* utils::SpriteParser::textureToSprite(Texture* texture, Vector2 leftTop, Vector2 sliceSize)

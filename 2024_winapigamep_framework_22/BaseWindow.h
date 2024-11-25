@@ -6,8 +6,9 @@ public:
 	~BaseWindow();
 public:
 	int run(HINSTANCE hInst, LPWSTR _lpCmdline, int nCmdShow);
+public:
+	static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-	static LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	ATOM myRegisterClass(); // 1
 	void createWindow();   // 2
 	void showWindow(int nCmdShow); // 3

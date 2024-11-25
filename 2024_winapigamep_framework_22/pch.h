@@ -20,7 +20,6 @@
 #include "Define.h"
 #include "Enums.h"
 #include "Vector2.h"
-#include "Utils.h"
 
 // 각종 lib
 #pragma comment(lib, "winmm.lib")
@@ -40,11 +39,12 @@ using uint8 = unsigned __int8;
 using uint16 = unsigned __int16;
 using uint32 = unsigned __int32;
 using uint64 = unsigned __int64;
+#include "Utils.h"
 
 // 각종 define
 #define PI 3.14159265f
-#define SCREEN_WIDTH  1280
-#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH  2160
+#define SCREEN_HEIGHT 1080
 
 #define DELTATIME GET_SINGLETON(TimeManager)->getDeltaTime()
 

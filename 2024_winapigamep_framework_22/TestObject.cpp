@@ -4,12 +4,12 @@
 #include "Sprite.h"
 #include "SpriteRenderer.h"
 #include "ResourceManager.h"
+#include "WindowObject.h"
+#include "Window.h"
 #include "Utils.h"
 
-TestObject::TestObject() : Object()
+TestObject::TestObject() : WindowObject({ 500,400 }, { 300, 600})
 {
-	_position = Vector2(300, 300);
-	_size = Vector2(2, 1);
 	Texture* texture = GET_SINGLETON(ResourceManager)->textureFind(L"Test");
 	Sprite* sprite = utils::SpriteParser::textureToSprite(texture);
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
@@ -22,9 +22,13 @@ TestObject::~TestObject()
 
 void TestObject::update()
 {
+	WindowObject::update();
 }
 
 void TestObject::render(HDC hDC)
 {
+	utils::Drawer::renderRectColor(hDC, _position, _size.x, _size.y, HOLLOW_BRUSH, RGB(0, 255, 0));
+	utils::Drawer::renderRectColor(hDC, _position + _size / 2, _size.x, _size.y, HOLLOW_BRUSH, RGB(0, 255, 0));
 	componentRender(hDC);
+	WindowObject::render(hDC);
 }

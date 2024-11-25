@@ -3,7 +3,6 @@ class Texture;
 class Sprite;
 class Animator;
 class SpriteRenderer;
-//#include "Action.h"
 class AnimationClip
 {
 public:
@@ -18,8 +17,6 @@ public:
 	void create(vector<Sprite*>& sprites, float duration);
 public:
 	void setFrame(int frame) { _currentFrame = frame; }
-public:
-	//Action<int, int, int> OnAnimationEnd;
 private:
 	Animator* _animator;
 	SpriteRenderer* _spriteRenderer;
