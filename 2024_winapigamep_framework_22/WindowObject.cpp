@@ -17,10 +17,4 @@ WindowObject::~WindowObject()
 void WindowObject::update()
 {
 	_window->moveWindow(_position);
-	_window->update();
-}
-
-void WindowObject::render(HDC hdc)
-{
-	_window->render(hdc);
 }

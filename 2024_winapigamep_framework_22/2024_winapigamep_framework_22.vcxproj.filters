@@ -44,6 +44,9 @@
     <Filter Include="Engine\03.Windows">
       <UniqueIdentifier>{e2715499-01d7-4ac7-97b4-aed651e8fc43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Object\UI">
+      <UniqueIdentifier>{90ea23fe-0536-477a-942f-e972d2fd2a2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2024_winapigamep_framework_22.h">
@@ -145,6 +148,15 @@
     <ClInclude Include="Action.h">
       <Filter>Engine\07. Module</Filter>
     </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowManager.h">
+      <Filter>Engine\02. Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -234,6 +246,15 @@
     </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

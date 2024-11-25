@@ -5,6 +5,7 @@
 #include "SceneManager.h"
 #include "ResourceManager.h"
 #include "CollisionManager.h"
+#include "WindowManager.h"
 #include "EventManager.h"
 bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 {
@@ -73,7 +74,7 @@ void Core::mainupdate()
 	GET_SINGLETON(InputManager)->update();
 	GET_SINGLETON(SceneManager)->update();
 	GET_SINGLETON(CollisionManager)->update();
-
+	GET_SINGLETON(WindowManager)->update();
 }
 
 void Core::mainrender()
@@ -86,6 +87,7 @@ void Core::mainrender()
 	::BitBlt(_hDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
 		_hBackDC, 0, 0, SRCCOPY);
 
+	GET_SINGLETON(WindowManager)->render(_hBackDC);
 	//	::TransparentBlt();
 	   //::StretchBlt();
 	   //::PlgBlt();

@@ -8,7 +8,6 @@ public:
 	virtual ~WindowObject();
 public:
 	void update() override;
-	void render(HDC hdc) override;
 protected:
 	Window* _window;
 };

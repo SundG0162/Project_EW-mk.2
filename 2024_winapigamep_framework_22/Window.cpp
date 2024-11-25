@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "Core.h"
 #include "TimeManager.h"
+#include "WindowManager.h"
 #include <functional>
 
 Window::Window(const Vector2& position, const Vector2& size)
@@ -42,6 +43,7 @@ Window::Window(const Vector2& position, const Vector2& size)
 	/*_thread = std::thread(std::bind(&Window::render, this));
 	_thread.join();*/
 	OnWindowMoveEvent += std::bind(&Window::handleOnWindowMoveEvent, this, std::placeholders::_1, std::placeholders::_2);
+	GET_SINGLETON(WindowManager)->addWindow(this);
 }
 
 Window::~Window()

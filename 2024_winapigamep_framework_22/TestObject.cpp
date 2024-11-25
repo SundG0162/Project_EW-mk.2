@@ -42,5 +42,4 @@ void TestObject::update()
 void TestObject::render(HDC hDC)
 {
 	componentRender(hDC);
-	WindowObject::render(hDC);
 }
