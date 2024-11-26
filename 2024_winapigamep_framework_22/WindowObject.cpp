@@ -14,6 +14,11 @@ WindowObject::~WindowObject()
 {
 }
 
+void WindowObject::openTween()
+{
+	_window->openTween();
+}
+
 void WindowObject::update()
 {
 	_window->moveWindow(_position);

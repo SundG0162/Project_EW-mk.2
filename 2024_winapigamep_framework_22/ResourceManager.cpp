@@ -13,6 +13,10 @@ void ResourceManager::init()
 		_soundSystem->init((int)SOUND_CHANNEL::END, FMOD_INIT_NORMAL, nullptr);
 
 	textureLoad(L"Test", L"Texture\\Test.bmp");
+	textureLoad(L"Title-1", L"Texture\\title-1.bmp");
+	textureLoad(L"Title-2", L"Texture\\title-2.bmp");
+	textureLoad(L"Title-3", L"Texture\\title-3.bmp");
+	textureLoad(L"Title-4", L"Texture\\title-4.bmp");
 }
 
 Texture* ResourceManager::textureLoad(const wstring& _key, const wstring& _path)

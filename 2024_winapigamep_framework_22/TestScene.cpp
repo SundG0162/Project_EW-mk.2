@@ -4,8 +4,7 @@
 
 TestScene::TestScene()
 {
-	TestObject* obj = new TestObject();
-	addObject(obj, LAYER::DEFAULT);
+	
 }
 
 TestScene::~TestScene()
@@ -14,4 +13,6 @@ TestScene::~TestScene()
 
 void TestScene::init()
 {
+	TestObject* obj = new TestObject();
+	addObject(obj, LAYER::DEFAULT);
 }

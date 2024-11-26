@@ -23,7 +23,6 @@ public:
 public:
 	Action<const Vector2&, const Vector2&> OnWindowMoveEvent;
 protected:
-	std::thread _thread;
 	HWND _hWnd;
 	HDC _hMainDC;
 	HDC _hDC;

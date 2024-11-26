@@ -96,13 +96,12 @@ void BaseWindow::createWindow()
 	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
 	MoveWindow(_hWnd, Winposx, Winposy,
 		rt.right - rt.left, rt.bottom - rt.top, false);
-
 }
 
 void BaseWindow::showWindow(int nCmdShow)
 {
 	// global namespace
-	::ShowWindow(_hWnd, nCmdShow);
+	ShowWindow(_hWnd, SW_MINIMIZE);
 }
 
 void BaseWindow::updateWindow()
@@ -115,7 +114,6 @@ int BaseWindow::messageLoop()
 	MSG msg;
 	memset(&msg, 0, sizeof(msg)); // 0 √ ±‚»≠
 	_thread = std::thread(std::bind(&Core::gameLoop, GET_SINGLETON(Core)));
-	ShowWindow(_hWnd, SW_MINIMIZE);
 	while (true)
 	{
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))

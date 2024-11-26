@@ -33,6 +33,13 @@ struct Vector
         ret.y = y / value;
         return ret;
     }
+    Vector operator*(const Vector& other)
+    {
+        Vector ret;
+        ret.x = other.x * x;
+        ret.y = other.y * y;
+        return ret;
+    }
     void operator+=(const Vector& other)
     {
         x += other.x;

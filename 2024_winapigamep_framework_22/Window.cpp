@@ -7,8 +7,7 @@
 #include <functional>
 
 Window::Window(const Vector2& position, const Vector2& size)
-	: _thread{}
-	, _hWnd(nullptr)
+	: _hWnd(nullptr)
 	, _hMainDC(nullptr)
 	, _hDC(nullptr)
 	, _position{ position }
@@ -54,6 +53,7 @@ void Window::openTween()
 {
 	_goalSize = _size;
 	_size.y = 0;
+	_timer = 0.f;
 	_isTweenEnd = false;
 }
 
@@ -78,10 +78,12 @@ void Window::update()
 	if (!_isTweenEnd)
 	{
 		_timer += DELTATIME;
-		_size.y = std::lerp(0, _goalSize.y, utils::Ease::outCubic(_timer));
-		if (_timer > 1)
-			_isTweenEnd = true;
+		if (_timer < 1.f)
+			return;
+		_size.y = std::lerp(0, _goalSize.y, utils::Ease::outQuad(_timer - 1.f));
 		moveWindow(_position);
+		if (_timer > 2.f)
+			_isTweenEnd = true;
 		return;
 	}
 	RECT currentRect;
