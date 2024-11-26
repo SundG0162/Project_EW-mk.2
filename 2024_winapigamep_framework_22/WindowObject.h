@@ -9,6 +9,8 @@ public:
 public:
 	void openTween(float delayTime = 1.f);
 	void update() override;
+public:
+	Window* getWindow() { return _window; }
 protected:
 	Window* _window;
 };
