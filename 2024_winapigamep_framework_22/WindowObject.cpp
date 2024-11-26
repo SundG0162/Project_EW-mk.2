@@ -14,9 +14,9 @@ WindowObject::~WindowObject()
 {
 }
 
-void WindowObject::openTween()
+void WindowObject::openTween(float delayTime)
 {
-	_window->openTween();
+	_window->openTween(delayTime);
 }
 
 void WindowObject::update()

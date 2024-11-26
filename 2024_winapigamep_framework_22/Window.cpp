@@ -49,8 +49,9 @@ Window::~Window()
 {
 }
 
-void Window::openTween()
+void Window::openTween(float delayTime)
 {
+	_delayTime = delayTime;
 	_goalSize = _size;
 	_size.y = 0;
 	_timer = 0.f;
@@ -78,11 +79,11 @@ void Window::update()
 	if (!_isTweenEnd)
 	{
 		_timer += DELTATIME;
-		if (_timer < 1.f)
+		if (_timer < _delayTime)
 			return;
-		_size.y = std::lerp(0, _goalSize.y, utils::Ease::outQuad(_timer - 1.f));
+		_size.y = std::lerp(0, _goalSize.y, utils::Ease::outQuad(_timer - _delayTime));
 		moveWindow(_position);
-		if (_timer > 2.f)
+		if (_timer > _delayTime + 1.f)
 			_isTweenEnd = true;
 		return;
 	}
