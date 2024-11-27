@@ -20,6 +20,7 @@ void WindowManager::render()
 {
 	for (Window* window : _windows)
 	{
+		if (window == nullptr) continue;
 		CopyWindow* copyWindow = dynamic_cast<CopyWindow*>(window);
 		if (copyWindow)
 		{
