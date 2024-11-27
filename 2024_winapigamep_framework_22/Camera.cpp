@@ -37,7 +37,7 @@ void Camera::update()
 
 void Camera::render(HDC hdc)
 {
-    HFONT hFont = CreateFont(
+    /*HFONT hFont = CreateFont(
         100,
         0,
         0, 0,
@@ -54,7 +54,7 @@ void Camera::render(HDC hdc)
     COLORREF prevColor = SetTextColor(hdc, RGB(255, 255, 255));
 	wstring str = std::format(L"{0}", _counter);
 	utils::Drawer::renderText(hdc, _position, str);
-    SetTextColor(hdc, prevColor);
+    SetTextColor(hdc, prevColor);*/
 }
 
 void Camera::handleOnWindowMove(const Vector2& prev, const Vector2& current)

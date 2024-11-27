@@ -1,5 +1,6 @@
 #pragma once
 #include "Define.h"
+#include "Action.h"
 class Core
 {
 	DECLARE_SINGLETON(Core);
@@ -11,6 +12,8 @@ private:
 	void mainupdate();
 	void mainrender();
 	void createGDI();
+public:
+	void onMessageProcess();
 public:
 	const HINSTANCE& getHInstance() const { return _hInstance; }
 	const HWND& getHWnd() const { return _hWnd; }
@@ -24,7 +27,8 @@ public:
 	{
 		return _colorPens[(UINT)_eType];
 	}
-
+public:
+	Action<> OnMessageProcessEvent;
 private:
 	HBRUSH _colorBrushes[(UINT)BRUSH_TYPE::END] = {};
 	HPEN _colorPens[(UINT)PEN_TYPE::END] = {};

@@ -104,3 +104,9 @@ void Core::createGDI()
 	_colorPens[(UINT)PEN_TYPE::YELLOW] = CreatePen(PS_SOLID, 1, RGB(255, 255, 0));
 	_colorPens[(UINT)PEN_TYPE::HOLLOW] = CreatePen(PS_NULL, 0, RGB(0, 0, 0));
 }
+
+void Core::onMessageProcess()
+{
+	OnMessageProcessEvent.invoke();
+	OnMessageProcessEvent.clear();
+}

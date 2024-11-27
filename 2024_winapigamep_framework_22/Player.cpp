@@ -10,6 +10,7 @@
 #include "Scene.h"
 #include "Sprite.h"
 #include "Camera.h"
+#include "Core.h"
 
 Player::Player(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY)
 {
@@ -39,11 +40,13 @@ void Player::update()
 	movement.Normalize();
 	movement *= 300 * DELTATIME;
 	_cctv->localMove(movement);
-
 	if (GET_KEYDOWN(KEY_TYPE::SPACE))
 	{
-		Camera* camera = new Camera(_position, { 500,500 });
-		GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(camera, LAYER::UI);
+		GET_SINGLETON(Core)->OnMessageProcessEvent += [this]() 
+			{
+				Camera* camera = new Camera(_position, { 500,500 });
+				GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(camera, LAYER::UI);
+			};
 	}
 }
 

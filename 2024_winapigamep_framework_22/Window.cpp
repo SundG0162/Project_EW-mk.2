@@ -35,7 +35,6 @@ Window::Window(const Vector2& position, const Vector2& size)
 		this                        // 추가 애플리케이션 데이터
 	);
 	ShowWindow(_hWnd, SW_SHOW);
-	GetWindowRect(_hWnd, &_prevRect);
 	_hMainDC = GetDC(_hWnd);
 	OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current)
 		{
@@ -71,6 +70,19 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 {
 	switch (message)
 	{
+	case WM_MOVING:
+	{
+		LPRECT currentRect = (LPRECT)lParam;
+		if (_prevRect == nullptr)
+		{
+			_prevRect = currentRect;
+			break;
+		}
+		Vector2 prevPosition = { _prevRect->right - _size.x / 2, _prevRect->bottom - _size.y / 2 };
+		Vector2 currentPosition = { currentRect->right - _size.x / 2, currentRect->bottom - _size.y / 2 };
+		OnWindowMoveEvent.invoke(prevPosition, currentPosition);
+	}
+	break;
 		if (!_closeable)
 		{
 	case WM_CLOSE:
@@ -121,13 +133,4 @@ void Window::update()
 			_isTweenEnd = true;
 		return;
 	}
-	RECT currentRect;
-	GetWindowRect(_hWnd, &currentRect);
-	if (currentRect.top != _prevRect.top || currentRect.bottom != _prevRect.bottom || currentRect.left != _prevRect.left || currentRect.right != _prevRect.right)
-	{
-		Vector2 prevPosition = { _prevRect.right - _size.x / 2, _prevRect.bottom - _size.y / 2 };
-		Vector2 currentPosition = { currentRect.right - _size.x / 2, currentRect.bottom - _size.y / 2 };
-		OnWindowMoveEvent.invoke(prevPosition, currentPosition);
-	}
-	_prevRect = currentRect;
 }

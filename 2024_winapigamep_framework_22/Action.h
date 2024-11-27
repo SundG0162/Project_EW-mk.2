@@ -37,6 +37,10 @@ public:
 			listener(args...);
 		}
 	}
+	void clear()
+	{
+		_callbacks.clear();
+	}
 
 private:
 	std::vector<Listener> _callbacks;

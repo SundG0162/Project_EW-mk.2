@@ -9,6 +9,7 @@ CCTV::CCTV(const Vector2& position, const Vector2& size) : WindowObject(position
 	collider->setSize(size);
 	collider->OnCollisionEnterEvent += [this](Collider* other) {this->handleOnCollisionEnter(other); };
 	collider->OnCollisionExitEvent += [this](Collider* other) {this->handleOnCollisionExit(other); };
+	SetActiveWindow(_window->getHWnd());
 }
 
 CCTV::~CCTV()

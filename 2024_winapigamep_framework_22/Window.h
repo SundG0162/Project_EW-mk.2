@@ -7,7 +7,7 @@ public:
 	Window(const Vector2& position, const Vector2& size);
 	virtual ~Window();
 public:
-	void update();
+	virtual void update();
 	virtual void render(HDC hdc) abstract;
 public:
 	static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -33,7 +33,7 @@ protected:
 	Vector2 _position;
 	Vector2 _size;
 	Vector2 _leftTopPosition;
-	RECT _prevRect;
+	LPRECT _prevRect;
 	float _timer = 0.f;
 	float _delayTime = 0.f;
 	Vector2 _goalSize;

@@ -22,7 +22,7 @@ int BaseWindow::run(HINSTANCE hInst, LPWSTR lpCmdline, int nCmdShow)
 	this->updateWindow();
 	if (!GET_SINGLETON(Core)->init(_hWnd, _hInstance))
 		MessageBox(_hWnd, L"Core init Error", L"Error", MB_OK);
-	return this->messageLoop();
+	return messageLoop();
 }
 
 LRESULT BaseWindow::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
@@ -107,6 +107,7 @@ int BaseWindow::messageLoop()
 	_thread = std::thread(std::bind(&Core::gameLoop, GET_SINGLETON(Core)));
 	while (true)
 	{
+		GET_SINGLETON(Core)->onMessageProcess();
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT)

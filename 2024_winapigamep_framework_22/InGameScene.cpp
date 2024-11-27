@@ -2,6 +2,7 @@
 #include "InGameScene.h"
 #include "Player.h"
 #include "CCTV.h"
+#include "Camera.h"
 
 InGameScene::InGameScene()
 {
