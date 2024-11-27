@@ -13,9 +13,9 @@ void WindowManager::update()
 			window->update();
 }
 
-void WindowManager::render(HDC hdc)
+void WindowManager::render()
 {
 	for (Window* window : _windows)
 		if (window)
-			window->render(hdc);
+			window->render();
 }

@@ -87,7 +87,7 @@ void Core::mainrender()
 	::BitBlt(_hDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
 		_hBackDC, 0, 0, SRCCOPY);
 
-	GET_SINGLETON(WindowManager)->render(_hBackDC);
+	GET_SINGLETON(WindowManager)->render();
 	//	::TransparentBlt();
 	   //::StretchBlt();
 	   //::PlgBlt();

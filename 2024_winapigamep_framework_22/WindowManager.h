@@ -6,7 +6,7 @@ class WindowManager
 	~WindowManager();
 public:
 	void update();
-	void render(HDC hdc);
+	void render();
 public:
 	void addWindow(Window* window) { _windows.push_back(window); }
 	void removeWindow(Window* window)

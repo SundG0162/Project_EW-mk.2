@@ -7,7 +7,7 @@
 
 void TitleScene::init()
 {
-	{
+	/*{
 		Sprite* sprite = utils::SpriteParser::textureToSprite(
 			GET_SINGLETON(ResourceManager)->textureFind(L"Title-1"));
 		ImageUI* ui = new ImageUI({ 100,500 }, { 150, 850 }, sprite);
@@ -38,5 +38,5 @@ void TitleScene::init()
 		addObject(ui, LAYER::UI);
 		ui->openTween(1.6f);
 		ui->getComponent<SpriteRenderer>()->setScale({ 4,4 });
-	}
+	}*/
 }

@@ -1,14 +1,12 @@
 #include "pch.h"
 #include "SceneManager.h"
 #include "Scene.h"
-#include "TestScene.h"
 #include "TitleScene.h"
 void SceneManager::init()
 {
 	_currentScene = nullptr;
 
 	// ¾À µî·Ï
-	registerScene(L"TestScene", std::make_shared<TestScene>());
 	registerScene(L"TitleScene", std::make_shared<TitleScene>());
 	loadScene(L"TitleScene");
 }

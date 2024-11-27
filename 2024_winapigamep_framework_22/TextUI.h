@@ -3,7 +3,7 @@
 class TextUI : public UI
 {
 public:
-	TextUI(const Vector2& position, const Vector2& size);
+	TextUI(const Vector2& position, const Vector2& size, WINDOW_TYPE type);
 	~TextUI();
 public:
 	void init(const wstring& text) { _text = text; };
