@@ -17,6 +17,7 @@ void ResourceManager::init()
 	textureLoad(L"Title-2", L"Texture\\title-2.bmp");
 	textureLoad(L"Title-3", L"Texture\\title-3.bmp");
 	textureLoad(L"Title-4", L"Texture\\title-4.bmp");
+	textureLoad(L"Computer", L"Texture\\Computer.bmp");
 }
 
 Texture* ResourceManager::textureLoad(const wstring& _key, const wstring& _path)

@@ -10,7 +10,7 @@ void SceneManager::init()
 	// ¾À µî·Ï
 	registerScene(L"TitleScene", std::make_shared<TitleScene>());
 	registerScene(L"InGameScene", std::make_shared<InGameScene>());
-	loadScene(L"TitleScene");
+	loadScene(L"InGameScene");
 }
 
 void SceneManager::update()

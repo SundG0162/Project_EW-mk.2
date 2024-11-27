@@ -28,43 +28,56 @@ Window::Window(const Vector2& position, const Vector2& size)
 		L"",            // 윈도우 타이틀
 		WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,        // 윈도우 스타일
 		fixed.x, fixed.y,                       // 위치 (x, y)
-		size.x,size.y,                   // 크기 (width, height)
+		size.x, size.y,                   // 크기 (width, height)
 		NULL,                       // 부모 윈도우 핸들
 		NULL,                       // 메뉴 핸들
 		GET_SINGLETON(Core)->getHInstance(), // 인스턴스 핸들
-		NULL                        // 추가 애플리케이션 데이터
+		this                        // 추가 애플리케이션 데이터
 	);
 	ShowWindow(_hWnd, SW_SHOW);
 	GetWindowRect(_hWnd, &_prevRect);
 	_hDC = GetDC(_hWnd);
 	/*_thread = std::thread(std::bind(&Window::render, this));
 	_thread.join();*/
-	OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current) 
+	OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current)
 		{
 			this->handleOnWindowMoveEvent(prev, current);
 		};
 	GET_SINGLETON(WindowManager)->addWindow(this);
 
-	_leftTopPosition = _position - _size / 2;
+	_leftTopPosition = fixed;
 }
 
 Window::~Window()
 {
 }
 
-LRESULT Window::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK Window::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	Window* window = nullptr;
+
+	if (message == WM_NCCREATE)
+	{
+		CREATESTRUCT* create = reinterpret_cast<CREATESTRUCT*>(lParam);
+		window = reinterpret_cast<Window*>(create->lpCreateParams);
+		SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(window));
+	}
+	else
+		window = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
+	if (window)
+		return window->handleMessage(hWnd, message, wParam, lParam);
+	else
+		return DefWindowProc(hWnd, message, wParam, lParam);
+}
+LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	switch (message)
 	{
-		//case WM_PAINT:
-		//{
-		//    PAINTSTRUCT ps;
-		//    HDC hdc = BeginPaint(hWnd, &ps);
-		//    
-		//    // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-		//    EndPaint(hWnd, &ps);
-		//}
-		//break;
+		if (!_closeable)
+		{
+	case WM_CLOSE:
+		break;
+		}
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}

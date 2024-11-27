@@ -4,6 +4,7 @@ struct Vector
 {
     Vector() {}
     Vector(float _x, float _y) : x(_x), y(_y) {}
+    Vector(int _x, int _y) : x(_x), y(_y) {}
     Vector(POINT pt) : x((float)pt.x), y((float)pt.y) {}
     Vector operator+(const Vector& other)
     {

@@ -43,8 +43,8 @@ using uint64 = unsigned __int64;
 
 // °¢Á¾ define
 #define PI 3.14159265f
-#define SCREEN_WIDTH  2160
-#define SCREEN_HEIGHT 1080
+const int SCREEN_WIDTH = GetSystemMetrics(SM_CXSCREEN);
+const int SCREEN_HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 
 #define DELTATIME GET_SINGLETON(TimeManager)->getDeltaTime()
 

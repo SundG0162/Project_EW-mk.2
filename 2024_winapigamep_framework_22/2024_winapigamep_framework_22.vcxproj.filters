@@ -130,12 +130,6 @@
     <ClInclude Include="SpriteRenderer.h">
       <Filter>Engine\06. Component\Animator</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Engine\04. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TestObject.h">
-      <Filter>Engine\03. Object</Filter>
-    </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Engine\03.Windows</Filter>
     </ClInclude>
@@ -168,6 +162,15 @@
     </ClInclude>
     <ClInclude Include="NewWindow.h">
       <Filter>Engine\03.Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="CCTV.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameScene.h">
+      <Filter>Engine\04. Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,12 +247,6 @@
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Engine\06. Component\Animator</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Engine\04. Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="TestObject.cpp">
-      <Filter>Engine\03. Object</Filter>
-    </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Engine\03.Windows</Filter>
     </ClCompile>
@@ -279,6 +276,15 @@
     </ClCompile>
     <ClCompile Include="NewWindow.cpp">
       <Filter>Engine\03.Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="CCTV.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="InGameScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

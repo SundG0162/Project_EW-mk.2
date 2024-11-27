@@ -11,6 +11,7 @@ public:
 	virtual void render(HDC hdc) abstract;
 public:
 	static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	virtual LRESULT handleMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
 	void openTween(float delayTime = 1.f);
 	void handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curPos);
@@ -22,6 +23,8 @@ public:
 	void setSize(const Vector2& size) { _size = size; }
 	const Vector2& getSize() { return _size; }
 	const HWND& getHWnd() { return _hWnd; }
+	void setCloseable(bool closeable) { _closeable = closeable; }
+	const bool& getCloseable() { return _closeable; }
 public:
 	Action<const Vector2&, const Vector2&> OnWindowMoveEvent;
 protected:
@@ -35,4 +38,5 @@ protected:
 	float _delayTime = 0.f;
 	Vector2 _goalSize;
 	bool _isTweenEnd = true;
+	bool _closeable = true;
 };
