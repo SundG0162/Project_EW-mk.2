@@ -10,6 +10,8 @@ public:
 	void update();
 	virtual void render(HDC hdc) abstract;
 public:
+	static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+public:
 	void openTween(float delayTime = 1.f);
 	void handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curPos);
 	void close();

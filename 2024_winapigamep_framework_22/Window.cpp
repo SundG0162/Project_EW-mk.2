@@ -14,7 +14,7 @@ Window::Window(const Vector2& position, const Vector2& size)
 {
 	WNDCLASS wc = { 0 }; // 구조체를 0으로 초기화
 
-	wc.lpfnWndProc = BaseWindow::wndProc; // 윈도우 프로시저 함수 설정
+	wc.lpfnWndProc = Window::wndProc; // 윈도우 프로시저 함수 설정
 	wc.hInstance = GET_SINGLETON(Core)->getHInstance(); // 인스턴스 핸들 설정
 	wc.lpszClassName = L"엄준식"; // 클래스 이름 설정
 	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // 배경색 설정
@@ -47,6 +47,25 @@ Window::Window(const Vector2& position, const Vector2& size)
 
 Window::~Window()
 {
+}
+
+LRESULT Window::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	switch (message)
+	{
+		//case WM_PAINT:
+		//{
+		//    PAINTSTRUCT ps;
+		//    HDC hdc = BeginPaint(hWnd, &ps);
+		//    
+		//    // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+		//    EndPaint(hWnd, &ps);
+		//}
+		//break;
+	default:
+		return DefWindowProc(hWnd, message, wParam, lParam);
+	}
+	return 0;
 }
 
 void Window::openTween(float delayTime)
