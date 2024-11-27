@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "Action.h"
 class Collider : public Component
 {
 public:
@@ -26,6 +27,10 @@ public:
     {
         return _position;
     }
+public:
+    Action<Collider*> OnCollisionEnterEvent;
+    Action<Collider*> OnCollisionStayEvent;
+    Action<Collider*> OnCollisionExitEvent;
 private:
     bool _showDebug = false;
     UINT _id;
