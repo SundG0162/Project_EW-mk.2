@@ -8,7 +8,7 @@ public:
 	virtual ~Window();
 public:
 	void update();
-	virtual void render() abstract;
+	virtual void render(HDC hdc) abstract;
 public:
 	void openTween(float delayTime = 1.f);
 	void handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curPos);
@@ -27,6 +27,7 @@ protected:
 	HDC _hDC;
 	Vector2 _position;
 	Vector2 _size;
+	Vector2 _leftTopPosition;
 	RECT _prevRect;
 	float _timer = 0.f;
 	float _delayTime = 0.f;

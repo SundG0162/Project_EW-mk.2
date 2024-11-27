@@ -83,15 +83,10 @@ void Core::mainrender()
 	::PatBlt(_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
 	// 2. render
 	GET_SINGLETON(SceneManager)->render(_hBackDC);
-	// 3. display	
-	::BitBlt(_hDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
-		_hBackDC, 0, 0, SRCCOPY);
-
 	GET_SINGLETON(WindowManager)->render();
-	//	::TransparentBlt();
-	   //::StretchBlt();
-	   //::PlgBlt();
-	   //::AlphaBlend();
+	// 3. display	
+	/*::BitBlt(_hDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
+		_hBackDC, 0, 0, SRCCOPY);*/
 }
 void Core::createGDI()
 {

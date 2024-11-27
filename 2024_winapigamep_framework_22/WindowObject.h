@@ -8,10 +8,11 @@ public:
 	virtual ~WindowObject();
 public:
 	void openTween(float delayTime = 1.f);
-	void update() override;
 public:
 	Window* getWindow() { return _window; }
+	const WINDOW_TYPE& getType() { return _type; }
 protected:
+	WINDOW_TYPE _type;
 	Window* _window;
 };
 

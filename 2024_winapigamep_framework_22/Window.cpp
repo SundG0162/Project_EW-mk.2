@@ -41,6 +41,8 @@ Window::Window(const Vector2& position, const Vector2& size)
 	_thread.join();*/
 	OnWindowMoveEvent += std::bind(&Window::handleOnWindowMoveEvent, this, std::placeholders::_1, std::placeholders::_2);
 	GET_SINGLETON(WindowManager)->addWindow(this);
+
+	_leftTopPosition = _position - _size / 2;
 }
 
 Window::~Window()
@@ -70,6 +72,7 @@ void Window::moveWindow(const Vector2& pos)
 	Vector2 leftTop = GET_LEFTTOPPOS(pos, _size);
 	SetWindowPos(_hWnd, NULL, leftTop.x, leftTop.y, _size.x, _size.y, SWP_NOZORDER);
 	_position = pos;
+	_leftTopPosition = _position - _size / 2;
 }
 
 void Window::update()

@@ -11,7 +11,6 @@ TextUI::~TextUI()
 
 void TextUI::update()
 {
-	WindowObject::update();
 }
 
 void TextUI::render(HDC hdc)

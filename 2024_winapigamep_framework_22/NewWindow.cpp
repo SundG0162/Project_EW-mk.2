@@ -12,7 +12,7 @@ NewWindow::~NewWindow()
 {
 }
 
-void NewWindow::render()
+void NewWindow::render(HDC hdc)
 {
-	BitBlt(_hDC, 0, 0, _size.x, _size.y, _hBackDC, 0, 0, SRCCOPY);
+	BitBlt(_hDC, 0, 0, _size.x, _size.y, hdc, 0, 0, SRCCOPY);
 }

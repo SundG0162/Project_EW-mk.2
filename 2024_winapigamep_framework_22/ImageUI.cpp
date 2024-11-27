@@ -14,7 +14,6 @@ ImageUI::~ImageUI()
 
 void ImageUI::update()
 {
-	WindowObject::update();
 }
 
 void ImageUI::render(HDC hdc)
