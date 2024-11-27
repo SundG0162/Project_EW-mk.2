@@ -15,6 +15,7 @@ public:
 	const HINSTANCE& getHInstance() const { return _hInstance; }
 	const HWND& getHWnd() const { return _hWnd; }
 	const HDC& getMainDC() const { return _hDC; }
+	const HDC& getBackDC() const { return _hBackDC; }
 	const HBRUSH& getBrush(BRUSH_TYPE type)
 	{
 		return _colorBrushes[(UINT)type];

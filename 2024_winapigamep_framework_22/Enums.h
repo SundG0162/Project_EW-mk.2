@@ -30,3 +30,9 @@ enum class EVENT_TYPE
 	SCENE_CHANGE,
 	END,
 };
+
+enum class WINDOW_TYPE
+{
+	NEW,
+	COPY
+};

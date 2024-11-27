@@ -157,6 +157,18 @@
     <ClInclude Include="WindowManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
+    <ClInclude Include="ImageUI.h">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI.h">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CopyWindow.h">
+      <Filter>Engine\03.Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="NewWindow.h">
+      <Filter>Engine\03.Windows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -255,6 +267,18 @@
     </ClCompile>
     <ClCompile Include="WindowManager.cpp">
       <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageUI.cpp">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUI.cpp">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CopyWindow.cpp">
+      <Filter>Engine\03.Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="NewWindow.cpp">
+      <Filter>Engine\03.Windows</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

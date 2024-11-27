@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -171,6 +171,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CopyWindow.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enums.h" />
@@ -179,6 +180,7 @@
     <ClInclude Include="GDISelector.h" />
     <ClInclude Include="ImageUI.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="NewWindow.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
@@ -209,12 +211,14 @@
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="CopyWindow.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GDISelector.cpp" />
     <ClCompile Include="ImageUI.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NewWindow.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ResourceBase.cpp" />
     <ClCompile Include="ResourceManager.cpp" />

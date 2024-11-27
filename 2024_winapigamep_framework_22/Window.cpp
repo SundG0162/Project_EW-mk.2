@@ -8,7 +8,6 @@
 
 Window::Window(const Vector2& position, const Vector2& size)
 	: _hWnd(nullptr)
-	, _hMainDC(nullptr)
 	, _hDC(nullptr)
 	, _position{ position }
 	, _size{ size }
@@ -37,7 +36,6 @@ Window::Window(const Vector2& position, const Vector2& size)
 	);
 	ShowWindow(_hWnd, SW_SHOW);
 	GetWindowRect(_hWnd, &_prevRect);
-	_hMainDC = GET_SINGLETON(Core)->getMainDC();
 	_hDC = GetDC(_hWnd);
 	/*_thread = std::thread(std::bind(&Window::render, this));
 	_thread.join();*/
@@ -96,9 +94,4 @@ void Window::update()
 		OnWindowMoveEvent.invoke(prevPosition, currentPosition);
 	}
 	_prevRect = currentRect;
-}
-
-void Window::render(HDC hdc)
-{
-	BitBlt(_hDC, 0, 0, _size.x, _size.y, hdc, _position.x - _size.x / 2, _position.y - _size.y / 2, SRCCOPY);
 }

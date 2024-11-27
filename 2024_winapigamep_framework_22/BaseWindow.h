@@ -21,3 +21,4 @@ private:
 	HWND	  _hWnd;
 };
 
+ 
