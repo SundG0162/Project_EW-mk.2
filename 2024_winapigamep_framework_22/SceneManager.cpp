@@ -2,12 +2,14 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "TitleScene.h"
+#include "InGameScene.h"
 void SceneManager::init()
 {
 	_currentScene = nullptr;
 
 	// ¾À µî·Ï
 	registerScene(L"TitleScene", std::make_shared<TitleScene>());
+	registerScene(L"InGameScene", std::make_shared<InGameScene>());
 	loadScene(L"TitleScene");
 }
 
