@@ -4,7 +4,7 @@
 
 CopyWindow::CopyWindow(const Vector2& position, const Vector2& size) : Window(position, size)
 {
-	_hBackDC = GET_SINGLETON(Core)->getBackDC();
+	_hBackDC = nullptr;
 }
 
 CopyWindow::~CopyWindow()
@@ -13,5 +13,6 @@ CopyWindow::~CopyWindow()
 
 void CopyWindow::render()
 {
-	BitBlt(_hDC, 0, 0, _size.x, _size.y, _hBackDC, 0, 0, SRCCOPY);
+	_hBackDC = GET_SINGLETON(Core)->getBackDC();
+	BitBlt(_hDC, 0, 0, _size.x, _size.y, _hBackDC, _position.x - _size.x / 2, _position.y - _size.y / 2, SRCCOPY);
 }
