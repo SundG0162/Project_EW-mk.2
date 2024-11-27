@@ -13,6 +13,7 @@
 #include<string>
 #include<algorithm>
 #include<ctime>
+#include<format>
 #define _USE_MATH_DEFINES
 #include<math.h>
 
