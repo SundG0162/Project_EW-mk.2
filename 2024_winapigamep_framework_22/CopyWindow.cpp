@@ -12,5 +12,5 @@ CopyWindow::~CopyWindow()
 
 void CopyWindow::render(HDC hdc)
 {
-	BitBlt(_hDC, 0, 0, _size.x, _size.y, hdc, _leftTopPosition.x, _leftTopPosition.y, SRCCOPY);
+    BitBlt(_hMainDC, 0, 0, _size.x, _size.y, hdc, _leftTopPosition.x, _leftTopPosition.y, SRCCOPY);
 }

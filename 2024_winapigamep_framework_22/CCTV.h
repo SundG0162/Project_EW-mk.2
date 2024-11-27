@@ -8,4 +8,6 @@ public:
 public:
 	void update() override;
 	void render(HDC hdc) override;
+public:
+	void localMove(const Vector2& move);
 };

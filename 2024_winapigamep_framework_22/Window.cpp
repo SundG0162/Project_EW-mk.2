@@ -8,7 +8,7 @@
 
 Window::Window(const Vector2& position, const Vector2& size)
 	: _hWnd(nullptr)
-	, _hDC(nullptr)
+	, _hMainDC(nullptr)
 	, _position{ position }
 	, _size{ size }
 {
@@ -36,9 +36,7 @@ Window::Window(const Vector2& position, const Vector2& size)
 	);
 	ShowWindow(_hWnd, SW_SHOW);
 	GetWindowRect(_hWnd, &_prevRect);
-	_hDC = GetDC(_hWnd);
-	/*_thread = std::thread(std::bind(&Window::render, this));
-	_thread.join();*/
+	_hMainDC = GetDC(_hWnd);
 	OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current)
 		{
 			this->handleOnWindowMoveEvent(prev, current);

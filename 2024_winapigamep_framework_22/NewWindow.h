@@ -11,6 +11,5 @@ public:
 	const HDC& getBackDC() { return _hBackDC; }
 private:
 	HDC _hBackDC;
-	HBITMAP _hBitmap;
 };
 

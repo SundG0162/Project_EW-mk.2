@@ -29,7 +29,7 @@ public:
 	Action<const Vector2&, const Vector2&> OnWindowMoveEvent;
 protected:
 	HWND _hWnd;
-	HDC _hDC;
+	HDC _hMainDC;
 	Vector2 _position;
 	Vector2 _size;
 	Vector2 _leftTopPosition;

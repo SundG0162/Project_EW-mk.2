@@ -5,15 +5,15 @@
 private:						\
 	type() {}					\
 public:							\
-	static type* GetInstance()	\
+	static type* getInstance()	\
 	{							\
 		static type m_pInst;	\
 		return &m_pInst;		\
 	}							\
 
-#define GET_SINGLETON(type) type::GetInstance()
+#define GET_SINGLETON(type) type::getInstance()
 
-#define KEY_CHECK(key, state) InputManager::GetInstance()->getKey(key) == state
+#define KEY_CHECK(key, state) InputManager::getInstance()->getKey(key) == state
 #define GET_KEYNONE(key) KEY_CHECK(key, KEY_STATE::NONE)
 #define GET_KEYUP(key) KEY_CHECK(key, KEY_STATE::UP)
 #define GET_KEYDOWN(key) KEY_CHECK(key, KEY_STATE::DOWN)

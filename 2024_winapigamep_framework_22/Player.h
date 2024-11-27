@@ -1,5 +1,6 @@
 #pragma once
 #include "WindowObject.h"
+class CCTV;
 class Player : public WindowObject
 {
 public:
@@ -8,5 +9,10 @@ public:
 public:
 	void update() override;
 	void render(HDC hdc) override;
+public:
+	void setCCTV(CCTV* cctv) { _cctv = cctv; }
+	const CCTV* getCCTV() { return _cctv; }
+private:
+	CCTV* _cctv;
 };
 

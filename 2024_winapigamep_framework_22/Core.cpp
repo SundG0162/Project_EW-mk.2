@@ -74,11 +74,11 @@ void Core::mainupdate()
 	GET_SINGLETON(InputManager)->update();
 	GET_SINGLETON(SceneManager)->update();
 	GET_SINGLETON(CollisionManager)->update();
-	GET_SINGLETON(WindowManager)->update();
 }
 
 void Core::mainrender()
 {
+	GET_SINGLETON(WindowManager)->update();
 	// 1. clear
 	::PatBlt(_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
 	// 2. render

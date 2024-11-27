@@ -52,6 +52,11 @@ struct Vector
         x -= other.x;
         y -= other.y;
     }
+    void operator*=(float value)
+    {
+        x *= value;
+        y *= value;
+    }
     float LengthSquared()
     {
         return x * x + y * y;

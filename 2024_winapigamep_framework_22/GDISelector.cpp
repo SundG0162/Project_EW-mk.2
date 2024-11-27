@@ -8,7 +8,7 @@ GDISelector::GDISelector(HDC hDC, PEN_TYPE _ePen)
 	, _hDefaultFont(nullptr)
 	, _hFont(nullptr)
 {
-	HPEN hColorPen = Core::GetInstance()->getPen(_ePen);
+	HPEN hColorPen = Core::getInstance()->getPen(_ePen);
 	_hDefaultPen = (HPEN)SelectObject(hDC, hColorPen);
 }
 
@@ -19,7 +19,7 @@ GDISelector::GDISelector(HDC hDC, BRUSH_TYPE _eBrush)
 	, _hDefaultFont(nullptr)
 	, _hFont(nullptr)
 {
-	HBRUSH hColorBrush = Core::GetInstance()->getBrush(_eBrush);
+	HBRUSH hColorBrush = Core::getInstance()->getBrush(_eBrush);
 	_hDefaultBrush = (HBRUSH)SelectObject(hDC, hColorBrush);
 }
 

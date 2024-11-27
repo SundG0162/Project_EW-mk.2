@@ -16,6 +16,7 @@ public:
 			_windows.erase(iter);
 	}
 private:
+	int _frameCounter = 0;
 	vector<Window*> _windows;
 };
 
