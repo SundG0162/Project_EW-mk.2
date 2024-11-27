@@ -177,6 +177,7 @@
     <ClInclude Include="CopyWindow.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Define.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="framework.h" />
@@ -219,6 +220,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CopyWindow.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="GDISelector.cpp" />
     <ClCompile Include="ImageUI.cpp" />

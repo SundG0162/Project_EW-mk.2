@@ -47,6 +47,9 @@
     <Filter Include="Engine\03. Object\UI">
       <UniqueIdentifier>{90ea23fe-0536-477a-942f-e972d2fd2a2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\03. Object\Enemy">
+      <UniqueIdentifier>{9df1d55d-5775-4b8d-b679-aad38b094cac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2024_winapigamep_framework_22.h">
@@ -151,17 +154,10 @@
     <ClInclude Include="WindowManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="ImageUI.h">
-      <Filter>Engine\03. Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="TextUI.h">
-      <Filter>Engine\03. Object\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="CopyWindow.h">
-      <Filter>Engine\03.Windows</Filter>
-    </ClInclude>
-    <ClInclude Include="NewWindow.h">
-      <Filter>Engine\03.Windows</Filter>
+    <ClInclude Include="ImageUI.h" />
+    <ClInclude Include="TextUI.h" />
+    <ClInclude Include="Enemy.h">
+      <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="CCTV.h">
       <Filter>Engine\03. Object</Filter>
@@ -271,17 +267,10 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Engine\02. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="ImageUI.cpp">
-      <Filter>Engine\03. Object\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="TextUI.cpp">
-      <Filter>Engine\03. Object\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="CopyWindow.cpp">
-      <Filter>Engine\03.Windows</Filter>
-    </ClCompile>
-    <ClCompile Include="NewWindow.cpp">
-      <Filter>Engine\03.Windows</Filter>
+    <ClCompile Include="ImageUI.cpp" />
+    <ClCompile Include="TextUI.cpp" />
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Engine\03. Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="CCTV.cpp">
       <Filter>Engine\03. Object</Filter>
