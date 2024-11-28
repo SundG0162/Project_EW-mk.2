@@ -12,8 +12,13 @@ WindowManager::~WindowManager()
 void WindowManager::update()
 {
 	for (Window* window : _windows)
-		if (window)
-			window->update();
+	{
+		if (window->isDead())
+		{
+			continue;
+		}
+		window->update();
+	}
 }
 
 void WindowManager::render()
@@ -21,6 +26,7 @@ void WindowManager::render()
 	for (Window* window : _windows)
 	{
 		if (window == nullptr) continue;
+		if (window->isDead()) continue;
 		CopyWindow* copyWindow = dynamic_cast<CopyWindow*>(window);
 		if (copyWindow)
 		{

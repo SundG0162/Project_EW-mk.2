@@ -3,6 +3,10 @@
 #include "TimeManager.h"
 #include "GDISelector.h"
 #include "Window.h"
+#include "SpriteRenderer.h"
+#include "ResourceManager.h"
+#include "EventManager.h"
+#include "InputManager.h"
 
 Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY)
 {
@@ -10,6 +14,11 @@ Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(posi
         {
             this->handleOnWindowMove(prev, current);
         };
+    SpriteRenderer* renderer = addComponent<SpriteRenderer>();
+    Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->textureFind(L"Camera"));
+    renderer->setSprite(sprite);
+    renderer->setScale({ 5, 5 });
+    _window->setCloseable(false);
 }
 
 Camera::~Camera()
@@ -23,21 +32,30 @@ Camera::~Camera()
 void Camera::update()
 {
 	_timer += DELTATIME;
+    if (_captured)
+    {
+        if (_timer > 1)
+        {
+            PatBlt(GetDC(_window->getHWnd()), 0, 0, _size.x, _size.y, WHITENESS);
+            GET_SINGLETON(EventManager)->deleteObject(this);
+        }
+        return;
+    }
 	if (_timer > 1)
 	{
+        _timer = 0;
 		_counter--;
         if (_counter == 0)
         {
-            CloseWindow(_window->getHWnd());
+            _captured = true;
             return;
         }
-		_timer = 0;
 	}
 }
 
 void Camera::render(HDC hdc)
 {
-    /*HFONT hFont = CreateFont(
+    HFONT hFont = CreateFont(
         100,
         0,
         0, 0,
@@ -53,8 +71,9 @@ void Camera::render(HDC hdc)
     GDISelector gdi = GDISelector(hdc, hFont);
     COLORREF prevColor = SetTextColor(hdc, RGB(255, 255, 255));
 	wstring str = std::format(L"{0}", _counter);
-	utils::Drawer::renderText(hdc, _position, str);
-    SetTextColor(hdc, prevColor);*/
+	utils::Drawer::renderText(hdc, GET_LEFTTOPPOS(_position, _size), str);
+    SetTextColor(hdc, prevColor);
+    componentRender(hdc);
 }
 
 void Camera::handleOnWindowMove(const Vector2& prev, const Vector2& current)

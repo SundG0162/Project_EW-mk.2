@@ -45,9 +45,14 @@ Window::Window(const Vector2& position, const Vector2& size)
 	_leftTopPosition = fixed;
 }
 
-Window::~Window()
-{
+Window::~Window() {
+	if (_hWnd)
+	{
+		SetWindowLongPtr(_hWnd, GWLP_USERDATA, 0);
+		_hWnd = nullptr;
+	}
 }
+
 
 LRESULT CALLBACK Window::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -83,11 +88,16 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 		OnWindowMoveEvent.invoke(prevPosition, currentPosition);
 	}
 	break;
-		if (!_closeable)
-		{
 	case WM_CLOSE:
-		break;
+	{
+		if (_closeable)
+		{
+			cout << "윈도우 닫기 요청";
+			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
+	}
+	break;
+	break;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
@@ -110,6 +120,15 @@ void Window::handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curP
 
 void Window::close()
 {
+	_closeable = true;
+	
+	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
+		{
+			SendMessage(_hWnd, WM_CLOSE, 0, 0);
+			DestroyWindow(_hWnd);
+			GET_SINGLETON(WindowManager)->removeWindow(this);
+		};
+	_isDead = true;
 }
 
 void Window::moveWindow(const Vector2& pos)

@@ -13,7 +13,9 @@ public:
 	{
 		auto iter = std::find(_windows.begin(), _windows.end(), window);
 		if (iter != _windows.end())
+		{
 			_windows.erase(iter);
+		}
 	}
 private:
 	int _frameCounter = 0;

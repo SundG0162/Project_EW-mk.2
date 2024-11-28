@@ -1,5 +1,4 @@
 #pragma once
-#include <thread>
 #include "Action.h"
 class Window
 {
@@ -25,6 +24,7 @@ public:
 	const HWND& getHWnd() { return _hWnd; }
 	void setCloseable(bool closeable) { _closeable = closeable; }
 	const bool& getCloseable() { return _closeable; }
+	const bool& isDead() { return _isDead; }
 public:
 	Action<const Vector2&, const Vector2&> OnWindowMoveEvent;
 protected:
@@ -39,4 +39,5 @@ protected:
 	Vector2 _goalSize;
 	bool _isTweenEnd = true;
 	bool _closeable = true;
+	bool _isDead = false;
 };

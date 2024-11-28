@@ -11,6 +11,7 @@ public:
 public:
 	void handleOnWindowMove(const Vector2& prev, const Vector2& current);
 public:
+	bool _captured = false;
 	int _counter = 3;
 	float _timer = 0.f;
 };
