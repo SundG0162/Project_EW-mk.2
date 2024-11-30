@@ -5,7 +5,7 @@
 #include "CopyWindow.h"
 #include "TimeManager.h"
 
-WindowObject::WindowObject(const Vector2& position, const Vector2& size, const WINDOW_TYPE& type)
+WindowObject::WindowObject(const Vector2& position, const Vector2& size, const WINDOW_TYPE& type, const wstring& name)
 {
 	if (type == WINDOW_TYPE::COPY)
 		_position = position;
@@ -17,12 +17,12 @@ WindowObject::WindowObject(const Vector2& position, const Vector2& size, const W
 	{
 	case WINDOW_TYPE::NEW:
 	{
-		_window = new NewWindow(position, size);
+		_window = new NewWindow(position, size, name);
 	}
 	break;
 	case WINDOW_TYPE::COPY:
 	{
-		_window = new CopyWindow(position, size);
+		_window = new CopyWindow(position, size, name);
 	}
 	break;
 	}

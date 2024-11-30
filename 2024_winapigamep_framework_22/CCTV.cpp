@@ -3,7 +3,7 @@
 #include "Window.h"
 #include "Collider.h"
 
-CCTV::CCTV(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY)
+CCTV::CCTV(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"CCTV.exe")
 {
 	Collider* collider = addComponent<Collider>();
 	collider->setSize(size);

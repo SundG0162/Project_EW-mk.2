@@ -8,14 +8,14 @@
 #include "EventManager.h"
 #include "InputManager.h"
 
-Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY)
+Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Camera.exe")
 {
     _window->OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current) 
         {
             this->handleOnWindowMove(prev, current);
         };
     SpriteRenderer* renderer = addComponent<SpriteRenderer>();
-    Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->textureFind(L"Camera"));
+    Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->findTexture(L"Camera"));
     renderer->setSprite(sprite);
     renderer->setScale({ 5, 5 });
     _window->setCloseable(false);

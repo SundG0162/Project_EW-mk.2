@@ -3,7 +3,7 @@
 class Window
 {
 public:
-	Window(const Vector2& position, const Vector2& size);
+	Window(const Vector2& position, const Vector2& size, const wstring& name = L"");
 	virtual ~Window();
 public:
 	virtual void update();
@@ -13,10 +13,12 @@ public:
 	virtual LRESULT handleMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
 	void openTween(float delayTime = 1.f);
+	void closeTween(float delayTime = 1.f);
 	void handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curPos);
 	void close();
 	void moveWindow(const Vector2& pos);
 public:
+	void setWindowName(const wstring& name);
 	void setPosition(const Vector2& position) { _position = position; }
 	const Vector2& getPosition() { return _position; }
 	void setSize(const Vector2& size) { _size = size; }
@@ -27,16 +29,19 @@ public:
 	const bool& isDead() { return _isDead; }
 public:
 	Action<const Vector2&, const Vector2&> OnWindowMoveEvent;
+	Action<> OnTweenEndEvent;
+	Action<> OnWindowCloseEvent;
 protected:
 	HWND _hWnd;
 	HDC _hMainDC;
 	Vector2 _position;
 	Vector2 _size;
 	Vector2 _leftTopPosition;
-	LPRECT _prevRect;
+	RECT _prevRect;
 	float _timer = 0.f;
 	float _delayTime = 0.f;
 	Vector2 _goalSize;
+	Vector2 _startSize;
 	bool _isTweenEnd = true;
 	bool _closeable = true;
 	bool _isDead = false;

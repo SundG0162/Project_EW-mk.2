@@ -175,6 +175,9 @@
     <ClInclude Include="Camera.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="BarUI.h">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -291,6 +294,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="BarUI.cpp">
+      <Filter>Engine\03. Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

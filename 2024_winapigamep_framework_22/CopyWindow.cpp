@@ -2,7 +2,7 @@
 #include "CopyWindow.h"
 #include "Core.h"
 
-CopyWindow::CopyWindow(const Vector2& position, const Vector2& size) : Window(position, size)
+CopyWindow::CopyWindow(const Vector2& position, const Vector2& size, const wstring& name) : Window(position, size, name)
 {
 }
 

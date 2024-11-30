@@ -18,8 +18,8 @@ public:
 	void init();
 	const wchar_t* getResourcePath() const { return _resourcePath; }
 public:
-	Texture* textureLoad(const wstring& _key, const wstring& _path);
-	Texture* textureFind(const wstring& _key);
+	Texture* loadTexture(const wstring& _key, const wstring& _path);
+	Texture* findTexture(const wstring& _key);
 	void release();
 public:
 	void loadSound(const wstring& _key, const wstring& _path, bool _isLoop);

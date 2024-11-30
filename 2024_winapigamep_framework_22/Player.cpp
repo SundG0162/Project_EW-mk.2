@@ -12,12 +12,12 @@
 #include "Camera.h"
 #include "Core.h"
 
-Player::Player(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY)
+Player::Player(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Me.exe")
 {
 	_window->setCloseable(false);
 	_cctv = nullptr;
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
-	Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->textureFind(L"Computer"));
+	Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->findTexture(L"Computer"));
 	spriteRenderer->setSprite(sprite);
 	spriteRenderer->setScale({ 3,3 });
 }

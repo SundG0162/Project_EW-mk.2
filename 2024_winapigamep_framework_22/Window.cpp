@@ -4,12 +4,11 @@
 #include "Core.h"
 #include "TimeManager.h"
 #include "WindowManager.h"
-#include <functional>
+#include "Core.h"
 
-Window::Window(const Vector2& position, const Vector2& size)
+Window::Window(const Vector2& position, const Vector2& size, const wstring& name)
 	: _hWnd(nullptr)
 	, _hMainDC(nullptr)
-	, _position{ position }
 	, _size{ size }
 {
 	WNDCLASS wc = { 0 }; // 구조체를 0으로 초기화
@@ -20,29 +19,38 @@ Window::Window(const Vector2& position, const Vector2& size)
 	wc.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1); // 배경색 설정
 
 	RegisterClass(&wc);
-	Vector2 fixed = GET_LEFTTOPPOS(position, size);
+
+	RECT windowRect = { 0, 0, size.x, size.y };
+	AdjustWindowRect(&windowRect, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, FALSE);
+
+	int width = windowRect.right - windowRect.left;
+	int height = windowRect.bottom - windowRect.top;
+	Vector2 fixedSize = { width,height };
+
+	Vector2 fixedPos = GET_LEFTTOPPOS(position, Vector2(fixedSize.x, fixedSize.y));
 
 	_hWnd = CreateWindowEx(
-		0,                          // 확장 스타일
-		L"엄준식",                  // 윈도우 클래스 이름
-		L"",            // 윈도우 타이틀
-		WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,        // 윈도우 스타일
-		fixed.x, fixed.y,                       // 위치 (x, y)
-		size.x, size.y,                   // 크기 (width, height)
-		NULL,                       // 부모 윈도우 핸들
-		NULL,                       // 메뉴 핸들
-		GET_SINGLETON(Core)->getHInstance(), // 인스턴스 핸들
-		this                        // 추가 애플리케이션 데이터
+		0,
+		L"엄준식",
+		name.c_str(),
+		WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU,
+		fixedPos.x, fixedPos.y,
+		fixedSize.x, fixedSize.y,
+		NULL,
+		NULL,
+		GET_SINGLETON(Core)->getHInstance(),
+		this
 	);
+	_position = { fixedPos.x + fixedSize.x / 2, fixedPos.y + fixedSize.y / 2 };
+	_leftTopPosition = fixedPos;
 	ShowWindow(_hWnd, SW_SHOW);
 	_hMainDC = GetDC(_hWnd);
+	GetClientRect(_hWnd, &_prevRect);
 	OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current)
 		{
 			this->handleOnWindowMoveEvent(prev, current);
 		};
 	GET_SINGLETON(WindowManager)->addWindow(this);
-
-	_leftTopPosition = fixed;
 }
 
 Window::~Window() {
@@ -77,14 +85,10 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	{
 	case WM_MOVING:
 	{
-		LPRECT currentRect = (LPRECT)lParam;
-		if (_prevRect == nullptr)
-		{
-			_prevRect = currentRect;
-			break;
-		}
-		Vector2 prevPosition = { _prevRect->right - _size.x / 2, _prevRect->bottom - _size.y / 2 };
-		Vector2 currentPosition = { currentRect->right - _size.x / 2, currentRect->bottom - _size.y / 2 };
+		RECT currentRect;
+		GetClientRect(_hWnd, &currentRect);
+		Vector2 prevPosition = { _prevRect.right - _size.x / 2, _prevRect.bottom - _size.y / 2 };
+		Vector2 currentPosition = { currentRect.right - _size.x / 2, currentRect.bottom - _size.y / 2 };
 		OnWindowMoveEvent.invoke(prevPosition, currentPosition);
 	}
 	break;
@@ -92,7 +96,7 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	{
 		if (_closeable)
 		{
-			cout << "윈도우 닫기 요청";
+			OnWindowCloseEvent.invoke();
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
 	}
@@ -108,7 +112,17 @@ void Window::openTween(float delayTime)
 {
 	_delayTime = delayTime;
 	_goalSize = _size;
+	_startSize = { 0,0 };
 	_size.y = 0;
+	_timer = 0.f;
+	_isTweenEnd = false;
+}
+
+void Window::closeTween(float delayTime)
+{
+	_delayTime = delayTime;
+	_startSize = _size;
+	_goalSize.y = 0;
 	_timer = 0.f;
 	_isTweenEnd = false;
 }
@@ -121,7 +135,7 @@ void Window::handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curP
 void Window::close()
 {
 	_closeable = true;
-	
+
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			SendMessage(_hWnd, WM_CLOSE, 0, 0);
@@ -136,7 +150,12 @@ void Window::moveWindow(const Vector2& pos)
 	Vector2 leftTop = GET_LEFTTOPPOS(pos, _size);
 	SetWindowPos(_hWnd, NULL, leftTop.x, leftTop.y, _size.x, _size.y, SWP_NOZORDER);
 	_position = pos;
-	_leftTopPosition = _position - _size / 2;
+	_leftTopPosition = leftTop;
+}
+
+void Window::setWindowName(const wstring& name)
+{
+	SetWindowText(_hWnd, name.c_str());
 }
 
 void Window::update()
@@ -146,10 +165,13 @@ void Window::update()
 		_timer += DELTATIME;
 		if (_timer < _delayTime)
 			return;
-		_size.y = std::lerp(0, _goalSize.y, utils::Ease::outQuad(_timer - _delayTime));
+		_size.y = std::lerp(_startSize.y, _goalSize.y, utils::Ease::outQuad(_timer - _delayTime));
 		moveWindow(_position);
 		if (_timer > _delayTime + 1.f)
+		{
 			_isTweenEnd = true;
+			OnTweenEndEvent.invoke();
+		}
 		return;
 	}
 }

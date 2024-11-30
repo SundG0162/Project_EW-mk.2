@@ -12,18 +12,19 @@ void ResourceManager::init()
 	if (_soundSystem != nullptr)
 		_soundSystem->init((int)SOUND_CHANNEL::END, FMOD_INIT_NORMAL, nullptr);
 
-	textureLoad(L"Test", L"Texture\\Test.bmp");
-	textureLoad(L"Title-1", L"Texture\\title-1.bmp");
-	textureLoad(L"Title-2", L"Texture\\title-2.bmp");
-	textureLoad(L"Title-3", L"Texture\\title-3.bmp");
-	textureLoad(L"Title-4", L"Texture\\title-4.bmp");
-	textureLoad(L"Computer", L"Texture\\Computer.bmp");
-	textureLoad(L"Camera", L"Texture\\CameraScreen.bmp");
+	loadTexture(L"Test", L"Texture\\Test.bmp");
+	loadTexture(L"Title-1", L"Texture\\title-1.bmp");
+	loadTexture(L"Title-2", L"Texture\\title-2.bmp");
+	loadTexture(L"Title-3", L"Texture\\title-3.bmp");
+	loadTexture(L"Title-4", L"Texture\\title-4.bmp");
+	loadTexture(L"Computer", L"Texture\\Computer.bmp");
+	loadTexture(L"Camera", L"Texture\\CameraScreen.bmp");
+	loadTexture(L"BarUI", L"Texture\\BarUI.bmp");
 }
 
-Texture* ResourceManager::textureLoad(const wstring& _key, const wstring& _path)
+Texture* ResourceManager::loadTexture(const wstring& _key, const wstring& _path)
 {
-	Texture* texture = textureFind(_key);
+	Texture* texture = findTexture(_key);
 	if (nullptr != texture)
 		return texture;
 
@@ -39,7 +40,7 @@ Texture* ResourceManager::textureLoad(const wstring& _key, const wstring& _path)
 	return texture;
 }
 
-Texture* ResourceManager::textureFind(const wstring& _key)
+Texture* ResourceManager::findTexture(const wstring& _key)
 {
 	auto iter = _textureMap.find(_key);
 	if (iter != _textureMap.end())

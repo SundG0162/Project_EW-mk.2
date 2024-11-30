@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "CCTV.h"
 #include "Camera.h"
+#include "BarUI.h"
+#include "Window.h"
 
 InGameScene::InGameScene()
 {
@@ -21,5 +23,10 @@ void InGameScene::init()
 		player->setCCTV(cctv);
 		addObject(player, LAYER::PLAYER);
 		addObject(cctv, LAYER::UI);
+	}
+	{
+		BarUI* bar = new BarUI({ 500, 100 }, { 200, 70 });
+		addObject(bar, LAYER::UI);
+		bar->getWindow()->setWindowName(L"TestBar.exe");
 	}
 }

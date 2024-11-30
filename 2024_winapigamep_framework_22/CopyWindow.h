@@ -3,7 +3,7 @@
 class CopyWindow : public Window
 {
 public:
-	CopyWindow(const Vector2& position, const Vector2& size);
+	CopyWindow(const Vector2& position, const Vector2& size, const wstring& name = L"");
 	~CopyWindow();
 public:
 	void render(HDC hdc) override;

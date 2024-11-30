@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "NewWindow.h"
 
-NewWindow::NewWindow(const Vector2& position, const Vector2& size) : Window(position, size)
+NewWindow::NewWindow(const Vector2& position, const Vector2& size, const wstring& name) : Window(position, size, name)
 {
+	_hBackDC = CreateCompatibleDC(_hMainDC);
+	_hBitmap = CreateCompatibleBitmap(_hMainDC, size.x, size.y);
+	SelectObject(_hBackDC, _hBitmap);
 }
 
 NewWindow::~NewWindow()
