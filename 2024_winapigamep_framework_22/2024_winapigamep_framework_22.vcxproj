@@ -169,6 +169,7 @@
     <ClInclude Include="Animator.h" />
     <ClInclude Include="BarUI.h" />
     <ClInclude Include="BaseWindow.h" />
+    <ClInclude Include="Beacon.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CCTV.h" />
     <ClInclude Include="Collider.h" />
@@ -212,6 +213,7 @@
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="BarUI.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
+    <ClCompile Include="Beacon.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CCTV.cpp" />
     <ClCompile Include="Collider.cpp" />

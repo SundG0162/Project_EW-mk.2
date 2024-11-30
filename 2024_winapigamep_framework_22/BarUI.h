@@ -11,9 +11,11 @@ public:
 public:
 	void setFillAmount(float value);
 	void setVertical(bool vertical) { _isVertical = vertical; }
+	void setReverse(bool reverse) { _isReverse = reverse; }
 private:
 	float _fillAmount;
 	bool _isVertical;
+	bool _isReverse;
 	bool _isFinished;
 };
 

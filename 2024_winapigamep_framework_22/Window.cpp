@@ -54,11 +54,6 @@ Window::Window(const Vector2& position, const Vector2& size, const wstring& name
 }
 
 Window::~Window() {
-	if (_hWnd)
-	{
-		SetWindowLongPtr(_hWnd, GWLP_USERDATA, 0);
-		_hWnd = nullptr;
-	}
 }
 
 
@@ -83,8 +78,23 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 {
 	switch (message)
 	{
+		if (!_moveable)
+		{
+			case WM_SYSCOMMAND:
+			{
+				switch (wParam & 0xFFF0) {
+				case SC_MOVE:
+				case SC_SIZE:
+				case SC_MAXIMIZE:
+					return 0;
+				}
+			}
+		}
+	break;
 	case WM_MOVING:
 	{
+		if (!_moveable)
+			break;
 		RECT currentRect;
 		GetClientRect(_hWnd, &currentRect);
 		Vector2 prevPosition = { _prevRect.right - _size.x / 2, _prevRect.bottom - _size.y / 2 };
