@@ -9,13 +9,12 @@ public:
 	void update() override;
 	void render(HDC hdc) override;
 public:
-	void setFillAmount(float value);
+	void setFillAmount(float value) { _fillAmount = value; }
 	void setVertical(bool vertical) { _isVertical = vertical; }
 	void setReverse(bool reverse) { _isReverse = reverse; }
 private:
 	float _fillAmount;
 	bool _isVertical;
 	bool _isReverse;
-	bool _isFinished;
 };
 
