@@ -6,7 +6,7 @@
 #include "TimeManager.h"
 #include "SpriteRenderer.h"
 #include "ResourceManager.h"
-#include "SceneManager.h"
+#include "EventManager.h"
 #include "Scene.h"
 #include "Sprite.h"
 #include "Camera.h"
@@ -45,7 +45,7 @@ void Player::update()
 		GET_SINGLETON(Core)->OnMessageProcessEvent += [this]() 
 			{
 				Camera* camera = new Camera(_position, { 500,500 });
-				GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(camera, LAYER::UI);
+				GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
 			};
 	}
 }

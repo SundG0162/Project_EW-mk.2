@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Beacon.h"
 #include "TimeManager.h"
-#include "SceneManager.h"
+#include "EventManager.h"
 #include "BarUI.h"
 #include "Window.h"
 
@@ -10,7 +10,7 @@ Beacon::Beacon(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_duration = 10.f;
 	_timer = _duration;
 	_bar = new BarUI({ position.x, position.y - 30 }, { 200,50 });
-	GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(_bar, LAYER::UI);
+	GET_SINGLETON(EventManager)->createObject(_bar, LAYER::UI);
 	//_bar->getWindow()->openTween();
 }
 

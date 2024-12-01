@@ -7,7 +7,6 @@
 #include "ResourceManager.h"
 #include "EventManager.h"
 #include "InputManager.h"
-#include "SceneManager.h"
 #include "BarUI.h"
 #include "FadeInOut.h"
 
@@ -50,6 +49,7 @@ void Camera::update()
 			_window->closeTween(0);
 			_window->OnTweenEndEvent += [this]() 
 				{
+					GET_SINGLETON(EventManager)->deleteObject(_fadeOut);
 					GET_SINGLETON(EventManager)->deleteObject(this);
 				};
 		}
@@ -66,7 +66,7 @@ void Camera::update()
 			_fadeOut->init(0.8f, FADE_TYPE::FADE_OUT);
 			_window->setMoveable(false);
 			getComponent<SpriteRenderer>()->setSprite(nullptr);
-			GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(_fadeOut, LAYER::EFFECT);
+			GET_SINGLETON(EventManager)->createObject(_fadeOut, LAYER::EFFECT);
 			return;
 		}
 	}

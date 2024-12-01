@@ -17,6 +17,27 @@ public:
 	{
 		_objects[(UINT)_type].push_back(_obj);
 	}
+	void removeObject(Object* obj, LAYER layer = LAYER::END)
+	{
+		if (layer == LAYER::END)
+		{
+			for (int i = 0; i < (UINT)LAYER::END; i++)
+			{
+				auto iter = std::find(_objects[i].begin(), _objects[i].end(), obj);
+				if (iter != _objects[i].end())
+				{
+					_objects[i].erase(iter);
+					return;
+				}
+			}
+		}
+		else
+		{
+			auto iter = std::find(_objects[(UINT)layer].begin(), _objects[(UINT)layer].end(), obj);
+			if (iter != _objects[(UINT)layer].end())
+				_objects[(UINT)layer].erase(iter);
+		}
+	}
 	const vector<Object*>& getLayerObjects(LAYER _type)
 	{
 		return _objects[(UINT)_type];
