@@ -2,15 +2,15 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "TitleScene.h"
-#include "InGameScene.h"
+#include "EnemyTestScene.h"
 void SceneManager::init()
 {
 	_currentScene = nullptr;
 
-	// ¾À µî·Ï
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½
 	registerScene(L"TitleScene", std::make_shared<TitleScene>());
-	registerScene(L"InGameScene", std::make_shared<InGameScene>());
-	loadScene(L"InGameScene");
+	registerScene(L"EnemyTestScene", std::make_shared<EnemyTestScene>());
+	loadScene(L"EnemyTestScene");
 }
 
 void SceneManager::update()
@@ -37,7 +37,7 @@ void SceneManager::registerScene(const wstring& _sceneName, std::shared_ptr<Scen
 
 void SceneManager::loadScene(const wstring& _sceneName)
 {
-	// ¾ÀÀÌ ÀÖÀ¸¸é
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (_currentScene != nullptr)
 	{
 		_currentScene->release();

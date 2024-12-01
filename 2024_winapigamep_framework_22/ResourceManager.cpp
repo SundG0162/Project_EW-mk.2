@@ -8,7 +8,7 @@ void ResourceManager::init()
 	wcscat_s(_resourcePath, 255, L"\\Resource\\");
 	//::SetWindowText(GET_SINGLE(Core)->GetHwnd(), m_resourcePath);
 
- 	FMOD::System_Create(&_soundSystem); // ½Ã½ºÅÛ »ı¼º ÇÔ¼ö
+ 	FMOD::System_Create(&_soundSystem); // ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
 	if (_soundSystem != nullptr)
 		_soundSystem->init((int)SOUND_CHANNEL::END, FMOD_INIT_NORMAL, nullptr);
 
@@ -28,12 +28,12 @@ Texture* ResourceManager::loadTexture(const wstring& _key, const wstring& _path)
 	if (nullptr != texture)
 		return texture;
 
-	// ¾ø¾î¿ä ÃÖÃÊÀÔ´Ï´Ù. ¸¸µé¾îÁÖ¼¼¿ä.
-	// 1. °æ·Î ¼³Á¤
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.
+	// 1. ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	wstring texpath = _resourcePath;
 	texpath += _path;
 	
-	// 2. Texture ¸¸µé¾î¾ßÁÒ?
+	// 2. Texture ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½?
 	texture = new Texture;
 	texture->loadBmp(texpath);
 	_textureMap.insert({_key,texture});
@@ -64,7 +64,7 @@ void ResourceManager::release()
 	}
 	_soundMap.clear();
 
-	// ´Ù ¾²°í ³­ ÈÄ ½Ã½ºÅÛ ´İ°í ¹İÈ¯
+	// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½İ°ï¿½ ï¿½ï¿½È¯
 	_soundSystem->close();
 	_soundSystem->release();
 }
@@ -96,7 +96,7 @@ void ResourceManager::play(const wstring& _key)
 	SOUND_CHANNEL eChannel = SOUND_CHANNEL::BGM;
 	if (!ptSound->isLoop)
 		eChannel = SOUND_CHANNEL::EFFECT;
-	// »ç¿îµå Àç»ı ÇÔ¼ö. &channel·Î ¾î¶² Ã¤³ÎÀ» ÅëÇØ Àç»ıµÇ´ÂÁö Æ÷ÀÎÅÍ ³Ñ±è
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½. &channelï¿½ï¿½ ï¿½î¶² Ã¤ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½
 	_soundSystem->playSound(ptSound->sound, nullptr, false, &_channels[(UINT)eChannel]);
 }
 
@@ -107,14 +107,14 @@ void ResourceManager::stop(SOUND_CHANNEL _channel)
 
 void ResourceManager::volume(SOUND_CHANNEL _channel, float _vol)
 {
-	// 0.0 ~ 1.0 º¼·ı Á¶Àı
+	// 0.0 ~ 1.0 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	_channels[(UINT)_channel]->setVolume(_vol);
 }
 
 void ResourceManager::pause(SOUND_CHANNEL _channel, bool _ispause)
 {
-	// bool°ªÀÌ true¸é ÀÏ½ÃÁ¤Áö. ´Ü, ÀÌ ÇÔ¼ö¸¦ ¾²·Á¸é CreatesoundÇÒ¶§ 
-// FMOD_MODE°¡ FMOD_LOOP_NORMAL ÀÌ¾î¾ß ÇÔ.
+	// boolï¿½ï¿½ï¿½ï¿½ trueï¿½ï¿½ ï¿½Ï½ï¿½ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½, ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Createsoundï¿½Ò¶ï¿½ 
+// FMOD_MODEï¿½ï¿½ FMOD_LOOP_NORMAL ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½.
 	_channels[(UINT)_channel]->setPaused(_ispause);
 }
 

@@ -10,6 +10,8 @@ public:
 	const Vector2& getPosition() { return Vector2(_x, _y); }
 	const Vector2& getSize() { return Vector2(_cx, _cy); }
 	const int32& getTransparent();
+	void setPosition(Vector2 pos) { _x = pos.x; _y = pos.y; }
+	void setSize(Vector2 size) { _x = size.x; _y = size.y; }
 private:
 	Texture* _texture = nullptr;
 	int32 _x;

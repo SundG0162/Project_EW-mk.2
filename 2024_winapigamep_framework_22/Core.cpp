@@ -7,6 +7,7 @@
 #include "CollisionManager.h"
 #include "WindowManager.h"
 #include "EventManager.h"
+#include "SpawnManager.h"
 bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 {
 	// 변수 초기화
@@ -30,6 +31,7 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 	GET_SINGLETON(InputManager)->init();
 	GET_SINGLETON(ResourceManager)->init();
 	GET_SINGLETON(SceneManager)->init();
+	GET_SINGLETON(SpawnManager)->init();
 
 	//m_obj.SetPos(Vec2(SCREEN_WIDTH / 2
 	//				,SCREEN_HEIGHT/ 2));
@@ -74,6 +76,7 @@ void Core::mainupdate()
 	GET_SINGLETON(InputManager)->update();
 	GET_SINGLETON(SceneManager)->update();
 	GET_SINGLETON(CollisionManager)->update();
+	GET_SINGLETON(SpawnManager)->update();
 }
 
 void Core::mainrender()
