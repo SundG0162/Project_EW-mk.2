@@ -25,7 +25,7 @@ void InGameScene::init()
 		addObject(cctv, LAYER::UI);
 	}
 	{
-		BarUI* bar = new BarUI({ 500, 100 }, { 200, 70 });
+		BarUI* bar = new BarUI({ 500, 100 }, { 400, 50 });
 		addObject(bar, LAYER::UI);
 		bar->getWindow()->setWindowName(L"TestBar.exe");
 	}
