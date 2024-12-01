@@ -3,6 +3,7 @@
 #include "TimeManager.h"
 #include "SceneManager.h"
 #include "BarUI.h"
+#include "Window.h"
 
 Beacon::Beacon(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Beacon.exe")
 {
@@ -10,6 +11,7 @@ Beacon::Beacon(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_timer = _duration;
 	_bar = new BarUI({ position.x, position.y - 30 }, { 200,50 });
 	GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(_bar, LAYER::UI);
+	_bar->getWindow()->openTween();
 }
 
 Beacon::~Beacon()

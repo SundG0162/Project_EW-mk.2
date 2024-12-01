@@ -9,7 +9,8 @@
 Window::Window(const Vector2& position, const Vector2& size, const wstring& name)
 	: _hWnd(nullptr)
 	, _hMainDC(nullptr)
-	, _size{ size }
+	, _position(position)
+	, _size(size)
 {
 	WNDCLASS wc = { 0 }; // 구조체를 0으로 초기화
 
@@ -41,19 +42,16 @@ Window::Window(const Vector2& position, const Vector2& size, const wstring& name
 		GET_SINGLETON(Core)->getHInstance(),
 		this
 	);
-	_position = { fixedPos.x + fixedSize.x / 2, fixedPos.y + fixedSize.y / 2 };
 	_leftTopPosition = fixedPos;
 	ShowWindow(_hWnd, SW_SHOW);
 	_hMainDC = GetDC(_hWnd);
-	GetClientRect(_hWnd, &_prevRect);
-	OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current)
-		{
-			this->handleOnWindowMoveEvent(prev, current);
-		};
+	_size = fixedSize;
 	GET_SINGLETON(WindowManager)->addWindow(this);
 }
 
-Window::~Window() {
+Window::~Window()
+{
+
 }
 
 
@@ -78,28 +76,32 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 {
 	switch (message)
 	{
+	case WM_SYSCOMMAND:
+	{
 		if (!_moveable)
 		{
-			case WM_SYSCOMMAND:
+			switch (wParam & 0xFFF0)
 			{
-				switch (wParam & 0xFFF0) {
-				case SC_MOVE:
-				case SC_SIZE:
-				case SC_MAXIMIZE:
-					return 0;
-				}
+			case SC_MOVE:
+			case SC_SIZE:
+			case SC_MAXIMIZE:
+				return 0;
 			}
 		}
+		else
+		{
+			return DefWindowProc(hWnd, message, wParam, lParam);
+		}
+	}
 	break;
 	case WM_MOVING:
 	{
-		if (!_moveable)
-			break;
-		RECT currentRect;
-		GetClientRect(_hWnd, &currentRect);
-		Vector2 prevPosition = { _prevRect.right - _size.x / 2, _prevRect.bottom - _size.y / 2 };
-		Vector2 currentPosition = { currentRect.right - _size.x / 2, currentRect.bottom - _size.y / 2 };
-		OnWindowMoveEvent.invoke(prevPosition, currentPosition);
+		RECT* rect = (RECT*)lParam;  // 드래그 중인 창의 새 위치
+		int posX = rect->left + (rect->right - rect->left) / 2;
+		int posY = rect->top + (rect->bottom - rect->top) / 2;
+		Vector2 currentPosition = { (float)posX, (float)posY };
+		OnWindowMoveEvent.invoke(_position, currentPosition);
+		_position = currentPosition;
 	}
 	break;
 	case WM_CLOSE:
@@ -110,7 +112,6 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
 	}
-	break;
 	break;
 	default:
 		return DefWindowProc(hWnd, message, wParam, lParam);
@@ -137,20 +138,15 @@ void Window::closeTween(float delayTime)
 	_isTweenEnd = false;
 }
 
-void Window::handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curPos)
-{
-	_position = curPos;
-}
-
 void Window::close()
 {
 	_closeable = true;
-
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			SendMessage(_hWnd, WM_CLOSE, 0, 0);
 			DestroyWindow(_hWnd);
 			GET_SINGLETON(WindowManager)->removeWindow(this);
+			delete this;
 		};
 	_isDead = true;
 }

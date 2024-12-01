@@ -26,16 +26,11 @@ WindowObject::WindowObject(const Vector2& position, const Vector2& size, const W
 	}
 	break;
 	}
-	_window->OnWindowCloseEvent += [this]() 
-		{
-			delete this;
-		};
 }
 
 WindowObject::~WindowObject()
 {
 	_window->close();
-	SAFE_DELETE(_window);
 }
 
 void WindowObject::openTween(float delayTime)

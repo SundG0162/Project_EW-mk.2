@@ -19,6 +19,7 @@ Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(posi
     renderer->setSprite(sprite);
     renderer->setScale({ 5, 5 });
     _window->setCloseable(false);
+    _window->setMoveable(true);
 }
 
 Camera::~Camera()

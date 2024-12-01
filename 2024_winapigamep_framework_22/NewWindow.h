@@ -4,7 +4,7 @@ class NewWindow : public Window
 {
 public:
 	NewWindow(const Vector2& position, const Vector2& size, const wstring& name = L"");
-	~NewWindow();
+	virtual ~NewWindow();
 public:
 	void render(HDC hdc) override;
 public:
