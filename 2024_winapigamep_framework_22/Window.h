@@ -28,6 +28,7 @@ public:
 	void setMoveable(bool moveable) { _moveable = moveable; }
 	const bool& getMoveable() { return _moveable; }
 	const bool& isDead() { return _isDead; }
+	const bool& isTweening() { return !_isTweenEnd; }
 public:
 	Action<const Vector2&, const Vector2&> OnWindowMoveEvent;
 	Action<> OnTweenEndEvent;

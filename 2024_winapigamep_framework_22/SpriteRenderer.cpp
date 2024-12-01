@@ -21,6 +21,7 @@ void SpriteRenderer::lateUpdate()
 
 void SpriteRenderer::render(HDC hDC)
 {
+	if (_sprite == nullptr) return;
 	Vector2 pos = _owner->getPosition();
 	Vector2 size = _sprite->getSize();
 	Vector2 scaledSize = _scale * _sprite->getSize();

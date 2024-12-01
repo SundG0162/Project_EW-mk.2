@@ -110,3 +110,13 @@ vector<Sprite*> utils::SpriteParser::textureToSprites(Texture* texture, Vector2 
     }
     return sprites;
 }
+
+const Vector2& utils::CoordinateSync::nonClientToClient(const RECT& windowRect, const Vector2& position)
+{
+    RECT clientRect = windowRect;
+    AdjustWindowRect(&clientRect, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU, FALSE);
+    Vector2 fixedPosition;
+    fixedPosition.x = position.x - (windowRect.left - clientRect.left);
+    fixedPosition.y = position.y - (windowRect.top - clientRect.top);
+    return fixedPosition;
+}

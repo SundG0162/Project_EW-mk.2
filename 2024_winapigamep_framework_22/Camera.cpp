@@ -7,7 +7,9 @@
 #include "ResourceManager.h"
 #include "EventManager.h"
 #include "InputManager.h"
+#include "SceneManager.h"
 #include "BarUI.h"
+#include "FadeInOut.h"
 
 Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Camera.exe")
 {
@@ -27,6 +29,7 @@ Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(posi
 	int sizeY = sizeX / 8;
 	//이 아래 코드는 쓸데없이 연산을 늘리는게 아니라 윈도우 밑면과의 여백을 주기위해 굳이 이렇게 연산하는 것입니다.
 	_bar = new BarUI({ position.x, position.y + size.y / 2 - size.x / 8 }, { sizeX, sizeY });
+	_fadeOut = nullptr;
 }
 
 Camera::~Camera()
@@ -40,6 +43,18 @@ Camera::~Camera()
 void Camera::update()
 {
 	_timer += DELTATIME;
+	if (_fadeOut && !_window->isTweening())
+	{
+		if (_timer > 0.7f)
+		{
+			_window->closeTween();
+			_window->OnTweenEndEvent += [this]() 
+				{
+					GET_SINGLETON(EventManager)->deleteObject(this);
+				};
+		}
+		return;
+	}
 	if (_timer > 1)
 	{
 		_timer = 0;
@@ -47,7 +62,11 @@ void Camera::update()
 		_bar->setFillAmount((float)_counter / _maxCount);
 		if (_counter == 0)
 		{
-			GET_SINGLETON(EventManager)->deleteObject(this);
+			_fadeOut = new FadeInOut(_position, _size);
+			_fadeOut->init(0.8f, FADE_TYPE::FADE_OUT);
+			_window->setMoveable(false);
+			getComponent<SpriteRenderer>()->setSprite(nullptr);
+			GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(_fadeOut, LAYER::EFFECT);
 			return;
 		}
 	}

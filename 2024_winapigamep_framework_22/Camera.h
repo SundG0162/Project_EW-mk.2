@@ -1,6 +1,7 @@
 #pragma once
 #include "WindowObject.h"
 class BarUI;
+class FadeInOut;
 class Camera : public WindowObject
 {
 public:
@@ -12,6 +13,7 @@ public:
 public:
 	void handleOnWindowMove(const Vector2& prev, const Vector2& current);
 public:
+	FadeInOut* _fadeOut;
 	BarUI* _bar;
 	int _counter;
 	int _maxCount;

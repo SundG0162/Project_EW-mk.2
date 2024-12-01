@@ -180,6 +180,7 @@
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="EventManager.h" />
+    <ClInclude Include="FadeInOut.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GDISelector.h" />
     <ClInclude Include="ImageUI.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="CopyWindow.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="EventManager.cpp" />
+    <ClCompile Include="FadeInOut.cpp" />
     <ClCompile Include="GDISelector.cpp" />
     <ClCompile Include="ImageUI.cpp" />
     <ClCompile Include="InGameScene.cpp" />
