@@ -20,11 +20,17 @@ void ResourceManager::init()
 	loadTexture(L"Computer", L"Texture\\Computer.bmp");
 	loadTexture(L"Camera", L"Texture\\CameraScreen.bmp");
 	loadTexture(L"BarUI", L"Texture\\BarUI.bmp");
+
+	for (auto pair : _textureMap)
+	{
+		Texture* texture = pair.second;
+		loadSprite(pair.first, utils::SpriteParser::textureToSprite(texture));
+	}
 }
 
 Texture* ResourceManager::loadTexture(const wstring& _key, const wstring& _path)
 {
-	Texture* texture = findTexture(_key);
+	Texture* texture = getTexture(_key);
 	if (nullptr != texture)
 		return texture;
 
@@ -40,10 +46,27 @@ Texture* ResourceManager::loadTexture(const wstring& _key, const wstring& _path)
 	return texture;
 }
 
-Texture* ResourceManager::findTexture(const wstring& _key)
+Texture* ResourceManager::getTexture(const wstring& _key)
 {
 	auto iter = _textureMap.find(_key);
 	if (iter != _textureMap.end())
+		return iter->second;
+	return nullptr;
+}
+
+Sprite* ResourceManager::loadSprite(const wstring& key, Sprite* sprite)
+{
+	Sprite* spr = getSprite(key);
+	if (spr)
+		return spr;
+	_spriteMap.insert({ key,sprite });
+	return sprite;
+}
+
+Sprite* ResourceManager::getSprite(const wstring& key)
+{
+	auto iter = _spriteMap.find(key);
+	if (iter != _spriteMap.end())
 		return iter->second;
 	return nullptr;
 }

@@ -1,6 +1,7 @@
 #pragma once
+#include "ResourceBase.h"
 class Texture;
-class Sprite
+class Sprite : public ResourceBase
 {
 public:
 	Sprite(Texture* texture, int32 x, int32 y, int32 cx, int32 cy);

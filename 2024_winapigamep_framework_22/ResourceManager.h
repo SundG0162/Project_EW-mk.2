@@ -11,6 +11,7 @@ struct SoundInfo
 	bool isLoop;		// 사운드마다 루프할지말지
 };
 class Texture;
+class Sprite;
 class ResourceManager
 {
 	DECLARE_SINGLETON(ResourceManager);
@@ -19,7 +20,9 @@ public:
 	const wchar_t* getResourcePath() const { return _resourcePath; }
 public:
 	Texture* loadTexture(const wstring& _key, const wstring& _path);
-	Texture* findTexture(const wstring& _key);
+	Texture* getTexture(const wstring& _key);
+	Sprite* loadSprite(const wstring& key, Sprite* sprite);
+	Sprite* getSprite(const wstring& key);
 	void release();
 public:
 	void loadSound(const wstring& _key, const wstring& _path, bool _isLoop);
@@ -32,6 +35,7 @@ private:
 private:
 	wchar_t _resourcePath[255] = {};
 	map<wstring, Texture*> _textureMap;
+	map<wstring, Sprite*> _spriteMap;
 	map<wstring, SoundInfo*> _soundMap;
 	FMOD::System* _soundSystem; // 사운드 시스템
 	FMOD::Channel* _channels[(UINT)SOUND_CHANNEL::END]; // 오디오 채널

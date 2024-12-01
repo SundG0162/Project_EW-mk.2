@@ -16,7 +16,7 @@ BarUI::BarUI(const Vector2& position, const Vector2& size) : UI()
 	_isVertical = false;
 	_isReverse = false;
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
-	Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->findTexture(L"BarUI"));
+	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"BarUI");
 	renderer->setSprite(sprite);
 	renderer->setScale({ size.x / 32, size.y / 4 });
 }

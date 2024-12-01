@@ -20,7 +20,7 @@ Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(posi
 			this->handleOnWindowMove(prev, current);
 		};
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
-	Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->findTexture(L"Camera"));
+	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Camera");
 	renderer->setSprite(sprite);
 	renderer->setScale({ 5, 5 });
 	_window->setCloseable(false);
@@ -47,7 +47,7 @@ void Camera::update()
 	{
 		if (_timer > 0.7f)
 		{
-			_window->closeTween();
+			_window->closeTween(0);
 			_window->OnTweenEndEvent += [this]() 
 				{
 					GET_SINGLETON(EventManager)->deleteObject(this);

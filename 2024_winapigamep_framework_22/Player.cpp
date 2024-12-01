@@ -17,7 +17,7 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_window->setCloseable(false);
 	_cctv = nullptr;
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
-	Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->findTexture(L"Computer"));
+	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Computer");
 	spriteRenderer->setSprite(sprite);
 	spriteRenderer->setScale({ 3,3 });
 }
