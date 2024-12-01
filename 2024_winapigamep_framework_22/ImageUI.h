@@ -4,7 +4,7 @@ class Sprite;
 class ImageUI : public UI
 {
 public:
-	ImageUI(const Vector2& position, const Vector2& size, WINDOW_TYPE type, Sprite* sprite, const wstring& name = L"");
+	ImageUI(const Vector2& position, const Vector2& size, Sprite* sprite);
 	~ImageUI();
 public:
 	void update() override;

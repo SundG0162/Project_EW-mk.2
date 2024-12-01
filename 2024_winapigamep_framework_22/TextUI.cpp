@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "TextUI.h"
 
-TextUI::TextUI(const Vector2& position, const Vector2& size, WINDOW_TYPE type, const wstring& name) : UI(position, size, type, name)
+TextUI::TextUI(const Vector2& position, const Vector2& size, WINDOW_TYPE type, const wstring& name) : UI()
 {
 }
 

@@ -181,6 +181,9 @@
     <ClInclude Include="Beacon.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
+    <ClInclude Include="WindowUI.h">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -303,6 +306,9 @@
     </ClCompile>
     <ClCompile Include="Beacon.cpp">
       <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowUI.cpp">
+      <Filter>Engine\03. Object\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

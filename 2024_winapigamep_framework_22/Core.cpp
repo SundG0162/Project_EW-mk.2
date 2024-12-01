@@ -79,14 +79,9 @@ void Core::mainupdate()
 void Core::mainrender()
 {
 	GET_SINGLETON(WindowManager)->update();
-	// 1. clear
 	::PatBlt(_hBackDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLACKNESS);
-	// 2. render
 	GET_SINGLETON(SceneManager)->render(_hBackDC);
 	GET_SINGLETON(WindowManager)->render();
-	// 3. display	
-	/*::BitBlt(_hDC, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
-		_hBackDC, 0, 0, SRCCOPY);*/
 }
 void Core::createGDI()
 {

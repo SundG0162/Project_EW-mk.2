@@ -8,8 +8,10 @@
 #include "ResourceManager.h"
 #include "Sprite.h"
 
-BarUI::BarUI(const Vector2& position, const Vector2& size) : UI(position, size, WINDOW_TYPE::NEW)
+BarUI::BarUI(const Vector2& position, const Vector2& size) : UI()
 {
+	_position = position;
+	_size = size;
 	_fillAmount = 1;
 	_isVertical = false;
 	_isReverse = false;
@@ -17,7 +19,6 @@ BarUI::BarUI(const Vector2& position, const Vector2& size) : UI(position, size, 
 	Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->findTexture(L"BarUI"));
 	renderer->setSprite(sprite);
 	renderer->setScale({ size.x / 32, size.y / 4 });
-	_window->setMoveable(true);
 }
 
 BarUI::~BarUI()
@@ -26,8 +27,7 @@ BarUI::~BarUI()
 
 void BarUI::update()
 {
-	if (_fillAmount > 0)
-		_fillAmount -= DELTATIME;
+	_fillAmount -= DELTATIME * 0.2f;
 }
 
 void BarUI::render(HDC hdc)
