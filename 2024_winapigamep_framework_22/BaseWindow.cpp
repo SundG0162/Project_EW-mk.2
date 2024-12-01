@@ -104,7 +104,7 @@ int BaseWindow::messageLoop()
 {
 	MSG msg;
 	memset(&msg, 0, sizeof(msg)); // 0 ÃÊ±âÈ­
-	_thread = std::thread(std::bind(&Core::gameLoop, GET_SINGLETON(Core)));
+	_mainLoopThread = std::thread(std::bind(&Core::gameLoop, GET_SINGLETON(Core)));
 	while (true)
 	{
 		GET_SINGLETON(Core)->onMessageProcess();
@@ -116,7 +116,7 @@ int BaseWindow::messageLoop()
 			DispatchMessage(&msg);
 		}
 	}
-	_thread.detach();
+	_mainLoopThread.detach();
 	GET_SINGLETON(Core)->cleanUp();
 	return (int)msg.wParam;
 }
