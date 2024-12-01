@@ -25,7 +25,8 @@ Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_window->setMoveable(true);
 	int sizeX = size.x * 0.8f;
 	int sizeY = sizeX / 8;
-	_bar = new BarUI({ position.x, position.y + size.y / 2 - sizeY }, { sizeX, sizeY });
+	//이 아래 코드는 쓸데없이 연산을 늘리는게 아니라 윈도우 밑면과의 여백을 주기위해 굳이 이렇게 연산하는 것입니다.
+	_bar = new BarUI({ position.x, position.y + size.y / 2 - size.x / 8 }, { sizeX, sizeY });
 }
 
 Camera::~Camera()
@@ -62,7 +63,6 @@ void Camera::handleOnWindowMove(const Vector2& prev, const Vector2& current)
 {
 	_position = current;
 	_window->moveWindow(_position);
-	int sizeX = _size.x * 0.8f;
-	int sizeY = sizeX / 8;
+	int sizeY = _size.x / 8;
 	_bar->setPosition({ _position.x, _position.y + _size.y / 2 - sizeY });
 }
