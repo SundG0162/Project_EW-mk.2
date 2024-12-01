@@ -16,7 +16,7 @@ private:
 	void updateWindow(); // 4
 	int  messageLoop(); // 5
 private:
-	std::thread _thread;
+	std::thread _mainLoopThread;
 	HINSTANCE _hInstance;
 	HWND	  _hWnd;
 };
