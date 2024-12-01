@@ -7,78 +7,62 @@
 #include "ResourceManager.h"
 #include "EventManager.h"
 #include "InputManager.h"
+#include "BarUI.h"
 
 Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Camera.exe")
 {
-    _window->OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current) 
-        {
-            this->handleOnWindowMove(prev, current);
-        };
-    SpriteRenderer* renderer = addComponent<SpriteRenderer>();
-    Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->findTexture(L"Camera"));
-    renderer->setSprite(sprite);
-    renderer->setScale({ 5, 5 });
-    _window->setCloseable(false);
-    _window->setMoveable(true);
+	_maxCount = 3;
+	_counter = _maxCount;
+	_window->OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current)
+		{
+			this->handleOnWindowMove(prev, current);
+		};
+	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
+	Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->findTexture(L"Camera"));
+	renderer->setSprite(sprite);
+	renderer->setScale({ 5, 5 });
+	_window->setCloseable(false);
+	_window->setMoveable(true);
+	int sizeX = size.x * 0.8f;
+	int sizeY = sizeX / 8;
+	_bar = new BarUI({ position.x, position.y + size.y / 2 - sizeY }, { sizeX, sizeY });
 }
 
 Camera::~Camera()
 {
-    _window->OnWindowMoveEvent -= [this](const Vector2& prev, const Vector2& current)
-        {
-            this->handleOnWindowMove(prev, current);
-        };
+	_window->OnWindowMoveEvent -= [this](const Vector2& prev, const Vector2& current)
+		{
+			this->handleOnWindowMove(prev, current);
+		};
 }
 
 void Camera::update()
 {
 	_timer += DELTATIME;
-    if (_captured)
-    {
-        if (_timer > 1)
-        {
-            PatBlt(GetDC(_window->getHWnd()), 0, 0, _size.x, _size.y, WHITENESS);
-            GET_SINGLETON(EventManager)->deleteObject(this);
-        }
-        return;
-    }
 	if (_timer > 1)
 	{
-        _timer = 0;
+		_timer = 0;
 		_counter--;
-        if (_counter == 0)
-        {
-            _captured = true;
-            return;
-        }
+		_bar->setFillAmount((float)_counter / _maxCount);
+		if (_counter == 0)
+		{
+			GET_SINGLETON(EventManager)->deleteObject(this);
+			return;
+		}
 	}
 }
 
 void Camera::render(HDC hdc)
 {
-    HFONT hFont = CreateFont(
-        100,
-        0,
-        0, 0,
-        FW_BOLD,
-        FALSE, FALSE, FALSE,
-        DEFAULT_CHARSET,
-        OUT_DEFAULT_PRECIS,
-        CLIP_DEFAULT_PRECIS,
-        DEFAULT_QUALITY,
-        DEFAULT_PITCH,
-        L"Arial"
-    );
-    GDISelector gdi = GDISelector(hdc, hFont);
-    COLORREF prevColor = SetTextColor(hdc, RGB(255, 255, 255));
-	wstring str = std::format(L"{0}", _counter);
-	utils::Drawer::renderText(hdc, GET_LEFTTOPPOS(_position, _size), str);
-    SetTextColor(hdc, prevColor);
-    componentRender(hdc);
+	_bar->render(hdc);
+	componentRender(hdc);
 }
 
 void Camera::handleOnWindowMove(const Vector2& prev, const Vector2& current)
 {
-    _position = current;
-    _window->moveWindow(_position);
+	_position = current;
+	_window->moveWindow(_position);
+	int sizeX = _size.x * 0.8f;
+	int sizeY = sizeX / 8;
+	_bar->setPosition({ _position.x, _position.y + _size.y / 2 - sizeY });
 }

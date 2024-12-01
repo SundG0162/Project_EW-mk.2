@@ -33,7 +33,7 @@ public:
 		return component;
 	}
 public:
-	void setPos(const Vector2& pos) { _position = pos; }
+	void setPosition(const Vector2& pos) { _position = pos; }
 	const Vector2& getPosition() { return _position; }
 	void setSize(const Vector2& size) { _size = size; }
 	const Vector2& getSize() { return _size; }

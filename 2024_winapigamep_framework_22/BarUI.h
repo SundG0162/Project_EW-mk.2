@@ -9,7 +9,7 @@ public:
 	void update() override;
 	void render(HDC hdc) override;
 public:
-	void setFillAmount(float value) { _fillAmount = value; }
+	void setFillAmount(float value) { _fillAmount = std::clamp(value, 0.f, 1.f); }
 	void setVertical(bool vertical) { _isVertical = vertical; }
 	void setReverse(bool reverse) { _isReverse = reverse; }
 private:

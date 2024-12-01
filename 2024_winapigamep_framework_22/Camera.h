@@ -1,5 +1,6 @@
 #pragma once
 #include "WindowObject.h"
+class BarUI;
 class Camera : public WindowObject
 {
 public:
@@ -11,8 +12,9 @@ public:
 public:
 	void handleOnWindowMove(const Vector2& prev, const Vector2& current);
 public:
-	bool _captured = false;
-	int _counter = 3;
+	BarUI* _bar;
+	int _counter;
+	int _maxCount;
 	float _timer = 0.f;
 };
 

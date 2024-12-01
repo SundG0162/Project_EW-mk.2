@@ -24,14 +24,5 @@ void InGameScene::init()
 		player->setCCTV(cctv);
 		addObject(player, LAYER::PLAYER);
 		addObject(cctv, LAYER::UI);
-		BarUI* bar = new BarUI({ position.x, position.y + 100 }, { 400, 50 });
-		addObject(bar, LAYER::UI);
-	}
-	{
-		WindowUI* windowBar = new WindowUI({ 500,100 }, { 400,50 }, WINDOW_TYPE::NEW, L"Bar.exe");
-		Vector2 size = windowBar->getSize();
-		BarUI* bar = new BarUI({ size.x / 2, size.y / 2 }, { 400,50 });
-		windowBar->setUI(bar);
-		addObject(windowBar, LAYER::UI);
 	}
 }
