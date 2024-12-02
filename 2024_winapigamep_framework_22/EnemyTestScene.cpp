@@ -13,7 +13,6 @@
 #include "Core.h"
 #include "SceneManager.h"
 #include "SpawnManager.h"
-#include <random>
 
 void EnemyTestScene::init()
 {
@@ -51,23 +50,20 @@ void EnemyTestScene::init()
 		target = player;
 	}
 
-	std::random_device rd;
-	std::mt19937 mt;
-	mt.seed(rd());
-
-	std::uniform_int_distribution<float> ranAngle(0,360.f);
-
 	{
 		LongHead* longhead = new LongHead();
-		longhead->setPos({ 0,0 });
+		longhead->setPosition({ 0,0 });
 		longhead->SetTarget(target);
 		addObject(longhead, LAYER::ENEMY);
 	}
 	{
+		Vector2 pos = utils::ExMath::getRandomVector();
 		LongHead* longhead = new LongHead({ 0,0 }, target);
+		longhead->setPosition(GET_RANDOMDIR);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.f });
 	}
 	{
+		
 		LongHead* longhead = new LongHead({ 0,0 }, target);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.5f });
 	}

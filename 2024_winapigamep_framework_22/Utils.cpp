@@ -120,3 +120,14 @@ const Vector2& utils::CoordinateSync::nonClientToClient(const RECT& windowRect, 
     fixedPosition.y = position.y - (windowRect.top - clientRect.top);
     return fixedPosition;
 }
+
+utils::ExMath::ExMath()
+{
+    mt.seed(rd());
+}
+
+float utils::ExMath::getRandomValue(float maxValue)
+{
+    std::uniform_int_distribution<float> ran(0.f, maxValue);
+    return ran(mt);
+}
