@@ -1,10 +1,10 @@
 #pragma once
-#include "WindowObject.h"
+#include "CaptureObject.h"
 class BarUI;
 class Enemy;
 class FadeInOut;
 class Collider;
-class Camera : public WindowObject
+class Camera : public CaptureObject
 {
 public:
 	Camera(const Vector2& position, const Vector2& size);
@@ -14,10 +14,7 @@ public:
 	void render(HDC hdc) override;
 public:
 	void handleOnWindowMove(const Vector2& prev, const Vector2& current);
-	void handleOnCollisionEnter(Collider* other);
-	void handleOnCollisionExit(Collider* other);
-public:
-	vector<Enemy*> _targets;
+private:
 	FadeInOut* _fadeOut;
 	BarUI* _bar;
 	int _counter;

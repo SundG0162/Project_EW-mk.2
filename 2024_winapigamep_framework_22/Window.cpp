@@ -144,7 +144,6 @@ void Window::close()
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			SendMessage(_hWnd, WM_CLOSE, 0, 0);
-			DestroyWindow(_hWnd);
 			GET_SINGLETON(WindowManager)->removeWindow(this);
 			delete this;
 		};

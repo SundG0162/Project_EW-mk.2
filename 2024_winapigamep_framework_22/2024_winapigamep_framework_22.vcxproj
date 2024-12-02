@@ -171,6 +171,7 @@
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="Beacon.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CaptureObject.h" />
     <ClInclude Include="CCTV.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="Beacon.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CaptureObject.cpp" />
     <ClCompile Include="CCTV.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
