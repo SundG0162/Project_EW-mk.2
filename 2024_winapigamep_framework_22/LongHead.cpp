@@ -9,7 +9,7 @@ LongHead::LongHead()
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();
 	GET_SINGLETON(ResourceManager)->loadTexture(L"LongHead", L"Texture\\LongHead.bmp");
 	sp->setSprite(utils::SpriteParser::textureToSprite(
-		GET_SINGLETON(ResourceManager)->findTexture(L"LongHead")));
+		GET_SINGLETON(ResourceManager)->getTexture(L"LongHead")));
 	Collider* collider = addComponent<Collider>();
 	cout << "setted";
 	//collider->enterCollision
@@ -17,12 +17,12 @@ LongHead::LongHead()
 
 LongHead::LongHead(const Vector2& pos, Object* target)
 {
-	setPos(pos);
+	_position = pos;
 	SetTarget(target);
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();
 	GET_SINGLETON(ResourceManager)->loadTexture(L"LongHead", L"Texture\\LongHead.bmp");
 	sp->setSprite(utils::SpriteParser::textureToSprite(
-		GET_SINGLETON(ResourceManager)->findTexture(L"LongHead")));
+		GET_SINGLETON(ResourceManager)->getTexture(L"LongHead")));
 	Collider* collider = addComponent<Collider>();
 }
 

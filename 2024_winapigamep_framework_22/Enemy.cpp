@@ -49,10 +49,9 @@ void Enemy::Move()
 		return;
 	}
 	Vector2 targetpos = _target->getPosition();
-	Vector2 mypos = getPosition();
-	Vector2 direction = targetpos - mypos;
+	Vector2 direction = targetpos - _position;
 	direction.Normalize();
-	setPos(direction * (_moveSpeed * DELTATIME) + mypos);
+	_position = direction * (_moveSpeed * DELTATIME) + _position;
 }
 
 void Enemy::GetDamage(float damage)
@@ -63,7 +62,6 @@ void Enemy::GetDamage(float damage)
 
 void Enemy::GetStunned(float time)
 {
-	//_stunTime = ( _stunTime > time ? _stunTime : time)
 	_stunTime = max(_stunTime, time);
 	_isMovable = false;
 }

@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "SpawnManager.h"
 #include "Scene.h"
-#include "SceneManager.h"
+#include "EventManager.h"
 #include "TimeManager.h"
 
 void SpawnManager::init()
@@ -17,7 +17,7 @@ void SpawnManager::update()
 	if (topInfo.spawnTime < currentTime)
 	{
 		cout << "spawned" << endl;
-		GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(topInfo.spawnTarget, LAYER::UI);
+		GET_SINGLETON(EventManager)->createObject(topInfo.spawnTarget, LAYER::UI);
 		spawnQueue.pop();
 	}
 }
