@@ -9,6 +9,8 @@
 #include "InputManager.h"
 #include "BarUI.h"
 #include "FadeInOut.h"
+#include "Collider.h"
+#include "Enemy.h"
 
 Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Camera.exe")
 {
@@ -29,6 +31,12 @@ Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(posi
 	//이 아래 코드는 쓸데없이 연산을 늘리는게 아니라 윈도우 밑면과의 여백을 주기위해 굳이 이렇게 연산하는 것입니다.
 	_bar = new BarUI({ position.x, position.y + size.y / 2 - size.x / 8 }, { sizeX, sizeY });
 	_fadeOut = nullptr;
+
+	Collider* collider = addComponent<Collider>();
+	collider->setSize(size);
+	collider->OnCollisionEnterEvent += [this](Collider* other) {this->handleOnCollisionEnter(other); };
+	collider->OnCollisionExitEvent += [this](Collider* other) {this->handleOnCollisionExit(other); };
+	collider->setFollowing(false);
 }
 
 Camera::~Camera()
@@ -37,10 +45,17 @@ Camera::~Camera()
 		{
 			this->handleOnWindowMove(prev, current);
 		};
+	Collider* collider = getComponent<Collider>();
+	collider->OnCollisionEnterEvent -= [this](Collider* other) {this->handleOnCollisionEnter(other); };
+	collider->OnCollisionExitEvent -= [this](Collider* other) {this->handleOnCollisionExit(other); };
 }
 
 void Camera::update()
 {
+	Collider* collider = getComponent<Collider>();
+	RECT rect = { 0,0,_size.x,_size.y };
+	GetWindowRect(_window->getHWnd(), &rect);
+	collider->setPosition(utils::CoordinateSync::nonClientToClient(rect, _position));
 	_timer += DELTATIME;
 	if (_fadeOut && !_window->isTweening())
 	{
@@ -70,6 +85,11 @@ void Camera::update()
 			input.type = INPUT_MOUSE;
 			input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
 			SendInput(1, &input, sizeof(INPUT));
+			for (Enemy* enemy : _targets)
+			{
+				enemy->GetDamage(_attackDamage);
+				enemy->GetStunned(1.2f);
+			}
 			_fadeOut = new FadeInOut(_position, _size);
 			_fadeOut->init(0.8f, FADE_TYPE::FADE_OUT);
 			_window->setMoveable(false);
@@ -93,4 +113,26 @@ void Camera::handleOnWindowMove(const Vector2& prev, const Vector2& current)
 	_window->moveWindow(_position);
 	int sizeY = _size.x / 8;
 	_bar->setPosition({ _position.x, _position.y + _size.y / 2 - sizeY });
+}
+
+void Camera::handleOnCollisionEnter(Collider* other)
+{
+	Object* obj = other->getOwner();
+	Enemy* enemy = dynamic_cast<Enemy*>(obj);
+	if (enemy)
+		_targets.push_back(enemy);
+}
+
+void Camera::handleOnCollisionExit(Collider* other)
+{
+	Object* obj = other->getOwner();
+	Enemy* enemy = dynamic_cast<Enemy*>(obj);
+	if (enemy)
+	{
+		auto iter = std::find(_targets.begin(), _targets.end(), enemy);
+		if (iter != _targets.end())
+		{
+			_targets.erase(iter);
+		}
+	}
 }

@@ -12,7 +12,6 @@ CCTV::CCTV(const Vector2& position, const Vector2& size) : WindowObject(position
 	collider->OnCollisionEnterEvent += [this](Collider* other) {this->handleOnCollisionEnter(other); };
 	collider->OnCollisionExitEvent += [this](Collider* other) {this->handleOnCollisionExit(other); };
 	collider->setFollowing(false);
-	SetActiveWindow(_window->getHWnd());
 }
 
 CCTV::~CCTV()
@@ -50,7 +49,7 @@ void CCTV::handleOnCollisionExit(Collider* other)
 	Enemy* enemy = dynamic_cast<Enemy*>(obj);
 	if (enemy)
 	{
-		auto iter = find(_targets.begin(), _targets.end(), enemy);
+		auto iter = std::find(_targets.begin(), _targets.end(), enemy);
 		if (iter != _targets.end())
 		{
 			_targets.erase(iter);

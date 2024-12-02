@@ -19,7 +19,6 @@ public:
 	void attack();
 private:
 	vector<Enemy*> _targets;
-
 	int _attackDamage = 1;
 	float _attackTimer = 0.f;
 	float _attackTime = 1.5f;
