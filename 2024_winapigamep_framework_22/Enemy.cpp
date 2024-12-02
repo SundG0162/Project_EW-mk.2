@@ -11,7 +11,7 @@ Enemy::Enemy()
 	, _maxHealth(5.f)
 	, _curHealth(5.f)
 	, _moveSpeed(50.f)
-	,_isMovable(true)
+	, _isMovable(true)
 {
 
 	/*Texture* texture = GET_SINGLETON(ResourceManager)->textureFind(L"Filename");
@@ -30,6 +30,14 @@ void Enemy::update()
 {
 	componentUpdate();
 	Move();
+	if (_whiteTimer > 0)
+	{
+		_whiteTimer -= DELTATIME;
+		if (_whiteTimer <= 0)
+		{
+			getComponent<SpriteRenderer>()->setWhiteness(false);
+		}
+	}
 }
 
 void Enemy::render(HDC hdc)
@@ -57,6 +65,8 @@ void Enemy::Move()
 void Enemy::GetDamage(float damage)
 {
 	_curHealth -= damage;
+	getComponent<SpriteRenderer>()->setWhiteness(true);
+	_whiteTimer = 0.3f;
 	if (_curHealth < 0) GET_SINGLETON(EventManager)->deleteObject(this);
 }
 

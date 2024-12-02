@@ -20,6 +20,7 @@ public:
 
 private:
     Vector2 _moveVector;
+    float _whiteTimer;
     float _maxHealth;
     float _curHealth;
     bool _isMovable;
