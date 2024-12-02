@@ -1,6 +1,7 @@
 #pragma once
 #include "WindowObject.h"
 class Collider;
+class Enemy;
 class CCTV : public WindowObject
 {
 public:
@@ -14,6 +15,12 @@ public:
 	void handleOnCollisionExit(Collider* other);
 public:
 	void localMove(const Vector2& move);
+	void tryAttack();
+	void attack();
 private:
-	vector<Object*> _targets;
+	vector<Enemy*> _targets;
+
+	int _attackDamage = 1;
+	float _attackTimer = 0.f;
+	float _attackTime = 1.5f;
 };

@@ -17,7 +17,7 @@ void SpawnManager::update()
 	if (topInfo.spawnTime < currentTime)
 	{
 		cout << "spawned" << endl;
-		GET_SINGLETON(EventManager)->createObject(topInfo.spawnTarget, LAYER::UI);
+		GET_SINGLETON(EventManager)->createObject(topInfo.spawnTarget, LAYER::ENEMY);
 		spawnQueue.pop();
 	}
 }

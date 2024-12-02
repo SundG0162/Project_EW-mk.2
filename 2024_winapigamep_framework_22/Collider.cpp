@@ -7,6 +7,7 @@ Collider::Collider()
 	: _size(30.f, 30.f)
 	, _position(0.f, 0.f)
 	, _offset(0.f, 0.f)
+	, _id(_nextID++)
 {
 }
 
@@ -16,6 +17,7 @@ Collider::~Collider()
 
 void Collider::lateUpdate()
 {
+	if (!_following) return;
 	Vector2 vPos = _owner->getPosition();
 	_position = vPos + _offset;
 }

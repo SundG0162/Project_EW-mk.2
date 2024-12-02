@@ -46,9 +46,12 @@ void Camera::update()
 	{
 		if (_timer > 0.7f)
 		{
+			GET_SINGLETON(EventManager)->deleteObject(_bar);
+			_bar = nullptr;
 			_window->closeTween(0);
 			_window->OnTweenEndEvent += [this]()
 				{
+					_window->setCloseable(true);
 					GET_SINGLETON(EventManager)->deleteObject(_fadeOut);
 					GET_SINGLETON(EventManager)->deleteObject(this);
 				};
@@ -63,17 +66,15 @@ void Camera::update()
 			_bar->setFillAmount((float)_counter / _maxCount);
 		if (_counter == -1)
 		{
-			_fadeOut = new FadeInOut(_position, _size);
-			_fadeOut->init(0.8f, FADE_TYPE::FADE_OUT);
-			_window->setMoveable(false);
-			getComponent<SpriteRenderer>()->setSprite(nullptr);
-			GET_SINGLETON(EventManager)->deleteObject(_bar);
-			_bar = nullptr;
-			GET_SINGLETON(EventManager)->createObject(_fadeOut, LAYER::EFFECT);
 			INPUT input = { 0 };
 			input.type = INPUT_MOUSE;
 			input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
 			SendInput(1, &input, sizeof(INPUT));
+			_fadeOut = new FadeInOut(_position, _size);
+			_fadeOut->init(0.8f, FADE_TYPE::FADE_OUT);
+			_window->setMoveable(false);
+			getComponent<SpriteRenderer>()->setSprite(nullptr);
+			GET_SINGLETON(EventManager)->createObject(_fadeOut, LAYER::EFFECT);
 			return;
 		}
 	}

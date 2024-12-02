@@ -12,7 +12,7 @@ public:
     virtual void render(HDC hdc) override;
 
     void Move();
-    void GetDamage(float damage);
+    void GetDamage(int damage);
     void GetStunned(float time) ;
 
     void SetMaxHP(float hp) { _maxHealth = hp; _curHealth = hp; }
@@ -21,8 +21,8 @@ public:
 private:
     Vector2 _moveVector;
     float _whiteTimer;
-    float _maxHealth;
-    float _curHealth;
+    int _maxHealth;
+    int _curHealth;
     bool _isMovable;
     float _moveSpeed;
     float _stunTime;

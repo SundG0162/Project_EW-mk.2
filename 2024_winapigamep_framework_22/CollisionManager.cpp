@@ -28,8 +28,6 @@ void CollisionManager::checkLayer(LAYER _left, LAYER _right)
 	//Row = min(Row, Col);
 	if (Row > Col)
 		std::swap(Row, Col);
-	//m_arrLayer[Row];
-	//Col;
 
 	//// 비트 연산
 	// 체크가 되어있다면
@@ -43,7 +41,6 @@ void CollisionManager::checkLayer(LAYER _left, LAYER _right)
 	{
 		_layers[Row] |= (1 << Col);
 	}
-	int a = 0;
 }
 
 void CollisionManager::checkReset()
@@ -72,7 +69,7 @@ void CollisionManager::collisionLayerupdate(LAYER _left, LAYER _right)
 				continue;
 
 			COLLIDER_ID colliderID; // 두 충돌체로만 만들 수 있는 ID
- 			colliderID.left_ID = pLeftCollider->getID();
+			colliderID.left_ID = pLeftCollider->getID();
 			colliderID.right_ID = pRightCollider->getID();
 
 			iter = _coliisionInfoMap.find(colliderID.ID);
@@ -84,7 +81,6 @@ void CollisionManager::collisionLayerupdate(LAYER _left, LAYER _right)
 				//m_mapCollisionInfo[colliderID.ID] = false;
 				iter = _coliisionInfoMap.find(colliderID.ID);
 			}
-
 			if (isCollision(pLeftCollider, pRightCollider))
 			{
 				// 이전에도 충돌중

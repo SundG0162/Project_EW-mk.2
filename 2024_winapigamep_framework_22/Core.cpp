@@ -32,6 +32,8 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 	GET_SINGLETON(ResourceManager)->init();
 	GET_SINGLETON(SceneManager)->init();
 	GET_SINGLETON(SpawnManager)->init();
+	GET_SINGLETON(CollisionManager)->checkReset();
+	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::UI, LAYER::ENEMY);
 
 	//m_obj.SetPos(Vec2(SCREEN_WIDTH / 2
 	//				,SCREEN_HEIGHT/ 2));
@@ -74,8 +76,8 @@ void Core::mainupdate()
 	// === Manager update === 
 	GET_SINGLETON(TimeManager)->update();
 	GET_SINGLETON(InputManager)->update();
-	GET_SINGLETON(SceneManager)->update();
 	GET_SINGLETON(CollisionManager)->update();
+	GET_SINGLETON(SceneManager)->update();
 	GET_SINGLETON(SpawnManager)->update();
 }
 

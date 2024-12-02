@@ -64,29 +64,19 @@ void BaseWindow::createWindow()
 	int ResolutionX = GetSystemMetrics(SM_CXSCREEN);
 	int ResolutionY = GetSystemMetrics(SM_CYSCREEN);
 
-	int Winposx = 0;
-	int Winposy = 0;
 
 	_hWnd = CreateWindowW(
 		L"2-2 Gamep", // 윈도우 클래스 식별자
 		L"준용의 윈도우",   // 제목
-		WS_OVERLAPPEDWINDOW, // 윈도우 어떤 스타일로 만들것인가
-		Winposx,  // ★ 띄울 위치의 LEFT
-		Winposy,             // ★ 띄울 위치의 TOP
+		WS_POPUP, // 윈도우 어떤 스타일로 만들것인가
+		0,  // ★ 띄울 위치의 LEFT
+		0,             // ★ 띄울 위치의 TOP
 		SCREEN_WIDTH,             // ★ 해상도X
 		SCREEN_HEIGHT,             // ★ 해상도Y
 		nullptr,       // 부모 윈도우 어쩌구라서 무시
 		nullptr,       // 메뉴쓸꺼냐
 		_hInstance,     // 내 프로그램 인스턴스 값 
 		nullptr);      // 자식 윈도우 관련된것 무시
-
-	// 윈도우 사이즈 조정(타이틀, 메뉴 계싼하지 않도록)
-	RECT rt = { 0 , 0,
-				 0 + SCREEN_WIDTH,
-				 0 + SCREEN_HEIGHT };
-	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
-	MoveWindow(_hWnd, Winposx, Winposy,
-		rt.right - rt.left, rt.bottom - rt.top, false);
 }
 
 void BaseWindow::showWindow(int nCmdShow)

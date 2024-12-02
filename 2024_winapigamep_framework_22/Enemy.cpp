@@ -62,12 +62,16 @@ void Enemy::Move()
 	_position = direction * (_moveSpeed * DELTATIME) + _position;
 }
 
-void Enemy::GetDamage(float damage)
+void Enemy::GetDamage(int damage)
 {
 	_curHealth -= damage;
 	getComponent<SpriteRenderer>()->setWhiteness(true);
-	_whiteTimer = 0.3f;
-	if (_curHealth < 0) GET_SINGLETON(EventManager)->deleteObject(this);
+	_whiteTimer = 0.2f;
+	if (_curHealth <= 0)
+	{
+		_isDead = true;
+		GET_SINGLETON(EventManager)->deleteObject(this);
+	}
 }
 
 void Enemy::GetStunned(float time)
