@@ -27,8 +27,8 @@ void InGameScene::init()
 	addObject(player, LAYER::PLAYER);
 	addObject(cctv, LAYER::UI);
 
-	Beacon* beacon = new Beacon({ position.x - 500, position.y }, { 400,400 });
-	addObject(beacon, LAYER::UI);
+	/*Beacon* beacon = new Beacon({ position.x - 500, position.y }, { 300,300 });
+	addObject(beacon, LAYER::UI);*/
 	{
 		LongHead* longhead = new LongHead();
 		longhead->setPosition({ 0,0 });

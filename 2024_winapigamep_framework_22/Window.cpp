@@ -144,7 +144,6 @@ void Window::openTween(float delayTime, TWEEN_TYPE type)
 
 void Window::closeTween(float delayTime, TWEEN_TYPE type)
 {
-	setWindowName(L"");
 	_tweenType = type;
 	_delayTime = delayTime;
 	_startSize = _size;

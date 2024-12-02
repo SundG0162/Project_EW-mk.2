@@ -40,10 +40,6 @@ void Player::update()
 	movement.Normalize();
 	movement *= 300 * DELTATIME;
 	_cctv->localMove(movement);
-	if (GET_KEYDOWN(KEY_TYPE::G))
-	{
-		getComponent<SpriteRenderer>()->setWhiteness(true);
-	}
 	if (GET_KEYDOWN(KEY_TYPE::SPACE))
 	{
 		GET_SINGLETON(Core)->OnMessageProcessEvent += [this]() 
