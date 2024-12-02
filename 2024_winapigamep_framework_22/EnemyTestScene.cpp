@@ -13,6 +13,7 @@
 #include "Core.h"
 #include "SceneManager.h"
 #include "SpawnManager.h"
+#include <random>
 
 void EnemyTestScene::init()
 {
@@ -50,6 +51,11 @@ void EnemyTestScene::init()
 		target = player;
 	}
 
+	std::random_device rd;
+	std::mt19937 mt;
+	mt.seed(rd());
+
+	std::uniform_int_distribution<float> ranAngle(0,360.f);
 
 	{
 		LongHead* longhead = new LongHead();
