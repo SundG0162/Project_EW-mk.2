@@ -60,13 +60,17 @@ void Camera::update()
 		_timer = 0;
 		_counter--;
 		_bar->setFillAmount((float)_counter / _maxCount);
-		if (_counter == 0)
+		if (_counter == -1)
 		{
 			_fadeOut = new FadeInOut(_position, _size);
 			_fadeOut->init(0.8f, FADE_TYPE::FADE_OUT);
 			_window->setMoveable(false);
 			getComponent<SpriteRenderer>()->setSprite(nullptr);
 			GET_SINGLETON(EventManager)->createObject(_fadeOut, LAYER::EFFECT);
+			INPUT input = { 0 };
+			input.type = INPUT_MOUSE;
+			input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
+			SendInput(1, &input, sizeof(INPUT));
 			return;
 		}
 	}
