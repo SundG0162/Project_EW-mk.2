@@ -5,19 +5,18 @@
 
 CaptureObject::CaptureObject(const Vector2& position, const Vector2& size, const WINDOW_TYPE& type, const wstring& name) : WindowObject(position, size, type, name)
 {
-	Collider* collider = addComponent<Collider>();
-	collider->setSize(size);
-	collider->OnCollisionEnterEvent += [this](Collider* other) {this->handleOnCollisionEnter(other); };
-	collider->OnCollisionStayEvent += [this](Collider* other) {this->handleOnCollisionStay(other); };
-	collider->OnCollisionExitEvent += [this](Collider* other) {this->handleOnCollisionExit(other); };
+	_collider = addComponent<Collider>();
+	_collider->setSize(size);
+	_collider->OnCollisionEnterEvent += [this](Collider* other) {this->handleOnCollisionEnter(other); };
+	_collider->OnCollisionStayEvent += [this](Collider* other) {this->handleOnCollisionStay(other); };
+	_collider->OnCollisionExitEvent += [this](Collider* other) {this->handleOnCollisionExit(other); };
 }
 
 CaptureObject::~CaptureObject()
 {
-	Collider* collider = getComponent<Collider>();
-	collider->OnCollisionEnterEvent -= [this](Collider* other) {this->handleOnCollisionEnter(other); };
-	collider->OnCollisionStayEvent -= [this](Collider* other) {this->handleOnCollisionStay(other); };
-	collider->OnCollisionExitEvent -= [this](Collider* other) {this->handleOnCollisionExit(other); };
+	_collider->OnCollisionEnterEvent -= [this](Collider* other) {this->handleOnCollisionEnter(other); };
+	_collider->OnCollisionStayEvent -= [this](Collider* other) {this->handleOnCollisionStay(other); };
+	_collider->OnCollisionExitEvent -= [this](Collider* other) {this->handleOnCollisionExit(other); };
 }
 
 void CaptureObject::update()

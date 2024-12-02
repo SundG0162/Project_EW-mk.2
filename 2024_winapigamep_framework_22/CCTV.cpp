@@ -7,7 +7,7 @@
 
 CCTV::CCTV(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"CCTV.exe")
 {
-	getComponent<Collider>()->setFollowing(false);
+	_collider->setFollowing(false);
 }
 
 CCTV::~CCTV()
@@ -17,10 +17,9 @@ CCTV::~CCTV()
 void CCTV::update()
 {
 	CaptureObject::update();
-	Collider* collider = getComponent<Collider>();
 	RECT rect = {0,0,_size.x,_size.y};
 	GetWindowRect(_window->getHWnd(), &rect);
-	collider->setPosition(utils::CoordinateSync::nonClientToClient(rect, _position));
+	_collider->setPosition(utils::CoordinateSync::nonClientToClient(rect, _position));
 	tryAttack();
 }
 

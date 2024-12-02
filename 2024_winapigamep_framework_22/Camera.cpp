@@ -31,7 +31,7 @@ Camera::Camera(const Vector2& position, const Vector2& size) : CaptureObject(pos
 	//이 아래 코드는 쓸데없이 연산을 늘리는게 아니라 윈도우 밑면과의 여백을 주기위해 굳이 이렇게 연산하는 것입니다.
 	_bar = new BarUI({ position.x, position.y + size.y / 2 - size.x / 8 }, { sizeX, sizeY });
 	_fadeOut = nullptr;
-	getComponent<Collider>()->setFollowing(false);
+	_collider->setFollowing(false);
 }
 
 Camera::~Camera()
@@ -45,10 +45,9 @@ Camera::~Camera()
 void Camera::update()
 {
 	CaptureObject::update();
-	Collider* collider = getComponent<Collider>();
 	RECT rect = { 0,0,_size.x,_size.y };
 	GetWindowRect(_window->getHWnd(), &rect);
-	collider->setPosition(utils::CoordinateSync::nonClientToClient(rect, _position));
+	_collider->setPosition(utils::CoordinateSync::nonClientToClient(rect, _position));
 	_timer += DELTATIME;
 	if (_fadeOut && !_window->isTweening())
 	{

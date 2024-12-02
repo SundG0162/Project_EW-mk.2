@@ -16,5 +16,6 @@ public:
 protected:
 	vector<Enemy*> _targets;
 	vector<Enemy*> _temp;
+	Collider* _collider;
 };
 
