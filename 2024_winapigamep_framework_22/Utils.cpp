@@ -121,13 +121,12 @@ const Vector2& utils::CoordinateSync::nonClientToClient(const RECT& windowRect, 
     return fixedPosition;
 }
 
-utils::ExMath::ExMath()
+float utils::ExMath::getRandomValue(float minValue, float maxValue)
 {
-    mt.seed(rd());
-}
+    static std::random_device randDev;
+    static std::mt19937 twister(randDev());
+    static std::uniform_real_distribution<float> dist;
 
-float utils::ExMath::getRandomValue(float maxValue)
-{
-    std::uniform_int_distribution<float> ran(0.f, maxValue);
-    return ran(mt);
+    dist.param(std::uniform_real_distribution<float>::param_type(minValue, maxValue));
+    return dist(twister);
 }

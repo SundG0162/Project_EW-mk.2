@@ -58,13 +58,16 @@ void EnemyTestScene::init()
 	}
 	{
 		Vector2 pos = utils::ExMath::getRandomVector();
-		LongHead* longhead = new LongHead({ 0,0 }, target);
-		longhead->setPosition(GET_RANDOMDIR);
+		pos.x *= SCREEN_WIDTH/2;
+		pos.y *= SCREEN_HEIGHT/2;
+		LongHead* longhead = new LongHead(pos, target);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.f });
 	}
 	{
-		
-		LongHead* longhead = new LongHead({ 0,0 }, target);
+		Vector2 pos = utils::ExMath::getRandomVector();
+		pos.x *= SCREEN_WIDTH/2;
+		pos.y *= SCREEN_HEIGHT/2;
+		LongHead* longhead = new LongHead(pos, target);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.5f });
 	}
 }
@@ -73,7 +76,7 @@ void EnemyTestScene::render(HDC hDC)
 {
 	Vector2 middle = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 	Vector2 size = { SCREEN_WIDTH, SCREEN_HEIGHT };
-	ELLIPSE_render(GET_SINGLETON(Core)->getBackDC(), middle.x, middle.y, size.x, size.y);
+	//ELLIPSE_render(GET_SINGLETON(Core)->getBackDC(), middle.x, middle.y, size.x, size.y);
 	//utils::Drawer::renderCircleColor(hDC, middle, 500, RGB(255, 0, 0), RGB(255, 0, 0));
 	Scene::render(hDC);
 }

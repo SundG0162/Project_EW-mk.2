@@ -1,5 +1,6 @@
 #pragma once
 #include <random>
+#include <iostream>
 class Sprite;
 class Texture;
 namespace utils
@@ -43,8 +44,7 @@ namespace utils
 	class ExMath //ExtendedMathmatics의 줄임말, 사실상 회전행렬과 무작위값 전용 클래스
 	{
 	public:
-		ExMath();
-		float getRandomValue(float maxValue); //mt써서 무작위 값 얻는 코드
+		static float getRandomValue(float minValue, float maxValue); //mt써서 무작위 값 얻는 코드
 		static void rotateVector(Vector2& vector, float angle) // 회전 행렬 써서 회전시킴
 		{
 			float x = cosf(angle)*vector.x - sinf(angle)*vector.y;
@@ -52,14 +52,12 @@ namespace utils
 			vector.x = x;
 			vector.y = y;
 		}
-		Vector2& getRandomVector()//위 두 코드 합친 코드 - 잘 작동하는지 확인 안함
+		static Vector2& getRandomVector()//위 두 코드 합친 코드 - 잘 작동하는지 확인 안함
 		{
 			Vector2 v = { 1,0 };
-			rotateVector(v, getRandomValue(360.f));
+			rotateVector(v, getRandomValue(0.f, 360.f));
+			std::cout << v.x << " " << v.y << std::endl;
 			return v;
 		}
-	private:
-		std::random_device rd;
-		std::mt19937 mt;
 	};
 };
