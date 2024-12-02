@@ -38,6 +38,6 @@ namespace utils
 	class CoordinateSync
 	{
 	public:
-		static const Vector2& nonClientToClient(const RECT& windowRect, const Vector2& position);
+		static Vector2 nonClientToClient(const RECT& windowRect, const Vector2& position);
 	};
 };
