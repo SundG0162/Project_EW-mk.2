@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "EventManager.h"
+#include "Core.h"
+#include "SceneManager.h"
 #include "Object.h"
 void EventManager::update()
 {
@@ -28,6 +30,32 @@ void EventManager::deleteObject(Object* _pObj)
 	}
 }
 
+void EventManager::createObject(Object* obj, LAYER layer)
+{
+	Event eve = {};
+	eve.eventType = EVENT_TYPE::CREATE_OBJECT;
+	eve.object = obj;
+	eve.objectLayer = layer;
+
+	if (std::find(_events.begin(), _events.end(), eve) == _events.end())
+	{
+		_events.push_back(eve);
+	}
+}
+
+void EventManager::excludeObject(Object* obj, LAYER layer)
+{
+	Event eve = {};
+	eve.eventType = EVENT_TYPE::EXCLUDE_OBJECT;
+	eve.object = obj;
+	eve.objectLayer = layer;
+
+	if (std::find(_events.begin(), _events.end(), eve) == _events.end())
+	{
+		_events.push_back(eve);
+	}
+}
+
 void EventManager::excute(const Event& _eve)
 {
 	switch (_eve.eventType)
@@ -40,7 +68,15 @@ void EventManager::excute(const Event& _eve)
 	}
 	break;
 	case EVENT_TYPE::CREATE_OBJECT:
+	{
+		GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(_eve.object, _eve.objectLayer);
+	}
 		break;
+	case EVENT_TYPE::EXCLUDE_OBJECT:
+	{
+		GET_SINGLETON(SceneManager)->getCurrentScene()->removeObject(_eve.object, _eve.objectLayer);
+	}
+	break;
 	case EVENT_TYPE::SCENE_CHANGE:
 		break;
 	}

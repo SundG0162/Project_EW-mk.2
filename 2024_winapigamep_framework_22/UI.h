@@ -1,9 +1,9 @@
 #pragma once
-#include "WindowObject.h"
-class UI : public WindowObject
+#include "Object.h"
+class UI : public Object
 {
 public:
-	UI(const Vector2& position, const Vector2& size, WINDOW_TYPE type, const wstring& name = L"");
+	UI();
 	virtual ~UI();
 };
 

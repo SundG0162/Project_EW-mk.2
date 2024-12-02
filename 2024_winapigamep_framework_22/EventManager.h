@@ -17,6 +17,8 @@ class EventManager
 public:
 	void update();
 	void deleteObject(Object* _pObj);
+	void createObject(Object* obj, LAYER layer);
+	void excludeObject(Object* obj, LAYER layer);
 	// todo..
 private:
 	void excute(const Event& _eve);

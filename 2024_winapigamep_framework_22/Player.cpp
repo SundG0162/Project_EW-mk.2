@@ -6,7 +6,7 @@
 #include "TimeManager.h"
 #include "SpriteRenderer.h"
 #include "ResourceManager.h"
-#include "SceneManager.h"
+#include "EventManager.h"
 #include "Scene.h"
 #include "Sprite.h"
 #include "Camera.h"
@@ -17,7 +17,7 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_window->setCloseable(false);
 	_cctv = nullptr;
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
-	Sprite* sprite = utils::SpriteParser::textureToSprite(GET_SINGLETON(ResourceManager)->findTexture(L"Computer"));
+	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Computer");
 	spriteRenderer->setSprite(sprite);
 	spriteRenderer->setScale({ 3,3 });
 }
@@ -45,7 +45,7 @@ void Player::update()
 		GET_SINGLETON(Core)->OnMessageProcessEvent += [this]() 
 			{
 				Camera* camera = new Camera(_position, { 500,500 });
-				GET_SINGLETON(SceneManager)->getCurrentScene()->addObject(camera, LAYER::UI);
+				GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
 			};
 	}
 }

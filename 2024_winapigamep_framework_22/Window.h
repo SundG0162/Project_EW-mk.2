@@ -14,7 +14,6 @@ public:
 public:
 	void openTween(float delayTime = 1.f);
 	void closeTween(float delayTime = 1.f);
-	void handleOnWindowMoveEvent(const Vector2& prevPos, const Vector2& curPos);
 	void close();
 	void moveWindow(const Vector2& pos);
 public:
@@ -26,7 +25,10 @@ public:
 	const HWND& getHWnd() { return _hWnd; }
 	void setCloseable(bool closeable) { _closeable = closeable; }
 	const bool& getCloseable() { return _closeable; }
+	void setMoveable(bool moveable) { _moveable = moveable; }
+	const bool& getMoveable() { return _moveable; }
 	const bool& isDead() { return _isDead; }
+	const bool& isTweening() { return !_isTweenEnd; }
 public:
 	Action<const Vector2&, const Vector2&> OnWindowMoveEvent;
 	Action<> OnTweenEndEvent;
@@ -37,11 +39,11 @@ protected:
 	Vector2 _position;
 	Vector2 _size;
 	Vector2 _leftTopPosition;
-	RECT _prevRect;
 	float _timer = 0.f;
 	float _delayTime = 0.f;
 	Vector2 _goalSize;
 	Vector2 _startSize;
+	bool _moveable = false;
 	bool _isTweenEnd = true;
 	bool _closeable = true;
 	bool _isDead = false;

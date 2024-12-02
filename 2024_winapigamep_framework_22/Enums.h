@@ -7,6 +7,7 @@ enum class LAYER
 	PROJECTILE,
 	ENEMY,
 	UI,
+	EFFECT,
 	END = 30
 };
 
@@ -27,6 +28,7 @@ enum class EVENT_TYPE
 {
 	CREATE_OBJECT,
 	DELETE_OBJECT,
+	EXCLUDE_OBJECT,
 	SCENE_CHANGE,
 	END,
 };
