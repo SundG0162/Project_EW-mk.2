@@ -21,15 +21,14 @@ AnimationClip::~AnimationClip()
 
 void AnimationClip::update()
 {
-	if (_currentFrame >= _sprites.size() - 1)
-	{
-		return;
-	}
 	_timer += DELTATIME;
 	if (_timer >= _duration)
 	{
 		_timer = 0.f;
 		_currentFrame++;
+		if (_isRepeat)
+			if (_currentFrame == _sprites.size())
+				_currentFrame = 0;
 	}
 	_spriteRenderer->setSprite(_sprites[_currentFrame]);
 }

@@ -17,9 +17,11 @@ public:
 	void create(vector<Sprite*>& sprites, float duration);
 public:
 	void setFrame(int frame) { _currentFrame = frame; }
+	void setRepeat(bool repeat) { _isRepeat = repeat; }
 private:
 	Animator* _animator;
 	SpriteRenderer* _spriteRenderer;
+	bool _isRepeat;
 	int _currentFrame;
 	float _duration;
 	float _timer;
