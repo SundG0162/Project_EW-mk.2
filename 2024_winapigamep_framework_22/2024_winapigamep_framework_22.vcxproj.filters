@@ -157,18 +157,11 @@
     <ClInclude Include="WindowManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
-    <ClInclude Include="ImageUI.h" />
-    <ClInclude Include="TextUI.h" />
     <ClInclude Include="Enemy.h">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="CopyWindow.h" />
-    <ClInclude Include="NewWindow.h" />
     <ClInclude Include="EnemyTestScene.h">
       <Filter>Engine\04. Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Slider.h">
-      <Filter>Engine\03. Object\UI</Filter>
     </ClInclude>
     <ClInclude Include="LongHead.h">
       <Filter>Engine\03. Object\Enemy</Filter>
@@ -193,6 +186,33 @@
     </ClInclude>
     <ClInclude Include="WindowUI.h">
       <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CopyWindow.h">
+      <Filter>Engine\03.Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="NewWindow.h">
+      <Filter>Engine\03.Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="PopupManager.h">
+      <Filter>Engine\02. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageUI.h">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PanelUI.h">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PopupUI.h">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI.h">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FadeInOut.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnManager.h">
+      <Filter>Engine\02. Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -290,8 +310,6 @@
     <ClCompile Include="WindowManager.cpp">
       <Filter>Engine\02. Manager</Filter>
     </ClCompile>
-    <ClCompile Include="ImageUI.cpp" />
-    <ClCompile Include="TextUI.cpp" />
     <ClCompile Include="Enemy.cpp">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClCompile>
@@ -316,16 +334,38 @@
     <ClCompile Include="WindowUI.cpp">
       <Filter>Engine\03. Object\UI</Filter>
     </ClCompile>
-    <ClCompile Include="CopyWindow.cpp" />
-    <ClCompile Include="NewWindow.cpp" />
     <ClCompile Include="EnemyTestScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Slider.cpp">
-      <Filter>Engine\03. Object\UI</Filter>
-    </ClCompile>
     <ClCompile Include="LongHead.cpp">
       <Filter>Engine\03. Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="CopyWindow.cpp">
+      <Filter>Engine\03.Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="NewWindow.cpp">
+      <Filter>Engine\03.Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="FadeInOut.cpp">
+      <Filter>Engine\03. Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PopupManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageUI.cpp">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PanelUI.cpp">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PopupUI.cpp">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUI.cpp">
+      <Filter>Engine\03. Object\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
