@@ -13,9 +13,9 @@ void WindowManager::update()
 {
 	for (Window* window : _windows)
 	{
-		if (window->isDead())
+   		if (window->isDead())
 		{
-			continue;
+			_windows.erase(std::find(_windows.begin(), _windows.end(), window));
 		}
 		window->update();
 	}

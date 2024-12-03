@@ -28,7 +28,7 @@ void InGameScene::init()
 	cctv->initialize(player);
 	addObject(player, LAYER::PLAYER);
 	addObject(cctv, LAYER::UI);
-	{
+	/*{
 		BasicEnemy* basicEnemy = new BasicEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
 	}
@@ -43,5 +43,5 @@ void InGameScene::init()
 	{
 		BasicEnemy* basicEnemy = new BasicEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 2.5f });
-	}
+	}*/
 }

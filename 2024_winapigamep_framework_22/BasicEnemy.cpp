@@ -7,9 +7,7 @@
 BasicEnemy::BasicEnemy()
 {
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();
-	GET_SINGLETON(ResourceManager)->loadTexture(L"LongHead", L"Texture\\LongHead.bmp");
-	sp->setSprite(utils::SpriteParser::textureToSprite(
-		GET_SINGLETON(ResourceManager)->getTexture(L"LongHead")));
+	sp->setSprite(GET_SINGLETON(ResourceManager)->getSprite(L"BasicEnemy"));
 	Collider* collider = addComponent<Collider>();
 	cout << "setted";
 	//collider->enterCollision
@@ -19,9 +17,7 @@ BasicEnemy::BasicEnemy(Object* target)
 {
 	//SetTarget(target);
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();
-	GET_SINGLETON(ResourceManager)->loadTexture(L"LongHead", L"Texture\\LongHead.bmp");
-	sp->setSprite(utils::SpriteParser::textureToSprite(
-		GET_SINGLETON(ResourceManager)->getTexture(L"LongHead")));
+	sp->setSprite(GET_SINGLETON(ResourceManager)->getSprite(L"BasicEnemy"));
 	Collider* collider = addComponent<Collider>();
 	SetTarget(target);
 	SetRandomPos();

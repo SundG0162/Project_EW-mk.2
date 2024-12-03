@@ -32,6 +32,7 @@ public:
 	const bool& getCloseable() { return _closeable; }
 	void setMoveable(bool moveable) { _moveable = moveable; }
 	const bool& getMoveable() { return _moveable; }
+	void setDead() { _isDead = true; }
 	const bool& isDead() { return _isDead; }
 	const bool& isTweening() { return !_isTweenEnd; }
 public:
