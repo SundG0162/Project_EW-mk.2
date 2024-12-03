@@ -1,7 +1,8 @@
 #pragma once
-#include "WindowObject.h"
+#include "CaptureObject.h"
+#include "PlayerDevice.h"
 class WindowUI;
-class Beacon : public WindowObject
+class Beacon : public CaptureObject, public PlayerDevice
 {
 public:
 	Beacon(const Vector2& position, const Vector2& size);

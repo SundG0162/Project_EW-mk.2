@@ -10,7 +10,7 @@
 #include "Animator.h"
 #include "SpriteRenderer.h"
 
-Beacon::Beacon(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Beacon.exe")
+Beacon::Beacon(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"Beacon.exe")
 {
 	_duration = 10.f;
 	_timer = _duration;

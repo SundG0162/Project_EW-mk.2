@@ -1,12 +1,13 @@
 #include "pch.h"
 #include "Camera.h"
 #include "TimeManager.h"
-#include "GDISelector.h"
 #include "Window.h"
 #include "SpriteRenderer.h"
 #include "ResourceManager.h"
 #include "EventManager.h"
-#include "InputManager.h"
+#include "Player.h"
+#include "StatComponent.h"
+#include "Stat.h"
 #include "BarUI.h"
 #include "FadeInOut.h"
 #include "Collider.h"
@@ -40,6 +41,14 @@ Camera::~Camera()
 		{
 			this->handleOnWindowMove(prev, current);
 		};
+}
+
+void Camera::initialize(Player* player)
+{
+	PlayerDevice::initialize(player);
+	StatComponent* statCompo = player->getComponent<StatComponent>();
+	_attackDamage = statCompo->getStat(L"CameraDamage")->getValue();
+	_stunTime = statCompo->getStat(L"CameraStun")->getValue();
 }
 
 void Camera::update()
@@ -79,7 +88,7 @@ void Camera::update()
 			for (Enemy* enemy : _targets)
 			{
 				enemy->GetDamage(_attackDamage);
-				enemy->GetStunned(1.2f);
+				enemy->GetStunned(_stunTime);
 			}
 			_fadeOut = new FadeInOut(_position, _size);
 			_fadeOut->init(0.8f, FADE_TYPE::FADE_OUT);

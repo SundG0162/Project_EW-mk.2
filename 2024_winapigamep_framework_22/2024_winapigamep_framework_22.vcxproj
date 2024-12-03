@@ -195,6 +195,7 @@
     <ClInclude Include="PanelUI.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerDevice.h" />
     <ClInclude Include="PopupManager.h" />
     <ClInclude Include="PopupUI.h" />
     <ClInclude Include="Resource.h" />

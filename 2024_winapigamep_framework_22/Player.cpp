@@ -27,7 +27,9 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	statCompo->addStat(L"Damage", damageStat);
 	Stat* cameraStunStat = new Stat(1.5f);
 	statCompo->addStat(L"CameraStun", cameraStunStat);
-	cameraStunStat->addModifier(this, 3.f);
+	Stat* cameraDamageStat = new Stat(5);
+	statCompo->addStat(L"CameraDamage", cameraDamageStat);
+	cout << cameraDamageStat->getValue();
 }
 
 Player::~Player()
@@ -53,6 +55,7 @@ void Player::update()
 		GET_SINGLETON(Core)->OnMessageProcessEvent += [this]() 
 			{
 				Camera* camera = new Camera(_position, { 500,500 });
+				camera->initialize(this);
 				GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
 			};
 	}

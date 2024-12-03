@@ -3,6 +3,7 @@
 
 Stat::Stat(float baseValue)
 {
+	_modifiedValue = 0.f;
 	_baseValue = baseValue;
 }
 

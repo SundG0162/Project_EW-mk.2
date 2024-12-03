@@ -1,8 +1,9 @@
 #pragma once
 #include "CaptureObject.h"
+#include "PlayerDevice.h"
 class Collider;
 class Enemy;
-class CCTV : public CaptureObject
+class CCTV : public CaptureObject, public PlayerDevice
 {
 public:
 	CCTV(const Vector2& position, const Vector2& size);

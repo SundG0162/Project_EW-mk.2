@@ -24,6 +24,7 @@ void InGameScene::init()
 	Player* player = new Player(position, { 400,300 });
 	CCTV* cctv = new CCTV(position + Vector2(400, 0), { 600,500 });
 	player->setCCTV(cctv);
+	cctv->initialize(player);
 	addObject(player, LAYER::PLAYER);
 	addObject(cctv, LAYER::UI);
 
