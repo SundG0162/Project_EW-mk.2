@@ -15,12 +15,7 @@ Beacon::Beacon(const Vector2& position, const Vector2& size) : CaptureObject(pos
 	_duration = 10.f;
 	_timer = 0.f;
 	_settingUp = false;
-	_bar = new WindowUI({ position.x - 30, position.y - size.y / 3 }, { 320,40 }, WINDOW_TYPE::NEW, L"Ember.exe");
-	BarUI* bar = new BarUI({ _bar->getSize().x / 2, _bar->getSize().y / 2 }, { 320,40 });
-	_bar->getWindow()->setMoveable(true);
-	_bar->getWindow()->setCloseable(true);
-	_bar->setUI(bar);
-	GET_SINGLETON(EventManager)->createObject(_bar, LAYER::UI);
+	
 	Texture* texture = GET_SINGLETON(ResourceManager)->getTexture(L"Torch");
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
 	RECT rect = { 0,0,_size.x,_size.y };
@@ -43,6 +38,7 @@ void Beacon::update()
 	_timer += DELTATIME;
 	if (_settingUp)
 	{
+		Vector2 prevPos = _position;
 		_position.x = std::lerp(_startPos.x, _goalPos.x, utils::Ease::outCubic(_timer));
 		_position.y = std::lerp(_startPos.y, _goalPos.y, utils::Ease::outCubic(_timer));
 		_window->moveWindow(_position);
@@ -50,7 +46,14 @@ void Beacon::update()
 		{
 			_timer = 0.f;
 			_settingUp = false;
+			_bar = new WindowUI({ _position.x - 30, _position.y - _size.y / 3 }, { 320,40 }, WINDOW_TYPE::NEW, L"Ember.exe");
+			BarUI* bar = new BarUI({ _bar->getSize().x / 2, _bar->getSize().y / 2 }, { 320,40 });
+			_bar->getWindow()->setMoveable(true);
+			_bar->getWindow()->setCloseable(true);
+			_bar->setUI(bar);
+			GET_SINGLETON(EventManager)->createObject(_bar, LAYER::UI);
 		}
+		return;
 	}
 	float ratio = 1 - _timer / _duration;
 	dynamic_cast<BarUI*>(_bar->getUI())->setFillAmount(ratio);

@@ -33,6 +33,8 @@ public:
 	void setMoveable(bool moveable) { _moveable = moveable; }
 	const bool& getMoveable() { return _moveable; }
 	void setDead() { _isDead = true; }
+	void setPriority(int priority) { _priority = priority; }
+	const int& getPriority() { return _priority; }
 	const bool& isDead() { return _isDead; }
 	const bool& isTweening() { return !_isTweenEnd; }
 public:
@@ -54,4 +56,5 @@ protected:
 	bool _isTweenEnd = true;
 	bool _closeable = true;
 	bool _isDead = false;
+	int _priority = 0;
 };

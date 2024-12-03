@@ -21,6 +21,7 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_window->setCloseable(false);
 	_cctv = nullptr;
 	_isBeaconSettingUp = false;
+	_window->setPriority(PLAYER_PRIORITY);
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
 	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Computer");
 	spriteRenderer->setSprite(sprite);
