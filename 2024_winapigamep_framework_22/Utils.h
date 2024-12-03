@@ -52,7 +52,7 @@ namespace utils
 			vector.x = x;
 			vector.y = y;
 		}
-		static Vector2& getRandomVector()//위 두 코드 합친 코드 - 잘 작동하는지 확인 안함
+		static Vector2 getRandomVector()//위 두 코드 합친 코드 - 잘 작동하는지 확인 안함
 		{
 			Vector2 v = { 1,0 };
 			rotateVector(v, getRandomValue(0.f, 360.f));

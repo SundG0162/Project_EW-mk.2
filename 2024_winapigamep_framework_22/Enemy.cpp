@@ -11,7 +11,9 @@ Enemy::Enemy()
 	, _maxHealth(5.f)
 	, _curHealth(5.f)
 	, _moveSpeed(50.f)
-	,_isMovable(true)
+	, _isMovable(true)
+	,_stunTime(0.f)
+	, _target(nullptr)
 {
 
 	/*Texture* texture = GET_SINGLETON(ResourceManager)->textureFind(L"Filename");
@@ -24,6 +26,11 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
+}
+
+void Enemy::init()
+{
+	SetRandomPos();
 }
 
 void Enemy::update()

@@ -8,6 +8,7 @@ public:
 	Camera(const Vector2& position, const Vector2& size);
 	~Camera();
 public:
+	void init() override;
 	void update() override;
 	void render(HDC hdc) override;
 public:

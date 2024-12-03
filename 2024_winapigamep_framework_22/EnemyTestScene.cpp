@@ -5,7 +5,7 @@
 #include "ImageUI.h"
 #include "TextUI.h"
 #include "SpriteRenderer.h"
-#include "LongHead.h"
+#include "BasicEnemy.h"
 #include "Player.h"
 #include "CCTV.h"
 #include "BarUI.h"
@@ -51,24 +51,12 @@ void EnemyTestScene::init()
 	}
 
 	{
-		LongHead* longhead = new LongHead();
-		longhead->setPosition({ 0,0 });
-		longhead->SetTarget(target);
-		addObject(longhead, LAYER::ENEMY);
+		BasicEnemy* basicEnemy = new BasicEnemy(target);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
 	}
 	{
-		Vector2 pos = utils::ExMath::getRandomVector();
-		pos.x *= SCREEN_WIDTH/2;
-		pos.y *= SCREEN_HEIGHT/2;
-		LongHead* longhead = new LongHead(pos, target);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.f });
-	}
-	{
-		Vector2 pos = utils::ExMath::getRandomVector();
-		pos.x *= SCREEN_WIDTH/2;
-		pos.y *= SCREEN_HEIGHT/2;
-		LongHead* longhead = new LongHead(pos, target);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.5f });
+		BasicEnemy* basicEnemy = new BasicEnemy(target);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.5f });
 	}
 }
 
