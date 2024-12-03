@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "BasicEnemy.h"
 #include "SpawnManager.h"
+#include "WindowManager.h"
 #include "Beacon.h"
 #include "TextUI.h"
 
@@ -28,6 +29,7 @@ void InGameScene::init()
 	cctv->initialize(player);
 	addObject(player, LAYER::PLAYER);
 	addObject(cctv, LAYER::UI);
+	GET_SINGLETON(WindowManager)->sortWindow();
 	/*{
 		BasicEnemy* basicEnemy = new BasicEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
