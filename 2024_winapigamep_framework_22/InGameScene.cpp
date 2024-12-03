@@ -9,6 +9,7 @@
 #include "BasicEnemy.h"
 #include "SpawnManager.h"
 #include "Beacon.h"
+#include "TextUI.h"
 
 InGameScene::InGameScene()
 {
@@ -27,10 +28,6 @@ void InGameScene::init()
 	cctv->initialize(player);
 	addObject(player, LAYER::PLAYER);
 	addObject(cctv, LAYER::UI);
-
-	/*Beacon* beacon = new Beacon({ position.x - 500, position.y }, { 300,300 });
-	addObject(beacon, LAYER::UI);*/
-
 	{
 		BasicEnemy* basicEnemy = new BasicEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
