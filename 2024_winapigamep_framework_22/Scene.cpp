@@ -6,14 +6,6 @@
 #include "CollisionManager.h"
 Scene::Scene()
 {
-	for (UINT i = 0; i < (UINT)LAYER::END; ++i)
-	{
-		for (size_t j = 0; j < _objects[i].size(); ++j)
-		{
-			if (!_objects[i][j]->isDead())
-				_objects[i][j]->init();
-		}
-	}
 }
 
 Scene::~Scene()

@@ -6,7 +6,6 @@ public:
 	Object();
 	virtual ~Object();
 public:
-	virtual void init() abstract;
 	virtual void update() abstract;
 	virtual void render(HDC hdc) abstract;
 	virtual void lateUpdate();

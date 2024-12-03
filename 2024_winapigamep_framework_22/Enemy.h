@@ -8,7 +8,6 @@ public:
     Enemy();
     virtual ~Enemy();
     // Inherited via Object
-    virtual void init() override;
     virtual void update() override;
     virtual void render(HDC hdc) override;
 

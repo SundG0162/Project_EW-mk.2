@@ -22,15 +22,11 @@ Enemy::Enemy()
 	spriteRenderer->setSprite(sprite);*/
 
 	addComponent<Collider>(); // ���ڽ� ũ�� ����ȭ �������
+	SetRandomPos();
 }
 
 Enemy::~Enemy()
 {
-}
-
-void Enemy::init()
-{
-	SetRandomPos();
 }
 
 void Enemy::update()
