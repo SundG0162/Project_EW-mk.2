@@ -6,6 +6,7 @@
 #include "TextUI.h"
 #include "SpriteRenderer.h"
 #include "BasicEnemy.h"
+#include "SpinEnemy.h"
 #include "Player.h"
 #include "CCTV.h"
 #include "BarUI.h"
@@ -51,11 +52,11 @@ void EnemyTestScene::init()
 	}
 
 	{
-		BasicEnemy* basicEnemy = new BasicEnemy(target);
+		SpinEnemy* basicEnemy = new SpinEnemy(target);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
 	}
 	{
-		BasicEnemy* basicEnemy = new BasicEnemy(target);
+		SpinEnemy* basicEnemy = new SpinEnemy(target);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.5f });
 	}
 }

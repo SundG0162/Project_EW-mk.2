@@ -12,6 +12,7 @@ public:
     virtual void render(HDC hdc) override;
 
     void Move();
+    void DoMove(Vector2& vec);
     void GetDamage(int damage);
     void GetStunned(float time) ;
 
@@ -19,15 +20,16 @@ public:
     void SetMaxHP(float hp) { _maxHealth = hp; _curHealth = hp; }
     void SetTarget(Object* target) { _target = target; }
 
-private:
-    Vector2 posScale = { SCREEN_WIDTH/2, SCREEN_HEIGHT/2 };
+protected:
     Vector2 _moveVector;
-    float _whiteTimer;
+    Vector2 posScale = { SCREEN_WIDTH/2, SCREEN_HEIGHT/2 };
     int _maxHealth;
     int _curHealth;
-    bool _isMovable;
     float _moveSpeed;
-    float _stunTime;
     Object* _target;
+private:
+    bool _isMovable;
+    float _whiteTimer;
+    float _stunTime;
 };
 

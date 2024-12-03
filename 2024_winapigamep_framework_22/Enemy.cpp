@@ -62,8 +62,15 @@ void Enemy::Move()
 	Vector2 targetpos = _target->getPosition();
 	Vector2 direction = targetpos - _position;
 	direction.Normalize();
-	_position = direction * (_moveSpeed * DELTATIME) + _position;
+	_moveVector = direction * (_moveSpeed * DELTATIME);
+	DoMove(_moveVector);
 }
+
+void Enemy::DoMove(Vector2& vec)
+{
+	_position = _moveVector + _position;
+}
+
 
 void Enemy::GetDamage(int damage)
 {

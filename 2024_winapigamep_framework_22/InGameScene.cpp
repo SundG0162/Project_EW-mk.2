@@ -7,6 +7,7 @@
 #include "WindowUI.h"
 #include "Window.h"
 #include "BasicEnemy.h"
+#include "SpinEnemy.h"
 #include "SpawnManager.h"
 #include "Beacon.h"
 
@@ -32,19 +33,19 @@ void InGameScene::init()
 	addObject(beacon, LAYER::UI);*/
 
 	{
-		BasicEnemy* basicEnemy = new BasicEnemy(player);
+		SpinEnemy* basicEnemy = new SpinEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
 	}
 	{
-		BasicEnemy* basicEnemy = new BasicEnemy(player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.5f });
+		SpinEnemy* basicEnemy = new SpinEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.1f });
 	}
 	{
-		BasicEnemy* basicEnemy = new BasicEnemy(player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 2.f });
+		SpinEnemy* basicEnemy = new SpinEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.2f });
 	}
 	{
-		BasicEnemy* basicEnemy = new BasicEnemy(player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 2.5f });
+		SpinEnemy* basicEnemy = new SpinEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.3f });
 	}
 }
