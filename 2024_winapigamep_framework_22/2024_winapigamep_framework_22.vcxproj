@@ -216,6 +216,8 @@
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="Upgrade.h" />
+    <ClInclude Include="UpgradeUI.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Window.h" />
@@ -269,6 +271,8 @@
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Upgrade.cpp" />
+    <ClCompile Include="UpgradeUI.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowManager.cpp" />

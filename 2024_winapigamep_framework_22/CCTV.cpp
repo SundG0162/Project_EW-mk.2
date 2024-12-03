@@ -61,8 +61,7 @@ void CCTV::attack()
 	for (Enemy* enemy : _targets)
 	{
 		enemy->GetDamage(_statComponent->getStat(L"Damage")->getValue());
-		if (enemy->isDead())
-			deadVec.push_back(enemy);
+		enemy->GetStunned(_statComponent->getStat(L"AttackStun")->getValue());
 	}
 	for (Enemy* enemy : deadVec)
 	{
