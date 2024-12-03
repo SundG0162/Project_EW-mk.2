@@ -35,9 +35,6 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 	GET_SINGLETON(CollisionManager)->checkReset();
 	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::UI, LAYER::ENEMY);
 	AddFontResource(L"Galmuri9 Regular.ttf");
-	//m_obj.SetPos(Vec2(SCREEN_WIDTH / 2
-	//				,SCREEN_HEIGHT/ 2));
-	//m_obj.SetSize(Vec2(100, 100));
 	return true;
 }
 void Core::cleanUp()
