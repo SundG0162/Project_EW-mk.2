@@ -36,6 +36,10 @@ Player::~Player()
 {
 }
 
+void Player::init()
+{
+}
+
 void Player::update()
 {
 	Vector2 movement = {};

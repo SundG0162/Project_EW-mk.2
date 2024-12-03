@@ -5,7 +5,7 @@
 #include "ImageUI.h"
 #include "TextUI.h"
 #include "SpriteRenderer.h"
-#include "LongHead.h"
+#include "BasicEnemy.h"
 #include "Player.h"
 #include "CCTV.h"
 #include "BarUI.h"
@@ -13,7 +13,6 @@
 #include "Core.h"
 #include "SceneManager.h"
 #include "SpawnManager.h"
-#include <random>
 
 void EnemyTestScene::init()
 {
@@ -24,9 +23,9 @@ void EnemyTestScene::init()
 	}
 
 	//{
-	//	//85, 25ÇÈ¼¿
-	//	//Ä¿Áú¶§ Áß¾Ó ±âÁØÀ¸·Î Ä¿Áü
-	//	// ÀÏ´ÜÀº ¼öÇÐÀûÀ¸·Î ÀÚµ¿È­ ¾ÈÇÏ°í ¿ÀÇÁ¼Â Á¶Àý·Î Ã³¸®ÇÔ
+	//	//85, 25ï¿½È¼ï¿½
+	//	//Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ß¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½
+	//	// ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½È­ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½
 	//	//GET_SINGLETON(ResourceManager)->textureLoad(L"Slider-Back", L"Texture\\SliderBack.bmp");
 	//	GET_SINGLETON(ResourceManager)->loadTexture(L"Slider-Red", L"Texture\\SliderRed.bmp");
 	//	Sprite* sprite = utils::SpriteParser::textureToSprite(
@@ -51,25 +50,13 @@ void EnemyTestScene::init()
 		target = player;
 	}
 
-	//std::random_device rd;
-	//std::mt19937 mt;
-	//mt.seed(rd());
-
-	//std::uniform_int_distribution<float> ranAngle(0,360.f);
-
 	{
-		LongHead* longhead = new LongHead();
-		longhead->setPosition({ 0,0 });
-		longhead->SetTarget(target);
-		addObject(longhead, LAYER::ENEMY);
+		BasicEnemy* basicEnemy = new BasicEnemy(target);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
 	}
 	{
-		LongHead* longhead = new LongHead({ 0,0 }, target);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.f });
-	}
-	{
-		LongHead* longhead = new LongHead({ 0,0 }, target);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.5f });
+		BasicEnemy* basicEnemy = new BasicEnemy(target);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.5f });
 	}
 }
 
@@ -77,7 +64,7 @@ void EnemyTestScene::render(HDC hDC)
 {
 	Vector2 middle = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 	Vector2 size = { SCREEN_WIDTH, SCREEN_HEIGHT };
-	ELLIPSE_render(GET_SINGLETON(Core)->getBackDC(), middle.x, middle.y, size.x, size.y);
+	//ELLIPSE_render(GET_SINGLETON(Core)->getBackDC(), middle.x, middle.y, size.x, size.y);
 	//utils::Drawer::renderCircleColor(hDC, middle, 500, RGB(255, 0, 0), RGB(255, 0, 0));
 	Scene::render(hDC);
 }

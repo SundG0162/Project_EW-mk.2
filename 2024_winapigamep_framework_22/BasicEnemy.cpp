@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "LongHead.h"
+#include "BasicEnemy.h"
 #include "SpriteRenderer.h"
 #include "ResourceManager.h"
 #include "Collider.h"
 
-LongHead::LongHead()
+BasicEnemy::BasicEnemy()
 {
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();
 	GET_SINGLETON(ResourceManager)->loadTexture(L"LongHead", L"Texture\\LongHead.bmp");
@@ -15,10 +15,9 @@ LongHead::LongHead()
 	//collider->enterCollision
 }
 
-LongHead::LongHead(const Vector2& pos, Object* target)
+BasicEnemy::BasicEnemy(Object* target)
 {
-	_position = pos;
-	SetTarget(target);
+	//SetTarget(target);
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();
 	GET_SINGLETON(ResourceManager)->loadTexture(L"LongHead", L"Texture\\LongHead.bmp");
 	sp->setSprite(utils::SpriteParser::textureToSprite(
@@ -26,16 +25,22 @@ LongHead::LongHead(const Vector2& pos, Object* target)
 	Collider* collider = addComponent<Collider>();
 }
 
-LongHead::~LongHead()
+BasicEnemy::~BasicEnemy()
 {
 }
 
-void LongHead::update()
+void BasicEnemy::init()
+{
+	Super::init();
+	SetRandomPos();
+}
+
+void BasicEnemy::update()
 {
 	Enemy::update();
 }
 
-void LongHead::render(HDC hdc)
+void BasicEnemy::render(HDC hdc)
 {
 	Enemy::render(hdc);
 }

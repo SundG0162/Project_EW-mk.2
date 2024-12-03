@@ -12,6 +12,8 @@ Enemy::Enemy()
 	, _curHealth(5.f)
 	, _moveSpeed(50.f)
 	, _isMovable(true)
+	,_stunTime(0.f)
+	, _target(nullptr)
 {
 
 	/*Texture* texture = GET_SINGLETON(ResourceManager)->textureFind(L"Filename");
@@ -19,11 +21,16 @@ Enemy::Enemy()
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
 	spriteRenderer->setSprite(sprite);*/
 
-	addComponent<Collider>(); // ÀÌÀÚ½Ä Å©±â Á¶±âÈ­ ÇØÁà¾ßÇÔ
+	addComponent<Collider>(); // ï¿½ï¿½ï¿½Ú½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 }
 
 Enemy::~Enemy()
 {
+}
+
+void Enemy::init()
+{
+	SetRandomPos();
 }
 
 void Enemy::update()

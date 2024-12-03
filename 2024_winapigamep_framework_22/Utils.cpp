@@ -120,3 +120,13 @@ Vector2 utils::CoordinateSync::nonClientToClient(const RECT& windowRect, const V
     fixedPosition.y = position.y - (windowRect.top - clientRect.top);
     return fixedPosition;
 }
+
+float utils::ExMath::getRandomValue(float minValue, float maxValue)
+{
+    static std::random_device randDev;
+    static std::mt19937 twister(randDev());
+    static std::uniform_real_distribution<float> dist;
+
+    dist.param(std::uniform_real_distribution<float>::param_type(minValue, maxValue));
+    return dist(twister);
+}
