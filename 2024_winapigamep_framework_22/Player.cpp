@@ -25,6 +25,8 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	StatComponent* statCompo = addComponent<StatComponent>();
 	Stat* damageStat = new Stat(1);
 	statCompo->addStat(L"Damage", damageStat);
+	Stat* attackSpeedStat = new Stat(1.5f);
+	statCompo->addStat(L"AttackSpeed", attackSpeedStat);
 	Stat* cameraStunStat = new Stat(1.5f);
 	statCompo->addStat(L"CameraStun", cameraStunStat);
 	Stat* cameraDamageStat = new Stat(3);

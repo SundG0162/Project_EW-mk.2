@@ -46,7 +46,7 @@ void CCTV::localMove(const Vector2& move)
 void CCTV::tryAttack()
 {
 	_attackTimer += DELTATIME;
-	if (_attackTimer >= _attackTime)
+	if (_attackTimer >= _statComponent->getStat(L"AttackSpeed")->getValue())
 	{
 		_attackTimer = 0.f;
 		attack();

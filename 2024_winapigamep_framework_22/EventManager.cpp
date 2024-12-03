@@ -5,11 +5,12 @@
 #include "Object.h"
 void EventManager::update()
 {
-	// 이전 프레임에서 등록해둔 
 	for (Object* obj : _deadObjects)
 	{
 		if (obj != nullptr)
+		{
 			delete obj;
+		}
 	}
 	_deadObjects.clear();
 

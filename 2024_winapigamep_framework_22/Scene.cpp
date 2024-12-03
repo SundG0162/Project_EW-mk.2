@@ -62,7 +62,9 @@ void Scene::render(HDC hDC)
 					obj->render(hDC);
 			}
 			else
+			{
 				_objects[i].erase(_objects[i].begin() + j);
+			}
 		}
 	}
 

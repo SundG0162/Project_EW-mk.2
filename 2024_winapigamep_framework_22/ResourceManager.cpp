@@ -2,13 +2,14 @@
 #include "ResourceManager.h"
 #include "Core.h"
 #include "Texture.h"
+#include "Sprite.h"
 void ResourceManager::init()
 {
 	::GetCurrentDirectory(255, _resourcePath);
 	wcscat_s(_resourcePath, 255, L"\\Resource\\");
 	//::SetWindowText(GET_SINGLE(Core)->GetHwnd(), m_resourcePath);
 
- 	FMOD::System_Create(&_soundSystem); // �ý��� ���� �Լ�
+	FMOD::System_Create(&_soundSystem); // �ý��� ���� �Լ�
 	if (_soundSystem != nullptr)
 		_soundSystem->init((int)SOUND_CHANNEL::END, FMOD_INIT_NORMAL, nullptr);
 
@@ -39,11 +40,11 @@ Texture* ResourceManager::loadTexture(const wstring& _key, const wstring& _path)
 	// 1. ��� ����
 	wstring texpath = _resourcePath;
 	texpath += _path;
-	
+
 	// 2. Texture ��������?
 	texture = new Texture;
 	texture->loadBmp(texpath);
-	_textureMap.insert({_key,texture});
+	_textureMap.insert({ _key,texture });
 	return texture;
 }
 
@@ -74,21 +75,27 @@ Sprite* ResourceManager::getSprite(const wstring& key)
 
 void ResourceManager::release()
 {
-	map<wstring, Texture*>::iterator iter;
-	for (iter = _textureMap.begin(); iter != _textureMap.end(); ++iter)
-		delete iter->second;
-	_textureMap.clear();
-
-	// SOUND
-	map<wstring, SoundInfo*>::iterator itersod;
-	for (itersod = _soundMap.begin(); itersod != _soundMap.end(); ++itersod)
 	{
-		if (nullptr != itersod->second)
-			delete itersod->second;
+		map<wstring, Texture*>::iterator iter;
+		for (iter = _textureMap.begin(); iter != _textureMap.end(); ++iter)
+			delete iter->second;
+		_textureMap.clear();
 	}
-	_soundMap.clear();
-
-	// �� ���� �� �� �ý��� �ݰ� ��ȯ
+	{
+		map<wstring, Sprite*>::iterator iter;
+		for (iter = _spriteMap.begin(); iter != _spriteMap.end(); ++iter)
+			delete iter->second;
+		_spriteMap.clear();
+	}
+	{
+		map<wstring, SoundInfo*>::iterator iter;
+		for (iter = _soundMap.begin(); iter != _soundMap.end(); ++iter)
+		{
+			if (nullptr != iter->second)
+				delete iter->second;
+		}
+		_soundMap.clear();
+	}
 	_soundSystem->close();
 	_soundSystem->release();
 }

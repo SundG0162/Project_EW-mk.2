@@ -24,6 +24,10 @@ Camera::Camera(const Vector2& position, const Vector2& size) : CaptureObject(pos
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
 	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Camera");
 	renderer->setSprite(sprite);
+	RECT rect = { 0,0,_size.x,_size.y };
+	GetWindowRect(_window->getHWnd(), &rect);
+	Vector2 offset = utils::CoordinateSync::nonClientToClient(rect, _position) - _position;
+	renderer->setOffset(offset);
 	renderer->setScale({ 5, 5 });
 	_window->setCloseable(false);
 	_window->setMoveable(true);
@@ -67,8 +71,8 @@ void Camera::update()
 			_window->closeTween(0);
 			_window->OnTweenEndEvent += [this]()
 				{
-					GET_SINGLETON(EventManager)->deleteObject(this);
 					GET_SINGLETON(EventManager)->deleteObject(_fadeOut);
+					GET_SINGLETON(EventManager)->deleteObject(this);
 				};
 		}
 		return;
