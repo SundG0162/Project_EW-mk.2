@@ -3,7 +3,10 @@
 #include "Window.h"
 #include "Collider.h"
 #include "Enemy.h"
+#include "Player.h"
 #include "TimeManager.h"
+#include "StatComponent.h"
+#include "Stat.h"
 
 CCTV::CCTV(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"CCTV.exe")
 {
@@ -12,6 +15,12 @@ CCTV::CCTV(const Vector2& position, const Vector2& size) : CaptureObject(positio
 
 CCTV::~CCTV()
 {
+}
+
+void CCTV::initialize(Player* player)
+{
+	PlayerDevice::initialize(player);
+	_statComponent = player->getComponent<StatComponent>();
 }
 
 void CCTV::update()
@@ -49,7 +58,7 @@ void CCTV::attack()
 	vector<Enemy*> deadVec;
 	for (Enemy* enemy : _targets)
 	{
-		enemy->GetDamage(_attackDamage);
+		enemy->GetDamage(_statComponent->getStat(L"Damage")->getValue());
 		if (enemy->isDead())
 			deadVec.push_back(enemy);
 	}

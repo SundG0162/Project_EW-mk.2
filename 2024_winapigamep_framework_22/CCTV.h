@@ -2,6 +2,7 @@
 #include "CaptureObject.h"
 #include "PlayerDevice.h"
 class Collider;
+class StatComponent;
 class Enemy;
 class CCTV : public CaptureObject, public PlayerDevice
 {
@@ -9,6 +10,7 @@ public:
 	CCTV(const Vector2& position, const Vector2& size);
 	~CCTV();
 public:
+	void initialize(Player* player) override;
 	void update() override;
 	void render(HDC hdc) override;
 public:
@@ -16,6 +18,7 @@ public:
 	void tryAttack();
 	void attack();
 private:
+	StatComponent* _statComponent;
 	int _attackDamage = 1;
 	float _attackTimer = 0.f;
 	float _attackTime = 1.5f;

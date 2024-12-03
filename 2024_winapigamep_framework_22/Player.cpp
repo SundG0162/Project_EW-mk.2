@@ -27,7 +27,7 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	statCompo->addStat(L"Damage", damageStat);
 	Stat* cameraStunStat = new Stat(1.5f);
 	statCompo->addStat(L"CameraStun", cameraStunStat);
-	Stat* cameraDamageStat = new Stat(5);
+	Stat* cameraDamageStat = new Stat(3);
 	statCompo->addStat(L"CameraDamage", cameraDamageStat);
 	cout << cameraDamageStat->getValue();
 }
@@ -53,6 +53,7 @@ void Player::update()
 	_cctv->localMove(movement);
 	if (GET_KEYDOWN(KEY_TYPE::SPACE))
 	{
+		getComponent<StatComponent>()->getStat(L"Damage")->addModifier(this, 1);
 		GET_SINGLETON(Core)->OnMessageProcessEvent += [this]() 
 			{
 				Camera* camera = new Camera(_position, { 500,500 });
