@@ -12,6 +12,11 @@ Object::Object()
 
 Object::~Object()
 {
+	for (Component* compo : _components)
+	{
+		SAFE_DELETE(compo);
+	}
+	_components.clear();
 }
 
 void Object::lateUpdate()

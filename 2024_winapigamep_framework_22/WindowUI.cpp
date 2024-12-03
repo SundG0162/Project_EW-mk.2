@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "WindowUI.h"
 #include "UI.h"
+#include "NewWindow.h"
+#include "BarUI.h"
 
 WindowUI::WindowUI(const Vector2& position, const Vector2& size, WINDOW_TYPE type, const wstring& name) : WindowObject(position, size, type, name)
 {
@@ -9,6 +11,7 @@ WindowUI::WindowUI(const Vector2& position, const Vector2& size, WINDOW_TYPE typ
 
 WindowUI::~WindowUI()
 {
+	delete _ui;
 }
 
 void WindowUI::update()

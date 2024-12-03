@@ -64,6 +64,8 @@ const int SCREEN_HEIGHT = GetSystemMetrics(SM_CYSCREEN);
 #else
 #pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 #endif
+#define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define malloc(s) _malloc_dbg(s,_NORMAL_BLOCK,__FILE__,__LINE__)
 #endif
 #include<iostream>
 using std::cout;

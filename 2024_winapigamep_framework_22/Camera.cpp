@@ -9,8 +9,10 @@
 #include "InputManager.h"
 #include "BarUI.h"
 #include "FadeInOut.h"
+#include "Collider.h"
+#include "Enemy.h"
 
-Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Camera.exe")
+Camera::Camera(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"Camera.exe")
 {
 	_maxCount = 3;
 	_counter = _maxCount;
@@ -29,6 +31,7 @@ Camera::Camera(const Vector2& position, const Vector2& size) : WindowObject(posi
 	//이 아래 코드는 쓸데없이 연산을 늘리는게 아니라 윈도우 밑면과의 여백을 주기위해 굳이 이렇게 연산하는 것입니다.
 	_bar = new BarUI({ position.x, position.y + size.y / 2 - size.x / 8 }, { sizeX, sizeY });
 	_fadeOut = nullptr;
+	_collider->setFollowing(false);
 }
 
 Camera::~Camera()
@@ -41,16 +44,22 @@ Camera::~Camera()
 
 void Camera::update()
 {
+	CaptureObject::update();
+	RECT rect = { 0,0,_size.x,_size.y };
+	GetWindowRect(_window->getHWnd(), &rect);
+	_collider->setPosition(utils::CoordinateSync::nonClientToClient(rect, _position));
 	_timer += DELTATIME;
 	if (_fadeOut && !_window->isTweening())
 	{
 		if (_timer > 0.7f)
 		{
+			GET_SINGLETON(EventManager)->deleteObject(_bar);
+			_bar = nullptr;
 			_window->closeTween(0);
 			_window->OnTweenEndEvent += [this]()
 				{
-					GET_SINGLETON(EventManager)->deleteObject(_fadeOut);
 					GET_SINGLETON(EventManager)->deleteObject(this);
+					GET_SINGLETON(EventManager)->deleteObject(_fadeOut);
 				};
 		}
 		return;
@@ -63,17 +72,20 @@ void Camera::update()
 			_bar->setFillAmount((float)_counter / _maxCount);
 		if (_counter == -1)
 		{
-			_fadeOut = new FadeInOut(_position, _size);
-			_fadeOut->init(0.8f, FADE_TYPE::FADE_OUT);
-			_window->setMoveable(false);
-			getComponent<SpriteRenderer>()->setSprite(nullptr);
-			GET_SINGLETON(EventManager)->deleteObject(_bar);
-			_bar = nullptr;
-			GET_SINGLETON(EventManager)->createObject(_fadeOut, LAYER::EFFECT);
 			INPUT input = { 0 };
 			input.type = INPUT_MOUSE;
 			input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
 			SendInput(1, &input, sizeof(INPUT));
+			for (Enemy* enemy : _targets)
+			{
+				enemy->GetDamage(_attackDamage);
+				enemy->GetStunned(1.2f);
+			}
+			_fadeOut = new FadeInOut(_position, _size);
+			_fadeOut->init(0.8f, FADE_TYPE::FADE_OUT);
+			_window->setMoveable(false);
+			getComponent<SpriteRenderer>()->setSprite(nullptr);
+			GET_SINGLETON(EventManager)->createObject(_fadeOut, LAYER::EFFECT);
 			return;
 		}
 	}

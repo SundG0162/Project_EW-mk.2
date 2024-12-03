@@ -8,7 +8,7 @@ enum class LAYER
 	ENEMY,
 	UI,
 	EFFECT,
-	END = 30
+	END
 };
 
 enum class PEN_TYPE

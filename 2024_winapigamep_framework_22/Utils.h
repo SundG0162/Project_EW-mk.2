@@ -39,7 +39,8 @@ namespace utils
 	};
 	class CoordinateSync
 	{
-		static const Vector2& nonClientToClient(const RECT& windowRect, const Vector2& position);
+	public:
+		static Vector2 nonClientToClient(const RECT& windowRect, const Vector2& position);
 	};
 	class ExMath //ExtendedMathmatics의 줄임말, 사실상 회전행렬과 무작위값 전용 클래스
 	{

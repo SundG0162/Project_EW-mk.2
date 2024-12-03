@@ -1,6 +1,6 @@
 #pragma once
 #include "WindowObject.h"
-class BarUI;
+class WindowUI;
 class Beacon : public WindowObject
 {
 public:
@@ -12,8 +12,7 @@ public:
 public:
 	void setDuration(float duration) { _duration = duration; }
 private:
-	BarUI* _bar;
+	WindowUI* _bar;
 	float _duration;
 	float _timer;
 };
-

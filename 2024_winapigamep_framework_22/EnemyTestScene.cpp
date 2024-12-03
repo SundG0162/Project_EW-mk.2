@@ -23,9 +23,9 @@ void EnemyTestScene::init()
 	}
 
 	//{
-	//	//85, 25ÇÈ¼¿
-	//	//Ä¿Áú¶§ Áß¾Ó ±âÁØÀ¸·Î Ä¿Áü
-	//	// ÀÏ´ÜÀº ¼öÇÐÀûÀ¸·Î ÀÚµ¿È­ ¾ÈÇÏ°í ¿ÀÇÁ¼Â Á¶Àý·Î Ã³¸®ÇÔ
+	//	//85, 25ï¿½È¼ï¿½
+	//	//Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ß¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½ï¿½
+	//	// ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½È­ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½
 	//	//GET_SINGLETON(ResourceManager)->textureLoad(L"Slider-Back", L"Texture\\SliderBack.bmp");
 	//	GET_SINGLETON(ResourceManager)->loadTexture(L"Slider-Red", L"Texture\\SliderRed.bmp");
 	//	Sprite* sprite = utils::SpriteParser::textureToSprite(

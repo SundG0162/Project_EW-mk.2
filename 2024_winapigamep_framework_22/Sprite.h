@@ -8,6 +8,7 @@ public:
 	~Sprite();
 public:
 	const HDC& getSpriteDC() { return _hSpriteDC; }
+	const HBITMAP& getSpriteBitmap() { return _hSpriteBitmap; }
 	const Vector2& getPosition() { return Vector2(_x, _y); }
 	const Vector2& getSize() { return Vector2(_cx, _cy); }
 	const int32& getTransparent();

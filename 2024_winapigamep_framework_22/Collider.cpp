@@ -7,6 +7,7 @@ Collider::Collider()
 	: _size(30.f, 30.f)
 	, _position(0.f, 0.f)
 	, _offset(0.f, 0.f)
+	, _id(_nextID++)
 {
 }
 
@@ -16,19 +17,20 @@ Collider::~Collider()
 
 void Collider::lateUpdate()
 {
+	if (!_following) return;
 	Vector2 vPos = _owner->getPosition();
 	_position = vPos + _offset;
 }
 
 void Collider::render(HDC hDC)
 {
-	PEN_TYPE ePen = PEN_TYPE::GREEN;
+	/*PEN_TYPE ePen = PEN_TYPE::GREEN;
 	if (_showDebug)
 		ePen = PEN_TYPE::RED;
 	GDISelector pen(hDC, ePen);
 	GDISelector brush(hDC, BRUSH_TYPE::HOLLOW);
 	RECT_render(hDC, _position.x, _position.y,
-		_size.x, _size.y);
+		_size.x, _size.y);*/
 }
 
 void Collider::enterCollision(Collider* _other)

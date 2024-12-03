@@ -119,21 +119,48 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	return 0;
 }
 
-void Window::openTween(float delayTime)
+void Window::openTween(float delayTime, TWEEN_TYPE type)
 {
+	_tweenType = type;
 	_delayTime = delayTime;
 	_goalSize = _size;
 	_startSize = { 0,0 };
-	_size.y = 0;
+	switch (type)
+	{
+	case TWEEN_TYPE::HORIZON:
+	{
+		_size.x = 0;
+	}
+	break;
+	case TWEEN_TYPE::VERTICAL:
+	{
+		_size.y = 0;
+	}
+	break;
+	}
 	_timer = 0.f;
 	_isTweenEnd = false;
 }
 
-void Window::closeTween(float delayTime)
+void Window::closeTween(float delayTime, TWEEN_TYPE type)
 {
+	_tweenType = type;
 	_delayTime = delayTime;
 	_startSize = _size;
-	_goalSize.y = 0;
+	_goalSize = _size;
+	switch (type)
+	{
+	case TWEEN_TYPE::HORIZON:
+	{
+		_goalSize.x = 0;
+	}
+	break;
+	case TWEEN_TYPE::VERTICAL:
+	{
+		_goalSize.y = 0;
+	}
+	break;
+	}
 	_timer = 0.f;
 	_isTweenEnd = false;
 }
@@ -144,7 +171,6 @@ void Window::close()
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			SendMessage(_hWnd, WM_CLOSE, 0, 0);
-			DestroyWindow(_hWnd);
 			GET_SINGLETON(WindowManager)->removeWindow(this);
 			delete this;
 		};
@@ -171,6 +197,7 @@ void Window::update()
 		_timer += DELTATIME;
 		if (_timer < _delayTime)
 			return;
+		_size.x = std::lerp(_startSize.x, _goalSize.x, utils::Ease::outQuad(_timer - _delayTime));
 		_size.y = std::lerp(_startSize.y, _goalSize.y, utils::Ease::outQuad(_timer - _delayTime));
 		moveWindow(_position);
 		if (_timer > _delayTime + 1.f)

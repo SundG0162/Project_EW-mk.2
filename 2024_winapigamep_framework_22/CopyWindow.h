@@ -8,4 +8,3 @@ public:
 public:
 	void render(HDC hdc) override;
 };
-

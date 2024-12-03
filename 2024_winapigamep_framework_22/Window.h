@@ -1,5 +1,10 @@
 #pragma once
 #include "Action.h"
+enum class TWEEN_TYPE
+{
+	HORIZON,
+	VERTICAL
+};
 class Window
 {
 public:
@@ -12,8 +17,8 @@ public:
 	static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual LRESULT handleMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
-	void openTween(float delayTime = 1.f);
-	void closeTween(float delayTime = 1.f);
+	void openTween(float delayTime = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
+	void closeTween(float delayTime = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
 	void close();
 	void moveWindow(const Vector2& pos);
 public:
@@ -43,6 +48,7 @@ protected:
 	float _delayTime = 0.f;
 	Vector2 _goalSize;
 	Vector2 _startSize;
+	TWEEN_TYPE _tweenType;
 	bool _moveable = false;
 	bool _isTweenEnd = true;
 	bool _closeable = true;

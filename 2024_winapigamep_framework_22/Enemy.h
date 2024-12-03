@@ -13,7 +13,7 @@ public:
     virtual void render(HDC hdc) override;
 
     void Move();
-    void GetDamage(float damage);
+    void GetDamage(int damage);
     void GetStunned(float time) ;
 
     void SetRandomPos() { setPosition(utils::ExMath::getRandomVector() * posScale); }
@@ -23,8 +23,9 @@ public:
 private:
     Vector2 posScale = { SCREEN_WIDTH/2, SCREEN_HEIGHT/2 };
     Vector2 _moveVector;
-    float _maxHealth;
-    float _curHealth;
+    float _whiteTimer;
+    int _maxHealth;
+    int _curHealth;
     bool _isMovable;
     float _moveSpeed;
     float _stunTime;

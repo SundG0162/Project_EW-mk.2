@@ -20,6 +20,7 @@ void ResourceManager::init()
 	loadTexture(L"Computer", L"Texture\\Computer.bmp");
 	loadTexture(L"Camera", L"Texture\\CameraScreen.bmp");
 	loadTexture(L"BarUI", L"Texture\\BarUI.bmp");
+	loadTexture(L"Torch", L"Texture\\Torch.bmp");
 
 	for (auto pair : _textureMap)
 	{

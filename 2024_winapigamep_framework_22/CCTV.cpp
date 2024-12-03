@@ -2,47 +2,61 @@
 #include "CCTV.h"
 #include "Window.h"
 #include "Collider.h"
+#include "Enemy.h"
+#include "TimeManager.h"
 
-CCTV::CCTV(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"CCTV.exe")
+CCTV::CCTV(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"CCTV.exe")
 {
-	Collider* collider = addComponent<Collider>();
-	collider->setSize(size);
-	collider->OnCollisionEnterEvent += [this](Collider* other) {this->handleOnCollisionEnter(other); };
-	collider->OnCollisionExitEvent += [this](Collider* other) {this->handleOnCollisionExit(other); };
-	SetActiveWindow(_window->getHWnd());
+	_collider->setFollowing(false);
 }
 
 CCTV::~CCTV()
 {
-	Collider* collider = getComponent<Collider>();
-	collider->OnCollisionEnterEvent -= [this](Collider* other) {this->handleOnCollisionEnter(other); };
-	collider->OnCollisionExitEvent -= [this](Collider* other) {this->handleOnCollisionExit(other); };
 }
 
 void CCTV::update()
 {
+	CaptureObject::update();
+	RECT rect = {0,0,_size.x,_size.y};
+	GetWindowRect(_window->getHWnd(), &rect);
+	_collider->setPosition(utils::CoordinateSync::nonClientToClient(rect, _position));
+	tryAttack();
 }
 
 void CCTV::render(HDC hdc)
 {
-}
-
-void CCTV::handleOnCollisionEnter(Collider* other)
-{
-	_targets.push_back(other->getOwner());
-}
-
-void CCTV::handleOnCollisionExit(Collider* other)
-{
-	auto iter = find(_targets.begin(), _targets.end(), other->getOwner());
-	if (iter != _targets.end())
-	{
-		_targets.erase(iter);
-	}
+	componentRender(hdc);
 }
 
 void CCTV::localMove(const Vector2& move)
 {
 	_position += move;
 	_window->moveWindow(_position);
+}
+
+void CCTV::tryAttack()
+{
+	_attackTimer += DELTATIME;
+	if (_attackTimer >= _attackTime)
+	{
+		_attackTimer = 0.f;
+		attack();
+	}
+}
+
+void CCTV::attack()
+{
+	vector<Enemy*> deadVec;
+	for (Enemy* enemy : _targets)
+	{
+		enemy->GetDamage(_attackDamage);
+		if (enemy->isDead())
+			deadVec.push_back(enemy);
+	}
+	for (Enemy* enemy : deadVec)
+	{
+		auto iter = std::find(_targets.begin(), _targets.end(), enemy);
+		if (iter != _targets.end())
+			_targets.erase(iter);
+	}
 }

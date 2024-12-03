@@ -5,6 +5,8 @@
 #include "InputManager.h"
 #include "TimeManager.h"
 #include "SpriteRenderer.h"
+#include "StatComponent.h"
+#include "Stat.h"
 #include "ResourceManager.h"
 #include "EventManager.h"
 #include "Scene.h"
@@ -20,6 +22,12 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Computer");
 	spriteRenderer->setSprite(sprite);
 	spriteRenderer->setScale({ 3,3 });
+	StatComponent* statCompo = addComponent<StatComponent>();
+	Stat* damageStat = new Stat(1);
+	statCompo->addStat(L"Damage", damageStat);
+	Stat* cameraStunStat = new Stat(1.5f);
+	statCompo->addStat(L"CameraStun", cameraStunStat);
+	cameraStunStat->addModifier(this, 3.f);
 }
 
 Player::~Player()

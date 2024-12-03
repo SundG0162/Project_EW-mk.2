@@ -21,7 +21,7 @@ Enemy::Enemy()
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
 	spriteRenderer->setSprite(sprite);*/
 
-	addComponent<Collider>(); // ¿Ã¿⁄Ωƒ ≈©±‚ ¡∂±‚»≠ «ÿ¡‡æﬂ«‘
+	addComponent<Collider>(); // ÔøΩÔøΩÔøΩ⁄ΩÔøΩ ≈©ÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ»≠ ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 }
 
 Enemy::~Enemy()
@@ -37,6 +37,14 @@ void Enemy::update()
 {
 	componentUpdate();
 	Move();
+	if (_whiteTimer > 0)
+	{
+		_whiteTimer -= DELTATIME;
+		if (_whiteTimer <= 0)
+		{
+			getComponent<SpriteRenderer>()->setWhiteness(false);
+		}
+	}
 }
 
 void Enemy::render(HDC hdc)
@@ -61,10 +69,16 @@ void Enemy::Move()
 	_position = direction * (_moveSpeed * DELTATIME) + _position;
 }
 
-void Enemy::GetDamage(float damage)
+void Enemy::GetDamage(int damage)
 {
 	_curHealth -= damage;
-	if (_curHealth < 0) GET_SINGLETON(EventManager)->deleteObject(this);
+	getComponent<SpriteRenderer>()->setWhiteness(true);
+	_whiteTimer = 0.2f;
+	if (_curHealth <= 0)
+	{
+		_isDead = true;
+		GET_SINGLETON(EventManager)->deleteObject(this);
+	}
 }
 
 void Enemy::GetStunned(float time)
