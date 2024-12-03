@@ -33,7 +33,7 @@ public:
 	void setMoveable(bool moveable) { _moveable = moveable; }
 	const bool& getMoveable() { return _moveable; }
 	void setDead() { _isDead = true; }
-	void setPriority(int priority) { _priority = priority; }
+	void setPriority(int priority);
 	const int& getPriority() { return _priority; }
 	const bool& isDead() { return _isDead; }
 	const bool& isTweening() { return !_isTweenEnd; }

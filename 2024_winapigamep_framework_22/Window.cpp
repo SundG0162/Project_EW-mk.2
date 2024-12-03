@@ -190,6 +190,12 @@ void Window::setWindowName(const wstring& name)
 	SetWindowText(_hWnd, name.c_str());
 }
 
+void Window::setPriority(int priority)
+{
+	_priority = priority;
+	GET_SINGLETON(WindowManager)->sortWindow();
+}
+
 void Window::update()
 {
 	if (!_isTweenEnd)

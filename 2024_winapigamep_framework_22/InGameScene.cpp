@@ -29,21 +29,4 @@ void InGameScene::init()
 	cctv->initialize(player);
 	addObject(player, LAYER::PLAYER);
 	addObject(cctv, LAYER::UI);
-	GET_SINGLETON(WindowManager)->sortWindow();
-	/*{
-		BasicEnemy* basicEnemy = new BasicEnemy(player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
-	}
-	{
-		BasicEnemy* basicEnemy = new BasicEnemy(player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.5f });
-	}
-	{
-		BasicEnemy* basicEnemy = new BasicEnemy(player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 2.f });
-	}
-	{
-		BasicEnemy* basicEnemy = new BasicEnemy(player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 2.5f });
-	}*/
 }
