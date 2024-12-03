@@ -166,9 +166,6 @@
     <ClInclude Include="EnemyTestScene.h">
       <Filter>Engine\04. Scene</Filter>
     </ClInclude>
-    <ClInclude Include="LongHead.h">
-      <Filter>Engine\03. Object\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="CCTV.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
@@ -225,6 +222,9 @@
     </ClInclude>
     <ClInclude Include="StatComponent.h">
       <Filter>Engine\06. Component\Stat</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicEnemy.h">
+      <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -349,9 +349,6 @@
     <ClCompile Include="EnemyTestScene.cpp">
       <Filter>Engine\04. Scene</Filter>
     </ClCompile>
-    <ClCompile Include="LongHead.cpp">
-      <Filter>Engine\03. Object\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="CopyWindow.cpp">
       <Filter>Engine\03. Windows</Filter>
     </ClCompile>
@@ -387,6 +384,9 @@
     </ClCompile>
     <ClCompile Include="StatComponent.cpp">
       <Filter>Engine\06. Component\Stat</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicEnemy.cpp">
+      <Filter>Engine\03. Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

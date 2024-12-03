@@ -23,16 +23,12 @@ BasicEnemy::BasicEnemy(Object* target)
 	sp->setSprite(utils::SpriteParser::textureToSprite(
 		GET_SINGLETON(ResourceManager)->getTexture(L"LongHead")));
 	Collider* collider = addComponent<Collider>();
+	SetTarget(target);
+	SetRandomPos();
 }
 
 BasicEnemy::~BasicEnemy()
 {
-}
-
-void BasicEnemy::init()
-{
-	Super::init();
-	SetRandomPos();
 }
 
 void BasicEnemy::update()

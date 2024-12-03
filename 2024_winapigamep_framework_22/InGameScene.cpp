@@ -6,7 +6,7 @@
 #include "BarUI.h"
 #include "WindowUI.h"
 #include "Window.h"
-#include "LongHead.h"
+#include "BasicEnemy.h"
 #include "SpawnManager.h"
 #include "Beacon.h"
 
@@ -29,18 +29,21 @@ void InGameScene::init()
 
 	/*Beacon* beacon = new Beacon({ position.x - 500, position.y }, { 300,300 });
 	addObject(beacon, LAYER::UI);*/
+
 	{
-		LongHead* longhead = new LongHead();
-		longhead->setPosition({ 0,0 });
-		longhead->SetTarget(player);
-		addObject(longhead, LAYER::ENEMY);
+		BasicEnemy* basicEnemy = new BasicEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
 	}
 	{
-		LongHead* longhead = new LongHead({ 0,0 }, player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.f });
+		BasicEnemy* basicEnemy = new BasicEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.5f });
 	}
 	{
-		LongHead* longhead = new LongHead({ 0,0 }, player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ longhead, 1.5f });
+		BasicEnemy* basicEnemy = new BasicEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 2.f });
+	}
+	{
+		BasicEnemy* basicEnemy = new BasicEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 2.5f });
 	}
 }

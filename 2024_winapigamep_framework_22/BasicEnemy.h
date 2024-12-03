@@ -9,7 +9,6 @@ public:
     BasicEnemy(Object* target);
     ~BasicEnemy();
 
-    void init() override;
     void update() override;
     void render(HDC hdc) override;
 
