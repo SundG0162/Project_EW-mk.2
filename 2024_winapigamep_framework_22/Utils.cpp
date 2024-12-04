@@ -2,6 +2,7 @@
 #include "Utils.h"
 #include "Sprite.h"
 #include "Texture.h"
+#include <sstream>
 
 void utils::Drawer::renderText(HDC hdc, Vector pos, const wstring& str)
 {
@@ -129,4 +130,16 @@ float utils::ExMath::getRandomValue(float minValue, float maxValue)
 
 	dist.param(std::uniform_real_distribution<float>::param_type(minValue, maxValue));
 	return dist(twister);
+}
+
+vector<wstring> utils::TextEditor::textSplit(const wstring& text)
+{
+	vector<wstring> splits;
+	std::wstringstream stream(text);
+	wstring line;
+	while (std::getline(stream, line))
+	{
+		splits.push_back(line);
+	}
+	return splits;
 }

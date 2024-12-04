@@ -30,6 +30,7 @@ void WindowManager::update()
 			bottom,
 			0, 0, 0, 0,
 			SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+		bottom = window->getHWnd();
 	}
 	EndDeferWindowPos(hDwp);
 }
@@ -62,5 +63,6 @@ void WindowManager::sortWindow()
 
 bool WindowManager::compareWindow(Window* w1, Window* w2)
 {
+	cout << w1->getPriority() << " " << w2->getPriority() << endl;
 	return w1->getPriority() > w2->getPriority();
 }

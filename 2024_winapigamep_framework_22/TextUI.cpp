@@ -15,7 +15,7 @@ TextUI::~TextUI()
 
 void TextUI::setupFont(const wstring& fontName, float fontSize, float fontWeight)
 {
-	_hFont = CreateFont(fontSize, 0, 0, 0, 0, 0, 0, 0
+	_hFont = CreateFontW(fontSize, 0, 0, 0, 0, 0, 0, 0
 		, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, fontName.c_str());
 }
 
@@ -29,7 +29,11 @@ void TextUI::render(HDC hdc)
 	SetBkColor(hdc, TRANSPARENT);
 	COLORREF prevColor = SetTextColor(hdc, _color);
 	GetTextExtentPoint(hdc, _text.c_str(), _text.size(), &_size);
-	TextOut(hdc, _position.x - _size.cx / 2, _position.y - _size.cy / 2, _text.c_str(), _text.length());
+	vector<wstring> lines = utils::TextEditor::textSplit(_text);
+	for (int i = 0; i < lines.size(); i++)
+	{
+		TextOut(hdc, _position.x - _size.cx / 2, _position.y + _size.cy * i, lines[i].c_str(), lines[i].length());
+	}
 	SetTextColor(hdc, prevColor);
 	SelectObject(hdc, prevFont);
 }

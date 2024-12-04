@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "Upgrade.h"
 
-Upgrade::Upgrade(const wstring& text, int maxLevel)
+Upgrade::Upgrade(Sprite* icon, const wstring& title, const wstring& description, int maxLevel)
 {
-	_text = text;
+	_icon = icon;
+	_title = title;
+	_description = description;
 	_maxLevel = maxLevel;
 	_currentLevel = 0;
 }

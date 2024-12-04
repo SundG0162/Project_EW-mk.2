@@ -2,15 +2,12 @@
 #include "InGameScene.h"
 #include "Player.h"
 #include "CCTV.h"
-#include "Camera.h"
-#include "BarUI.h"
 #include "WindowUI.h"
 #include "Window.h"
-#include "BasicEnemy.h"
 #include "SpawnManager.h"
 #include "WindowManager.h"
-#include "Beacon.h"
 #include "TextUI.h"
+#include "UpgradeUI.h"
 
 InGameScene::InGameScene()
 {
@@ -28,5 +25,9 @@ void InGameScene::init()
 	player->setCCTV(cctv);
 	cctv->initialize(player);
 	addObject(player, LAYER::PLAYER);
-	addObject(cctv, LAYER::UI);
+	addObject(cctv, LAYER::PLAYER);
+	WindowUI* testUI = new WindowUI({ 300,300 }, { 320,480 }, WINDOW_TYPE::NEW, L"Upgrade.exe");
+	UpgradeUI* upgrade = new UpgradeUI();
+	testUI->setUI(upgrade);
+	addObject(testUI, LAYER::UI);
 }
