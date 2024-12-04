@@ -16,9 +16,9 @@ UpgradeUI::UpgradeUI()
 	renderer->setSprite(sprite);
 	renderer->setScale({ _size.x / 32, _size.y / 48 });
 	_titleText = new TextUI();
-	_titleText->setupFont(L"Galmuri9 Regular", 27, 400);
+	_titleText->setupFont(L"Galmuri9 Regular", 30, 600);
 	_titleText->setText(L"Im타이틀");
-	_titleText->setPosition({ _position.x, _position.y - 220});
+	_titleText->setPosition({ _position.x, _position.y - 225});
 	_descriptionText = new TextUI();
 	_descriptionText->setupFont(L"Galmuri9 Regular", 20, 400);
 	_descriptionText->setText(L"나는 설명이에요.\n엄준식");
@@ -43,5 +43,6 @@ void UpgradeUI::update()
 void UpgradeUI::render(HDC hdc)
 {
 	componentRender(hdc);
-	
+	_titleText->render(hdc);
+	_descriptionText->render(hdc);
 }

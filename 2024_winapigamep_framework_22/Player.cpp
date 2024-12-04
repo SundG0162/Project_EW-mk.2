@@ -7,6 +7,9 @@
 #include "SpriteRenderer.h"
 #include "StatComponent.h"
 #include "Stat.h"
+#include "DamageUpgrade.h"
+#include "UpgradeUI.h"
+#include "WindowUI.h"
 #include "ResourceManager.h"
 #include "EventManager.h"
 #include "Scene.h"
@@ -94,6 +97,26 @@ void Player::update()
 	{
 		_isBeaconSettingUp = !_isBeaconSettingUp;
 	}
+	/*if (GET_KEYDOWN(KEY_TYPE::C))
+	{
+		GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
+			{
+				DamageUpgrade* upgrade = new DamageUpgrade(nullptr, L"CCTV.exe", L"CCTV.exe의 데미지가 증가합니다.\n아, 집에 가고 싶네요.", 5);
+				upgrade->initialize(this);
+				UpgradeUI* ui = new UpgradeUI();
+				ui->setUpgrade(upgrade);
+				WindowUI* window = new WindowUI({ 300,300 }, { 320, 480 }, WINDOW_TYPE::NEW, L"Upgrade.exe");
+				window->setUI(ui);
+				window->getWindow()->openTween(0.f);
+				window->getWindow()->OnTweenEndEvent += [this, window]() 
+					{
+						window->getWindow()->setCloseable(true);
+						window->getWindow()->setMoveable(true);
+					};
+				GET_SINGLETON(EventManager)->createObject(window, LAYER::UI);
+				upgrade->applyUpgrade();
+			};
+	}*/
 }
 
 void Player::render(HDC hdc)

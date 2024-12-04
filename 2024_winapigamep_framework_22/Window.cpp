@@ -125,17 +125,17 @@ void Window::openTween(float delayTime, TWEEN_TYPE type)
 	_tweenType = type;
 	_delayTime = delayTime;
 	_goalSize = _size;
-	_startSize = { 0,0 };
+	_startSize = _size;
 	switch (type)
 	{
 	case TWEEN_TYPE::HORIZON:
 	{
-		_size.x = 0;
+		_startSize.x = 0;
 	}
 	break;
 	case TWEEN_TYPE::VERTICAL:
 	{
-		_size.y = 0;
+		_startSize.y = 0;
 	}
 	break;
 	}
