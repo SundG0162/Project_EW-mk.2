@@ -179,9 +179,9 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="CopyWindow.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="DashEnemy.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyTestScene.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="FadeInOut.h" />
@@ -203,6 +203,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SkillEnemy.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="SpinEnemy.h" />
     <ClInclude Include="Sprite.h" />
@@ -238,8 +239,8 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CopyWindow.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="DashEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyTestScene.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="FadeInOut.cpp" />
     <ClCompile Include="GDISelector.cpp" />
@@ -257,6 +258,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SkillEnemy.cpp" />
     <ClCompile Include="SpawnManager.cpp" />
     <ClCompile Include="SpinEnemy.cpp" />
     <ClCompile Include="Sprite.cpp" />

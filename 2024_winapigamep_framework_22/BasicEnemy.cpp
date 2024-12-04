@@ -33,10 +33,10 @@ BasicEnemy::~BasicEnemy()
 
 void BasicEnemy::update()
 {
-	Enemy::update();
+	Super::update();
 }
 
 void BasicEnemy::render(HDC hdc)
 {
-	Enemy::render(hdc);
+	Super::render(hdc);
 }

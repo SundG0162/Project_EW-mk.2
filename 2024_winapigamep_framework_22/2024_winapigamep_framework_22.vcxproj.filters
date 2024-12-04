@@ -163,9 +163,6 @@
     <ClInclude Include="Enemy.h">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyTestScene.h">
-      <Filter>Engine\04. Scene</Filter>
-    </ClInclude>
     <ClInclude Include="CCTV.h">
       <Filter>Engine\03. Object</Filter>
     </ClInclude>
@@ -224,6 +221,16 @@
       <Filter>Engine\06. Component\Stat</Filter>
     </ClInclude>
     <ClInclude Include="BasicEnemy.h">
+      <Filter>Engine\03. Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDevice.h" />
+    <ClInclude Include="SkillEnemy.h">
+      <Filter>Engine\03. Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SpinEnemy.h">
+      <Filter>Engine\03. Object\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="DashEnemy.h">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
@@ -346,9 +353,6 @@
     <ClCompile Include="WindowUI.cpp">
       <Filter>Engine\03. Object\UI</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyTestScene.cpp">
-      <Filter>Engine\04. Scene</Filter>
-    </ClCompile>
     <ClCompile Include="CopyWindow.cpp">
       <Filter>Engine\03. Windows</Filter>
     </ClCompile>
@@ -386,6 +390,15 @@
       <Filter>Engine\06. Component\Stat</Filter>
     </ClCompile>
     <ClCompile Include="BasicEnemy.cpp">
+      <Filter>Engine\03. Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillEnemy.cpp">
+      <Filter>Engine\03. Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SpinEnemy.cpp">
+      <Filter>Engine\03. Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="DashEnemy.cpp">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

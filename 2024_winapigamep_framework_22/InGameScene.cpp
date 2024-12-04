@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "BasicEnemy.h"
 #include "SpinEnemy.h"
+#include "DashEnemy.h"
 #include "SpawnManager.h"
 #include "Beacon.h"
 
@@ -41,11 +42,11 @@ void InGameScene::init()
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.1f });
 	}
 	{
-		SpinEnemy* basicEnemy = new SpinEnemy(player);
+		DashEnemy* basicEnemy = new DashEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.2f });
 	}
 	{
-		SpinEnemy* basicEnemy = new SpinEnemy(player);
+		DashEnemy* basicEnemy = new DashEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.3f });
 	}
 }

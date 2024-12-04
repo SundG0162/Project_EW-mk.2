@@ -3,7 +3,6 @@
 #include "Scene.h"
 #include "TitleScene.h"
 #include "InGameScene.h"
-#include "EnemyTestScene.h"
 void SceneManager::init()
 {
 	_currentScene = nullptr;
@@ -11,7 +10,6 @@ void SceneManager::init()
 	// �� ���
 	registerScene(L"TitleScene", std::make_shared<TitleScene>());
 	registerScene(L"InGameScene", std::make_shared<InGameScene>());
-	registerScene(L"EnemyTestScene", std::make_shared<EnemyTestScene>());
 	loadScene(L"InGameScene");
 }
 

@@ -22,6 +22,8 @@
 #include "Define.h"
 #include "Enums.h"
 #include "Vector2.h"
+#include "TimeManager.h"
+//#include "ResourceManager.h"
 
 // °¢Á¾ lib
 #pragma comment(lib, "winmm.lib")

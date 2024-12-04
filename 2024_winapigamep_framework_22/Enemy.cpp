@@ -53,14 +53,17 @@ void Enemy::render(HDC hdc)
 
 void Enemy::Move()
 {
+	{
+		Vector2 targetpos = _target->getPosition();
+		toTarget = targetpos - _position;
+	}
 	if (!_isMovable)
 	{
 		_stunTime -= DELTATIME;
 		if (_stunTime < 0) _isMovable = true;
 		return;
 	}
-	Vector2 targetpos = _target->getPosition();
-	Vector2 direction = targetpos - _position;
+	Vector2 direction = toTarget;
 	direction.Normalize();
 	_moveVector = direction * (_moveSpeed * DELTATIME);
 	DoMove(_moveVector);
@@ -68,7 +71,7 @@ void Enemy::Move()
 
 void Enemy::DoMove(Vector2& vec)
 {
-	_position = _moveVector + _position;
+	_position = vec + _position;
 }
 
 
@@ -89,3 +92,4 @@ void Enemy::GetStunned(float time)
 	_stunTime = max(_stunTime, time);
 	_isMovable = false;
 }
+
