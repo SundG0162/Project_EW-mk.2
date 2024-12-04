@@ -4,6 +4,7 @@
 #include "SpriteRenderer.h"
 #include "PlayerManager.h"
 #include "TextUI.h"
+#include "Upgrade.h"
 
 UpgradeUI::UpgradeUI()
 {
@@ -14,16 +15,14 @@ UpgradeUI::UpgradeUI()
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
 	renderer->setSprite(sprite);
 	renderer->setScale({ _size.x / 32, _size.y / 48 });
-	TextUI* title = new TextUI();
-	title->setupFont(L"Galmuri9 Regular", 27, 400);
-	title->setText(L"Im타이틀");
-	title->setPosition({ _position.x, _position.y - 220});
-	TextUI* description = new TextUI();
-	description->setupFont(L"Galmuri9 Regular", 20, 400);
-	description->setText(L"나는 설명이에요.\n엄준식");
-	description->setPosition(_position);
-	_uis.push_back(title);
-	_uis.push_back(description);
+	_titleText = new TextUI();
+	_titleText->setupFont(L"Galmuri9 Regular", 27, 400);
+	_titleText->setText(L"Im타이틀");
+	_titleText->setPosition({ _position.x, _position.y - 220});
+	_descriptionText = new TextUI();
+	_descriptionText->setupFont(L"Galmuri9 Regular", 20, 400);
+	_descriptionText->setText(L"나는 설명이에요.\n엄준식");
+	_descriptionText->setPosition(_position);
 }
 
 UpgradeUI::~UpgradeUI()
@@ -32,21 +31,17 @@ UpgradeUI::~UpgradeUI()
 
 void UpgradeUI::setUpgrade(Upgrade* upgrade)
 {
+	_titleText->setText(upgrade->getTitle());
+	_descriptionText->setText(upgrade->getDescription());
 }
 
 void UpgradeUI::update()
 {
-	for (UI* ui : _uis)
-	{
-		ui->update();
-	}
+	
 }
 
 void UpgradeUI::render(HDC hdc)
 {
 	componentRender(hdc);
-	for (UI* ui : _uis)
-	{
-		ui->render(hdc);
-	}
+	
 }

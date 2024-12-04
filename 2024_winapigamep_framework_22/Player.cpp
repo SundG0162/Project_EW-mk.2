@@ -92,7 +92,6 @@ void Player::update()
 	}
 	if (GET_KEYDOWN(KEY_TYPE::Q))
 	{
-		_statComponent->getStat(L"CameraCount")->addModifier(this, -1);
 		_isBeaconSettingUp = !_isBeaconSettingUp;
 	}
 }
