@@ -68,7 +68,7 @@ LRESULT CALLBACK Window::wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 	}
 	else
 		window = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
-	if (window)
+	if (window != nullptr && !window->isDead())
 		return window->handleMessage(hWnd, message, wParam, lParam);
 	else
 		return DefWindowProc(hWnd, message, wParam, lParam);

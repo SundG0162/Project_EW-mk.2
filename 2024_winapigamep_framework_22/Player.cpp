@@ -26,18 +26,25 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Computer");
 	spriteRenderer->setSprite(sprite);
 	spriteRenderer->setScale({ 3,3 });
-	StatComponent* statCompo = addComponent<StatComponent>();
+	_statComponent = addComponent<StatComponent>();
 	Stat* damageStat = new Stat(1);
-	statCompo->addStat(L"Damage", damageStat);
+	_statComponent->addStat(L"Damage", damageStat);
+	Stat* sizeStat = new Stat(500);
+	_statComponent->addStat(L"Size", sizeStat);
 	Stat* attackSpeedStat = new Stat(1.5f);
-	statCompo->addStat(L"AttackSpeed", attackSpeedStat);
+	_statComponent->addStat(L"AttackSpeed", attackSpeedStat);
 	Stat* attackStunStat = new Stat(0.f);
-	statCompo->addStat(L"AttackStun", attackStunStat);
+	_statComponent->addStat(L"AttackStun", attackStunStat);
 	Stat* cameraStunStat = new Stat(1.5f);
-	statCompo->addStat(L"CameraStun", cameraStunStat);
+	_statComponent->addStat(L"CameraStun", cameraStunStat);
 	Stat* cameraDamageStat = new Stat(3);
-	statCompo->addStat(L"CameraDamage", cameraDamageStat);
-	cout << cameraDamageStat->getValue();
+	_statComponent->addStat(L"CameraDamage", cameraDamageStat);
+	Stat* cameraSizeStat = new Stat(500);
+	_statComponent->addStat(L"CameraSize", cameraSizeStat);
+	Stat* cameraCountStat = new Stat(3);
+	_statComponent->addStat(L"CameraCount", cameraCountStat);
+	Stat* beaconSizeStat = new Stat(300);
+	_statComponent->addStat(L"BeaconSize", beaconSizeStat);
 	GET_SINGLETON(PlayerManager)->setPlayer(this);
 }
 
@@ -63,10 +70,11 @@ void Player::update()
 	if (_isBeaconSettingUp && GET_KEYDOWN(KEY_TYPE::LBUTTON))
 	{
 		Vector2 mousePos = Vector2(GET_MOUSEPOS);
-		GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos]()
+		float size = _statComponent->getStat(L"BeaconSize")->getValue();
+		GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos, size]()
 			{
 				_isBeaconSettingUp = false;
-				Beacon* beacon = new Beacon(_position, { 500,500 });
+				Beacon* beacon = new Beacon(_position, { size,size });
 				beacon->initialize(this);
 				beacon->setup(mousePos);
 				GET_SINGLETON(EventManager)->createObject(beacon, LAYER::UI);
@@ -74,15 +82,17 @@ void Player::update()
 	}
 	if (GET_KEYDOWN(KEY_TYPE::SPACE))
 	{
-		GET_SINGLETON(Core)->OnMessageProcessEvent += [this]() 
+		float size = _statComponent->getStat(L"CameraSize")->getValue();
+		GET_SINGLETON(Core)->OnMessageProcessEvent += [this, size]()
 			{
-				Camera* camera = new Camera(_position, { 500,500 });
+				Camera* camera = new Camera(_position, { size,size });
 				camera->initialize(this);
 				GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
 			};
 	}
 	if (GET_KEYDOWN(KEY_TYPE::Q))
 	{
+		_statComponent->getStat(L"CameraCount")->addModifier(this, -1);
 		_isBeaconSettingUp = !_isBeaconSettingUp;
 	}
 }

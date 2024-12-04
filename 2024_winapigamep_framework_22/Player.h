@@ -1,6 +1,7 @@
 #pragma once
 #include "WindowObject.h"
 class CCTV;
+class StatComponent;
 class Player : public WindowObject
 {
 public:
@@ -13,6 +14,7 @@ public:
 	void setCCTV(CCTV* cctv) { _cctv = cctv; }
 	const CCTV* getCCTV() { return _cctv; }
 private:
+	StatComponent* _statComponent;
 	CCTV* _cctv;
 	bool _isBeaconSettingUp;
 };

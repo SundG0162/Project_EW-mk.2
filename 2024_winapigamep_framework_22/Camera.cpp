@@ -15,8 +15,6 @@
 
 Camera::Camera(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"Camera.exe")
 {
-	_maxCount = 3;
-	_counter = _maxCount;
 	_window->OnWindowMoveEvent += [this](const Vector2& prev, const Vector2& current)
 		{
 			this->handleOnWindowMove(prev, current);
@@ -54,6 +52,8 @@ void Camera::initialize(Player* player)
 	StatComponent* statCompo = player->getComponent<StatComponent>();
 	_attackDamage = statCompo->getStat(L"CameraDamage")->getValue();
 	_stunTime = statCompo->getStat(L"CameraStun")->getValue();
+	_maxCount = statCompo->getStat(L"CameraCount")->getValue();
+	_counter = _maxCount;
 }
 
 void Camera::update()
