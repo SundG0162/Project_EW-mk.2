@@ -179,6 +179,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="CopyWindow.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="DamageUpgrade.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyTestScene.h" />
@@ -240,6 +241,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CopyWindow.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="DamageUpgrade.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyTestScene.cpp" />
     <ClCompile Include="EventManager.cpp" />

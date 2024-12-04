@@ -169,9 +169,9 @@ void Window::closeTween(float delayTime, TWEEN_TYPE type)
 void Window::close()
 {
 	_closeable = true;
-	GET_SINGLETON(EventManager)->deleteWindow(this);
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
+			GET_SINGLETON(EventManager)->deleteWindow(this);
 			SendMessage(_hWnd, WM_CLOSE, 0, 0);
 		};
 	_isDead = true;

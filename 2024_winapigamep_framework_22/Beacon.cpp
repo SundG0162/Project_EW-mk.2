@@ -33,6 +33,7 @@ Beacon::Beacon(const Vector2& position, const Vector2& size) : CaptureObject(pos
 
 Beacon::~Beacon()
 {
+	GET_SINGLETON(EventManager)->deleteObject(_bar);
 }
 
 void Beacon::update()
@@ -61,7 +62,8 @@ void Beacon::update()
 		return;
 	}
 	float ratio = 1 - _timer / _duration;
-	dynamic_cast<BarUI*>(_bar->getUI())->setFillAmount(ratio);
+	if (_bar != nullptr)
+		dynamic_cast<BarUI*>(_bar->getUI())->setFillAmount(ratio);
 	if (_timer >= _duration && !_window->isTweening())
 	{
 		_window->closeTween(0.5f);
@@ -69,7 +71,6 @@ void Beacon::update()
 		_window->OnTweenEndEvent += [this]()
 			{
 				GET_SINGLETON(EventManager)->deleteObject(this);
-				delete _bar;
 			};
 	}
 }
