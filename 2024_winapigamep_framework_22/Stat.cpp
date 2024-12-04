@@ -23,7 +23,9 @@ void Stat::addModifier(void* key, float value)
 	{
 		_modifierMap.insert({ key, value });
 	}
+	float prevValue = getValue();
 	_modifiedValue += value;
+	OnValueChangeEvent.invoke(prevValue, getValue());
 }
 
 void Stat::removeModifier(void* key)
@@ -31,7 +33,9 @@ void Stat::removeModifier(void* key)
 	auto iter = _modifierMap.find(key);
 	if (iter != _modifierMap.end())
 	{
+		float prevValue = getValue();
 		_modifiedValue -= iter->second;
+		OnValueChangeEvent.invoke(prevValue, getValue());
 		_modifierMap.erase(key);
 	}
 }
