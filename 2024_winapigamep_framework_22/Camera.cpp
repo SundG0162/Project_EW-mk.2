@@ -37,6 +37,7 @@ Camera::Camera(const Vector2& position, const Vector2& size) : CaptureObject(pos
 	_bar = new BarUI({ position.x, position.y + size.y / 2 - size.x / 8 }, { sizeX, sizeY });
 	_fadeOut = nullptr;
 	_collider->setFollowing(false);
+	_window->setPriority(CCTV_PRIORITY + 1);
 }
 
 Camera::~Camera()

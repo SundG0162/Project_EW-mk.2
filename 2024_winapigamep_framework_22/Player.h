@@ -14,5 +14,6 @@ public:
 	const CCTV* getCCTV() { return _cctv; }
 private:
 	CCTV* _cctv;
+	bool _isBeaconSettingUp;
 };
 

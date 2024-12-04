@@ -1,9 +1,10 @@
 #pragma once
 class Object;
+class Window;
 struct Event
 {
 	EVENT_TYPE eventType;
-	Object* object;
+	void* object;
 	LAYER objectLayer;
 public:
 	bool operator==(const Event& other)
@@ -19,10 +20,11 @@ public:
 	void deleteObject(Object* _pObj);
 	void createObject(Object* obj, LAYER layer);
 	void excludeObject(Object* obj, LAYER layer);
+	void deleteWindow(Window* window);
 	// todo..
 private:
 	void excute(const Event& _eve);
 private:
 	vector<Event> _events;
-	vector<Object*> _deadObjects;
+	vector<void*> _deadObjects;
 };

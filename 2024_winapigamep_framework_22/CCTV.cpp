@@ -6,11 +6,13 @@
 #include "Player.h"
 #include "TimeManager.h"
 #include "StatComponent.h"
+#include "WindowManager.h"
 #include "Stat.h"
 
 CCTV::CCTV(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"CCTV.exe")
 {
 	_collider->setFollowing(false);
+	_window->setPriority(CCTV_PRIORITY);
 }
 
 CCTV::~CCTV()
@@ -59,8 +61,7 @@ void CCTV::attack()
 	for (Enemy* enemy : _targets)
 	{
 		enemy->GetDamage(_statComponent->getStat(L"Damage")->getValue());
-		if (enemy->isDead())
-			deadVec.push_back(enemy);
+		enemy->GetStunned(_statComponent->getStat(L"AttackStun")->getValue());
 	}
 	for (Enemy* enemy : deadVec)
 	{

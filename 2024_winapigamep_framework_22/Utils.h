@@ -37,6 +37,11 @@ namespace utils
 		static float outCubic(float x) { return 1 - pow(1 - x, 3); }
 		static float inOutCubic(float x) { return x < 0.5f ? 4 * x * x * x : 1 - pow(-2 * x + 2, 3) / 2; }
 	};
+	class TextEditor
+	{
+	public:
+		static vector<wstring> textSplit(const wstring& text);
+	};
 	class CoordinateSync
 	{
 	public:

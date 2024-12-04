@@ -7,6 +7,7 @@
 WindowUI::WindowUI(const Vector2& position, const Vector2& size, WINDOW_TYPE type, const wstring& name) : WindowObject(position, size, type, name)
 {
 	_ui = nullptr;
+	_window->setPriority(UI_PRIORITY + 1);
 }
 
 WindowUI::~WindowUI()

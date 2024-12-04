@@ -28,3 +28,8 @@ public:							\
 #define RECT_MAKE(posx, posy, sizex, sizey) {posx-sizex/2, posy-sizey/2, posx+sizex/2, posy+sizey/2}
 
 #define GET_RANDOMDIR utils::ExMath::getRandomVector();
+
+//Window Priority
+#define PLAYER_PRIORITY 10
+#define CCTV_PRIORITY 20
+#define UI_PRIORITY 30

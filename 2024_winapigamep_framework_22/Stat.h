@@ -1,4 +1,5 @@
 #pragma once
+#include "Action.h"
 class Stat
 {
 public:
@@ -10,6 +11,8 @@ public:
 public:
 	float getBaseValue() { return _baseValue; }
 	float getValue() { return _baseValue + _modifiedValue; };
+public:
+	Action<float, float> OnValueChangeEvent;
 private:
 	float _baseValue;
 	float _modifiedValue;

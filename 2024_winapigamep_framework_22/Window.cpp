@@ -4,6 +4,7 @@
 #include "Core.h"
 #include "TimeManager.h"
 #include "WindowManager.h"
+#include "EventManager.h"
 #include "Core.h"
 
 Window::Window(const Vector2& position, const Vector2& size, const wstring& name)
@@ -168,11 +169,10 @@ void Window::closeTween(float delayTime, TWEEN_TYPE type)
 void Window::close()
 {
 	_closeable = true;
+	GET_SINGLETON(EventManager)->deleteWindow(this);
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			SendMessage(_hWnd, WM_CLOSE, 0, 0);
-			GET_SINGLETON(WindowManager)->removeWindow(this);
-			delete this;
 		};
 	_isDead = true;
 }
@@ -188,6 +188,12 @@ void Window::moveWindow(const Vector2& pos)
 void Window::setWindowName(const wstring& name)
 {
 	SetWindowText(_hWnd, name.c_str());
+}
+
+void Window::setPriority(int priority)
+{
+	_priority = priority;
+	GET_SINGLETON(WindowManager)->sortWindow();
 }
 
 void Window::update()

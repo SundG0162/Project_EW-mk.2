@@ -13,12 +13,26 @@ void WindowManager::update()
 {
 	for (Window* window : _windows)
 	{
-		if (window->isDead())
+   		if (window->isDead())
 		{
-			continue;
+			_windows.erase(std::find(_windows.begin(), _windows.end(), window));
 		}
 		window->update();
 	}
+
+	//윈도우 정렬 작업. 일괄 처리를 위해 DeferWindowPos 사용
+	HDWP hDwp = BeginDeferWindowPos(_windows.size());
+	HWND bottom = _windows[0]->getHWnd();
+	for (Window* window : _windows)
+	{
+		hDwp = DeferWindowPos(hDwp,
+			window->getHWnd(),
+			bottom,
+			0, 0, 0, 0,
+			SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE);
+		bottom = window->getHWnd();
+	}
+	EndDeferWindowPos(hDwp);
 }
 
 void WindowManager::render()
@@ -40,4 +54,15 @@ void WindowManager::render()
 			continue;
 		}
 	}
+}
+
+void WindowManager::sortWindow()
+{
+	std::sort(_windows.begin(), _windows.end(), WindowManager::compareWindow);
+}
+
+bool WindowManager::compareWindow(Window* w1, Window* w2)
+{
+	cout << w1->getPriority() << " " << w2->getPriority() << endl;
+	return w1->getPriority() > w2->getPriority();
 }

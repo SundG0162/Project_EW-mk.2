@@ -34,10 +34,7 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 	GET_SINGLETON(SpawnManager)->init();
 	GET_SINGLETON(CollisionManager)->checkReset();
 	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::UI, LAYER::ENEMY);
-
-	//m_obj.SetPos(Vec2(SCREEN_WIDTH / 2
-	//				,SCREEN_HEIGHT/ 2));
-	//m_obj.SetSize(Vec2(100, 100));
+	AddFontResource(L"Galmuri9 Regular.ttf");
 	return true;
 }
 void Core::cleanUp()
