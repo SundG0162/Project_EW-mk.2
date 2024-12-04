@@ -19,7 +19,7 @@ UpgradeUI::UpgradeUI()
 	title->setText(L"Im타이틀");
 	title->setPosition({ _position.x, _position.y - 220});
 	TextUI* description = new TextUI();
-	description->setupFont(L"Galmuri9 Regular", 18, 400);
+	description->setupFont(L"Galmuri9 Regular", 20, 400);
 	description->setText(L"나는 설명이에요.\n엄준식");
 	description->setPosition(_position);
 	_uis.push_back(title);

@@ -25,11 +25,12 @@ void TextUI::update()
 
 void TextUI::render(HDC hdc)
 {
+	if (_text == L"") return;
 	HFONT prevFont = (HFONT)SelectObject(hdc, _hFont);
 	SetBkColor(hdc, TRANSPARENT);
 	COLORREF prevColor = SetTextColor(hdc, _color);
-	GetTextExtentPoint(hdc, _text.c_str(), _text.size(), &_size);
 	vector<wstring> lines = utils::TextEditor::textSplit(_text);
+	GetTextExtentPoint(hdc, lines[0].c_str(), lines[0].size(), &_size);
 	for (int i = 0; i < lines.size(); i++)
 	{
 		TextOut(hdc, _position.x - _size.cx / 2, _position.y + _size.cy * i, lines[i].c_str(), lines[i].length());
