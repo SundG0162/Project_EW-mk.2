@@ -56,7 +56,9 @@ void Scene::render(HDC hDC)
 					}
 					else
 					{
-						win->render(dynamic_cast<NewWindow*>(win->getWindow())->getBackDC());
+						HDC hdc = dynamic_cast<NewWindow*>(win->getWindow())->getBackDC();
+						PatBlt(hdc, 0, 0, win->getSize().x, win->getSize().y, BLACKNESS);
+						win->render(hdc);
 					}
 				}
 				else

@@ -50,7 +50,7 @@ void TutorialScene::init()
 	{
 		TextUI* text = new TextUI();
 		Vector2 size = _nextBtn->getSize();
-		text->setupFont(L"Galmuri9 Regular", 20, 400);
+		text->setupFont(L"Galmuri9 Regular", 30, 400);
 		text->setPosition({ size.x / 2,size.y / 4 });
 		text->setText(L"닫아서 다음으로");
 		_nextBtn->setUI(text);
@@ -65,7 +65,7 @@ void TutorialScene::init()
 	{
 		TextUI* text = new TextUI();
 		Vector2 size = _nextBtn->getSize();
-		text->setupFont(L"Galmuri9 Regular", 20, 400);
+		text->setupFont(L"Galmuri9 Regular", 30, 400);
 		text->setPosition({ size.x / 2,size.y / 4 });
 		text->setText(L"닫아서 나가기");
 		_exitBtn->setUI(text);
@@ -104,6 +104,4 @@ void TutorialScene::nextTutorial()
 		return;
 	_panelUI->getUI<ImageUI>()->setSprite(_panelSprites[_currentIndex]);
 	_textUI->getUI<TextUI>()->setText(_tutorialTexts[_currentIndex]);
-	HDC hdc = ((NewWindow*)_textUI->getWindow())->getBackDC();
-	PatBlt(hdc, 0, 0, _textUI->getSize().x, _textUI->getSize().y, BLACKNESS);
 }
