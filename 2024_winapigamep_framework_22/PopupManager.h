@@ -6,6 +6,7 @@ class PopupManager
 	DECLARE_SINGLETON(PopupManager)
 	~PopupManager();
 public:
+	void initialize();
 	void addPopup(const wstring& key, UI* ui, const wstring& name);
 	WindowUI* getPopup(const wstring& key);
 	void popUp(const wstring& key, const Vector2& position, bool withTween);

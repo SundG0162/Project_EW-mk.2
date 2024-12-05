@@ -13,6 +13,10 @@ PopupManager::~PopupManager()
 	}
 }
 
+void PopupManager::initialize()
+{
+}
+
 void PopupManager::addPopup(const wstring& key, UI* ui, const wstring& name)
 {
 	WindowUI* wndUI = getPopup(key);
