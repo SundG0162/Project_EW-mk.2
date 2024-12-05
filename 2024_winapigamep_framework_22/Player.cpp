@@ -23,6 +23,8 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 {
 	_window->setCloseable(false);
 	_cctv = nullptr;
+	_maxHP = 3;
+	_hp = _maxHP;
 	_isBeaconSettingUp = false;
 	_window->setPriority(PLAYER_PRIORITY);
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
@@ -104,14 +106,22 @@ void Player::update()
 	if (GET_KEYDOWN(KEY_TYPE::Q))
 	{
 		_isBeaconSettingUp = !_isBeaconSettingUp;
+		modifyHP(1);
 	}
 	if (GET_KEYDOWN(KEY_TYPE::C))
 	{
-		_upgradeComponent->setRandomUpgrade();
+		modifyHP(-1);
 	}
 }
 
 void Player::render(HDC hdc)
 {
 	componentRender(hdc);
+}
+
+void Player::modifyHP(int value)
+{
+	int prev = _hp;
+	_hp += value;
+	OnHPChangeEvent.invoke(prev, _hp);
 }

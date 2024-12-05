@@ -14,4 +14,5 @@ public:
 	void setupUI();
 private:
 	WindowUI* _powerPanel;
+	WindowUI* _hpUI;
 };

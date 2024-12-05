@@ -35,15 +35,6 @@ void PanelUI::render(HDC hdc)
 	}
 }
 
-void PanelUI::syncUIPositions()
-{
-	for (auto& pair : _uiMap)
-	{
-		Vector2 uiPos = pair.second->getPosition();
-		pair.second->setPosition(_position + uiPos);
-	}
-}
-
 void PanelUI::addUI(const wstring& key, UI* ui)
 {
 	if (_uiMap.find(key) != _uiMap.end())
@@ -57,5 +48,25 @@ void PanelUI::removeUI(const wstring& key)
 	if (iter != _uiMap.end())
 	{
 		iter->second->setDead();
+	}
+}
+
+void PanelUI::enableUI(const wstring& key)
+{
+	auto iter = _disabledUiMap.find(key);
+	if (iter != _disabledUiMap.end())
+	{
+		_uiMap.insert(*iter);
+		_disabledUiMap.erase(iter);
+	}
+}
+
+void PanelUI::disableUI(const wstring& key)
+{
+	auto iter = _uiMap.find(key);
+	if (iter != _uiMap.end())
+	{
+		_disabledUiMap.insert(*iter);
+		_uiMap.erase(iter);
 	}
 }

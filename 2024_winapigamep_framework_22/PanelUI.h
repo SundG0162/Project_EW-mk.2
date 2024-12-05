@@ -9,7 +9,6 @@ public:
 	void update() override;
 	void render(HDC hdc) override;
 public:
-	void syncUIPositions();
 	void addUI(const wstring& key, UI* ui);
 	template<typename T>
 	T* getUI(const wstring& key)
@@ -20,10 +19,18 @@ public:
 		{
 			ui = dynamic_cast<T*>(iter->second);
 		}
+		iter = _disabledUiMap.find(key);
+		if (iter != _disabledUiMap.end())
+		{
+			ui = dynamic_cast<T*>(iter->second);
+		}
 		return ui;
 	}
 	void removeUI(const wstring& key);
+	void enableUI(const wstring& key);
+	void disableUI(const wstring& key);
 private:
 	map<wstring, UI*> _uiMap;
+	map<wstring, UI*> _disabledUiMap;
 };
 

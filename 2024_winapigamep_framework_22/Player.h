@@ -1,5 +1,6 @@
 #pragma once
 #include "WindowObject.h"
+#include "Action.h"
 class CCTV;
 class StatComponent;
 class UpgradeComponent;
@@ -13,10 +14,16 @@ public:
 	void render(HDC hdc) override;
 public:
 	const CCTV* getCCTV() { return _cctv; }
+public:
+	void modifyHP(int value);
+public:
+	Action<int, int> OnHPChangeEvent;
 private:
 	StatComponent* _statComponent;
 	UpgradeComponent* _upgradeComponent;
 	CCTV* _cctv;
+	int _hp;
+	int _maxHP;
 	bool _isBeaconSettingUp;
 };
 

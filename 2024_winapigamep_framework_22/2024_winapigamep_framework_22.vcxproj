@@ -170,7 +170,7 @@
     <ClInclude Include="BarUI.h" />
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="BasicEnemy.h" />
-    <ClInclude Include="Beacon.h" />
+    <ClInclude Include="Torch.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CaptureObject.h" />
     <ClInclude Include="CCTV.h" />
@@ -235,7 +235,7 @@
     <ClCompile Include="BarUI.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="BasicEnemy.cpp" />
-    <ClCompile Include="Beacon.cpp" />
+    <ClCompile Include="Torch.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CaptureObject.cpp" />
     <ClCompile Include="CCTV.cpp" />
