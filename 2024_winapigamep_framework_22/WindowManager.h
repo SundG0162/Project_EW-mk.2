@@ -7,6 +7,7 @@ class WindowManager
 public:
 	void update();
 	void render();
+	void release();
 public:
 	void sortWindow();
 	static bool compareWindow(Window* w1, Window* w2);

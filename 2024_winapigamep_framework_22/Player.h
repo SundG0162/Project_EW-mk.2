@@ -1,6 +1,8 @@
 #pragma once
 #include "WindowObject.h"
 class CCTV;
+class StatComponent;
+class UpgradeComponent;
 class Player : public WindowObject
 {
 public:
@@ -10,9 +12,10 @@ public:
 	void update() override;
 	void render(HDC hdc) override;
 public:
-	void setCCTV(CCTV* cctv) { _cctv = cctv; }
 	const CCTV* getCCTV() { return _cctv; }
 private:
+	StatComponent* _statComponent;
+	UpgradeComponent* _upgradeComponent;
 	CCTV* _cctv;
 	bool _isBeaconSettingUp;
 };

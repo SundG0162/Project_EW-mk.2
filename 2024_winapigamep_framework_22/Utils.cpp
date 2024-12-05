@@ -142,6 +142,16 @@ float utils::ExMath::getRandomValue(float minValue, float maxValue)
 	return dist(twister);
 }
 
+int utils::ExMath::getRandomValue(int minValue, int maxValue)
+{
+	static std::random_device randDev;
+	static std::mt19937 twister(randDev());
+	static std::uniform_int_distribution<int> dist;
+
+	dist.param(std::uniform_int_distribution<int>::param_type(minValue, maxValue));
+	return dist(twister);
+}
+
 vector<wstring> utils::TextEditor::textSplit(const wstring& text)
 {
 	vector<wstring> splits;

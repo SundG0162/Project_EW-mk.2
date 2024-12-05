@@ -20,7 +20,7 @@ void WindowManager::update()
 		window->update();
 	}
 
-	//윈도우 정렬 작업. 일괄 처리를 위해 DeferWindowPos 사용
+	if (_windows.size() <= 0) return;
 	HDWP hDwp = BeginDeferWindowPos(_windows.size());
 	HWND bottom = _windows[0]->getHWnd();
 	for (Window* window : _windows)
@@ -56,6 +56,18 @@ void WindowManager::render()
 	}
 }
 
+void WindowManager::release()
+{
+	for (Window* window : _windows)
+	{
+		if (window == nullptr) continue;
+		window->close();
+		delete window;
+		window = nullptr;
+	}
+	_windows.clear();
+}
+
 void WindowManager::sortWindow()
 {
 	std::sort(_windows.begin(), _windows.end(), WindowManager::compareWindow);
@@ -63,6 +75,5 @@ void WindowManager::sortWindow()
 
 bool WindowManager::compareWindow(Window* w1, Window* w2)
 {
-	cout << w1->getPriority() << " " << w2->getPriority() << endl;
 	return w1->getPriority() > w2->getPriority();
 }

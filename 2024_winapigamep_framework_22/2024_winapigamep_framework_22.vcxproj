@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Output\build\Resource\Fmod\inc</AdditionalIncludeDirectories>
@@ -148,7 +148,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>$(SolutionDir)Output\build\Resource\Fmod\inc</AdditionalIncludeDirectories>
@@ -179,6 +179,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="CopyWindow.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="DamageUpgrade.h" />
     <ClInclude Include="DashEnemy.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enemy.h" />
@@ -200,6 +201,7 @@
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="PopupManager.h" />
     <ClInclude Include="PopupUI.h" />
+    <ClInclude Include="PowerManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceBase.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -219,6 +221,7 @@
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Upgrade.h" />
+    <ClInclude Include="UpgradeComponent.h" />
     <ClInclude Include="UpgradeUI.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector2.h" />
@@ -242,6 +245,7 @@
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="CopyWindow.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="DamageUpgrade.cpp" />
     <ClCompile Include="DashEnemy.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EventManager.cpp" />
@@ -259,6 +263,7 @@
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PopupManager.cpp" />
     <ClCompile Include="PopupUI.cpp" />
+    <ClCompile Include="PowerManager.cpp" />
     <ClCompile Include="ResourceBase.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -276,6 +281,7 @@
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Upgrade.cpp" />
+    <ClCompile Include="UpgradeComponent.cpp" />
     <ClCompile Include="UpgradeUI.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Window.cpp" />

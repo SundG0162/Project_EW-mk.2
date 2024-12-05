@@ -33,7 +33,7 @@ void TextUI::render(HDC hdc)
 	GetTextExtentPoint(hdc, lines[0].c_str(), lines[0].size(), &_size);
 	for (int i = 0; i < lines.size(); i++)
 	{
-		TextOut(hdc, _position.x - _size.cx / 2, _position.y + _size.cy * i, lines[i].c_str(), lines[i].length());
+		TextOut(hdc, _position.x - _size.cx / 2, _position.y + _size.cy / 2* i, lines[i].c_str(), lines[i].length());
 	}
 	SetTextColor(hdc, prevColor);
 	SelectObject(hdc, prevFont);

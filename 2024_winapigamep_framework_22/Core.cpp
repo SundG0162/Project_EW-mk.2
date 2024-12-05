@@ -8,6 +8,7 @@
 #include "WindowManager.h"
 #include "EventManager.h"
 #include "SpawnManager.h"
+#include "PopupManager.h"
 bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 {
 	// 변수 초기화
@@ -60,6 +61,8 @@ void Core::gameLoop()
 {
 	while (true)
 	{
+		if (_isStopped)
+			continue;
 		mainupdate();
 		mainrender();
 		GET_SINGLETON(EventManager)->update();
@@ -107,5 +110,4 @@ void Core::createGDI()
 void Core::onMessageProcess()
 {
 	OnMessageProcessEvent.invoke();
-	OnMessageProcessEvent.clear();
 }

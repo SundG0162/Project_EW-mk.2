@@ -17,6 +17,8 @@ public:
 	void localMove(const Vector2& move);
 	void tryAttack();
 	void attack();
+public:
+	void handleOnSizeStatChange(float prev, float current);
 private:
 	StatComponent* _statComponent;
 	int _attackDamage = 1;

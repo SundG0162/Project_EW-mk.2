@@ -14,6 +14,7 @@ private:
 	void createGDI();
 public:
 	void onMessageProcess();
+	void setStopLoop(bool stop) { _isStopped = stop; }
 public:
 	const HINSTANCE& getHInstance() const { return _hInstance; }
 	const HWND& getHWnd() const { return _hWnd; }
@@ -30,9 +31,9 @@ public:
 public:
 	Action<> OnMessageProcessEvent;
 private:
+	bool _isStopped = false;
 	HBRUSH _colorBrushes[(UINT)BRUSH_TYPE::END] = {};
 	HPEN _colorPens[(UINT)PEN_TYPE::END] = {};
-
 	HINSTANCE _hInstance;
 	HWND _hWnd;
 	HDC  _hDC;

@@ -8,14 +8,16 @@
 #include "ResourceManager.h"
 #include "EventManager.h"
 #include "Animator.h"
+#include "Core.h"
 #include "SpriteRenderer.h"
 
 Beacon::Beacon(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"Beacon.exe")
 {
 	_duration = 10.f;
 	_timer = 0.f;
-	_settingUp = false;
-	
+	_settingUp = true;
+	_bar = nullptr;
+
 	Texture* texture = GET_SINGLETON(ResourceManager)->getTexture(L"Torch");
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
 	RECT rect = { 0,0,_size.x,_size.y };
@@ -27,10 +29,16 @@ Beacon::Beacon(const Vector2& position, const Vector2& size) : CaptureObject(pos
 	vector<Sprite*> sprites = utils::SpriteParser::textureToSprites(texture, { 0,0 }, { 32,32 }, { 32,0 });
 	animator->createAnimation(L"Idle", sprites, 0.5f);
 	animator->playAnimation(L"Idle", true);
+	_window->setPriority(CCTV_PRIORITY - 1);
 }
 
 Beacon::~Beacon()
 {
+	if (!_bar->isDead())
+	{
+		GET_SINGLETON(EventManager)->deleteObject(_bar);
+		_bar = nullptr;
+	}
 }
 
 void Beacon::update()
@@ -46,25 +54,30 @@ void Beacon::update()
 		{
 			_timer = 0.f;
 			_settingUp = false;
-			_bar = new WindowUI({ _position.x - 30, _position.y - _size.y / 3 }, { 320,40 }, WINDOW_TYPE::NEW, L"Ember.exe");
-			BarUI* bar = new BarUI({ _bar->getSize().x / 2, _bar->getSize().y / 2 }, { 320,40 });
-			_bar->getWindow()->setMoveable(true);
-			_bar->getWindow()->setCloseable(true);
-			_bar->setUI(bar);
-			GET_SINGLETON(EventManager)->createObject(_bar, LAYER::UI);
+			GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
+				{
+					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+					_bar = new WindowUI({ _position.x - 30, _position.y - _size.y / 3 }, { 320,40 }, WINDOW_TYPE::NEW, L"Ember.exe");
+					BarUI* bar = new BarUI({ _bar->getSize().x / 2, _bar->getSize().y / 2 }, { 320,40 });
+					_bar->getWindow()->setMoveable(true);
+					_bar->getWindow()->setCloseable(true);
+					_bar->setUI(bar);
+					GET_SINGLETON(EventManager)->createObject(_bar, LAYER::UI);
+				};
 		}
 		return;
 	}
 	float ratio = 1 - _timer / _duration;
-	dynamic_cast<BarUI*>(_bar->getUI())->setFillAmount(ratio);
+	if (!_bar->isDead())
+		_bar->getUI<BarUI>()->setFillAmount(ratio);
 	if (_timer >= _duration && !_window->isTweening())
 	{
 		_window->closeTween(0.5f);
-		_bar->getWindow()->closeTween(0);
+		if (_bar != nullptr && !_bar->isDead())
+			_bar->getWindow()->closeTween(0);
 		_window->OnTweenEndEvent += [this]()
 			{
 				GET_SINGLETON(EventManager)->deleteObject(this);
-				delete _bar;
 			};
 	}
 }

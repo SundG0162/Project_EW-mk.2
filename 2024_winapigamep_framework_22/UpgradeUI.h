@@ -2,6 +2,8 @@
 #include "UI.h"
 class Player;
 class Upgrade;
+class TextUI;
+class ImageUI;
 class UpgradeUI : public UI
 {
 public:
@@ -13,6 +15,8 @@ public:
 public:
 	void setUpgrade(Upgrade* upgrade);
 private:
-	vector<UI*> _uis;
 	Player* _player;
+	TextUI* _titleText;
+	TextUI* _descriptionText;
+	ImageUI* _iconImage;
 };

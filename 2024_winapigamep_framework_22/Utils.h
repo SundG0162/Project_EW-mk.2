@@ -52,6 +52,7 @@ namespace utils
 	{
 	public:
 		static float getRandomValue(float minValue, float maxValue); //mt써서 무작위 값 얻는 코드
+		static int getRandomValue(int minValue, int maxValue); //mt써서 무작위 값 얻는 코드
 		static void rotateVector(Vector2& vector, float angle) // 회전 행렬 써서 회전시킴
 		{
 			float x = cosf(angle)*vector.x - sinf(angle)*vector.y;
@@ -63,7 +64,6 @@ namespace utils
 		{
 			Vector2 v = { 1,0 };
 			rotateVector(v, getRandomValue(0.f, 360.f));
-			std::cout << v.x << " " << v.y << std::endl;
 			return v;
 		}
 	};

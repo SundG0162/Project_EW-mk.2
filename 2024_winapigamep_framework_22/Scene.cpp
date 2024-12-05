@@ -4,6 +4,7 @@
 #include "WindowObject.h"
 #include "NewWindow.h"
 #include "CollisionManager.h"
+#include "EventManager.h"
 Scene::Scene()
 {
 }
@@ -76,7 +77,8 @@ void Scene::release()
 	{
 		for (UINT j = 0; j < _objects[i].size(); ++j)
 		{
-			delete _objects[i][j];
+			if (!_objects[i][j]->isDead())
+				delete _objects[i][j];
 		}
 		_objects[i].clear();
 	}

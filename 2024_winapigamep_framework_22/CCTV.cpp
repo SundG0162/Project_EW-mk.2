@@ -17,12 +17,18 @@ CCTV::CCTV(const Vector2& position, const Vector2& size) : CaptureObject(positio
 
 CCTV::~CCTV()
 {
+	_statComponent->getStat(L"Size")->OnValueChangeEvent -=
+		[this](float prev, float current)
+		{ this->handleOnSizeStatChange(prev, current); };
 }
 
 void CCTV::initialize(Player* player)
 {
 	PlayerDevice::initialize(player);
 	_statComponent = player->getComponent<StatComponent>();
+	_statComponent->getStat(L"Size")->OnValueChangeEvent += 
+		[this](float prev, float current) 
+		{ this->handleOnSizeStatChange(prev, current); };
 }
 
 void CCTV::update()
@@ -69,4 +75,12 @@ void CCTV::attack()
 		if (iter != _targets.end())
 			_targets.erase(iter);
 	}
+}
+
+void CCTV::handleOnSizeStatChange(float prev, float current)
+{
+	_window->setSize({ current, current });
+	_size = { current, current };
+	_collider->setSize(_size);
+	_window->moveWindow(_position);
 }

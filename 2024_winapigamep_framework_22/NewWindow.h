@@ -8,6 +8,9 @@ public:
 public:
 	void render(HDC hdc) override;
 public:
+	void closeWindow() override;
+	void openWindow() override;
+public:
 	const HDC& getBackDC() { return _hBackDC; }
 private:
 	HDC _hBackDC;

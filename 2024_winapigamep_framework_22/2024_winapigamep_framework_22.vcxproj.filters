@@ -53,6 +53,9 @@
     <Filter Include="Engine\03. Windows">
       <UniqueIdentifier>{e2715499-01d7-4ac7-97b4-aed651e8fc43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\06. Component\Upgrade">
+      <UniqueIdentifier>{28e4b67c-7189-4967-b6e3-ebce60d676fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2024_winapigamep_framework_22.h">
@@ -220,7 +223,26 @@
     <ClInclude Include="BasicEnemy.h">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerDevice.h" />
+    <ClInclude Include="UpgradeComponent.h">
+      <Filter>Engine\06. Component\Upgrade</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageUpgrade.h">
+      <Filter>Engine\06. Component\Upgrade</Filter>
+    </ClInclude>
+    <ClInclude Include="Upgrade.h">
+      <Filter>Engine\06. Component\Upgrade</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeUI.h">
+      <Filter>Engine\06. Component\Upgrade</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerDevice.h">
+      <Filter>Engine\03. Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManager.h">
+      <Filter>Engine\02. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerManager.h">
+      <Filter>Engine\02. Manager</Filter>
     <ClInclude Include="SkillEnemy.h">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
@@ -230,9 +252,6 @@
     <ClInclude Include="DashEnemy.h">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerManager.h" />
-    <ClInclude Include="Upgrade.h" />
-    <ClInclude Include="UpgradeUI.h" />
     <ClInclude Include="InvincibleEnemy.h">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
@@ -406,6 +425,23 @@
     <ClCompile Include="UpgradeUI.cpp" />
     <ClCompile Include="InvincibleEnemy.cpp">
       <Filter>Engine\03. Object\Enemy</Filter>
+    <ClCompile Include="UpgradeComponent.cpp">
+      <Filter>Engine\06. Component\Upgrade</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageUpgrade.cpp">
+      <Filter>Engine\06. Component\Upgrade</Filter>
+    </ClCompile>
+    <ClCompile Include="Upgrade.cpp">
+      <Filter>Engine\06. Component\Upgrade</Filter>
+    </ClCompile>
+    <ClCompile Include="UpgradeUI.cpp">
+      <Filter>Engine\06. Component\Upgrade</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

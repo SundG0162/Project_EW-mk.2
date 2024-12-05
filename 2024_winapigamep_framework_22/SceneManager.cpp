@@ -3,6 +3,11 @@
 #include "Scene.h"
 #include "TitleScene.h"
 #include "InGameScene.h"
+#include "EnemyTestScene.h"
+#include "EventManager.h"
+#include "WindowManager.h"
+#include "PopupManager.h"
+#include "Core.h"
 void SceneManager::init()
 {
 	_currentScene = nullptr;
@@ -32,22 +37,24 @@ void SceneManager::registerScene(const wstring& _sceneName, std::shared_ptr<Scen
 {
 	if (_sceneName.empty() || _scene == nullptr)
 		return;
-	_sceneMap.insert(_sceneMap.end(), {_sceneName, _scene});
+	_sceneMap.insert(_sceneMap.end(), { _sceneName, _scene });
 }
 
 void SceneManager::loadScene(const wstring& _sceneName)
 {
-	// ���� ������
+	GET_SINGLETON(Core)->setStopLoop(true);
 	if (_currentScene != nullptr)
 	{
+		GET_SINGLETON(PopupManager)->release();
 		_currentScene->release();
-		_currentScene = nullptr;
 	}
-
+	GET_SINGLETON(EventManager)->deadObjectClear();
 	auto iter = _sceneMap.find(_sceneName);
 	if (iter != _sceneMap.end())
 	{
 		_currentScene = iter->second;
 		_currentScene->init();
+		GET_SINGLETON(PopupManager)->initialize();
 	}
+	GET_SINGLETON(Core)->setStopLoop(false);
 }

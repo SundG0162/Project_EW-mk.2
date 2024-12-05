@@ -3,45 +3,48 @@
 template<typename... Args>
 class Action
 {
-	using Listener = std::function<void(Args...)>;
+	using Callback = std::function<void(Args...)>;
 public:
 	Action() {}
 	~Action() {}
 public:
-	void operator+= (const Listener& callback)
+	void operator+= (const Callback& callback)
 	{
 		addListener(callback);
 	}
-	void operator-= (const Listener& callback)
+	void operator-= (const Callback& callback)
 	{
 		removeListener(callback);
 	}
 public:
-	void addListener(const Listener& callback)
+	void addListener(const Callback& callback)
 	{
 		_callbacks.push_back(callback);
 	}
-	void removeListener(const Listener& callback)
+	void removeListener(const Callback& callback)
 	{
 		_callbacks.erase(
 			std::remove_if(_callbacks.begin(), _callbacks.end(),
-				[&](const Listener& currentListener) {
+				[&](const Callback& currentListener) {
 					return currentListener.target<void(Args...)>() == callback.target<void(Args...)>();
 				}),
 			_callbacks.end());
 	}
 	void invoke(Args... args)
 	{
-		for (const auto& listener : _callbacks)
+		for (const auto& callback : _callbacks)
 		{
-			listener(args...);
+			callback(args...);
 		}
 	}
 	void clear()
 	{
 		_callbacks.clear();
 	}
-
+	int count()
+	{
+		return _callbacks.size();
+	}
 private:
-	std::vector<Listener> _callbacks;
+	std::vector<Callback> _callbacks;
 };

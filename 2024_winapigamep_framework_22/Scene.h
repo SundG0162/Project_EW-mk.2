@@ -42,7 +42,7 @@ public:
 	{
 		return _objects[(UINT)_type];
 	}
-private:
+public:
 	vector<Object*> _objects[(UINT)LAYER::END];
 };
 

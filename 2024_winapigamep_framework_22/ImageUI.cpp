@@ -2,7 +2,7 @@
 #include "ImageUI.h"
 #include "SpriteRenderer.h"
 
-ImageUI::ImageUI(const Vector2& position, const Vector2& size, Sprite* sprite) : UI()
+ImageUI::ImageUI(Sprite* sprite) : UI()
 {
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
 	spriteRenderer->setSprite(sprite);

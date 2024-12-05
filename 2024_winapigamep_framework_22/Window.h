@@ -17,8 +17,10 @@ public:
 	static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual LRESULT handleMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
-	void openTween(float delayTime = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
-	void closeTween(float delayTime = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
+	void openTween(float delayTime = 1.f, float speed = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
+	void closeTween(float delayTime = 1.f, float speed = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
+	virtual void closeWindow();
+	virtual void openWindow();
 	void close();
 	void moveWindow(const Vector2& pos);
 public:
@@ -37,16 +39,20 @@ public:
 	const int& getPriority() { return _priority; }
 	const bool& isDead() { return _isDead; }
 	const bool& isTweening() { return !_isTweenEnd; }
+	const bool& isClosed() { return _isClosed; }
 public:
 	Action<const Vector2&, const Vector2&> OnWindowMoveEvent;
 	Action<> OnTweenEndEvent;
 	Action<> OnWindowCloseEvent;
+	Action<> OnTryWindowCloseEvent;
 protected:
 	HWND _hWnd;
 	HDC _hMainDC;
+	wstring _name;
 	Vector2 _position;
 	Vector2 _size;
 	Vector2 _leftTopPosition;
+	float _speed = 1.f;
 	float _timer = 0.f;
 	float _delayTime = 0.f;
 	Vector2 _goalSize;
@@ -56,5 +62,6 @@ protected:
 	bool _isTweenEnd = true;
 	bool _closeable = true;
 	bool _isDead = false;
+	bool _isClosed = false;
 	int _priority = 0;
 };
