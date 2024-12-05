@@ -5,12 +5,13 @@
 #include "Collider.h"
 #include "SpriteRenderer.h"
 #include "Sprite.h"
+#include "StatComponent.h"
+#include "Stat.h"
 
 Enemy::Enemy()
 	: _moveVector(0.f, 0.f)
 	, _maxHealth(5.f)
 	, _curHealth(5.f)
-	, _moveSpeed(50.f)
 	, _isMovable(true)
 	,_stunTime(0.f)
 	, _target(nullptr)
@@ -20,9 +21,15 @@ Enemy::Enemy()
 	Sprite* sprite = utils::SpriteParser::textureToSprite(texture);
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
 	spriteRenderer->setSprite(sprite);*/
+}
 
+Enemy::Enemy(Object* target)
+{
 	addComponent<Collider>(); // ���ڽ� ũ�� ����ȭ �������
 	SetRandomPos();
+	SetTarget(target);
+	stat = addComponent<StatComponent>();
+	stat->addStat(L"moveSpeed", new Stat(20.f));
 }
 
 Enemy::~Enemy()
@@ -47,8 +54,6 @@ void Enemy::render(HDC hdc)
 {
 	componentRender(hdc);
 	SpriteRenderer* sp = getComponent<SpriteRenderer>();
-	int height = sp->getSprite()->getSize().y * sp->getScale().y;
-	RECT_render(hdc, getPosition().x, getPosition().y - height, 20, 20);
 }
 
 void Enemy::Move()
@@ -65,7 +70,7 @@ void Enemy::Move()
 	}
 	Vector2 direction = toTarget;
 	direction.Normalize();
-	_moveVector = direction * (_moveSpeed * DELTATIME);
+	_moveVector = direction * (stat->getStat(L"moveSpeed")->getValue() * DELTATIME);
 	DoMove(_moveVector);
 }
 

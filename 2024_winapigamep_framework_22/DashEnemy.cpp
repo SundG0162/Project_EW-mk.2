@@ -7,22 +7,16 @@
 #include "Stat.h"
 
 
-DashEnemy::DashEnemy(Object* target)
+DashEnemy::DashEnemy(Object* target):Super(target)
 {
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();
-	GET_SINGLETON(ResourceManager)->loadTexture(L"LongHead", L"Texture\\LongHead.bmp");
-	sp->setSprite(utils::SpriteParser::textureToSprite(
-		GET_SINGLETON(ResourceManager)->getTexture(L"LongHead")));
+	sp->setSprite(GET_SINGLETON(ResourceManager)->getSprite(L"BasicEnemy"));
 
-	Collider* collider = addComponent<Collider>();
-	SetTarget(target);
-	SetRandomPos();
-	_moveSpeed = 20.f;
-	sc = addComponent<StatComponent>();
-	sc->addStat(L"DashRatio", new Stat(0.3f));
+	stat->addStat(L"DashRatio", new Stat(0.3f));
 
-	SetSkillCoolTime(2.f);
-	SetSkillUseTime(0.1f);
+	stat->getStat(L"moveSpeed")->setValue(20.f);
+	stat->getStat(L"CoolTime")->setValue(5.f);
+	stat->getStat(L"SkilTime")->setValue(0.1f);
 }
 
 DashEnemy::~DashEnemy()
@@ -40,8 +34,9 @@ void DashEnemy::render(HDC hdc)
 }
 
 void DashEnemy::startSkill()
-{ 
-	Vector2 dashLength = toTarget * sc->getStat(L"DashRatio")->getValue();;
+{
+	if (toTarget.Length() < 50) return;
+	Vector2 dashLength = toTarget * stat->getStat(L"DashRatio")->getValue();
 
 	DoMove(dashLength);
 	cout << "startdash" << std::endl;

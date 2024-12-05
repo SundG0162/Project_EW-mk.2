@@ -136,9 +136,6 @@
     <ClInclude Include="SpriteRenderer.h">
       <Filter>Engine\06. Component\Animator</Filter>
     </ClInclude>
-    <ClInclude Include="TestObject.h">
-      <Filter>Engine\03. Object</Filter>
-    </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Engine\03. Windows</Filter>
     </ClInclude>
@@ -233,6 +230,12 @@
     <ClInclude Include="DashEnemy.h">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerManager.h" />
+    <ClInclude Include="Upgrade.h" />
+    <ClInclude Include="UpgradeUI.h" />
+    <ClInclude Include="InvincibleEnemy.h">
+      <Filter>Engine\03. Object\Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -307,9 +310,6 @@
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
       <Filter>Engine\06. Component\Animator</Filter>
-    </ClCompile>
-    <ClCompile Include="TestObject.cpp">
-      <Filter>Engine\03. Object</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Engine\03. Windows</Filter>
@@ -399,6 +399,12 @@
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="DashEnemy.cpp">
+      <Filter>Engine\03. Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManager.cpp" />
+    <ClCompile Include="Upgrade.cpp" />
+    <ClCompile Include="UpgradeUI.cpp" />
+    <ClCompile Include="InvincibleEnemy.cpp">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClCompile>
   </ItemGroup>

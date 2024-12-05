@@ -2,29 +2,20 @@
 #include "SkillEnemy.h"
 #include "SpriteRenderer.h"
 #include "ResourceManager.h"
+#include "StatComponent.h"
+#include "Stat.h"
 #include "Collider.h"
 
 SkillEnemy::SkillEnemy()
 {
-	SpriteRenderer* sp = addComponent<SpriteRenderer>();
-	GET_SINGLETON(ResourceManager)->loadTexture(L"LongHead", L"Texture\\LongHead.bmp");
-	sp->setSprite(utils::SpriteParser::textureToSprite(
-		GET_SINGLETON(ResourceManager)->getTexture(L"LongHead")));
-	Collider* collider = addComponent<Collider>();
-	cout << "setted";
-	//collider->enterCollision
+	cout << "this skillenemy is not created with target";
 }
 
-SkillEnemy::SkillEnemy(Object* target)
+SkillEnemy::SkillEnemy(Object* target) : Super(target)
 {
-	//SetTarget(target);
-	SpriteRenderer* sp = addComponent<SpriteRenderer>();
-	GET_SINGLETON(ResourceManager)->loadTexture(L"LongHead", L"Texture\\LongHead.bmp");
-	sp->setSprite(utils::SpriteParser::textureToSprite(
-		GET_SINGLETON(ResourceManager)->getTexture(L"LongHead")));
-	Collider* collider = addComponent<Collider>();
-	SetTarget(target);
-	SetRandomPos();
+	stat->addStat(L"moveSpeed", new Stat(50.f));
+	stat->addStat(L"CoolTime", new Stat(3.f));
+	stat->addStat(L"SkilTime", new Stat(0.1f));
 }
 
 SkillEnemy::~SkillEnemy()
@@ -33,6 +24,9 @@ SkillEnemy::~SkillEnemy()
 
 void SkillEnemy::update()
 {
+	_skillcoolTime = stat->getStat(L"CoolTime")->getValue();
+	_skillTime = stat->getStat(L"SkilTime")->getValue();
+
 	if (_skilluseTime > 0)
 	{
 		_skilluseTime -= DELTATIME;

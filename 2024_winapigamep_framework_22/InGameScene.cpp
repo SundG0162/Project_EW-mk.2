@@ -7,6 +7,7 @@
 #include "BasicEnemy.h"
 #include "SpinEnemy.h"
 #include "DashEnemy.h"
+#include "InvincibleEnemy.h"
 #include "SpawnManager.h"
 #include "WindowManager.h"
 #include "TextUI.h"
@@ -33,21 +34,39 @@ void InGameScene::init()
 	UpgradeUI* upgrade = new UpgradeUI();
 	testUI->setUI(upgrade);
 	addObject(testUI, LAYER::UI);
+#pragma region enemyspawn
 
+	{
+		SpinEnemy* basicEnemy = new SpinEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 0 });
+	}
+	{
+		InvincibleEnemy* basicEnemy = new InvincibleEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 0 });
+	}
+	{
+		BasicEnemy* basicEnemy = new BasicEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 0 });
+	}
+	{
+		DashEnemy* basicEnemy = new DashEnemy(player);
+		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 0 });
+	}
 	{
 		SpinEnemy* basicEnemy = new SpinEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.f });
 	}
 	{
-		SpinEnemy* basicEnemy = new SpinEnemy(player);
+		InvincibleEnemy* basicEnemy = new InvincibleEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.1f });
 	}
 	{
-		DashEnemy* basicEnemy = new DashEnemy(player);
+		BasicEnemy* basicEnemy = new BasicEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.2f });
 	}
 	{
 		DashEnemy* basicEnemy = new DashEnemy(player);
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.3f });
 	}
+#pragma endregion
 }

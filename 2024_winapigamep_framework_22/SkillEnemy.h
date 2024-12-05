@@ -16,9 +16,6 @@ public:
     virtual void updateSkill();
     virtual void endSkill();
 
-    void SetSkillUseTime(float time) { _skillTime = time; }
-    void SetSkillCoolTime(float time) { _skillcoolTime = time; }
-
 protected:
     float _skillcoolTime = 0.f;
     float _currentTime = 0.f;

@@ -110,6 +110,16 @@ vector<Sprite*> utils::SpriteParser::textureToSprites(Texture* texture, Vector2 
 			break;
 	}
 	return sprites;
+}vector<Sprite*> utils::SpriteParser::textureToSprites(Texture* texture, Vector2 leftTop, Vector2 sliceSize, int step)
+{
+	vector<Sprite*> sprites;
+	while (step--)
+	{
+		Sprite* sprite = textureToSprite(texture, leftTop, sliceSize);
+		leftTop.x += sliceSize.x;
+		sprites.push_back(sprite);
+	}
+	return sprites;
 }
 
 Vector2 utils::CoordinateSync::nonClientToClient(const RECT& windowRect, const Vector2& position)

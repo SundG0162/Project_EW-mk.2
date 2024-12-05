@@ -1,11 +1,13 @@
 #pragma once
 #include "Object.h"
 class WindowObject;
+class StatComponent;
 class Enemy :
     public Object
 {
 public:
     Enemy();
+    Enemy(Object* target);
     virtual ~Enemy();
     // Inherited via Object
     virtual void update() override;
@@ -16,17 +18,16 @@ public:
     void GetDamage(int damage);
     void GetStunned(float time) ;
 
-    void SetRandomPos() { setPosition((utils::ExMath::getRandomVector() + Vector2(1, 1)) * posValue); }
+    void SetRandomPos() { setPosition((utils::ExMath::getRandomVector() + Vector2(0.5f, 0.5f)) * Vector2(SCREEN_WIDTH, SCREEN_HEIGHT) / 3); }
     void SetMaxHP(float hp) { _maxHealth = hp; _curHealth = hp; }
     void SetTarget(Object* target) { _target = target; }
 
 protected:
-    float posValue = (SCREEN_WIDTH + SCREEN_HEIGHT) / 2;
+    StatComponent* stat;
     Vector2 _moveVector;
     //Vector2 posScale = { SCREEN_WIDTH/2, SCREEN_HEIGHT/2 };
     int _maxHealth;
     int _curHealth;
-    float _moveSpeed;
     Object* _target;
     Vector2 toTarget;
 private:

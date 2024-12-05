@@ -22,8 +22,9 @@ void ResourceManager::init()
 	loadTexture(L"Camera", L"Texture\\CameraScreen.bmp");
 	loadTexture(L"BarUI", L"Texture\\BarUI.bmp");
 	loadTexture(L"Torch", L"Texture\\Torch.bmp");
-	loadTexture(L"BasicEnemy", L"Texture\\LongHead.bmp");
+	loadTexture(L"BasicEnemy", L"Texture\\BasicEnemy.bmp");
 	loadTexture(L"UpgradeCard", L"Texture\\UpgradeCard.bmp");
+	loadTexture(L"EnemySheet", L"Texture\\EnemySheet.bmp");
 
 	for (auto pair : _textureMap)
 	{

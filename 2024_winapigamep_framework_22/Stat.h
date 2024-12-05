@@ -9,6 +9,7 @@ public:
 	void addModifier(void* key, float value);
 	void removeModifier(void* key);
 public:
+	void setValue(float value) { _baseValue = value; }
 	float getBaseValue() { return _baseValue; }
 	float getValue() { return _baseValue + _modifiedValue; };
 public:

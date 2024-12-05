@@ -12,6 +12,7 @@ namespace utils
 		static Sprite* textureToSprite(Texture* texture);
 		static Sprite* textureToSprite(Texture* texture, Vector2 leftTop, Vector2 sliceSize);
 		static vector<Sprite*> textureToSprites(Texture* texture, Vector2 leftTop, Vector2 sliceSize, Vector2 step);
+		static vector<Sprite*> textureToSprites(Texture* texture, Vector2 leftTop, Vector2 sliceSize, int step);
 	};
 	class Drawer
 	{
