@@ -37,7 +37,7 @@ void SceneManager::registerScene(const wstring& _sceneName, std::shared_ptr<Scen
 {
 	if (_sceneName.empty() || _scene == nullptr)
 		return;
-	_sceneMap.insert(_sceneMap.end(), {_sceneName, _scene});
+	_sceneMap.insert(_sceneMap.end(), { _sceneName, _scene });
 }
 
 void SceneManager::loadScene(const wstring& _sceneName)
@@ -46,7 +46,6 @@ void SceneManager::loadScene(const wstring& _sceneName)
 	if (_currentScene != nullptr)
 	{
 		_currentScene->release();
-		_currentScene = nullptr;
 	}
 	GET_SINGLETON(EventManager)->deadObjectClear();
 	auto iter = _sceneMap.find(_sceneName);
