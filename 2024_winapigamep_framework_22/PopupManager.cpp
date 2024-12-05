@@ -17,21 +17,44 @@ PopupManager::~PopupManager()
 
 void PopupManager::initialize()
 {
-	WindowUI* ui = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { 300,70 }, WINDOW_TYPE::NEW, L"NotEnoughMoney");
-	TextUI* text = new TextUI();
-	text->setupFont(L"Galmuri9 Regular", 35, 400);
-	text->setText(L"전력이 부족합니다.");
-	text->setPosition({ 150, 25 });
-	ui->setUI(text);
+#pragma region NotEnoughPower
+	{
+		WindowUI* ui = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { 330,70 }, WINDOW_TYPE::NEW, L"Error.exe");
+		TextUI* text = new TextUI();
+		text->setupFont(35);
+		text->setText(L"전력이 부족합니다.");
+		text->setPosition({ 150, 25 });
+		ui->setUI(text);
 
-	ui->getWindow()->OnTryWindowCloseEvent += [ui]()
-		{
-			GET_SINGLETON(PopupManager)->close(L"NotEnoughPower", false);
-		};
-	addPopup(L"NotEnoughPower", ui);
-	ui->getWindow()->closeWindow();
-	GET_SINGLETON(EventManager)->excludeWindow(ui->getWindow());
-	ui->getWindow()->OnWindowCloseEvent -= [ui]() {};
+		ui->getWindow()->OnTryWindowCloseEvent += [ui]()
+			{
+				GET_SINGLETON(PopupManager)->close(L"NotEnoughPower", false);
+			};
+		addPopup(L"NotEnoughPower", ui);
+		ui->getWindow()->closeWindow();
+		GET_SINGLETON(EventManager)->excludeWindow(ui->getWindow());
+		ui->getWindow()->OnWindowCloseEvent -= [ui]() {};
+	}
+#pragma endregion
+#pragma region Pause
+	{
+		WindowUI* ui = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { 500,700 }, WINDOW_TYPE::NEW, L"Pause.exe");
+		TextUI* text = new TextUI();
+		text->setupFont(35);
+		text->setText(L"일시정지.");
+		text->setPosition({ 150, 25 });
+		ui->setUI(text);
+
+		ui->getWindow()->OnTryWindowCloseEvent += [ui]()
+			{
+				GET_SINGLETON(PopupManager)->close(L"NotEnoughPower", false);
+			};
+		addPopup(L"NotEnoughPower", ui);
+		ui->getWindow()->closeWindow();
+		GET_SINGLETON(EventManager)->excludeWindow(ui->getWindow());
+		ui->getWindow()->OnWindowCloseEvent -= [ui]() {};
+	}
+#pragma endregion
 }
 
 void PopupManager::release()

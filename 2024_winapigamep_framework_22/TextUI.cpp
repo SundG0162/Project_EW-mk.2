@@ -14,7 +14,7 @@ TextUI::~TextUI()
 {
 }
 
-void TextUI::setupFont(const wstring& fontName, float fontSize, float fontWeight)
+void TextUI::setupFont(float fontSize, const wstring& fontName, float fontWeight)
 {
 	_hFont = CreateFontW(fontSize, 0, 0, 0, 0, 0, 0, 0
 		, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, fontName.c_str());

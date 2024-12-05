@@ -58,7 +58,7 @@ void InGameScene::setupUI()
 		panelUI->setPosition({ panelSize.x / 2, panelSize.y / 2 });
 		TextUI* powerText = new TextUI();
 		powerText->setPosition({ panelSize.x / 2 + 16,panelSize.y / 4 });
-		powerText->setupFont(L"Galmuri9 Regular", 25, 400);
+		powerText->setupFont(25);
 		powerText->setText(L"0");
 		Sprite* icon = GET_SINGLETON(ResourceManager)->getSprite(L"PowerIcon");
 		ImageUI* powerIcon = new ImageUI(icon);

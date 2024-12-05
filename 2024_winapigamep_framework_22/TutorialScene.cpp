@@ -41,7 +41,7 @@ void TutorialScene::init()
 	_panelUI->setUI(image);
 	_textUI = new WindowUI({ (int)_panelPosition.x, SCREEN_HEIGHT - 150 }, { SCREEN_WIDTH,300 }, WINDOW_TYPE::NEW, L"TutorialText.exe");
 	TextUI* text = new TextUI();
-	text->setupFont(L"Galmuri9 Regular", 40, 400);
+	text->setupFont(40);
 	_textUI->setUI(text);
 	text->setPosition({ SCREEN_WIDTH / 2,(int)_textUI->getSize().y / 4});
 	_textUI->getWindow()->setMoveable(false);
@@ -50,7 +50,7 @@ void TutorialScene::init()
 	{
 		TextUI* text = new TextUI();
 		Vector2 size = _nextBtn->getSize();
-		text->setupFont(L"Galmuri9 Regular", 30, 400);
+		text->setupFont(30);
 		text->setPosition({ size.x / 2,size.y / 4 });
 		text->setText(L"닫아서 다음으로");
 		_nextBtn->setUI(text);
@@ -65,7 +65,7 @@ void TutorialScene::init()
 	{
 		TextUI* text = new TextUI();
 		Vector2 size = _nextBtn->getSize();
-		text->setupFont(L"Galmuri9 Regular", 30, 400);
+		text->setupFont(30);
 		text->setPosition({ size.x / 2,size.y / 4 });
 		text->setText(L"닫아서 나가기");
 		_exitBtn->setUI(text);

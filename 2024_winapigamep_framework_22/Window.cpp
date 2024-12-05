@@ -214,6 +214,7 @@ void Window::openWindow()
 			_leftTopPosition = fixedPos;
 			ShowWindow(_hWnd, SW_SHOW);
 			_hMainDC = GetDC(_hWnd);
+			OnWindowOpenEvent.invoke();
 		};
 }
 

@@ -17,11 +17,11 @@ UpgradeUI::UpgradeUI()
 	renderer->setSprite(sprite);
 	renderer->setScale({ _size.x / 32, _size.y / 48 });
 	_titleText = new TextUI();
-	_titleText->setupFont(L"Galmuri9 Regular", 22, 600);
+	_titleText->setupFont(22);
 	_titleText->setText(L"Im타이틀");
 	_titleText->setPosition({ _position.x, _position.y - 170 });
 	_descriptionText = new TextUI();
-	_descriptionText->setupFont(L"Galmuri9 Regular", 17, 400);
+	_descriptionText->setupFont(17);
 	_descriptionText->setText(L"나는 설명이에요.\n엄준식");
 	_descriptionText->setPosition(_position);
 	_iconImage = new ImageUI(nullptr);
