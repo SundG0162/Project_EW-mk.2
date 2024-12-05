@@ -24,6 +24,7 @@ void ResourceManager::init()
 	loadTexture(L"Torch", L"Texture\\Torch.bmp");
 	loadTexture(L"BasicEnemy", L"Texture\\LongHead.bmp");
 	loadTexture(L"UpgradeCard", L"Texture\\UpgradeCard.bmp");
+	loadTexture(L"PowerIcon", L"Texture\\PowerIcon.bmp");
 
 	for (auto pair : _textureMap)
 	{

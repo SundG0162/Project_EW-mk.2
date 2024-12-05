@@ -24,7 +24,7 @@ UpgradeUI::UpgradeUI()
 	_descriptionText->setupFont(L"Galmuri9 Regular", 17, 400);
 	_descriptionText->setText(L"나는 설명이에요.\n엄준식");
 	_descriptionText->setPosition(_position);
-	_iconImage = new ImageUI({ 0,0 }, { 0,0 }, nullptr);
+	_iconImage = nullptr;
 }
 
 UpgradeUI::~UpgradeUI()

@@ -10,7 +10,8 @@ public:
 	void update() override;
 	void render(HDC hdc) override;
 public:
-	UI* getUI() { return _ui; }
+	template<typename T>
+	T* getUI() { return dynamic_cast<T*>(_ui); }
 	void setUI(UI* ui) { _ui = ui; }
 private:
 	UI* _ui;

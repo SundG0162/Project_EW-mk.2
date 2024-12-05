@@ -9,17 +9,21 @@ public:
 	void update() override;
 	void render(HDC hdc) override;
 public:
-	void addUI(UI* ui) { _uis.push_back(ui); }
-	void removeUI(UI* ui) 
+	void syncUIPositions();
+	void addUI(const wstring& key, UI* ui);
+	template<typename T>
+	T* getUI(const wstring& key)
 	{
-		auto iter = std::find(_uis.begin(), _uis.end(), ui);
-		if (iter != _uis.end())
+		T* ui = nullptr;
+		auto iter = _uiMap.find(key);
+		if (iter != _uiMap.end())
 		{
-			_uis.erase(iter);
-			delete& iter;
+			ui = dynamic_cast<T*>(iter->second);
 		}
+		return ui;
 	}
+	void removeUI(const wstring& key);
 private:
-	vector<UI*> _uis;
+	map<wstring, UI*> _uiMap;
 };
 

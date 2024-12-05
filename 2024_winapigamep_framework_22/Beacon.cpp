@@ -69,7 +69,7 @@ void Beacon::update()
 	}
 	float ratio = 1 - _timer / _duration;
 	if (!_bar->isDead())
-		dynamic_cast<BarUI*>(_bar->getUI())->setFillAmount(ratio);
+		_bar->getUI<BarUI>()->setFillAmount(ratio);
 	if (_timer >= _duration && !_window->isTweening())
 	{
 		_window->closeTween(0.5f);

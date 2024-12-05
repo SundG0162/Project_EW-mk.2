@@ -200,6 +200,7 @@
     <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="PopupManager.h" />
     <ClInclude Include="PopupUI.h" />
+    <ClInclude Include="PowerManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResourceBase.h" />
     <ClInclude Include="ResourceManager.h" />
@@ -259,6 +260,7 @@
     <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="PopupManager.cpp" />
     <ClCompile Include="PopupUI.cpp" />
+    <ClCompile Include="PowerManager.cpp" />
     <ClCompile Include="ResourceBase.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />

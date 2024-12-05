@@ -6,7 +6,6 @@ public:
 	TextUI();
 	~TextUI();
 public:
-	void init(const wstring& text) { _text = text; };
 	void setupFont(const wstring& fontName, float fontSize, float fontWeight);
 	void setColor(const COLORREF& color) { _color = color; }
 	void setText(const wstring& text) { _text = text; }
