@@ -27,7 +27,7 @@ WindowObject::WindowObject(const Vector2& position, const Vector2& size, const W
 	}
 	break;
 	}
-	_window->OnWindowCloseEvent += [this]() 
+	_window->OnWindowCloseEvent += [this]()
 		{
 			GET_SINGLETON(EventManager)->deleteObject(this);
 		};
@@ -35,10 +35,7 @@ WindowObject::WindowObject(const Vector2& position, const Vector2& size, const W
 
 WindowObject::~WindowObject()
 {
-	if (_window != nullptr)
-	{
-		_window->close();
-	}
+	_window->close();
 }
 
 void WindowObject::openTween(float delayTime)

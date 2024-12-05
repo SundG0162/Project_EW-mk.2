@@ -65,14 +65,14 @@ void Camera::update()
 	_timer += DELTATIME;
 	if (_fadeOut && !_window->isTweening())
 	{
-		if (_timer > 0.7f)
+		if (_timer > 0.9f)
 		{
+			GET_SINGLETON(EventManager)->deleteObject(_fadeOut);
 			GET_SINGLETON(EventManager)->deleteObject(_bar);
 			_bar = nullptr;
 			_window->closeTween(0);
 			_window->OnTweenEndEvent += [this]()
 				{
-					GET_SINGLETON(EventManager)->deleteObject(_fadeOut);
 					GET_SINGLETON(EventManager)->deleteObject(this);
 				};
 		}

@@ -17,5 +17,6 @@ public:
 private:
 	vector<Upgrade*> _upgrades;
 	vector<Upgrade*> _finishedUpgrade;
+	bool _upgradeFlag;
 };
 

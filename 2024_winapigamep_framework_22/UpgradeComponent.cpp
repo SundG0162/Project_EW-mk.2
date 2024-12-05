@@ -8,9 +8,11 @@
 #include "Window.h"
 #include "DamageUpgrade.h"
 #include "EventManager.h"
+#include "ResourceManager.h"
 
 UpgradeComponent::UpgradeComponent()
 {
+	_upgradeFlag = false;
 }
 
 UpgradeComponent::~UpgradeComponent()
@@ -21,11 +23,17 @@ UpgradeComponent::~UpgradeComponent()
 		upgrade = nullptr;
 	}
 	_upgrades.clear();
+	for (Upgrade* upgrade : _finishedUpgrade)
+	{
+		delete upgrade;
+		upgrade = nullptr;
+	}
+	_finishedUpgrade.clear();
 }
 
 void UpgradeComponent::initialize()
 {
-	DamageUpgrade* damageUpgrade = new DamageUpgrade(nullptr, L"CCTV.exe 강화", L"CCTV.exe가 더욱 강해집니다.");
+	DamageUpgrade* damageUpgrade = new DamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 강화", L"CCTV.exe가 더욱 강해집니다.");
 	_upgrades.push_back(damageUpgrade);
 
 	Player* player = dynamic_cast<Player*>(getOwner());
@@ -45,7 +53,9 @@ void UpgradeComponent::render(HDC hDC)
 
 void UpgradeComponent::setRandomUpgrade()
 {
-	int index = utils::ExMath::getRandomValue(0, _upgrades.size());
+	if (_upgradeFlag && _upgrades.empty()) return;
+	_upgradeFlag = true;
+	int index = utils::ExMath::getRandomValue(0, _upgrades.size() - 1);
 	Upgrade* upgrade = _upgrades[index];
 	upgrade->applyUpgrade();
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this, upgrade]()
@@ -65,6 +75,7 @@ void UpgradeComponent::setRandomUpgrade()
 					window->OnTweenEndEvent += [this, windowUI]()
 						{
 							GET_SINGLETON(EventManager)->deleteObject(windowUI);
+							_upgradeFlag = false;
 						};
 				};
 			GET_SINGLETON(EventManager)->createObject(windowUI, LAYER::UI);
@@ -72,8 +83,9 @@ void UpgradeComponent::setRandomUpgrade()
 		};
 	if (!upgrade->isValid())
 	{
+		cout << "님..";
 		auto iter = std::find(_upgrades.begin(), _upgrades.end(), upgrade);
-		_upgrades.erase(iter);
 		_finishedUpgrade.push_back(*iter);
+		_upgrades.erase(iter);
 	}
 }

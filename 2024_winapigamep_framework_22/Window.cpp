@@ -174,8 +174,7 @@ void Window::close()
 	HWND hWnd = _hWnd;
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this, hWnd]()
 		{
-			GET_SINGLETON(Core)->OnMessageProcessEvent -= [hWnd]() {};
-			DestroyWindow(hWnd);
+			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this, hWnd]() {};
 			SendMessage(hWnd, WM_CLOSE, 0, 0);
 		};
 	_isDead = true;

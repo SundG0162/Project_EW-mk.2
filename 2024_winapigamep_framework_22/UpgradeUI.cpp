@@ -24,7 +24,9 @@ UpgradeUI::UpgradeUI()
 	_descriptionText->setupFont(L"Galmuri9 Regular", 17, 400);
 	_descriptionText->setText(L"나는 설명이에요.\n엄준식");
 	_descriptionText->setPosition(_position);
-	_iconImage = nullptr;
+	_iconImage = new ImageUI(nullptr);
+	_iconImage->getComponent<SpriteRenderer>()->setScale({ 3,3 });
+	_iconImage->setPosition({ _position.x,_position.y - 70 });
 }
 
 UpgradeUI::~UpgradeUI()
@@ -38,6 +40,7 @@ void UpgradeUI::setUpgrade(Upgrade* upgrade)
 {
 	_titleText->setText(upgrade->getTitle());
 	_descriptionText->setText(upgrade->getDescription());
+	_iconImage->setSprite(upgrade->getIcon());
 }
 
 void UpgradeUI::update()
@@ -50,4 +53,5 @@ void UpgradeUI::render(HDC hdc)
 	componentRender(hdc);
 	_titleText->render(hdc);
 	_descriptionText->render(hdc);
+	_iconImage->render(hdc);
 }

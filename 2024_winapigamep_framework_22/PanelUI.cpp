@@ -7,6 +7,10 @@ PanelUI::PanelUI()
 
 PanelUI::~PanelUI()
 {
+	for (auto& pair : _uiMap)
+	{
+		delete pair.second;
+	}
 }
 
 void PanelUI::update()

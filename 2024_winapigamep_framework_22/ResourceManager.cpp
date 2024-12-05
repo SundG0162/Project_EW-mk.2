@@ -25,6 +25,14 @@ void ResourceManager::init()
 	loadTexture(L"BasicEnemy", L"Texture\\LongHead.bmp");
 	loadTexture(L"UpgradeCard", L"Texture\\UpgradeCard.bmp");
 	loadTexture(L"PowerIcon", L"Texture\\PowerIcon.bmp");
+	loadTexture(L"CameraIcon", L"Texture\\CameraIcon.bmp");
+	loadTexture(L"CCTVIcon", L"Texture\\CCTVIcon.bmp");
+	loadTexture(L"BasicEnemy", L"Texture\\BasicEnemy.bmp");
+	loadTexture(L"ExplodeEffect", L"Texture\\ExplodeEffect.bmp");
+	loadTexture(L"Dinosaur", L"Texture\\Dinosaur.bmp");
+	loadTexture(L"Dinosaur", L"Texture\\Dinosaur.bmp");
+	loadTexture(L"ForderEnemyTransition", L"Texture\\ForderEnemyTransition.bmp");
+	loadTexture(L"ForderEnemyIdle", L"Texture\\ForderEnemyIdle.bmp");
 
 	for (auto pair : _textureMap)
 	{
