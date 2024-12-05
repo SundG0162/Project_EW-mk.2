@@ -15,6 +15,12 @@ UpgradeComponent::UpgradeComponent()
 
 UpgradeComponent::~UpgradeComponent()
 {
+	for (Upgrade* upgrade : _upgrades)
+	{
+		delete upgrade;
+		upgrade = nullptr;
+	}
+	_upgrades.clear();
 }
 
 void UpgradeComponent::initialize()
