@@ -122,7 +122,7 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	return 0;
 }
 
-void Window::openTween(float delayTime, float speed = 1.f, TWEEN_TYPE type)
+void Window::openTween(float delayTime, float speed, TWEEN_TYPE type)
 {
 	_tweenType = type;
 	_delayTime = delayTime;
@@ -146,7 +146,7 @@ void Window::openTween(float delayTime, float speed = 1.f, TWEEN_TYPE type)
 	_isTweenEnd = false;
 }
 
-void Window::closeTween(float delayTime, float speed = 1.f, TWEEN_TYPE type)
+void Window::closeTween(float delayTime, float speed, TWEEN_TYPE type)
 {
 	_tweenType = type;
 	_delayTime = delayTime;
