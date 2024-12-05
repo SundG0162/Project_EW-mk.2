@@ -170,11 +170,11 @@ void Window::closeTween(float delayTime, TWEEN_TYPE type)
 
 void Window::closeWindow()
 {
-	HWND hWnd = _hWnd;
-	GET_SINGLETON(Core)->OnMessageProcessEvent += [this, hWnd]()
+	_closeable = true;
+	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
-			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this, hWnd]() {};
-			SendMessage(hWnd, WM_CLOSE, 0, 0);
+			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+			SendMessage(_hWnd, WM_CLOSE, 0, 0);
 		};
 	_isClosed = true;
 }

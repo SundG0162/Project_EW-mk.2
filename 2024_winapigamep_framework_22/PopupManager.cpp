@@ -29,8 +29,7 @@ void PopupManager::initialize()
 			text->setText(L"전력이 부족합니다.");
 			text->setPosition({ 150, 25 });
 			ui->setUI(text);
-			ui->getWindow()->setCloseable(false);
-			ui->getWindow()->setMoveable(true);
+			
 			ui->getWindow()->OnTryWindowCloseEvent += [ui]()
 				{
 					GET_SINGLETON(PopupManager)->close(L"NotEnoughPower", false);
@@ -38,6 +37,7 @@ void PopupManager::initialize()
 			addPopup(L"NotEnoughPower", ui);
 			ui->getWindow()->closeWindow();
 			GET_SINGLETON(EventManager)->excludeWindow(ui->getWindow());
+			ui->getWindow()->OnWindowCloseEvent -= [ui]() {};
 		};
 }
 
@@ -70,10 +70,13 @@ void PopupManager::popup(const wstring& key, const Vector2& position, bool withT
 	WindowUI* wndUI = getPopup(key);
 	if (!wndUI->getWindow()->isClosed())
 	{
-		close(key, false);
+		wndUI->getWindow()->openTween(0.f);
+		return;
 	}
 	wndUI->getWindow()->openWindow();
 	wndUI->setPosition(position);
+	wndUI->getWindow()->setCloseable(false);
+	wndUI->getWindow()->setMoveable(true);
 	GET_SINGLETON(EventManager)->createObject(wndUI, LAYER::UI);
 	GET_SINGLETON(EventManager)->createWindow(wndUI->getWindow());
 	if (withTween)
@@ -97,5 +100,6 @@ void PopupManager::close(const wstring& key, bool withTween)
 	{
 		GET_SINGLETON(EventManager)->excludeWindow(wndUI->getWindow());
 		GET_SINGLETON(EventManager)->excludeObject(wndUI, LAYER::UI);
+		wndUI->getWindow()->closeWindow();
 	}
 }
