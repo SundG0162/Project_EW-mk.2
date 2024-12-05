@@ -1,4 +1,5 @@
 #pragma once
+#include "Action.h"
 class Texture;
 class Sprite;
 class Animator;
@@ -18,6 +19,8 @@ public:
 public:
 	void setFrame(int frame) { _currentFrame = frame; }
 	void setRepeat(bool repeat) { _isRepeat = repeat; }
+public:
+	Action<> OnAnimationEndEvent;
 private:
 	Animator* _animator;
 	SpriteRenderer* _spriteRenderer;

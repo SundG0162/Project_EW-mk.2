@@ -122,12 +122,13 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	return 0;
 }
 
-void Window::openTween(float delayTime, TWEEN_TYPE type)
+void Window::openTween(float delayTime, float speed = 1.f, TWEEN_TYPE type)
 {
 	_tweenType = type;
 	_delayTime = delayTime;
 	_goalSize = _size;
 	_startSize = _size;
+	_speed = speed;
 	switch (type)
 	{
 	case TWEEN_TYPE::HORIZON:
@@ -145,12 +146,13 @@ void Window::openTween(float delayTime, TWEEN_TYPE type)
 	_isTweenEnd = false;
 }
 
-void Window::closeTween(float delayTime, TWEEN_TYPE type)
+void Window::closeTween(float delayTime, float speed = 1.f, TWEEN_TYPE type)
 {
 	_tweenType = type;
 	_delayTime = delayTime;
 	_startSize = _size;
 	_goalSize = _size;
+	_speed = speed;
 	switch (type)
 	{
 	case TWEEN_TYPE::HORIZON:
@@ -251,7 +253,7 @@ void Window::update()
 {
 	if (!_isTweenEnd)
 	{
-		_timer += DELTATIME;
+		_timer += DELTATIME * _speed;
 		if (_timer < _delayTime)
 			return;
 		_size.x = std::lerp(_startSize.x, _goalSize.x, utils::Ease::outQuad(_timer - _delayTime));

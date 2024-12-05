@@ -17,8 +17,8 @@ public:
 	static LRESULT CALLBACK wndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	virtual LRESULT handleMessage(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 public:
-	void openTween(float delayTime = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
-	void closeTween(float delayTime = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
+	void openTween(float delayTime = 1.f, float speed = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
+	void closeTween(float delayTime = 1.f, float speed = 1.f, TWEEN_TYPE type = TWEEN_TYPE::VERTICAL);
 	virtual void closeWindow();
 	virtual void openWindow();
 	void close();
@@ -52,6 +52,7 @@ protected:
 	Vector2 _position;
 	Vector2 _size;
 	Vector2 _leftTopPosition;
+	float _speed = 1.f;
 	float _timer = 0.f;
 	float _delayTime = 0.f;
 	Vector2 _goalSize;
