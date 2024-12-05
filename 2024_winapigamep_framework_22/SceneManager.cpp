@@ -6,6 +6,7 @@
 #include "EnemyTestScene.h"
 #include "EventManager.h"
 #include "WindowManager.h"
+#include "PopupManager.h"
 #include "Core.h"
 void SceneManager::init()
 {
@@ -45,6 +46,7 @@ void SceneManager::loadScene(const wstring& _sceneName)
 	GET_SINGLETON(Core)->setStopLoop(true);
 	if (_currentScene != nullptr)
 	{
+		GET_SINGLETON(PopupManager)->release();
 		_currentScene->release();
 	}
 	GET_SINGLETON(EventManager)->deadObjectClear();
@@ -53,6 +55,7 @@ void SceneManager::loadScene(const wstring& _sceneName)
 	{
 		_currentScene = iter->second;
 		_currentScene->init();
+		GET_SINGLETON(PopupManager)->initialize();
 	}
 	GET_SINGLETON(Core)->setStopLoop(false);
 }

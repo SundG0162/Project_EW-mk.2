@@ -63,7 +63,6 @@ namespace utils
 		{
 			Vector2 v = { 1,0 };
 			rotateVector(v, getRandomValue(0.f, 360.f));
-			std::cout << v.x << " " << v.y << std::endl;
 			return v;
 		}
 	};

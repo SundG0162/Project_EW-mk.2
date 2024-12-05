@@ -8,12 +8,14 @@
 #include "InputManager.h"
 #include "WindowManager.h"
 #include "EventManager.h"
+#include "EventManager.h"
 #include "PowerManager.h"
 #include "TextUI.h"
 #include "ImageUI.h"
 #include "PanelUI.h"
 #include "UpgradeUI.h"
 #include "ResourceManager.h"
+#include "PopupManager.h"
 
 InGameScene::InGameScene()
 {
@@ -65,6 +67,10 @@ void InGameScene::update()
 	Scene::update();
 	if (GET_KEYDOWN(KEY_TYPE::K))
 	{
-		GET_SINGLETON(PowerManager)->modifyPower(30);
+		GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 200 }, false);
+	}
+	if (GET_KEYDOWN(KEY_TYPE::B))
+	{
+		GET_SINGLETON(EventManager)->changeScene(L"TitleScene");
 	}
 }

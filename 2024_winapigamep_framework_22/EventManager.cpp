@@ -80,10 +80,34 @@ void EventManager::excludeObject(Object* obj, LAYER layer)
 	}
 }
 
+void EventManager::createWindow(Window* window)
+{
+	Event eve = {};
+	eve.eventType = EVENT_TYPE::CREATE_WINDOW;
+	eve.object = window;
+
+	if (std::find(_events.begin(), _events.end(), eve) == _events.end())
+	{
+		_events.push_back(eve);
+	}
+}
+
 void EventManager::deleteWindow(Window* window)
 {
 	Event eve = {};
 	eve.eventType = EVENT_TYPE::DELETE_WINDOW;
+	eve.object = window;
+
+	if (std::find(_events.begin(), _events.end(), eve) == _events.end())
+	{
+		_events.push_back(eve);
+	}
+}
+
+void EventManager::excludeWindow(Window* window)
+{
+	Event eve = {};
+	eve.eventType = EVENT_TYPE::EXCLUDE_WINDOW;
 	eve.object = window;
 
 	if (std::find(_events.begin(), _events.end(), eve) == _events.end())
@@ -119,6 +143,16 @@ void EventManager::excute(const Event& _eve)
 		Window* pDeadObj = (Window*)_eve.object;
 		pDeadObj->setDead();
 		_deadObjects.push_back(pDeadObj);
+	}
+	break;
+	case EVENT_TYPE::CREATE_WINDOW:
+	{
+		GET_SINGLETON(WindowManager)->addWindow((Window*)_eve.object);
+	}
+	break;
+	case EVENT_TYPE::EXCLUDE_WINDOW:
+	{
+		GET_SINGLETON(WindowManager)->removeWindow((Window*)_eve.object);
 	}
 	break;
 	case EVENT_TYPE::CREATE_OBJECT:

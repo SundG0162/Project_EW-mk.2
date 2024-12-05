@@ -22,7 +22,9 @@ public:
 	void deleteObject(Object* _pObj);
 	void createObject(Object* obj, LAYER layer);
 	void excludeObject(Object* obj, LAYER layer);
+	void createWindow(Window* window);
 	void deleteWindow(Window* window);
+	void excludeWindow(Window* window);
 	void changeScene(const wstring& name);
 private:
 	void excute(const Event& _eve);

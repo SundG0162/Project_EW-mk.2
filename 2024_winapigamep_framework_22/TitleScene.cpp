@@ -4,6 +4,8 @@
 #include "ImageUI.h"
 #include "ResourceManager.h"
 #include "SpriteRenderer.h"
+#include "InputManager.h"
+#include "PopupManager.h"
 
 void TitleScene::init()
 {

@@ -83,7 +83,6 @@ void UpgradeComponent::setRandomUpgrade()
 		};
 	if (!upgrade->isValid())
 	{
-		cout << "ดิ..";
 		auto iter = std::find(_upgrades.begin(), _upgrades.end(), upgrade);
 		_finishedUpgrade.push_back(*iter);
 		_upgrades.erase(iter);

@@ -21,7 +21,6 @@ void WindowManager::update()
 	}
 
 	if (_windows.size() <= 0) return;
-	//윈도우 정렬 작업. 일괄 처리를 위해 DeferWindowPos 사용
 	HDWP hDwp = BeginDeferWindowPos(_windows.size());
 	HWND bottom = _windows[0]->getHWnd();
 	for (Window* window : _windows)

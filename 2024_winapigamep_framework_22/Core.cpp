@@ -8,6 +8,7 @@
 #include "WindowManager.h"
 #include "EventManager.h"
 #include "SpawnManager.h"
+#include "PopupManager.h"
 bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 {
 	// 변수 초기화
