@@ -15,7 +15,8 @@ Beacon::Beacon(const Vector2& position, const Vector2& size) : CaptureObject(pos
 {
 	_duration = 10.f;
 	_timer = 0.f;
-	_settingUp = false;
+	_settingUp = true;
+	_bar = nullptr;
 
 	Texture* texture = GET_SINGLETON(ResourceManager)->getTexture(L"Torch");
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
@@ -34,6 +35,7 @@ Beacon::Beacon(const Vector2& position, const Vector2& size) : CaptureObject(pos
 Beacon::~Beacon()
 {
 	GET_SINGLETON(EventManager)->deleteObject(_bar);
+	_bar = nullptr;
 }
 
 void Beacon::update()
@@ -62,7 +64,9 @@ void Beacon::update()
 		return;
 	}
 	float ratio = 1 - _timer / _duration;
-	if (_bar != nullptr)
+	if (_bar == nullptr)
+		return;
+	if (!_bar->isDead())
 		dynamic_cast<BarUI*>(_bar->getUI())->setFillAmount(ratio);
 	if (_timer >= _duration && !_window->isTweening())
 	{

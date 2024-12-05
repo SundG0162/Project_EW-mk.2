@@ -20,6 +20,7 @@ void WindowManager::update()
 		window->update();
 	}
 
+	if (_windows.size() <= 0) return;
 	//윈도우 정렬 작업. 일괄 처리를 위해 DeferWindowPos 사용
 	HDWP hDwp = BeginDeferWindowPos(_windows.size());
 	HWND bottom = _windows[0]->getHWnd();
@@ -54,6 +55,18 @@ void WindowManager::render()
 			continue;
 		}
 	}
+}
+
+void WindowManager::release()
+{
+	for (Window* window : _windows)
+	{
+		if (window == nullptr) continue;
+		window->close();
+		delete window;
+		window = nullptr;
+	}
+	_windows.clear();
 }
 
 void WindowManager::sortWindow()

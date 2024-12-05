@@ -76,7 +76,8 @@ void Scene::release()
 	{
 		for (UINT j = 0; j < _objects[i].size(); ++j)
 		{
-			delete _objects[i][j];
+			if (!_objects[i][j]->isDead())
+				SAFE_DELETE(_objects[i][j]);
 		}
 		_objects[i].clear();
 	}

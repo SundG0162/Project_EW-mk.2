@@ -49,10 +49,14 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	Stat* beaconSizeStat = new Stat(300);
 	_statComponent->addStat(L"BeaconSize", beaconSizeStat);
 	GET_SINGLETON(PlayerManager)->setPlayer(this);
+	_cctv = new CCTV(_position + Vector2(400, 0), { 500,500 });
+	_cctv->initialize(this);
+	GET_SINGLETON(EventManager)->createObject(_cctv, LAYER::PLAYER);
 }
 
 Player::~Player()
 {
+	delete _cctv;
 }
 
 

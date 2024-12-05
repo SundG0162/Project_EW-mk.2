@@ -60,6 +60,8 @@ void Core::gameLoop()
 {
 	while (true)
 	{
+		if (_isStopped)
+			continue;
 		mainupdate();
 		mainrender();
 		GET_SINGLETON(EventManager)->update();
@@ -106,6 +108,7 @@ void Core::createGDI()
 
 void Core::onMessageProcess()
 {
-	OnMessageProcessEvent.invoke();
-	OnMessageProcessEvent.clear();
+	_Invoker = OnMessageProcessEvent;
+	_Invoker.invoke();
+	_Invoker.clear();
 }

@@ -169,10 +169,13 @@ void Window::closeTween(float delayTime, TWEEN_TYPE type)
 void Window::close()
 {
 	_closeable = true;
-	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
+	SetWindowLongPtr(_hWnd, GWLP_USERDATA, 0);
+	GET_SINGLETON(EventManager)->deleteWindow(this);
+	HWND hWnd = _hWnd;
+	GET_SINGLETON(Core)->OnMessageProcessEvent += [hWnd]()
 		{
-			GET_SINGLETON(EventManager)->deleteWindow(this);
-			SendMessage(_hWnd, WM_CLOSE, 0, 0);
+			DestroyWindow(hWnd);
+			SendMessage(hWnd, WM_CLOSE, 0, 0);
 		};
 	_isDead = true;
 }

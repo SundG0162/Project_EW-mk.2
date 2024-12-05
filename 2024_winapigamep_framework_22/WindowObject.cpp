@@ -30,7 +30,10 @@ WindowObject::WindowObject(const Vector2& position, const Vector2& size, const W
 
 WindowObject::~WindowObject()
 {
-	_window->close();
+	if (_window != nullptr)
+	{
+		_window->close();
+	}
 }
 
 void WindowObject::openTween(float delayTime)

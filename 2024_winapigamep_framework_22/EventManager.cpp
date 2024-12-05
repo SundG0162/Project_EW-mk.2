@@ -2,9 +2,19 @@
 #include "EventManager.h"
 #include "Core.h"
 #include "SceneManager.h"
+#include "WindowManager.h"
 #include "Object.h"
 #include "Window.h"
 void EventManager::update()
+{
+	deadObjectClear();
+
+	for (auto& eve : _events)
+		excute(eve);
+	_events.clear();
+}
+
+void EventManager::deadObjectClear()
 {
 	for (void* obj : _deadObjects)
 	{
@@ -30,10 +40,6 @@ void EventManager::update()
 		}
 	}
 	_deadObjects.clear();
-
-	for (auto& eve : _events)
-		excute(eve);
-	_events.clear();
 }
 
 void EventManager::deleteObject(Object* _pObj)
@@ -86,6 +92,17 @@ void EventManager::deleteWindow(Window* window)
 	}
 }
 
+void EventManager::changeScene(const wstring& name)
+{
+	Event eve = {};
+	eve.eventType = EVENT_TYPE::SCENE_CHANGE;
+	eve.name = name;
+	if (std::find(_events.begin(), _events.end(), eve) == _events.end())
+	{
+		_events.push_back(eve);
+	}
+}
+
 void EventManager::excute(const Event& _eve)
 {
 	switch (_eve.eventType)
@@ -114,8 +131,11 @@ void EventManager::excute(const Event& _eve)
 		GET_SINGLETON(SceneManager)->getCurrentScene()->removeObject((Object*)_eve.object, _eve.objectLayer);
 	}
 	break;
-
 	case EVENT_TYPE::SCENE_CHANGE:
-		break;
+	{
+		wstring name = _eve.name;
+		GET_SINGLETON(SceneManager)->loadScene(name);
+	}
+	break;
 	}
 }

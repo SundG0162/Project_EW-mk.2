@@ -5,7 +5,9 @@
 #include "WindowUI.h"
 #include "Window.h"
 #include "SpawnManager.h"
+#include "InputManager.h"
 #include "WindowManager.h"
+#include "EventManager.h"
 #include "TextUI.h"
 #include "UpgradeUI.h"
 
@@ -21,9 +23,14 @@ void InGameScene::init()
 {
 	Vector2 position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 	Player* player = new Player(position, { 400,300 });
-	CCTV* cctv = new CCTV(position + Vector2(400, 0), { 500,500 });
-	player->setCCTV(cctv);
-	cctv->initialize(player);
 	addObject(player, LAYER::PLAYER);
-	addObject(cctv, LAYER::PLAYER);
+}
+
+void InGameScene::update()
+{
+	Scene::update();
+	if (GET_KEYDOWN(KEY_TYPE::K))
+	{
+		GET_SINGLETON(EventManager)->changeScene(L"TitleScene");
+	}
 }
