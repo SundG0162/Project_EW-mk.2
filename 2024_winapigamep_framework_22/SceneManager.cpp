@@ -16,7 +16,7 @@ void SceneManager::init()
 	registerScene(L"InGameScene", std::make_shared<InGameScene>());
 	registerScene(L"EnemyTestScene", std::make_shared<EnemyTestScene>());
 	registerScene(L"TutorialScene", std::make_shared<TutorialScene>());
-	loadScene(L"InGameScene");
+	loadScene(L"TutorialScene");
 }
 
 void SceneManager::update()

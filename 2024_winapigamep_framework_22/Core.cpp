@@ -41,6 +41,7 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 }
 void Core::cleanUp()
 {
+	GET_SINGLETON(PopupManager)->release();
 	GET_SINGLETON(ResourceManager)->release();
 	::DeleteDC(_hBackDC);	//createdc한거
 	::DeleteObject(_hBitmap); // createbitmap 한거
