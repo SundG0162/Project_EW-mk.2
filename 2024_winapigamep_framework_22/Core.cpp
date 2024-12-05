@@ -33,6 +33,7 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 	GET_SINGLETON(ResourceManager)->init();
 	GET_SINGLETON(SceneManager)->init();
 	GET_SINGLETON(SpawnManager)->init();
+	GET_SINGLETON(PopupManager)->initialize();
 	GET_SINGLETON(CollisionManager)->checkReset();
 	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::UI, LAYER::ENEMY);
 	AddFontResource(L"Galmuri9 Regular.ttf");
@@ -40,7 +41,7 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 }
 void Core::cleanUp()
 {
-	// 생성한순서 반대로 삭제
+	GET_SINGLETON(ResourceManager)->release();
 	::DeleteDC(_hBackDC);	//createdc한거
 	::DeleteObject(_hBitmap); // createbitmap 한거
 	::ReleaseDC(_hWnd, _hDC);
@@ -53,8 +54,6 @@ void Core::cleanUp()
 		// Hollow 제외하고
 		DeleteObject(_colorBrushes[i]);
 	}
-
-	GET_SINGLETON(ResourceManager)->release();
 }
 
 void Core::gameLoop()

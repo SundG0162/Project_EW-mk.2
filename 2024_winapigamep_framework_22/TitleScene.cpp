@@ -41,4 +41,5 @@ void TitleScene::init()
 		ui->openTween(1.6f);
 		ui->getComponent<SpriteRenderer>()->setScale({ 4,4 });
 	}*/
+	cout << "I'm on titleScene";
 }

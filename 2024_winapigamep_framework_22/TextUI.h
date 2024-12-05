@@ -9,6 +9,7 @@ public:
 	void setupFont(const wstring& fontName, float fontSize, float fontWeight);
 	void setColor(const COLORREF& color) { _color = color; }
 	void setText(const wstring& text) { _text = text; }
+	Vector2 getTextSize();
 public:
 	void update() override;
 	void render(HDC hdc) override;

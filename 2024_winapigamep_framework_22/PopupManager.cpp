@@ -12,41 +12,35 @@
 
 PopupManager::~PopupManager()
 {
-	for (auto pair : _uiMap)
-	{
-		SAFE_DELETE(pair.second);
-	}
+	release();
 }
 
 void PopupManager::initialize()
 {
-	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
+	WindowUI* ui = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { 300,70 }, WINDOW_TYPE::NEW, L"NotEnoughMoney");
+	TextUI* text = new TextUI();
+	text->setupFont(L"Galmuri9 Regular", 35, 400);
+	text->setText(L"전력이 부족합니다.");
+	text->setPosition({ 150, 25 });
+	ui->setUI(text);
+
+	ui->getWindow()->OnTryWindowCloseEvent += [ui]()
 		{
-			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
-			WindowUI* ui = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { 300,70 }, WINDOW_TYPE::NEW, L"NotEnoughMoney");
-			TextUI* text = new TextUI();
-			text->setupFont(L"Galmuri9 Regular", 35, 400);
-			text->setText(L"전력이 부족합니다.");
-			text->setPosition({ 150, 25 });
-			ui->setUI(text);
-			
-			ui->getWindow()->OnTryWindowCloseEvent += [ui]()
-				{
-					GET_SINGLETON(PopupManager)->close(L"NotEnoughPower", false);
-				};
-			addPopup(L"NotEnoughPower", ui);
-			ui->getWindow()->closeWindow();
-			GET_SINGLETON(EventManager)->excludeWindow(ui->getWindow());
-			ui->getWindow()->OnWindowCloseEvent -= [ui]() {};
+			GET_SINGLETON(PopupManager)->close(L"NotEnoughPower", false);
 		};
+	addPopup(L"NotEnoughPower", ui);
+	ui->getWindow()->closeWindow();
+	GET_SINGLETON(EventManager)->excludeWindow(ui->getWindow());
+	ui->getWindow()->OnWindowCloseEvent -= [ui]() {};
 }
 
 void PopupManager::release()
 {
 	for (auto& pair : _uiMap)
 	{
-		GET_SINGLETON(EventManager)->deleteObject(pair.second);
+		delete pair.second;
 	}
+	_uiMap.clear();
 }
 
 void PopupManager::addPopup(const wstring& key, WindowUI* ui)

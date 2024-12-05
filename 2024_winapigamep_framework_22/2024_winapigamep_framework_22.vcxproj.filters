@@ -250,6 +250,9 @@
     <ClInclude Include="PowerManager.h">
       <Filter>Engine\02. Manager</Filter>
     </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -429,6 +432,9 @@
     </ClCompile>
     <ClCompile Include="PowerManager.cpp">
       <Filter>Engine\02. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

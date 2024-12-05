@@ -217,6 +217,7 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Upgrade.h" />
     <ClInclude Include="UpgradeComponent.h" />
@@ -275,6 +276,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TutorialScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Upgrade.cpp" />
     <ClCompile Include="UpgradeComponent.cpp" />
