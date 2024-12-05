@@ -64,25 +64,7 @@ void InGameScene::init()
 		};
 	addObject(_powerPanel, LAYER::UI);
 	addObject(player, LAYER::PLAYER);
-}
 
-void InGameScene::update()
-{
-	Scene::update();
-	if (GET_KEYDOWN(KEY_TYPE::K))
-	{
-		GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 200 }, false);
-	}
-	if (GET_KEYDOWN(KEY_TYPE::B))
-	{
-		GET_SINGLETON(EventManager)->changeScene(L"TitleScene");
-	}
-}
-	addObject(cctv, LAYER::PLAYER);
-	WindowUI* testUI = new WindowUI({ 300,300 }, { 320,480 }, WINDOW_TYPE::NEW, L"Upgrade.exe");
-	UpgradeUI* upgrade = new UpgradeUI();
-	testUI->setUI(upgrade);
-	addObject(testUI, LAYER::UI);
 #pragma region enemyspawn
 
 	{
@@ -118,4 +100,17 @@ void InGameScene::update()
 		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.3f });
 	}
 #pragma endregion
+}
+
+void InGameScene::update()
+{
+	Scene::update();
+	if (GET_KEYDOWN(KEY_TYPE::K))
+	{
+		GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 200 }, false);
+	}
+	if (GET_KEYDOWN(KEY_TYPE::B))
+	{
+		GET_SINGLETON(EventManager)->changeScene(L"TitleScene");
+	}
 }

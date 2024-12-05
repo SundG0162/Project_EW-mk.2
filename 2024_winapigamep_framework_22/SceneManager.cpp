@@ -3,7 +3,6 @@
 #include "Scene.h"
 #include "TitleScene.h"
 #include "InGameScene.h"
-#include "EnemyTestScene.h"
 #include "EventManager.h"
 #include "WindowManager.h"
 #include "PopupManager.h"
