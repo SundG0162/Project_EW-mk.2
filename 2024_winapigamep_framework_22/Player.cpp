@@ -85,6 +85,7 @@ void Player::update()
 				beacon->initialize(this);
 				beacon->setup(mousePos);
 				GET_SINGLETON(EventManager)->createObject(beacon, LAYER::UI);
+				GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 			};
 	}
 	if (GET_KEYDOWN(KEY_TYPE::SPACE))
@@ -95,6 +96,7 @@ void Player::update()
 				Camera* camera = new Camera(_position, { size,size });
 				camera->initialize(this);
 				GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
+				GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 			};
 	}
 	if (GET_KEYDOWN(KEY_TYPE::Q))

@@ -39,5 +39,4 @@ private:
 	HDC  _hDC;
 	HDC  _hBackDC;
 	HBITMAP _hBitmap;
-	Action<> _Invoker;
 };

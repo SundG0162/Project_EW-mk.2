@@ -53,6 +53,7 @@ void Beacon::update()
 			_settingUp = false;
 			GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 				{
+					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 					_bar = new WindowUI({ _position.x - 30, _position.y - _size.y / 3 }, { 320,40 }, WINDOW_TYPE::NEW, L"Ember.exe");
 					BarUI* bar = new BarUI({ _bar->getSize().x / 2, _bar->getSize().y / 2 }, { 320,40 });
 					_bar->getWindow()->setMoveable(true);

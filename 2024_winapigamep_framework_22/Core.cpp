@@ -108,7 +108,5 @@ void Core::createGDI()
 
 void Core::onMessageProcess()
 {
-	_Invoker = OnMessageProcessEvent;
-	_Invoker.invoke();
-	_Invoker.clear();
+	OnMessageProcessEvent.invoke();
 }
