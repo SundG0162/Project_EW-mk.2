@@ -14,7 +14,7 @@
 #include "EventManager.h"
 #include "Scene.h"
 #include "Sprite.h"
-#include "Beacon.h"
+#include "Torch.h"
 #include "Camera.h"
 #include "Core.h"
 #include "PlayerManager.h"
@@ -46,8 +46,8 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_statComponent->addStat(L"CameraSize", cameraSizeStat);
 	Stat* cameraCountStat = new Stat(3);
 	_statComponent->addStat(L"CameraCount", cameraCountStat);
-	Stat* beaconSizeStat = new Stat(300);
-	_statComponent->addStat(L"BeaconSize", beaconSizeStat);
+	Stat* torchSizeStat = new Stat(300);
+	_statComponent->addStat(L"TorchSize", torchSizeStat);
 	GET_SINGLETON(PlayerManager)->setPlayer(this);
 	_cctv = new CCTV(_position + Vector2(400, 0), { 500,500 });
 	_cctv->initialize(this);
@@ -79,14 +79,14 @@ void Player::update()
 	if (_isBeaconSettingUp && GET_KEYDOWN(KEY_TYPE::LBUTTON))
 	{
 		Vector2 mousePos = Vector2(GET_MOUSEPOS);
-		float size = _statComponent->getStat(L"BeaconSize")->getValue();
+		float size = _statComponent->getStat(L"TorchSize")->getValue();
 		GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos, size]()
 			{
 				_isBeaconSettingUp = false;
-				Beacon* beacon = new Beacon(_position, { size,size });
-				beacon->initialize(this);
-				beacon->setup(mousePos);
-				GET_SINGLETON(EventManager)->createObject(beacon, LAYER::UI);
+				Torch* torch = new Torch(_position, { size,size });
+				torch->initialize(this);
+				torch->setup(mousePos);
+				GET_SINGLETON(EventManager)->createObject(torch, LAYER::UI);
 				GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 			};
 	}

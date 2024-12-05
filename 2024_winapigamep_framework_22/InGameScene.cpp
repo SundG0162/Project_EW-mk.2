@@ -29,6 +29,25 @@ void InGameScene::init()
 {
 	Vector2 position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 	Player* player = new Player(position, { 400,300 });
+	setupUI();
+	addObject(player, LAYER::PLAYER);
+}
+
+void InGameScene::update()
+{
+	Scene::update();
+	if (GET_KEYDOWN(KEY_TYPE::K))
+	{
+		GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 200 }, false);
+	}
+	if (GET_KEYDOWN(KEY_TYPE::B))
+	{
+		GET_SINGLETON(EventManager)->changeScene(L"TitleScene");
+	}
+}
+
+void InGameScene::setupUI()
+{
 	PanelUI* panel = new PanelUI();
 	Vector2 panelSize = { 200, 50 };
 	Vector2 panelPosition = { SCREEN_WIDTH - panelSize.x / 2, panelSize.y / 2 + 20 };
@@ -59,18 +78,4 @@ void InGameScene::init()
 			_powerPanel->getUI<PanelUI>()->getUI<TextUI>(L"PowerText")->setText(value);
 		};
 	addObject(_powerPanel, LAYER::UI);
-	addObject(player, LAYER::PLAYER);
-}
-
-void InGameScene::update()
-{
-	Scene::update();
-	if (GET_KEYDOWN(KEY_TYPE::K))
-	{
-		GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 200 }, false);
-	}
-	if (GET_KEYDOWN(KEY_TYPE::B))
-	{
-		GET_SINGLETON(EventManager)->changeScene(L"TitleScene");
-	}
 }

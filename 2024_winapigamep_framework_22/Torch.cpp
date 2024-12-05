@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Beacon.h"
+#include "Torch.h"
 #include "TimeManager.h"
 #include "EventManager.h"
 #include "BarUI.h"
@@ -11,7 +11,7 @@
 #include "Core.h"
 #include "SpriteRenderer.h"
 
-Beacon::Beacon(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"Beacon.exe")
+Torch::Torch(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"Torch.exe")
 {
 	_duration = 10.f;
 	_timer = 0.f;
@@ -32,7 +32,7 @@ Beacon::Beacon(const Vector2& position, const Vector2& size) : CaptureObject(pos
 	_window->setPriority(CCTV_PRIORITY - 1);
 }
 
-Beacon::~Beacon()
+Torch::~Torch()
 {
 	if (!_bar->isDead())
 	{
@@ -41,7 +41,7 @@ Beacon::~Beacon()
 	}
 }
 
-void Beacon::update()
+void Torch::update()
 {
 	_timer += DELTATIME;
 	if (_settingUp)
@@ -82,12 +82,12 @@ void Beacon::update()
 	}
 }
 
-void Beacon::render(HDC hdc)
+void Torch::render(HDC hdc)
 {
 	componentRender(hdc);
 }
 
-void Beacon::setup(const Vector2& position)
+void Torch::setup(const Vector2& position)
 {
 	_goalPos = position;
 	_startPos = _position;
