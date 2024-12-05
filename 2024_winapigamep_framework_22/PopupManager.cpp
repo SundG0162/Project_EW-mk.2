@@ -70,7 +70,7 @@ void PopupManager::popup(const wstring& key, const Vector2& position, bool withT
 	WindowUI* wndUI = getPopup(key);
 	if (!wndUI->getWindow()->isClosed())
 	{
-		wndUI->getWindow()->openTween(0.f);
+		wndUI->getWindow()->openTween(0.f, 3.f);
 		return;
 	}
 	wndUI->getWindow()->openWindow();

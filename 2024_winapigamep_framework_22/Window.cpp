@@ -124,9 +124,10 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 
 void Window::openTween(float delayTime, float speed, TWEEN_TYPE type)
 {
+	if (!isTweening())
+		_goalSize = _size;
 	_tweenType = type;
 	_delayTime = delayTime;
-	_goalSize = _size;
 	_startSize = _size;
 	_speed = speed;
 	switch (type)
