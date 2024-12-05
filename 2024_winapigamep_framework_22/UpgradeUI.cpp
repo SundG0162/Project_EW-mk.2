@@ -4,29 +4,34 @@
 #include "SpriteRenderer.h"
 #include "PlayerManager.h"
 #include "TextUI.h"
+#include "ImageUI.h"
 #include "Upgrade.h"
 
 UpgradeUI::UpgradeUI()
 {
 	_player = GET_SINGLETON(PlayerManager)->getPlayer();
-	_position = { 160, 240};
-	_size = { 320, 480 };
+	_size = { 240, 360 };
+	_position = { _size.x / 2, _size.y / 2 };
 	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"UpgradeCard");
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
 	renderer->setSprite(sprite);
 	renderer->setScale({ _size.x / 32, _size.y / 48 });
 	_titleText = new TextUI();
-	_titleText->setupFont(L"Galmuri9 Regular", 30, 600);
+	_titleText->setupFont(L"Galmuri9 Regular", 22, 600);
 	_titleText->setText(L"Im타이틀");
-	_titleText->setPosition({ _position.x, _position.y - 225});
+	_titleText->setPosition({ _position.x, _position.y - 170 });
 	_descriptionText = new TextUI();
-	_descriptionText->setupFont(L"Galmuri9 Regular", 20, 400);
+	_descriptionText->setupFont(L"Galmuri9 Regular", 17, 400);
 	_descriptionText->setText(L"나는 설명이에요.\n엄준식");
 	_descriptionText->setPosition(_position);
+	_iconImage = new ImageUI({ 0,0 }, { 0,0 }, nullptr);
 }
 
 UpgradeUI::~UpgradeUI()
 {
+	delete _titleText;
+	delete _descriptionText;
+	delete _iconImage;
 }
 
 void UpgradeUI::setUpgrade(Upgrade* upgrade)
@@ -37,7 +42,7 @@ void UpgradeUI::setUpgrade(Upgrade* upgrade)
 
 void UpgradeUI::update()
 {
-	
+
 }
 
 void UpgradeUI::render(HDC hdc)

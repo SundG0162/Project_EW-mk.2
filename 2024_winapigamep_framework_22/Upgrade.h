@@ -3,7 +3,7 @@
 class Upgrade : public PlayerDevice
 {
 public:
-	Upgrade(Sprite* icon, const wstring& title, const wstring& description, int maxLevel);
+	Upgrade(Sprite* icon, const wstring& title, const wstring& description);
 	virtual ~Upgrade();
 public:
 	virtual void applyUpgrade() abstract;

@@ -4,8 +4,9 @@
 #include "Stat.h"
 #include "Player.h"
 
-DamageUpgrade::DamageUpgrade(Sprite* icon, const wstring& title, const wstring& description, int maxLevel) : Upgrade(icon, title, description, maxLevel)
+DamageUpgrade::DamageUpgrade(Sprite* icon, const wstring& title, const wstring& description) : Upgrade(icon, title, description)
 {
+	_maxLevel = 5;
 }
 
 DamageUpgrade::~DamageUpgrade()

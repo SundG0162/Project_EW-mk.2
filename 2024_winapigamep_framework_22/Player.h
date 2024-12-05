@@ -2,6 +2,7 @@
 #include "WindowObject.h"
 class CCTV;
 class StatComponent;
+class UpgradeComponent;
 class Player : public WindowObject
 {
 public:
@@ -14,6 +15,7 @@ public:
 	const CCTV* getCCTV() { return _cctv; }
 private:
 	StatComponent* _statComponent;
+	UpgradeComponent* _upgradeComponent;
 	CCTV* _cctv;
 	bool _isBeaconSettingUp;
 };

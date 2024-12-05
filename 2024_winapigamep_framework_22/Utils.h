@@ -51,6 +51,7 @@ namespace utils
 	{
 	public:
 		static float getRandomValue(float minValue, float maxValue); //mt써서 무작위 값 얻는 코드
+		static int getRandomValue(int minValue, int maxValue); //mt써서 무작위 값 얻는 코드
 		static void rotateVector(Vector2& vector, float angle) // 회전 행렬 써서 회전시킴
 		{
 			float x = cosf(angle)*vector.x - sinf(angle)*vector.y;

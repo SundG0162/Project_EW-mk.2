@@ -4,7 +4,7 @@ class StatComponent;
 class DamageUpgrade : public Upgrade
 {
 public:
-	DamageUpgrade(Sprite* icon, const wstring& title, const wstring& description, int maxLevel);
+	DamageUpgrade(Sprite* icon, const wstring& title, const wstring& description);
 	~DamageUpgrade();
 public:
 	void initialize(Player* player) override;

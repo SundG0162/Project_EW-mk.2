@@ -4,6 +4,7 @@
 #include "NewWindow.h"
 #include "CopyWindow.h"
 #include "TimeManager.h"
+#include "EventManager.h"
 
 WindowObject::WindowObject(const Vector2& position, const Vector2& size, const WINDOW_TYPE& type, const wstring& name)
 {
@@ -26,6 +27,10 @@ WindowObject::WindowObject(const Vector2& position, const Vector2& size, const W
 	}
 	break;
 	}
+	_window->OnWindowCloseEvent += [this]() 
+		{
+			GET_SINGLETON(EventManager)->deleteObject(this);
+		};
 }
 
 WindowObject::~WindowObject()
