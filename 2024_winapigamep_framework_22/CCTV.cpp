@@ -7,6 +7,7 @@
 #include "TimeManager.h"
 #include "StatComponent.h"
 #include "WindowManager.h"
+#include "PowerManager.h"
 #include "Stat.h"
 
 CCTV::CCTV(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"CCTV.exe")
@@ -26,15 +27,15 @@ void CCTV::initialize(Player* player)
 {
 	PlayerDevice::initialize(player);
 	_statComponent = player->getComponent<StatComponent>();
-	_statComponent->getStat(L"Size")->OnValueChangeEvent += 
-		[this](float prev, float current) 
+	_statComponent->getStat(L"Size")->OnValueChangeEvent +=
+		[this](float prev, float current)
 		{ this->handleOnSizeStatChange(prev, current); };
 }
 
 void CCTV::update()
 {
 	CaptureObject::update();
-	RECT rect = {0,0,_size.x,_size.y};
+	RECT rect = { 0,0,_size.x,_size.y };
 	GetWindowRect(_window->getHWnd(), &rect);
 	_collider->setPosition(utils::CoordinateSync::nonClientToClient(rect, _position));
 	tryAttack();
@@ -63,23 +64,19 @@ void CCTV::tryAttack()
 
 void CCTV::attack()
 {
-	vector<Enemy*> deadVec;
+	if (_targets.size() > 0 && !GET_SINGLETON(PowerManager)->trySpendPower(5))
+		return;
+	int damage = _statComponent->getStat(L"Damage")->getValue();
+	int stunTime = _statComponent->getStat(L"AttackStun")->getValue();
 	for (Enemy* enemy : _targets)
 	{
-		enemy->GetDamage(_statComponent->getStat(L"Damage")->getValue());
-		enemy->GetStunned(_statComponent->getStat(L"AttackStun")->getValue());
-	}
-	for (Enemy* enemy : deadVec)
-	{
-		auto iter = std::find(_targets.begin(), _targets.end(), enemy);
-		if (iter != _targets.end())
-			_targets.erase(iter);
+		enemy->GetDamage(damage);
+		enemy->GetStunned(stunTime);
 	}
 }
 
 void CCTV::handleOnSizeStatChange(float prev, float current)
 {
-	cout << "¾ö...";
 	_window->setSize({ current, current });
 	_size = { current, current };
 	_collider->setSize(_size);
