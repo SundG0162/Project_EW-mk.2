@@ -184,7 +184,7 @@ void Window::closeWindow()
 
 void Window::openWindow()
 {
-	_isClosed = false;
+	OnWindowOpenEvent.invoke();
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
@@ -214,7 +214,6 @@ void Window::openWindow()
 			_leftTopPosition = fixedPos;
 			ShowWindow(_hWnd, SW_SHOW);
 			_hMainDC = GetDC(_hWnd);
-			OnWindowOpenEvent.invoke();
 		};
 }
 
@@ -255,7 +254,10 @@ void Window::update()
 {
 	if (!_isTweenEnd)
 	{
-		_timer += DELTATIME * _speed;
+		if (DELTATIME == 0)
+			_timer += 0.008f * _speed;
+		else
+			_timer += DELTATIME * _speed;
 		if (_timer < _delayTime)
 			return;
 		_size.x = std::lerp(_startSize.x, _goalSize.x, utils::Ease::outQuad(_timer - _delayTime));

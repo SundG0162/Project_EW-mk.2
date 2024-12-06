@@ -54,6 +54,7 @@ void PopupManager::initialize()
 		ui->setUI(panel);
 		ui->getWindow()->OnWindowOpenEvent += [ui]()
 			{
+				cout << "¿§";
 				GET_SINGLETON(TimeManager)->setTimeScale(0.f);
 			};
 		ui->getWindow()->OnTryWindowCloseEvent += [ui]()
@@ -94,7 +95,7 @@ WindowUI* PopupManager::getPopup(const wstring& key)
 	return nullptr;
 }
 
-void PopupManager::popup(const wstring& key, const Vector2& position, bool withTween)
+void PopupManager::popup(const wstring& key, const Vector2& position, bool withTween, float speed)
 {
 	WindowUI* wndUI = getPopup(key);
 	if (!wndUI->getWindow()->isClosed())
@@ -109,15 +110,15 @@ void PopupManager::popup(const wstring& key, const Vector2& position, bool withT
 	GET_SINGLETON(EventManager)->createObject(wndUI, LAYER::UI);
 	GET_SINGLETON(EventManager)->createWindow(wndUI->getWindow());
 	if (withTween)
-		wndUI->getWindow()->openTween(0.f);
+		wndUI->getWindow()->openTween(0.f, speed);
 }
 
-void PopupManager::close(const wstring& key, bool withTween)
+void PopupManager::close(const wstring& key, bool withTween, float speed)
 {
 	WindowUI* wndUI = getPopup(key);
 	if (withTween)
 	{
-		wndUI->getWindow()->closeTween(0.f);
+		wndUI->getWindow()->closeTween(0.f, speed);
 		wndUI->getWindow()->OnTweenEndEvent += [this, wndUI]()
 			{
 				GET_SINGLETON(EventManager)->excludeWindow(wndUI->getWindow());
