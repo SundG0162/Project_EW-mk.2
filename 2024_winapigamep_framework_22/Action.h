@@ -36,14 +36,6 @@ public:
 	}
 	void invoke(Args... args)
 	{
-		_callbacks.erase(
-			std::remove_if(_callbacks.begin(), _callbacks.end(),
-				[](const std::function<void(Args...)>& func)
-				{
-					return !func;
-				}),
-			_callbacks.end()
-		);
 
 		for (auto& callback : _callbacks)
 		{
