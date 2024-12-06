@@ -40,6 +40,9 @@ void ResourceManager::init()
 	loadTexture(L"TutorialPanel4", L"Texture\\TutorialPanel4.bmp");
 	loadTexture(L"TutorialPanel5", L"Texture\\TutorialPanel5.bmp");
 	loadTexture(L"EnemySheet", L"Texture\\EnemySheet.bmp");
+	loadTexture(L"Selected", L"Texture\\Selected.bmp");
+	loadTexture(L"TorchIcon", L"Texture\\TorchIcon.bmp");
+	loadTexture(L"Upgrade", L"Texture\\Upgrade.bmp");
 
 	for (auto pair : _textureMap)
 	{

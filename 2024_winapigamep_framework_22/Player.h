@@ -18,9 +18,9 @@ public:
 	void modifyHP(int value);
 public:
 	Action<int, int> OnHPChangeEvent;
-	Action<PLAYER_SKILL> OnPlayerSkillChangeEvent;
+	Action<PLAYER_ITEM> OnItemChangeEvent;
 private:
-	PLAYER_SKILL _currentSkill;
+	PLAYER_ITEM _currentSkill;
 	StatComponent* _statComponent;
 	UpgradeComponent* _upgradeComponent;
 	CCTV* _cctv;

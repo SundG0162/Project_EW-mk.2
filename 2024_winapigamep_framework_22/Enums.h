@@ -43,7 +43,7 @@ enum class WINDOW_TYPE
 };
 
 
-enum class PLAYER_SKILL
+enum class PLAYER_ITEM
 {
 	CAMERA = 0,
 	TORCH,

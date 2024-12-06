@@ -15,4 +15,5 @@ public:
 private:
 	WindowUI* _powerPanel;
 	WindowUI* _hpUI;
+	WindowUI* _itemUI;
 };

@@ -87,10 +87,10 @@ void InvincibleEnemy::useSkill()
 	if (_isUsing)
 	{
 		getComponent<Animator>()->playAnimation(L"invincibleStart", false);
+		stat->getStat(L"moveSpeed")->addModifier(this, -30);
 	}
 	else
 	{
 		getComponent<Animator>()->playAnimation(L"invincibleEnd", false);
-		stat->getStat(L"moveSpeed")->addModifier(this, -30);
 	}
 }

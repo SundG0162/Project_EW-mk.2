@@ -83,15 +83,18 @@ void Player::update()
 	_cctv->localMove(movement);
 	if (GET_KEYDOWN(KEY_TYPE::NUM_1))
 	{
-		_currentSkill = PLAYER_SKILL::CAMERA;
+		_currentSkill = PLAYER_ITEM::CAMERA;
+		OnItemChangeEvent.invoke(_currentSkill);
 	}
 	if (GET_KEYDOWN(KEY_TYPE::NUM_2))
 	{
-		_currentSkill = PLAYER_SKILL::TORCH;
+		_currentSkill = PLAYER_ITEM::TORCH;
+		OnItemChangeEvent.invoke(_currentSkill);
 	}
 	if (GET_KEYDOWN(KEY_TYPE::NUM_3))
 	{
-		_currentSkill = PLAYER_SKILL::UPGRADE;
+		_currentSkill = PLAYER_ITEM::UPGRADE;
+		OnItemChangeEvent.invoke(_currentSkill);
 	}
 	if (_isBeaconSettingUp && GET_KEYDOWN(KEY_TYPE::LBUTTON))
 	{

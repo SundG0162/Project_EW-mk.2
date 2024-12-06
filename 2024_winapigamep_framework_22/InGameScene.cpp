@@ -51,7 +51,7 @@ void InGameScene::update()
 	Scene::update();
 	if (GET_KEYDOWN(KEY_TYPE::K))
 	{
-		GET_SINGLETON(PopupManager)->popup(L"Pause", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2}, true);
+		GET_SINGLETON(PopupManager)->popup(L"Pause", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, true);
 	}
 	if (GET_KEYDOWN(KEY_TYPE::B))
 	{
@@ -121,11 +121,54 @@ void InGameScene::setupUI()
 				}
 				else
 				{
-					wstring key = std::format(L"{0}", current-1);
+					wstring key = std::format(L"{0}", current - 1);
 					_hpUI->getUI<PanelUI>()->enableUI(key.c_str());
 				}
 			};
 		addObject(_hpUI, LAYER::UI);
 	}
 #pragma endregion
+#pragma region ItemUI
+	{
+		PanelUI* panelUI = new PanelUI();
+		Vector2 panelSize = { 320,110 };
+		Vector2 panelPosition = { panelSize.x / 2, panelSize.y / 2 + 130 };
+		panelUI->setPosition(panelPosition);
+		panelUI->setSize(panelSize);
+		wstring names[3] = { L"CameraIcon", L"TorchIcon", L"Upgrade" };
+		int offset = 92;
+		for (int i = 0; i < 3; i++)
+		{
+			int x = 60 + offset * i;
+			Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(names[i].c_str());
+			ImageUI* image = new ImageUI(sprite);
+			TextUI* numberText = new TextUI();
+			numberText->setupFont(20);
+			wstring number = std::format(L"{0}", i + 1);
+			numberText->setText(number);
+			numberText->setPosition({ x - 20, 5 });
+			image->getComponent<SpriteRenderer>()->setScale({ 2.3f,2.3f });
+			image->setPosition({ x, (int)panelSize.y / 2 + 10});
+			panelUI->addUI(names[i].c_str(), image);
+			panelUI->addUI(number, numberText);
+		}
+		Sprite* select = GET_SINGLETON(ResourceManager)->getSprite(L"Selected");
+		ImageUI* selectImage = new ImageUI(select);
+		selectImage->getComponent<SpriteRenderer>()->setScale({ 2.3f,2.3f });
+		selectImage->setPosition({ 60,(int)panelSize.y / 2 + 10 });
+		panelUI->addUI(L"Select", selectImage);
+		_itemUI = new WindowUI(panelPosition, panelSize, WINDOW_TYPE::NEW, L"Items.exe");
+		_itemUI->setUI(panelUI);
+		_itemUI->getWindow()->setMoveable(true);
+		_itemUI->getWindow()->setCloseable(false);
+		Player* player = GET_SINGLETON(PlayerManager)->getPlayer();
+		player->OnItemChangeEvent += [this, offset](PLAYER_ITEM skill)
+			{
+				int x = 60 + offset * (int)skill;
+				_itemUI->getUI<PanelUI>()->getUI<ImageUI>(L"Select")->setPosition({ x, (int)_itemUI->getSize().y / 2 + 10 });
+			};
+		addObject(_itemUI, LAYER::UI);
+	}
+#pragma endregion
+
 }
