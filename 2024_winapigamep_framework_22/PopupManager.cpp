@@ -6,6 +6,8 @@
 #include "EventManager.h"
 #include "Window.h"
 #include "WindowUI.h"
+#include "TimeManager.h"
+#include "PanelUI.h"
 #include "WindowManager.h"
 #include "TextUI.h"
 #include "ImageUI.h"
@@ -38,18 +40,28 @@ void PopupManager::initialize()
 #pragma endregion
 #pragma region Pause
 	{
-		WindowUI* ui = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { 500,700 }, WINDOW_TYPE::NEW, L"Pause.exe");
+		Vector2 panelPosition = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
+		Vector2 panelSize = { 500,700 };
+		WindowUI* ui = new WindowUI(panelPosition, panelSize, WINDOW_TYPE::NEW, L"Pause.exe");
+		PanelUI* panel = new PanelUI();
+		panel->setPosition(panelPosition);
+		panel->setSize(panelSize);
 		TextUI* text = new TextUI();
-		text->setupFont(35);
+		text->setupFont(50);
 		text->setText(L"일시정지.");
-		text->setPosition({ 150, 25 });
-		ui->setUI(text);
-
+		text->setPosition({ panelSize.x / 2, 80.f });
+		panel->addUI(L"TitleText", text);
+		ui->setUI(panel);
+		ui->getWindow()->OnWindowOpenEvent += [ui]()
+			{
+				GET_SINGLETON(TimeManager)->setTimeScale(0.f);
+			};
 		ui->getWindow()->OnTryWindowCloseEvent += [ui]()
 			{
-				GET_SINGLETON(PopupManager)->close(L"NotEnoughPower", false);
+				GET_SINGLETON(TimeManager)->setTimeScale(1.f);
+				GET_SINGLETON(PopupManager)->close(L"Pause", false);
 			};
-		addPopup(L"NotEnoughPower", ui);
+		addPopup(L"Pause", ui);
 		ui->getWindow()->closeWindow();
 		GET_SINGLETON(EventManager)->excludeWindow(ui->getWindow());
 		ui->getWindow()->OnWindowCloseEvent -= [ui]() {};

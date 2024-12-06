@@ -39,7 +39,7 @@ void InGameScene::update()
 	Scene::update();
 	if (GET_KEYDOWN(KEY_TYPE::K))
 	{
-		GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 200 }, false);
+		GET_SINGLETON(PopupManager)->popup(L"Pause", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2}, true);
 	}
 	if (GET_KEYDOWN(KEY_TYPE::B))
 	{
