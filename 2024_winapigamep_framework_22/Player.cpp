@@ -17,6 +17,7 @@
 #include "Torch.h"
 #include "Camera.h"
 #include "Core.h"
+#include "Collider.h"
 #include "PlayerManager.h"
 
 Player::Player(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Me.exe")
@@ -31,6 +32,8 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Computer");
 	spriteRenderer->setSprite(sprite);
 	spriteRenderer->setScale({ 3,3 });
+	Collider* collider = addComponent<Collider>();
+	collider->setSize({ 85,85 });
 	_statComponent = addComponent<StatComponent>();
 	Stat* damageStat = new Stat(1);
 	_statComponent->addStat(L"Damage", damageStat);
@@ -78,6 +81,18 @@ void Player::update()
 	movement.Normalize();
 	movement *= 300 * DELTATIME;
 	_cctv->localMove(movement);
+	if (GET_KEYDOWN(KEY_TYPE::NUM_1))
+	{
+		_currentSkill = PLAYER_SKILL::CAMERA;
+	}
+	if (GET_KEYDOWN(KEY_TYPE::NUM_2))
+	{
+		_currentSkill = PLAYER_SKILL::TORCH;
+	}
+	if (GET_KEYDOWN(KEY_TYPE::NUM_3))
+	{
+		_currentSkill = PLAYER_SKILL::UPGRADE;
+	}
 	if (_isBeaconSettingUp && GET_KEYDOWN(KEY_TYPE::LBUTTON))
 	{
 		Vector2 mousePos = Vector2(GET_MOUSEPOS);

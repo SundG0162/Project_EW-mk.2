@@ -41,15 +41,15 @@ void PopupManager::initialize()
 #pragma region Pause
 	{
 		Vector2 panelPosition = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-		Vector2 panelSize = { 500,700 };
+		Vector2 panelSize = { 500,300 };
 		WindowUI* ui = new WindowUI(panelPosition, panelSize, WINDOW_TYPE::NEW, L"Pause.exe");
 		PanelUI* panel = new PanelUI();
 		panel->setPosition(panelPosition);
 		panel->setSize(panelSize);
 		TextUI* text = new TextUI();
-		text->setupFont(50);
+		text->setupFont(70);
 		text->setText(L"일시정지.");
-		text->setPosition({ panelSize.x / 2, 80.f });
+		text->setPosition({ panelSize.x / 2, panelSize.y / 2 - 35 });
 		panel->addUI(L"TitleText", text);
 		ui->setUI(panel);
 		ui->getWindow()->OnWindowOpenEvent += [ui]()
