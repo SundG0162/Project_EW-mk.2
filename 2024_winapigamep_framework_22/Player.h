@@ -16,6 +16,7 @@ public:
 	const CCTV* getCCTV() { return _cctv; }
 public:
 	void modifyHP(int value);
+	void setCCTVLocked(bool locked) { _isCCTVLocked = locked; }
 public:
 	Action<int, int> OnHPChangeEvent;
 	Action<PLAYER_ITEM> OnItemChangeEvent;
@@ -28,6 +29,6 @@ private:
 	map<PLAYER_ITEM, int> _priceMap;
 	int _hp;
 	int _maxHP;
-	bool _isBeaconSettingUp;
+	bool _isCCTVLocked = false;
 };
 

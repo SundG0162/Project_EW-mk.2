@@ -9,7 +9,7 @@ class CCTV : public CaptureObject, public PlayerDevice
 public:
 	CCTV(const Vector2& position, const Vector2& size);
 	~CCTV();
-public:
+public:	
 	void initialize(Player* player) override;
 	void update() override;
 	void render(HDC hdc) override;

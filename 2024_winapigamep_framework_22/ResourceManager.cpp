@@ -36,6 +36,15 @@ void ResourceManager::init()
 	loadTexture(L"Selected", L"Texture\\Selected.bmp");
 	loadTexture(L"TorchIcon", L"Texture\\TorchIcon.bmp");
 	loadTexture(L"Upgrade", L"Texture\\Upgrade.bmp");
+	loadTexture(L"W", L"Texture\\W.bmp");
+	loadTexture(L"A", L"Texture\\A.bmp");
+	loadTexture(L"S", L"Texture\\S.bmp");
+	loadTexture(L"D", L"Texture\\D.bmp");
+	loadTexture(L"rW", L"Texture\\rW.bmp");
+	loadTexture(L"rA", L"Texture\\rA.bmp");
+	loadTexture(L"rS", L"Texture\\rS.bmp");
+	loadTexture(L"rD", L"Texture\\rD.bmp");
+	loadTexture(L"Rotate", L"Texture\\Rotate.bmp");
 
 	for (auto pair : _textureMap)
 	{

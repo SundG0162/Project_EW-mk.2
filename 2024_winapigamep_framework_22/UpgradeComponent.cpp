@@ -7,6 +7,7 @@
 #include "WindowUI.h"
 #include "Window.h"
 #include "DamageUpgrade.h"
+#include "SizeUpgrade.h"
 #include "EventManager.h"
 #include "ResourceManager.h"
 
@@ -33,13 +34,20 @@ UpgradeComponent::~UpgradeComponent()
 
 void UpgradeComponent::initialize()
 {
-	DamageUpgrade* damageUpgrade = new DamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 강화", L"CCTV.exe가 더욱 강해집니다.\n더욱 강한 관음!");
-	_upgrades.push_back(damageUpgrade);
+	{
+		Upgrade* upgrade = new DamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 강화", L"CCTV.exe가 더욱 강해집니다.\n더욱 강한 관음!");
+		_upgrades.push_back(upgrade);
+	}
+	{
+		Upgrade* upgrade = new SizeUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 확장", L"CCTV.exe가 더욱 넓어집니다.\n넓은 시야를 위해!");
+		_upgrades.push_back(upgrade);
+	}
+
 
 	Player* player = dynamic_cast<Player*>(getOwner());
-	for (Upgrade* upgrade : _upgrades)
+	for (Upgrade* u : _upgrades)
 	{
-		upgrade->initialize(player);
+		u->initialize(player);
 	}
 }
 

@@ -170,6 +170,8 @@
     <ClInclude Include="BarUI.h" />
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="BasicEnemy.h" />
+    <ClInclude Include="PowerGenerator.h" />
+    <ClInclude Include="SizeUpgrade.h" />
     <ClInclude Include="Torch.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CaptureObject.h" />
@@ -237,6 +239,8 @@
     <ClCompile Include="BarUI.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="BasicEnemy.cpp" />
+    <ClCompile Include="PowerGenerator.cpp" />
+    <ClCompile Include="SizeUpgrade.cpp" />
     <ClCompile Include="Torch.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CaptureObject.cpp" />

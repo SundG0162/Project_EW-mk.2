@@ -28,7 +28,6 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_cctv = nullptr;
 	_maxHP = 3;
 	_hp = _maxHP;
-	_isBeaconSettingUp = false;
 	_window->setPriority(PLAYER_PRIORITY);
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
 	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Computer");
@@ -75,18 +74,21 @@ Player::~Player()
 
 void Player::update()
 {
-	Vector2 movement = {};
-	if (GET_KEY(KEY_TYPE::W))
-		movement.y -= 1;
-	if (GET_KEY(KEY_TYPE::A))
-		movement.x -= 1;
-	if (GET_KEY(KEY_TYPE::S))
-		movement.y += 1;
-	if (GET_KEY(KEY_TYPE::D))
-		movement.x += 1;
-	movement.Normalize();
-	movement *= 300 * DELTATIME;
-	_cctv->localMove(movement);
+	if (!_isCCTVLocked)
+	{
+		Vector2 movement = {};
+		if (GET_KEY(KEY_TYPE::W))
+			movement.y -= 1;
+		if (GET_KEY(KEY_TYPE::A))
+			movement.x -= 1;
+		if (GET_KEY(KEY_TYPE::S))
+			movement.y += 1;
+		if (GET_KEY(KEY_TYPE::D))
+			movement.x += 1;
+		movement.Normalize();
+		movement *= 300 * DELTATIME;
+		_cctv->localMove(movement);
+	}
 	if (GET_KEYDOWN(KEY_TYPE::NUM_1))
 	{
 		_currentItem = PLAYER_ITEM::CAMERA;
@@ -130,7 +132,6 @@ void Player::update()
 			float size = _statComponent->getStat(L"TorchSize")->getValue();
 			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos, size]()
 				{
-					_isBeaconSettingUp = false;
 					Torch* torch = new Torch(_position, { size,size });
 					torch->initialize(this);
 					torch->setup(mousePos);
@@ -150,7 +151,8 @@ void Player::update()
 	}
 	if (GET_KEYDOWN(KEY_TYPE::K))
 	{
-		GET_SINGLETON(PowerManager)->modifyPower(100);
+		GET_SINGLETON(PopupManager)->popup(L"PowerGenerator", _position, false);
+		//GET_SINGLETON(PowerManager)->modifyPower(100);
 	}
 }
 

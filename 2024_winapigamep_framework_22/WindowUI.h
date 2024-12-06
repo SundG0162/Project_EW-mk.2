@@ -5,15 +5,15 @@ class WindowUI : public WindowObject
 {
 public:
 	WindowUI(const Vector2& position, const Vector2& size, WINDOW_TYPE type, const wstring& name);
-	~WindowUI();
+	virtual ~WindowUI();
 public:
-	void update() override;
-	void render(HDC hdc) override;
+	virtual void update() override;
+	virtual void render(HDC hdc) override;
 public:
 	template<typename T>
 	T* getUI() { return dynamic_cast<T*>(_ui); }
 	void setUI(UI* ui) { _ui = ui; }
-private:
+protected :
 	UI* _ui;
 };
 

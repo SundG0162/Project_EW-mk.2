@@ -6,6 +6,9 @@
 #include "EventManager.h"
 #include "Window.h"
 #include "WindowUI.h"
+#include "PlayerManager.h"
+#include "Player.h"
+#include "PowerGenerator.h"
 #include "TimeManager.h"
 #include "PanelUI.h"
 #include "WindowManager.h"
@@ -54,7 +57,6 @@ void PopupManager::initialize()
 		ui->setUI(panel);
 		ui->getWindow()->OnWindowOpenEvent += [ui]()
 			{
-				cout << "¿§";
 				GET_SINGLETON(TimeManager)->setTimeScale(0.f);
 			};
 		ui->getWindow()->OnTryWindowCloseEvent += [ui]()
@@ -63,6 +65,24 @@ void PopupManager::initialize()
 				GET_SINGLETON(PopupManager)->close(L"Pause", false);
 			};
 		addPopup(L"Pause", ui);
+		ui->getWindow()->closeWindow();
+		GET_SINGLETON(EventManager)->excludeWindow(ui->getWindow());
+		ui->getWindow()->OnWindowCloseEvent -= [ui]() {};
+	}
+#pragma endregion
+#pragma region PowerGenerator
+	{
+		PowerGenerator* ui = new PowerGenerator({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { 400,400 });
+		ui->getWindow()->OnWindowOpenEvent += [ui]()
+			{
+				GET_SINGLETON(PlayerManager)->getPlayer()->setCCTVLocked(true);
+			};
+		ui->getWindow()->OnTryWindowCloseEvent += [ui]()
+			{
+				GET_SINGLETON(PlayerManager)->getPlayer()->setCCTVLocked(false);
+				GET_SINGLETON(PopupManager)->close(L"PowerGenerator", false);
+			};
+		addPopup(L"PowerGenerator", ui);
 		ui->getWindow()->closeWindow();
 		GET_SINGLETON(EventManager)->excludeWindow(ui->getWindow());
 		ui->getWindow()->OnWindowCloseEvent -= [ui]() {};

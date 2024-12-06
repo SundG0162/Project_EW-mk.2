@@ -79,8 +79,8 @@ void CCTV::attack()
 
 void CCTV::handleOnSizeStatChange(float prev, float current)
 {
+	cout << "¾ö...";
 	_window->setSize({ current, current });
 	_size = { current, current };
 	_collider->setSize(_size);
-	_window->moveWindow(_position);
 }
