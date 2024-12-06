@@ -13,11 +13,6 @@ void ResourceManager::init()
 	if (_soundSystem != nullptr)
 		_soundSystem->init((int)SOUND_CHANNEL::END, FMOD_INIT_NORMAL, nullptr);
 
-	loadTexture(L"Test", L"Texture\\Test.bmp");
-	loadTexture(L"Title-1", L"Texture\\title-1.bmp");
-	loadTexture(L"Title-2", L"Texture\\title-2.bmp");
-	loadTexture(L"Title-3", L"Texture\\title-3.bmp");
-	loadTexture(L"Title-4", L"Texture\\title-4.bmp");
 	loadTexture(L"Computer", L"Texture\\Computer.bmp");
 	loadTexture(L"Camera", L"Texture\\CameraScreen.bmp");
 	loadTexture(L"BarUI", L"Texture\\BarUI.bmp");
@@ -27,9 +22,7 @@ void ResourceManager::init()
 	loadTexture(L"PowerIcon", L"Texture\\PowerIcon.bmp");
 	loadTexture(L"CameraIcon", L"Texture\\CameraIcon.bmp");
 	loadTexture(L"CCTVIcon", L"Texture\\CCTVIcon.bmp");
-	loadTexture(L"BasicEnemy", L"Texture\\BasicEnemy.bmp");
 	loadTexture(L"ExplodeEffect", L"Texture\\ExplodeEffect.bmp");
-	loadTexture(L"Dinosaur", L"Texture\\Dinosaur.bmp");
 	loadTexture(L"Dinosaur", L"Texture\\Dinosaur.bmp");
 	loadTexture(L"ForderEnemyTransition", L"Texture\\ForderEnemyTransition.bmp");
 	loadTexture(L"ForderEnemyIdle", L"Texture\\ForderEnemyIdle.bmp");
