@@ -33,7 +33,7 @@ UpgradeComponent::~UpgradeComponent()
 
 void UpgradeComponent::initialize()
 {
-	DamageUpgrade* damageUpgrade = new DamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 강화", L"CCTV.exe가 더욱 강해집니다.");
+	DamageUpgrade* damageUpgrade = new DamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 강화", L"CCTV.exe가 더욱 강해집니다.\n더욱 강한 관음!");
 	_upgrades.push_back(damageUpgrade);
 
 	Player* player = dynamic_cast<Player*>(getOwner());

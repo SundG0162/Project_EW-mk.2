@@ -83,52 +83,55 @@ void Player::update()
 	_cctv->localMove(movement);
 	if (GET_KEYDOWN(KEY_TYPE::NUM_1))
 	{
-		_currentSkill = PLAYER_ITEM::CAMERA;
-		OnItemChangeEvent.invoke(_currentSkill);
+		_currentItem = PLAYER_ITEM::CAMERA;
+		OnItemChangeEvent.invoke(_currentItem);
 	}
 	if (GET_KEYDOWN(KEY_TYPE::NUM_2))
 	{
-		_currentSkill = PLAYER_ITEM::TORCH;
-		OnItemChangeEvent.invoke(_currentSkill);
+		_currentItem = PLAYER_ITEM::TORCH;
+		OnItemChangeEvent.invoke(_currentItem);
 	}
 	if (GET_KEYDOWN(KEY_TYPE::NUM_3))
 	{
-		_currentSkill = PLAYER_ITEM::UPGRADE;
-		OnItemChangeEvent.invoke(_currentSkill);
+		_currentItem = PLAYER_ITEM::UPGRADE;
+		OnItemChangeEvent.invoke(_currentItem);
 	}
-	if (_isBeaconSettingUp && GET_KEYDOWN(KEY_TYPE::LBUTTON))
+	if (GET_KEYDOWN(KEY_TYPE::SPACE) || GET_KEYDOWN(KEY_TYPE::ENTER))
 	{
-		Vector2 mousePos = Vector2(GET_MOUSEPOS);
-		float size = _statComponent->getStat(L"TorchSize")->getValue();
-		GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos, size]()
-			{
-				_isBeaconSettingUp = false;
-				Torch* torch = new Torch(_position, { size,size });
-				torch->initialize(this);
-				torch->setup(mousePos);
-				GET_SINGLETON(EventManager)->createObject(torch, LAYER::UI);
-				GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
-			};
-	}
-	if (GET_KEYDOWN(KEY_TYPE::SPACE))
-	{
-		float size = _statComponent->getStat(L"CameraSize")->getValue();
-		GET_SINGLETON(Core)->OnMessageProcessEvent += [this, size]()
-			{
-				Camera* camera = new Camera(_position, { size,size });
-				camera->initialize(this);
-				GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
-				GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
-			};
-	}
-	if (GET_KEYDOWN(KEY_TYPE::Q))
-	{
-		_isBeaconSettingUp = !_isBeaconSettingUp;
-		modifyHP(1);
-	}
-	if (GET_KEYDOWN(KEY_TYPE::C))
-	{
-		modifyHP(-1);
+		switch (_currentItem)
+		{
+		case PLAYER_ITEM::CAMERA:
+		{
+			float size = _statComponent->getStat(L"CameraSize")->getValue();
+			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, size]()
+				{
+					Camera* camera = new Camera(_position, { size,size });
+					camera->initialize(this);
+					GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
+					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+				};
+		}
+		break;
+		case PLAYER_ITEM::TORCH:
+		{
+			Vector2 mousePos = Vector2(GET_MOUSEPOS);
+			float size = _statComponent->getStat(L"TorchSize")->getValue();
+			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos, size]()
+				{
+					_isBeaconSettingUp = false;
+					Torch* torch = new Torch(_position, { size,size });
+					torch->initialize(this);
+					torch->setup(mousePos);
+					GET_SINGLETON(EventManager)->createObject(torch, LAYER::UI);
+					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+				};
+		}
+		break;
+		case PLAYER_ITEM::UPGRADE:
+		{
+			_upgradeComponent->setRandomUpgrade();
+		}
+		}
 	}
 }
 

@@ -19,8 +19,9 @@ public:
 public:
 	Action<int, int> OnHPChangeEvent;
 	Action<PLAYER_ITEM> OnItemChangeEvent;
+	Action<PLAYER_ITEM, int> OnItemUseEvent; // type, price
 private:
-	PLAYER_ITEM _currentSkill;
+	PLAYER_ITEM _currentItem;
 	StatComponent* _statComponent;
 	UpgradeComponent* _upgradeComponent;
 	CCTV* _cctv;
