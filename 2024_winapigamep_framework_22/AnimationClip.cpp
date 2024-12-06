@@ -28,16 +28,19 @@ void AnimationClip::update()
 	{
 		_timer = 0.f;
 		_currentFrame++;
-		if (_isRepeat)
+		if (_currentFrame == _sprites.size())
 		{
-			if (_currentFrame == _sprites.size())
+			if (_isRepeat)
+			{
 				_currentFrame = 0;
+			}
+			else
+			{
+				OnAnimationEndEvent.invoke();
+				return;
+			}
 		}
-		else
-		{
-			OnAnimationEndEvent.invoke();
-			return;
-		}
+		
 	}
 	_spriteRenderer->setSprite(_sprites[_currentFrame]);
 }

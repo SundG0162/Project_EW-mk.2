@@ -53,6 +53,7 @@ void Animator::playAnimation(const wstring& name, bool isRepeat, int repeatCount
 {
 	AnimationClip* clip = findAnimation(name);
 	clip->setFrame(0);
+	clip->setRepeat(isRepeat);
 	_currentClip = clip;
 	_isRepeat = isRepeat;
 	_repeatCount = repeatCount;

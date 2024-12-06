@@ -17,7 +17,7 @@ public:
 	void init(Animator* animator);
 	void create(vector<Sprite*>& sprites, float duration);
 public:
-	void setFrame(int frame) { _currentFrame = frame; }
+	void setFrame(int frame) { _currentFrame = frame; _timer = 0.f; }
 	void setRepeat(bool repeat) { _isRepeat = repeat; }
 public:
 	Action<> OnAnimationEndEvent;

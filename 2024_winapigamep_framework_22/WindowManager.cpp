@@ -18,6 +18,7 @@ void WindowManager::update()
 			auto iter = std::find(_windows.begin(), _windows.end(), window);
 			if (iter != _windows.end())
 				_windows.erase(iter);
+			continue;
 		}
 		window->update();
 	}

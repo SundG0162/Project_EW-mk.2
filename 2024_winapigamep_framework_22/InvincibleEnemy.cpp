@@ -15,18 +15,19 @@ InvincibleEnemy::InvincibleEnemy()
 
 InvincibleEnemy::InvincibleEnemy(Object* target) : Super(target)
 {
-	addComponent<SpriteRenderer>();
+	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
+	renderer->setScale({ 2,2 });
 	Texture* tex = GET_SINGLETON(ResourceManager)->getTexture(L"EnemySheet");
 	Animator* anim = addComponent<Animator>();
 
 	{
 		auto vecsprite = utils::SpriteParser::textureToSprites(tex, { 0, 32 * 2 }, { 32,32 }, 6);
-		anim->createAnimation(L"invincibleStart", vecsprite, 0.1f * 6);
+		anim->createAnimation(L"invincibleEnd", vecsprite, 0.1f * 6);
 	}
 	{
 		auto vecsprite = utils::SpriteParser::textureToSprites(tex, { 0, 32 * 2 }, { 32,32 }, 6);
 		reverse(vecsprite.begin(), vecsprite.end());
-		anim->createAnimation(L"invincibleEnd", vecsprite, 0.1f * 6);
+		anim->createAnimation(L"invincibleStart", vecsprite, 0.1f * 6);
 	}
 	{
 		auto vecsprite = utils::SpriteParser::textureToSprites(tex, { 0, 32 * 3 }, { 32,32 }, 2);
@@ -34,7 +35,17 @@ InvincibleEnemy::InvincibleEnemy(Object* target) : Super(target)
 	}
 	anim->playAnimation(L"move", true);
 	anim->findAnimation(L"invincibleEnd")->OnAnimationEndEvent += [this]() 
-		{getComponent<Animator>()->playAnimation(L"move", true); };
+		{
+			getComponent<Animator>()->playAnimation(L"move", true);
+			getComponent<Collider>()->setOffset({ 0,0 });
+			stat->getStat(L"moveSpeed")->removeModifier(this);
+		};
+
+	anim->findAnimation(L"invincibleStart")->OnAnimationEndEvent += [this]()
+		{
+			getComponent<Collider>()->setOffset({ 5555,5555 });
+		};
+	
 
 	stat->getStat(L"moveSpeed")->setValue(40.f);
 	stat->getStat(L"CoolTime")->setValue(3.f);
@@ -57,10 +68,8 @@ void InvincibleEnemy::render(HDC hdc)
 
 void InvincibleEnemy::startSkill()
 {
-	getComponent<Collider>()->setOffset({5555,5555});
-	getComponent<Animator>()->playAnimation(L"invincibleStart", false);
-	stat->getStat(L"moveSpeed")->addModifier((void *)L"slow", -30);
-	cout << "startskill";
+	useSkill();
+	
 }
 
 void InvincibleEnemy::updateSkill()
@@ -69,8 +78,19 @@ void InvincibleEnemy::updateSkill()
 
 void InvincibleEnemy::endSkill()
 {
-	cout << "endskill";
-	getComponent<Collider>()->setOffset({ 0,0 });
-	getComponent<Animator>()->playAnimation(L"invincibleEnd", false);
-	stat->getStat(L"moveSpeed")->removeModifier((void *)L"slow");
+	useSkill();
+}
+
+void InvincibleEnemy::useSkill()
+{
+	_isUsing = !_isUsing;
+	if (_isUsing)
+	{
+		getComponent<Animator>()->playAnimation(L"invincibleStart", false);
+	}
+	else
+	{
+		getComponent<Animator>()->playAnimation(L"invincibleEnd", false);
+		stat->getStat(L"moveSpeed")->addModifier(this, -30);
+	}
 }
