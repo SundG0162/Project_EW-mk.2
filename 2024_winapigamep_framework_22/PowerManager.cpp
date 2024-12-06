@@ -12,7 +12,7 @@ bool PowerManager::trySpendPower(int value)
 {
 	if (_power >= value)
 	{
-		modifyPower(value);
+		modifyPower(-value);
 		return true;
 	}
 	return false;

@@ -19,12 +19,13 @@ public:
 public:
 	Action<int, int> OnHPChangeEvent;
 	Action<PLAYER_ITEM> OnItemChangeEvent;
-	Action<PLAYER_ITEM, int> OnItemUseEvent; // type, price
+	Action<PLAYER_ITEM, int> OnItemUseEvent; // type, increased price
 private:
 	PLAYER_ITEM _currentItem;
 	StatComponent* _statComponent;
 	UpgradeComponent* _upgradeComponent;
 	CCTV* _cctv;
+	map<PLAYER_ITEM, int> _priceMap;
 	int _hp;
 	int _maxHP;
 	bool _isBeaconSettingUp;

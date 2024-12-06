@@ -46,19 +46,6 @@ void InGameScene::init()
 #pragma endregion
 }
 
-void InGameScene::update()
-{
-	Scene::update();
-	if (GET_KEYDOWN(KEY_TYPE::K))
-	{
-		GET_SINGLETON(PopupManager)->popup(L"Pause", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, true);
-	}
-	if (GET_KEYDOWN(KEY_TYPE::B))
-	{
-		GET_SINGLETON(EventManager)->changeScene(L"TitleScene");
-	}
-}
-
 void InGameScene::setupUI()
 {
 #pragma region PowerPanel
@@ -132,10 +119,11 @@ void InGameScene::setupUI()
 	{
 		PanelUI* panelUI = new PanelUI();
 		Vector2 panelSize = { 320,110 };
-		Vector2 panelPosition = { panelSize.x / 2, panelSize.y / 2 + 130 };
+		Vector2 panelPosition = { panelSize.x / 2, panelSize.y / 2 + 160 };
 		panelUI->setPosition(panelPosition);
-		panelUI->setSize(panelSize);
+		panelUI->setSize({ panelSize.x, panelSize.y + 20 });
 		wstring names[3] = { L"CameraIcon", L"TorchIcon", L"Upgrade" };
+		wstring prices[3] = { L"50",L"40" ,L"70" };
 		int offset = 92;
 		for (int i = 0; i < 3; i++)
 		{
@@ -148,24 +136,40 @@ void InGameScene::setupUI()
 			numberText->setText(number);
 			numberText->setPosition({ x - 20, 5 });
 			image->getComponent<SpriteRenderer>()->setScale({ 2.3f,2.3f });
-			image->setPosition({ x, (int)panelSize.y / 2 + 10});
-			panelUI->addUI(names[i].c_str(), image);
+			image->setPosition({ x, (int)panelSize.y / 2 + 10 });
+			Sprite* powerSprite = GET_SINGLETON(ResourceManager)->getSprite(L"PowerIcon");
+			ImageUI* powerImage = new ImageUI(powerSprite);
+			powerImage->getComponent<SpriteRenderer>()->setScale({ 0.6f,0.6f });
+			powerImage->setPosition({ x - 28, (int)panelSize.y + 7 });
+			TextUI* priceText = new TextUI();
+			priceText->setPosition({ x, (int)panelSize.y - 3 });
+			priceText->setupFont(16);
+			priceText->setText(prices[i]);
+			panelUI->addUI(names[i], image);
 			panelUI->addUI(number, numberText);
+			panelUI->addUI(number + L"Price", priceText);
+			panelUI->addUI(number + L"PowerIcon", powerImage);
 		}
 		Sprite* select = GET_SINGLETON(ResourceManager)->getSprite(L"Selected");
 		ImageUI* selectImage = new ImageUI(select);
 		selectImage->getComponent<SpriteRenderer>()->setScale({ 2.3f,2.3f });
 		selectImage->setPosition({ 60,(int)panelSize.y / 2 + 10 });
 		panelUI->addUI(L"Select", selectImage);
-		_itemUI = new WindowUI(panelPosition, panelSize, WINDOW_TYPE::NEW, L"Items.exe");
+		_itemUI = new WindowUI(panelPosition, { panelSize.x, panelSize.y + 20 }, WINDOW_TYPE::NEW, L"Items.exe");
 		_itemUI->setUI(panelUI);
 		_itemUI->getWindow()->setMoveable(true);
 		_itemUI->getWindow()->setCloseable(false);
 		Player* player = GET_SINGLETON(PlayerManager)->getPlayer();
-		player->OnItemChangeEvent += [this, offset](PLAYER_ITEM skill)
+		player->OnItemChangeEvent += [this, offset, panelSize](PLAYER_ITEM item)
 			{
-				int x = 60 + offset * (int)skill;
-				_itemUI->getUI<PanelUI>()->getUI<ImageUI>(L"Select")->setPosition({ x, (int)_itemUI->getSize().y / 2 + 10 });
+				int x = 60 + offset * (int)item;
+				_itemUI->getUI<PanelUI>()->getUI<ImageUI>(L"Select")->setPosition({ x, (int)panelSize.y / 2 + 10 });
+			};
+		player->OnItemUseEvent += [this](PLAYER_ITEM item, int value)
+			{
+				wstring key = std::format(L"{0}Price", (int)item + 1);
+				wstring price = std::format(L"{0}", value);
+				_itemUI->getUI<PanelUI>()->getUI<TextUI>(key)->setText(price);
 			};
 		addObject(_itemUI, LAYER::UI);
 	}

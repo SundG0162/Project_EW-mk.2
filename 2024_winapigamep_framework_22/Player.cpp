@@ -12,6 +12,8 @@
 #include "WindowUI.h"
 #include "ResourceManager.h"
 #include "EventManager.h"
+#include "PowerManager.h"
+#include "PopupManager.h"
 #include "Scene.h"
 #include "Sprite.h"
 #include "Torch.h"
@@ -59,6 +61,10 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	GET_SINGLETON(EventManager)->createObject(_cctv, LAYER::PLAYER);
 	_upgradeComponent = addComponent<UpgradeComponent>();
 	_upgradeComponent->initialize();
+	_priceMap.insert({ PLAYER_ITEM::CAMERA, 50 });
+	_priceMap.insert({ PLAYER_ITEM::TORCH, 40 });
+	_priceMap.insert({ PLAYER_ITEM::UPGRADE, 70 });
+	_currentItem = PLAYER_ITEM::CAMERA;
 }
 
 Player::~Player()
@@ -98,6 +104,11 @@ void Player::update()
 	}
 	if (GET_KEYDOWN(KEY_TYPE::SPACE) || GET_KEYDOWN(KEY_TYPE::ENTER))
 	{
+		if (!GET_SINGLETON(PowerManager)->trySpendPower(_priceMap[_currentItem]))
+		{
+			GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, false);
+			return;
+		}
 		switch (_currentItem)
 		{
 		case PLAYER_ITEM::CAMERA:
@@ -110,6 +121,7 @@ void Player::update()
 					GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
 					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 				};
+			_priceMap[_currentItem] += 20;
 		}
 		break;
 		case PLAYER_ITEM::TORCH:
@@ -125,13 +137,20 @@ void Player::update()
 					GET_SINGLETON(EventManager)->createObject(torch, LAYER::UI);
 					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 				};
+			_priceMap[_currentItem] += 20;
 		}
 		break;
 		case PLAYER_ITEM::UPGRADE:
 		{
 			_upgradeComponent->setRandomUpgrade();
+			_priceMap[_currentItem] += 40;
 		}
 		}
+		OnItemUseEvent.invoke(_currentItem, _priceMap[_currentItem]);
+	}
+	if (GET_KEYDOWN(KEY_TYPE::K))
+	{
+		GET_SINGLETON(PowerManager)->modifyPower(100);
 	}
 }
 
