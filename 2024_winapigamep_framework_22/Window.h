@@ -45,6 +45,7 @@ public:
 	Action<> OnTweenEndEvent;
 	Action<> OnWindowCloseEvent;
 	Action<> OnTryWindowCloseEvent;
+	Action<> OnWindowOpenEvent;
 protected:
 	HWND _hWnd;
 	HDC _hMainDC;

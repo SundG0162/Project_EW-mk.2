@@ -137,7 +137,7 @@
     <Position X="26.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAgoBABAACAAAAAAAAABCAAgAAAAUAAA=</HashCode>
-      <FileName>Beacon.h</FileName>
+      <FileName>Torch.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Camera" Collapsed="true">

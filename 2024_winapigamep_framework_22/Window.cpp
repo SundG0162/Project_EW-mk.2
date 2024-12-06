@@ -124,9 +124,10 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 
 void Window::openTween(float delayTime, float speed, TWEEN_TYPE type)
 {
+	if (!isTweening())
+		_goalSize = _size;
 	_tweenType = type;
 	_delayTime = delayTime;
-	_goalSize = _size;
 	_startSize = _size;
 	_speed = speed;
 	switch (type)
@@ -183,7 +184,7 @@ void Window::closeWindow()
 
 void Window::openWindow()
 {
-	_isClosed = false;
+	OnWindowOpenEvent.invoke();
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
@@ -222,9 +223,9 @@ void Window::close()
 	SetWindowLongPtr(_hWnd, GWLP_USERDATA, 0);
 	GET_SINGLETON(EventManager)->deleteWindow(this);
 	HWND hWnd = _hWnd;
+	DestroyWindow(_hWnd);
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this, hWnd]()
 		{
-			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this, hWnd]() {};
 			SendMessage(hWnd, WM_CLOSE, 0, 0);
 		};
 	_isDead = true;
@@ -253,7 +254,10 @@ void Window::update()
 {
 	if (!_isTweenEnd)
 	{
-		_timer += DELTATIME * _speed;
+		if (DELTATIME == 0)
+			_timer += 0.008f * _speed;
+		else
+			_timer += DELTATIME * _speed;
 		if (_timer < _delayTime)
 			return;
 		_size.x = std::lerp(_startSize.x, _goalSize.x, utils::Ease::outQuad(_timer - _delayTime));

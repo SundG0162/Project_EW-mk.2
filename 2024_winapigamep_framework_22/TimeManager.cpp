@@ -13,6 +13,7 @@ void TimeManager::update()
 	::QueryPerformanceCounter(&_currentCount);
 	_deltaTime = (float)(_currentCount.QuadPart - _prevCount.QuadPart)
 		/ (float)_frequency.QuadPart;
+	_deltaTime *= _timeScale;
 	_prevCount = _currentCount;
 	_frameCount++;
 	_frameTime += _deltaTime; 

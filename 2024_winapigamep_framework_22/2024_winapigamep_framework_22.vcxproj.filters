@@ -236,6 +236,9 @@
     <ClInclude Include="InvincibleEnemy.h">
       <Filter>Engine\03. Object\Enemy</Filter>
     </ClInclude>
+    <ClInclude Include="TutorialScene.h">
+      <Filter>Engine\04. Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -406,6 +409,9 @@
     <ClCompile Include="UpgradeUI.cpp" />
     <ClCompile Include="InvincibleEnemy.cpp">
       <Filter>Engine\03. Object\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialScene.cpp">
+      <Filter>Engine\04. Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

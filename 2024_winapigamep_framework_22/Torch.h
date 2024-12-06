@@ -2,11 +2,11 @@
 #include "CaptureObject.h"
 #include "PlayerDevice.h"
 class WindowUI;
-class Beacon : public CaptureObject, public PlayerDevice
+class Torch : public CaptureObject, public PlayerDevice
 {
 public:
-	Beacon(const Vector2& position, const Vector2& size);
-	~Beacon();
+	Torch(const Vector2& position, const Vector2& size);
+	~Torch();
 public:
 	void update() override;
 	void render(HDC hdc) override;

@@ -14,21 +14,26 @@
 #include "EventManager.h"
 #include "Scene.h"
 #include "Sprite.h"
-#include "Beacon.h"
+#include "Torch.h"
 #include "Camera.h"
 #include "Core.h"
+#include "Collider.h"
 #include "PlayerManager.h"
 
 Player::Player(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Me.exe")
 {
 	_window->setCloseable(false);
 	_cctv = nullptr;
+	_maxHP = 3;
+	_hp = _maxHP;
 	_isBeaconSettingUp = false;
 	_window->setPriority(PLAYER_PRIORITY);
 	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
 	Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"Computer");
 	spriteRenderer->setSprite(sprite);
 	spriteRenderer->setScale({ 3,3 });
+	Collider* collider = addComponent<Collider>();
+	collider->setSize({ 85,85 });
 	_statComponent = addComponent<StatComponent>();
 	Stat* damageStat = new Stat(1);
 	_statComponent->addStat(L"Damage", damageStat);
@@ -46,8 +51,8 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_statComponent->addStat(L"CameraSize", cameraSizeStat);
 	Stat* cameraCountStat = new Stat(3);
 	_statComponent->addStat(L"CameraCount", cameraCountStat);
-	Stat* beaconSizeStat = new Stat(300);
-	_statComponent->addStat(L"BeaconSize", beaconSizeStat);
+	Stat* torchSizeStat = new Stat(300);
+	_statComponent->addStat(L"TorchSize", torchSizeStat);
 	GET_SINGLETON(PlayerManager)->setPlayer(this);
 	_cctv = new CCTV(_position + Vector2(400, 0), { 500,500 });
 	_cctv->initialize(this);
@@ -76,17 +81,29 @@ void Player::update()
 	movement.Normalize();
 	movement *= 300 * DELTATIME;
 	_cctv->localMove(movement);
+	if (GET_KEYDOWN(KEY_TYPE::NUM_1))
+	{
+		_currentSkill = PLAYER_SKILL::CAMERA;
+	}
+	if (GET_KEYDOWN(KEY_TYPE::NUM_2))
+	{
+		_currentSkill = PLAYER_SKILL::TORCH;
+	}
+	if (GET_KEYDOWN(KEY_TYPE::NUM_3))
+	{
+		_currentSkill = PLAYER_SKILL::UPGRADE;
+	}
 	if (_isBeaconSettingUp && GET_KEYDOWN(KEY_TYPE::LBUTTON))
 	{
 		Vector2 mousePos = Vector2(GET_MOUSEPOS);
-		float size = _statComponent->getStat(L"BeaconSize")->getValue();
+		float size = _statComponent->getStat(L"TorchSize")->getValue();
 		GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos, size]()
 			{
 				_isBeaconSettingUp = false;
-				Beacon* beacon = new Beacon(_position, { size,size });
-				beacon->initialize(this);
-				beacon->setup(mousePos);
-				GET_SINGLETON(EventManager)->createObject(beacon, LAYER::UI);
+				Torch* torch = new Torch(_position, { size,size });
+				torch->initialize(this);
+				torch->setup(mousePos);
+				GET_SINGLETON(EventManager)->createObject(torch, LAYER::UI);
 				GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 			};
 	}
@@ -104,14 +121,22 @@ void Player::update()
 	if (GET_KEYDOWN(KEY_TYPE::Q))
 	{
 		_isBeaconSettingUp = !_isBeaconSettingUp;
+		modifyHP(1);
 	}
 	if (GET_KEYDOWN(KEY_TYPE::C))
 	{
-		_upgradeComponent->setRandomUpgrade();
+		modifyHP(-1);
 	}
 }
 
 void Player::render(HDC hdc)
 {
 	componentRender(hdc);
+}
+
+void Player::modifyHP(int value)
+{
+	int prev = _hp;
+	_hp += value;
+	OnHPChangeEvent.invoke(prev, _hp);
 }

@@ -41,3 +41,11 @@ enum class WINDOW_TYPE
 	NEW,
 	COPY
 };
+
+
+enum class PLAYER_SKILL
+{
+	CAMERA = 0,
+	TORCH,
+	UPGRADE
+};

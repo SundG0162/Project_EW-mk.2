@@ -29,6 +29,7 @@ void NewWindow::closeWindow()
 void NewWindow::openWindow()
 {
 	_isClosed = false;
+	OnWindowOpenEvent.invoke();
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};

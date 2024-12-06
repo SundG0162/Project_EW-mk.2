@@ -33,6 +33,12 @@ void ResourceManager::init()
 	loadTexture(L"Dinosaur", L"Texture\\Dinosaur.bmp");
 	loadTexture(L"ForderEnemyTransition", L"Texture\\ForderEnemyTransition.bmp");
 	loadTexture(L"ForderEnemyIdle", L"Texture\\ForderEnemyIdle.bmp");
+	loadTexture(L"Heart", L"Texture\\Heart.bmp");
+	loadTexture(L"TutorialPanel1", L"Texture\\TutorialPanel1.bmp");
+	loadTexture(L"TutorialPanel2", L"Texture\\TutorialPanel2.bmp");
+	loadTexture(L"TutorialPanel3", L"Texture\\TutorialPanel3.bmp");
+	loadTexture(L"TutorialPanel4", L"Texture\\TutorialPanel4.bmp");
+	loadTexture(L"TutorialPanel5", L"Texture\\TutorialPanel5.bmp");
 	loadTexture(L"EnemySheet", L"Texture\\EnemySheet.bmp");
 
 	for (auto pair : _textureMap)

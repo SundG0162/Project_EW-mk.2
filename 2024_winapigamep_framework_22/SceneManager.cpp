@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "TitleScene.h"
 #include "InGameScene.h"
+#include "TutorialScene.h"
 #include "EventManager.h"
 #include "WindowManager.h"
 #include "PopupManager.h"
@@ -10,10 +11,9 @@
 void SceneManager::init()
 {
 	_currentScene = nullptr;
-
-	// �� ���
 	registerScene(L"TitleScene", std::make_shared<TitleScene>());
 	registerScene(L"InGameScene", std::make_shared<InGameScene>());
+	registerScene(L"TutorialScene", std::make_shared<TutorialScene>());
 	loadScene(L"InGameScene");
 }
 
@@ -44,7 +44,6 @@ void SceneManager::loadScene(const wstring& _sceneName)
 	GET_SINGLETON(Core)->setStopLoop(true);
 	if (_currentScene != nullptr)
 	{
-		GET_SINGLETON(PopupManager)->release();
 		_currentScene->release();
 	}
 	GET_SINGLETON(EventManager)->deadObjectClear();
@@ -53,7 +52,6 @@ void SceneManager::loadScene(const wstring& _sceneName)
 	{
 		_currentScene = iter->second;
 		_currentScene->init();
-		GET_SINGLETON(PopupManager)->initialize();
 	}
 	GET_SINGLETON(Core)->setStopLoop(false);
 }
