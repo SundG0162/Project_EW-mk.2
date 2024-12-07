@@ -5,6 +5,7 @@
 #include "Stat.h"
 #include "StatComponent.h"
 #include <type_traits>
+#include <math.h>
 
 struct WaveInfo
 {
@@ -32,12 +33,26 @@ public:
 		return inc;
 	}
 
+	int randSpawnNum()
+	{
+		int basenum = wave - 8;
+		basenum = utils::ExMath::getRandomValue(basenum / 3, basenum*2);
+		return basenum;
+	}
+	int randSpawnTime()
+	{
+		float basenum = wave - 8;
+		basenum = utils::ExMath::getRandomValue(0.f, 1.f/basenum);
+		return basenum;
+	}
+
 	template <typename T = Enemy>
 	T* CreateAllocatedEnemy()//wave에 따른 스탯 증가 처리용 함수
 	{
 		T* enemy = new T;
 		StatComponent* statCompo = enemy->getComponent<StatComponent>();
 		statCompo->getStat(L"maxHealth")->addModifier(this, getHPIncByWave());
+		statCompo->addStat(L"powerEarnOnDead", new Stat((int)pow(wave, 1.5f)));
 		return enemy;
 	}
 
@@ -103,7 +118,6 @@ public:
 		return merged;
 	}
 
-
 	template <typename... Rest>
 	std::vector<Enemy*> mergeEVectors(const std::vector< Enemy* >& first, const Rest&... rest) {
 		return mergeEVectors(first, mergeEVectors(rest...));
@@ -112,7 +126,7 @@ public:
 private:
 	int wave = 0;
 	float leftTime = 0.f;
-	vector<WaveInfo> waves;
+	vector<WaveInfo> waves; //이거 큐로 바꿔줘야하는데 시간이 없어 ㅠㅠㅠ
 	vector<SpawnInfo> SIvectorforEmpty;
 	vector<Enemy*> EvectorforEmpty;
 };
