@@ -27,9 +27,10 @@ Enemy::Enemy(Object* target)
 {
 	addComponent<Collider>(); // ���ڽ� ũ�� ����ȭ �������
 	SetRandomPos();
-	SetTarget(target);
 	stat = addComponent<StatComponent>();
 	stat->addStat(L"moveSpeed", new Stat(20.f));
+	stat->addStat(L"maxHealth", new Stat(20.f));
+	Setup();
 }
 
 Enemy::~Enemy()
