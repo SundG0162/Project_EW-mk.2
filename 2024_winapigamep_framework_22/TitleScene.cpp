@@ -1,14 +1,29 @@
 #include "pch.h"
 #include "TitleScene.h"
-#include "TextUI.h"
-#include "ImageUI.h"
 #include "ResourceManager.h"
+#include"EventManager.h"
+#include "ImageUI.h"
+#include "TextUI.h"
+#include "WindowUI.h"
+#include "Window.h"
 #include "SpriteRenderer.h"
-#include "InputManager.h"
-#include "PopupManager.h"
+#include "SceneManager.h"
+
+TitleScene::TitleScene()
+{
+	_textUI = nullptr;
+	_startBtn = nullptr;
+	_tutorialBtn = nullptr;
+	_exitBtn = nullptr;
+}
+
+TitleScene::~TitleScene()
+{
+}
 
 void TitleScene::init()
 {
+#pragma region 
 	/*{
 		Sprite* sprite = utils::SpriteParser::textureToSprite(
 			GET_SINGLETON(ResourceManager)->findTexture(L"Title-1"));
@@ -41,5 +56,71 @@ void TitleScene::init()
 		ui->openTween(1.6f);
 		ui->getComponent<SpriteRenderer>()->setScale({ 4,4 });
 	}*/
-	cout << "I'm on titleScene";
+#pragma endregion
+
+	_textUI = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 250 }, { 800, 300 }, WINDOW_TYPE::NEW, L"TitleText.exe");
+	{
+		Vector2 size = _textUI->getSize();
+		TextUI* text = new TextUI();
+		text->setupFont(100);
+		text->setPosition({ size.x / 2, size.y / 3 });
+		text->setText(L"ProjectEW");
+		_textUI->setUI(text);
+	}
+
+	_startBtn = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50 }, { 500, 100 }, WINDOW_TYPE::NEW, L"Start.exe");
+	{
+		TextUI* text = new TextUI();
+		Vector2 size = _startBtn->getSize();
+		text->setupFont(30);
+		text->setPosition({ size.x / 2, size.y / 3 });
+		text->setText(L"시작");
+		_startBtn->setUI(text);
+	}
+	_startBtn->getWindow()->OnTryWindowCloseEvent += [this]()
+		{
+			GET_SINGLETON(EventManager)->changeScene(L"InGameScene");
+		};
+
+	_tutorialBtn = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 200 }, { 500, 100 }, WINDOW_TYPE::NEW, L"Tutorial.exe");
+	{
+		TextUI* text = new TextUI();
+		Vector2 size = _tutorialBtn->getSize();
+		text->setupFont(30);
+		text->setPosition({ size.x / 2, size.y / 3 });
+		text->setText(L"튜토리얼");
+		_tutorialBtn->setUI(text);
+	}
+	_tutorialBtn->getWindow()->OnTryWindowCloseEvent += [this]()
+		{
+			GET_SINGLETON(EventManager)->changeScene(L"TutorialScene");
+		};
+
+	_exitBtn = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 350 }, { 500, 100 }, WINDOW_TYPE::NEW, L"Exit.exe");
+	{
+		TextUI* text = new TextUI();
+		Vector2 size = _exitBtn->getSize();
+		text->setupFont(30);
+		text->setPosition({ size.x / 2, size.y / 3});
+		text->setText(L"나가기");
+		_exitBtn->setUI(text);
+	}
+	_exitBtn->getWindow()->OnTryWindowCloseEvent += [this]()
+		{
+			// 
+		};
+
+	_textUI->getWindow()->setMoveable(false);
+	_textUI->getWindow()->setCloseable(false);
+	_startBtn->getWindow()->setMoveable(true);
+	_startBtn->getWindow()->setCloseable(false);
+	_tutorialBtn->getWindow()->setMoveable(true);
+	_tutorialBtn->getWindow()->setCloseable(false);
+	_exitBtn->getWindow()->setMoveable(true);
+	_exitBtn->getWindow()->setCloseable(false);
+
+	addObject(_textUI, LAYER::UI);
+	addObject(_startBtn, LAYER::UI);
+	addObject(_tutorialBtn, LAYER::UI);
+	addObject(_exitBtn, LAYER::UI);
 }
