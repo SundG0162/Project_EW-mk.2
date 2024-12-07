@@ -110,8 +110,8 @@ public:
 		return mergeSIVectors(first, mergeSIVectors(rest...));
 	}
 
-	std::vector<SpawnInfo> mergeEVectors(const std::vector<Enemy *>& A, const std::vector<Enemy*>& B) {
-		std::vector<SpawnInfo> merged;
+	std::vector<Enemy*> mergeEVectors(const std::vector<Enemy *>& A, const std::vector<Enemy*>& B) {
+		std::vector<Enemy*> merged;
 		merged.reserve(A.size() + B.size());
 		merged.insert(merged.end(), A.begin(), A.end());
 		merged.insert(merged.end(), B.begin(), B.end());
