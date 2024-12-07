@@ -298,6 +298,9 @@
     <ClInclude Include="Component.h">
       <Filter>Engine\06. Component</Filter>
     </ClInclude>
+    <ClInclude Include="WaveManager.h">
+      <Filter>Engine\02. Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="2024_winapigamep_framework_22.rc">
@@ -305,10 +308,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
-    <Image Include="2024_winapigamep_framework_22.ico">
+    <Image Include="..\Output\build\Resource\Texture\Computer.ico">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>
@@ -525,6 +525,9 @@
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Engine\06. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveManager.cpp">
+      <Filter>Engine\02. Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

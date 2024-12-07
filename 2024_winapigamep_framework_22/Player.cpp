@@ -61,7 +61,7 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	GET_SINGLETON(PlayerManager)->setPlayer(this);
 	_cctv = new CCTV(_position + Vector2(400, 0), { 500,500 });
 	_cctv->initialize(this);
-	GET_SINGLETON(EventManager)->createObject(_cctv, LAYER::UI);
+	GET_SINGLETON(EventManager)->createObject(_cctv, LAYER::PLAYER);
 	_upgradeComponent = addComponent<UpgradeComponent>();
 	_upgradeComponent->initialize();
 	_priceMap.insert({ PLAYER_ITEM::CAMERA, 50 });

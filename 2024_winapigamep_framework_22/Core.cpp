@@ -40,6 +40,7 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 	GET_SINGLETON(WaveManager)->init();
 	GET_SINGLETON(CollisionManager)->checkReset();
 	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::UI, LAYER::ENEMY);
+	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::PLAYER, LAYER::ENEMY);
 	AddFontResource(L"Galmuri9 Regular.ttf");
 	return true;
 }

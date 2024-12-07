@@ -323,8 +323,7 @@
     <ResourceCompile Include="2024_winapigamep_framework_22.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="2024_winapigamep_framework_22.ico" />
-    <Image Include="small.ico" />
+    <Image Include="..\Output\build\Resource\Texture\Computer.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

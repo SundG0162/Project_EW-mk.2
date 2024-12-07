@@ -64,15 +64,21 @@ void CCTV::tryAttack()
 
 void CCTV::attack()
 {
-	if (_targets.size() > 0 && !GET_SINGLETON(PowerManager)->trySpendPower(5))
-		return;
-	int damage = _statComponent->getStat(L"Damage")->getValue();
-	int stunTime = _statComponent->getStat(L"AttackStun")->getValue();
-	for (Enemy* enemy : _targets)
+	if (_targets.size() > 0)
 	{
-		enemy->GetDamage(damage);
-		enemy->GetStunned(stunTime);
+		if (GET_SINGLETON(PowerManager)->trySpendPower(5))
+		{
+			cout << "¾ö...";
+			int damage = _statComponent->getStat(L"Damage")->getValue();
+			int stunTime = _statComponent->getStat(L"AttackStun")->getValue();
+			for (Enemy* enemy : _targets)
+			{
+				enemy->GetDamage(damage);
+				enemy->GetStunned(stunTime);
+			}
+		}
 	}
+	
 }
 
 void CCTV::handleOnSizeStatChange(float prev, float current)
