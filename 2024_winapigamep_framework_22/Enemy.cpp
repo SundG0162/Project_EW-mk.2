@@ -8,6 +8,7 @@
 #include "StatComponent.h"
 #include "PowerManager.h"
 #include "ResourceManager.h"
+#include "ResultManager.h"
 #include "Animator.h"
 #include "Stat.h"
 
@@ -16,7 +17,7 @@ Enemy::Enemy()
 	, _maxHealth(5.f)
 	, _curHealth(5.f)
 	, _isMovable(true)
-	,_stunTime(0.f)
+	, _stunTime(0.f)
 	, _target(nullptr)
 {
 	addComponent<Collider>(); // ���ڽ� ũ�� ����ȭ �������
@@ -27,12 +28,13 @@ Enemy::Enemy()
 	stat->addStat(L"powerEarnOnDead", new Stat(1.f));
 	Setup();
 
-	addComponent<SpriteRenderer>();
+	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
+	renderer->setScale({ 2,2 });
 	Texture* tex = GET_SINGLETON(ResourceManager)->getTexture(L"BasicEnemy");
 	Animator* anim = addComponent<Animator>();
 
 	{
-		auto vecsprite = utils::SpriteParser::textureToSprites(tex, { 0, 0}, { 32,32 }, 4);
+		auto vecsprite = utils::SpriteParser::textureToSprites(tex, { 0, 0 }, { 32,32 }, 4);
 		anim->createAnimation(L"move", vecsprite, 0.1f * 4);
 	}
 	anim->playAnimation(L"move", true);
@@ -92,12 +94,14 @@ void Enemy::GetDamage(int damage)
 	_curHealth -= damage;
 	getComponent<SpriteRenderer>()->setWhiteness(true);
 	_whiteTimer = 0.2f;
+	GET_SINGLETON(ResultManager)->modifyTotalDamage(damage);
 	if (_curHealth <= 0)
 	{
 		GET_SINGLETON(PowerManager)->
 			modifyPower(getComponent<StatComponent>()->
 				getStat(L"powerEarnOnDead")->getValue());
 		_isDead = true;
+		GET_SINGLETON(ResultManager)->modifyTotalCaughtEnemy(1);
 		GET_SINGLETON(EventManager)->deleteObject(this);
 	}
 }
@@ -112,6 +116,6 @@ void Enemy::Setup()
 {
 	SetRandomPos();
 	_maxHealth = getComponent<StatComponent>()->getStat(L"maxHealth")->getValue();
-	_curHealth = _maxHealth;	
+	_curHealth = _maxHealth;
 }
 

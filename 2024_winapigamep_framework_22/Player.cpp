@@ -25,7 +25,6 @@
 Player::Player(const Vector2& position, const Vector2& size) : WindowObject(position, size, WINDOW_TYPE::COPY, L"Me.exe")
 {
 	_window->setCloseable(false);
-	_cctv = nullptr;
 	_maxHP = 3;
 	_hp = _maxHP;
 	_window->setPriority(PLAYER_PRIORITY);
@@ -36,7 +35,7 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	Collider* collider = addComponent<Collider>();
 	collider->setSize({ 85,85 });
 	_statComponent = addComponent<StatComponent>();
-	Stat* damageStat = new Stat(2);
+	Stat* damageStat = new Stat(1);
 	_statComponent->addStat(L"Damage", damageStat);
 	Stat* sizeStat = new Stat(500);
 	_statComponent->addStat(L"Size", sizeStat);
@@ -72,7 +71,6 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 
 Player::~Player()
 {
-	delete _cctv;
 }
 
 
@@ -158,7 +156,7 @@ void Player::update()
 					Torch* torch = new Torch(_position, { size,size });
 					torch->initialize(this);
 					torch->setup(mousePos);
-					GET_SINGLETON(EventManager)->createObject(torch, LAYER::UI);
+					GET_SINGLETON(EventManager)->createObject(torch, LAYER::PLAYER);
 				};
 			_priceMap[_currentItem] += 20;
 		}

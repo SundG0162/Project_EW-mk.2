@@ -45,7 +45,7 @@ void SpriteRenderer::render(HDC hDC)
 
                 COLORREF pixelColor;
                 BYTE* byte = &bits[(sourceY * size.x + sourceX) * 3];
-                pixelColor = RGB(byte[2], byte[1], byte[0]);
+                pixelColor = RGB(byte[0], byte[1], byte[2]);
 
                 if (pixelColor != _sprite->getTransparent())
                 {

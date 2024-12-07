@@ -77,7 +77,7 @@ void Torch::update()
 		}
 		return;
 	}
-
+	tryAttack();
 	float ratio = 1 - _timer / _duration;
 	if (!_bar->isDead())
 		_bar->getUI<BarUI>()->setFillAmount(ratio);

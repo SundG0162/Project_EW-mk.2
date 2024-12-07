@@ -59,8 +59,8 @@ void InGameScene::init()
 						GET_SINGLETON(EventManager)->changeScene(L"ResultScene");
 					}
 				};
+			GET_SINGLETON(PowerManager)->modifyPower(100);
 		};
-
 }
 
 void InGameScene::update()
