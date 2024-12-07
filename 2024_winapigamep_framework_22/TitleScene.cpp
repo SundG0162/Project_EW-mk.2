@@ -12,6 +12,7 @@
 TitleScene::TitleScene()
 {
 	_textUI = nullptr;
+	_explanationUI = nullptr;
 	_startBtn = nullptr;
 	_tutorialBtn = nullptr;
 	_exitBtn = nullptr;
@@ -60,12 +61,22 @@ void TitleScene::init()
 
 	_textUI = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 250 }, { 800, 300 }, WINDOW_TYPE::NEW, L"TitleText.exe");
 	{
-		Vector2 size = _textUI->getSize();
 		TextUI* text = new TextUI();
+		Vector2 size = _textUI->getSize();
 		text->setupFont(100);
 		text->setPosition({ size.x / 2, size.y / 3 });
 		text->setText(L"ProjectEW");
 		_textUI->setUI(text);
+	}
+
+	_explanationUI = new WindowUI({ SCREEN_WIDTH / 2 + 500, SCREEN_HEIGHT / 2 + 100 }, { 400, 100 }, WINDOW_TYPE::NEW, L"ExplanationText.exe");
+	{
+		TextUI* text = new TextUI();
+		Vector2 size = _explanationUI->getSize();
+		text->setupFont(40);
+		text->setPosition({ size.x / 2, size.y / 3 });
+		text->setText(L"창을 닫아서 선택");
+		_explanationUI->setUI(text);
 	}
 
 	_startBtn = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50 }, { 500, 100 }, WINDOW_TYPE::NEW, L"Start.exe");
@@ -112,6 +123,8 @@ void TitleScene::init()
 
 	_textUI->getWindow()->setMoveable(false);
 	_textUI->getWindow()->setCloseable(false);
+	_explanationUI->getWindow()->setMoveable(true);
+	_explanationUI->getWindow()->setCloseable(false);
 	_startBtn->getWindow()->setMoveable(true);
 	_startBtn->getWindow()->setCloseable(false);
 	_tutorialBtn->getWindow()->setMoveable(true);
@@ -120,6 +133,7 @@ void TitleScene::init()
 	_exitBtn->getWindow()->setCloseable(false);
 
 	addObject(_textUI, LAYER::UI);
+	addObject(_explanationUI, LAYER::UI);
 	addObject(_startBtn, LAYER::UI);
 	addObject(_tutorialBtn, LAYER::UI);
 	addObject(_exitBtn, LAYER::UI);
