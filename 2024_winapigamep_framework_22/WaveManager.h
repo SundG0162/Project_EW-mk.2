@@ -52,7 +52,7 @@ public:
 		T* enemy = new T;
 		StatComponent* statCompo = enemy->getComponent<StatComponent>();
 		statCompo->getStat(L"maxHealth")->addModifier(this, getHPIncByWave());
-		statCompo->addStat(L"powerEarnOnDead", new Stat((int)pow(wave, 1.5f)));
+		statCompo->addStat(L"powerEarnOnDead", new Stat((int)pow(wave, 1.5f) + 10));
 		return enemy;
 	}
 

@@ -7,6 +7,8 @@
 #include "Sprite.h"
 #include "StatComponent.h"
 #include "PowerManager.h"
+#include "ResourceManager.h"
+#include "Animator.h"
 #include "Stat.h"
 
 Enemy::Enemy()
@@ -24,6 +26,16 @@ Enemy::Enemy()
 	stat->addStat(L"maxHealth", new Stat(3.f));
 	stat->addStat(L"powerEarnOnDead", new Stat(1.f));
 	Setup();
+
+	addComponent<SpriteRenderer>();
+	Texture* tex = GET_SINGLETON(ResourceManager)->getTexture(L"BasicEnemy");
+	Animator* anim = addComponent<Animator>();
+
+	{
+		auto vecsprite = utils::SpriteParser::textureToSprites(tex, { 0, 0}, { 32,32 }, 4);
+		anim->createAnimation(L"move", vecsprite, 0.1f * 4);
+	}
+	anim->playAnimation(L"move", true);
 }
 
 Enemy::~Enemy()
@@ -76,6 +88,7 @@ void Enemy::DoMove(Vector2& vec)
 
 void Enemy::GetDamage(int damage)
 {
+	cout << "getdamage";
 	_curHealth -= damage;
 	getComponent<SpriteRenderer>()->setWhiteness(true);
 	_whiteTimer = 0.2f;

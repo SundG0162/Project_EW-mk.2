@@ -12,8 +12,6 @@ SpinEnemy::SpinEnemy()
 {
 	stat->addStat(L"SpinRatio", new Stat(1.5f));
 
-	SpriteRenderer* sp = addComponent<SpriteRenderer>();
-	sp->setSprite(GET_SINGLETON(ResourceManager)->getSprite(L"BasicEnemy"));
 
 	stat->getStat(L"moveSpeed")->setValue(150.f);
 }

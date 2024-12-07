@@ -8,8 +8,6 @@
 
 BasicEnemy::BasicEnemy()
 {
-	SpriteRenderer* sp = addComponent<SpriteRenderer>();
-	sp->setSprite(GET_SINGLETON(ResourceManager)->getSprite(L"BasicEnemy"));
 	getComponent<StatComponent>()->getStat(L"moveSpeed")->setValue(50.f);
 }
 

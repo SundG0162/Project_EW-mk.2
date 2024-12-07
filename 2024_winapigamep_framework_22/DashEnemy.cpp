@@ -9,9 +9,6 @@
 
 DashEnemy::DashEnemy()
 {
-	SpriteRenderer* sp = addComponent<SpriteRenderer>();
-	sp->setSprite(GET_SINGLETON(ResourceManager)->getSprite(L"BasicEnemy"));
-
 	stat->addStat(L"DashRatio", new Stat(0.3f));
 
 	stat->getStat(L"moveSpeed")->setValue(20.f);
@@ -39,7 +36,7 @@ void DashEnemy::startSkill()
 	Vector2 dashLength = toTarget * stat->getStat(L"DashRatio")->getValue();
 
 	DoMove(dashLength);
-	cout << "startdash" << std::endl;
+
 }
 
 void DashEnemy::updateSkill()
@@ -49,5 +46,4 @@ void DashEnemy::updateSkill()
 
 void DashEnemy::endSkill()
 {
-	cout << "enddash" << std::endl;
 }
