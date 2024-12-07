@@ -68,7 +68,6 @@ void CCTV::attack()
 	{
 		if (GET_SINGLETON(PowerManager)->trySpendPower(5))
 		{
-			cout << "¾ö...";
 			int damage = _statComponent->getStat(L"Damage")->getValue();
 			int stunTime = _statComponent->getStat(L"AttackStun")->getValue();
 			for (Enemy* enemy : _targets)
@@ -78,7 +77,7 @@ void CCTV::attack()
 			}
 		}
 	}
-	
+
 }
 
 void CCTV::handleOnSizeStatChange(float prev, float current)

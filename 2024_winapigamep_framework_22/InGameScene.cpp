@@ -24,6 +24,7 @@
 #include "EventManager.h"
 #include "PlayerManager.h"
 #include "ResultManager.h"
+#include "CollisionManager.h"
 
 InGameScene::InGameScene()
 {
@@ -36,6 +37,8 @@ InGameScene::~InGameScene()
 void InGameScene::init()
 {
 	_setuped = false;
+	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::UI, LAYER::ENEMY);
+	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::PLAYER, LAYER::ENEMY);
 	GET_SINGLETON(ResultManager)->initialize();
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
@@ -57,6 +60,7 @@ void InGameScene::init()
 					}
 				};
 		};
+
 }
 
 void InGameScene::update()
