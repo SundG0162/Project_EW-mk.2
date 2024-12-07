@@ -78,16 +78,16 @@ void InGameScene::setupUI()
 		powerIcon->setPosition({ 32.f, panelSize.y / 2 });
 		panelUI->addUI(L"PowerText", powerText);
 		panelUI->addUI(L"PowerIcon", powerIcon);
-		_powerPanel = new WindowUI(panelPosition, panelSize, WINDOW_TYPE::NEW, L"Power.exe");
-		_powerPanel->setUI(panelUI);
-		_powerPanel->getWindow()->setMoveable(true);
-		_powerPanel->getWindow()->setCloseable(false);
-		GET_SINGLETON(PowerManager)->OnPowerChangeEvent += [this](int prev, int current)
+		WindowUI* powerPanel = new WindowUI(panelPosition, panelSize, WINDOW_TYPE::NEW, L"Power.exe");
+		powerPanel->setUI(panelUI);
+		powerPanel->getWindow()->setMoveable(true);
+		powerPanel->getWindow()->setCloseable(false);
+		GET_SINGLETON(PowerManager)->OnPowerChangeEvent += [this, powerPanel](int prev, int current)
 			{
 				wstring value = std::format(L"{0}", current);
-				_powerPanel->getUI<PanelUI>()->getUI<TextUI>(L"PowerText")->setText(value);
+				powerPanel->getUI<PanelUI>()->getUI<TextUI>(L"PowerText")->setText(value);
 			};
-		GET_SINGLETON(EventManager)->createObject(_powerPanel, LAYER::UI);
+		GET_SINGLETON(EventManager)->createObject(powerPanel, LAYER::UI);
 	}
 #pragma endregion
 #pragma region HPUI
@@ -108,25 +108,25 @@ void InGameScene::setupUI()
 			wstring key = std::format(L"{0}", i);
 			panelUI->addUI(key.c_str(), image);
 		}
-		_hpUI = new WindowUI(panelPosition, panelSize, WINDOW_TYPE::NEW, L"HP.exe");
-		_hpUI->setUI(panelUI);
-		_hpUI->getWindow()->setMoveable(true);
-		_hpUI->getWindow()->setCloseable(false);
+		WindowUI* hpUI = new WindowUI(panelPosition, panelSize, WINDOW_TYPE::NEW, L"HP.exe");
+		hpUI->setUI(panelUI);
+		hpUI->getWindow()->setMoveable(true);
+		hpUI->getWindow()->setCloseable(false);
 		Player* player = GET_SINGLETON(PlayerManager)->getPlayer();
-		player->OnHPChangeEvent += [this](int prev, int current)
+		player->OnHPChangeEvent += [this, hpUI](int prev, int current)
 			{
 				if (prev > current)
 				{
 					wstring key = std::format(L"{0}", current);
-					_hpUI->getUI<PanelUI>()->disableUI(key.c_str());
+					hpUI->getUI<PanelUI>()->disableUI(key.c_str());
 				}
 				else
 				{
 					wstring key = std::format(L"{0}", current - 1);
-					_hpUI->getUI<PanelUI>()->enableUI(key.c_str());
+					hpUI->getUI<PanelUI>()->enableUI(key.c_str());
 				}
 			};
-		GET_SINGLETON(EventManager)->createObject(_hpUI, LAYER::UI);
+		GET_SINGLETON(EventManager)->createObject(hpUI, LAYER::UI);
 	}
 #pragma endregion
 #pragma region ItemUI
@@ -169,23 +169,23 @@ void InGameScene::setupUI()
 		selectImage->getComponent<SpriteRenderer>()->setScale({ 2.3f,2.3f });
 		selectImage->setPosition({ 60,(int)panelSize.y / 2 + 10 });
 		panelUI->addUI(L"Select", selectImage);
-		_itemUI = new WindowUI(panelPosition, { panelSize.x, panelSize.y + 20 }, WINDOW_TYPE::NEW, L"Items.exe");
-		_itemUI->setUI(panelUI);
-		_itemUI->getWindow()->setMoveable(true);
-		_itemUI->getWindow()->setCloseable(false);
+		WindowUI* itemUI = new WindowUI(panelPosition, { panelSize.x, panelSize.y + 20 }, WINDOW_TYPE::NEW, L"Items.exe");
+		itemUI->setUI(panelUI);
+		itemUI->getWindow()->setMoveable(true);
+		itemUI->getWindow()->setCloseable(false);
 		Player* player = GET_SINGLETON(PlayerManager)->getPlayer();
-		player->OnItemChangeEvent += [this, offset, panelSize](PLAYER_ITEM item)
+		player->OnItemChangeEvent += [this, itemUI, offset, panelSize](PLAYER_ITEM item)
 			{
 				int x = 60 + offset * (int)item;
-				_itemUI->getUI<PanelUI>()->getUI<ImageUI>(L"Select")->setPosition({ x, (int)panelSize.y / 2 + 10 });
+				itemUI->getUI<PanelUI>()->getUI<ImageUI>(L"Select")->setPosition({ x, (int)panelSize.y / 2 + 10 });
 			};
-		player->OnItemUseEvent += [this](PLAYER_ITEM item, int value)
+		player->OnItemUseEvent += [this, itemUI](PLAYER_ITEM item, int value)
 			{
 				wstring key = std::format(L"{0}Price", (int)item + 1);
 				wstring price = std::format(L"{0}", value);
-				_itemUI->getUI<PanelUI>()->getUI<TextUI>(key)->setText(price);
+				itemUI->getUI<PanelUI>()->getUI<TextUI>(key)->setText(price);
 			};
-		GET_SINGLETON(EventManager)->createObject(_itemUI, LAYER::UI);
+		GET_SINGLETON(EventManager)->createObject(itemUI, LAYER::UI);
 	}
 #pragma endregion
 }

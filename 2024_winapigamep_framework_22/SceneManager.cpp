@@ -47,6 +47,7 @@ void SceneManager::loadScene(const wstring& _sceneName)
 		_currentScene->release();
 	}
 	GET_SINGLETON(EventManager)->deadObjectClear();
+	GET_SINGLETON(WindowManager)->release();
 	auto iter = _sceneMap.find(_sceneName);
 	if (iter != _sceneMap.end())
 	{

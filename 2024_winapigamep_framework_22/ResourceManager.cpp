@@ -47,6 +47,13 @@ void ResourceManager::init()
 	loadTexture(L"rD", L"Texture\\rD.bmp");
 	loadTexture(L"Rotate", L"Texture\\Rotate.bmp");
 
+	loadSound(L"CameraCapture", L"Sound\\CameraCapture.mp3", false);
+	loadSound(L"Dash", L"Sound\\Dash.mp3", false);
+	loadSound(L"EnemyHit", L"Sound\\EnemyHit.mp3", false);
+	loadSound(L"PlayerHit", L"Sound\\PlayerHit.mp3", false);
+	loadSound(L"Card", L"Sound\\Card.mp3", false);
+	loadSound(L"Error", L"Sound\\Error.mp3", false);
+
 	for (auto pair : _textureMap)
 	{
 		Texture* texture = pair.second;

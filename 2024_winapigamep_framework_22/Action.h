@@ -36,12 +36,13 @@ public:
 	}
 	void invoke(Args... args)
 	{
-
-		for (auto& callback : _callbacks)
-		{
-			if (callback)
-			{
-				callback(args...);
+		for (size_t i = 0; i < _callbacks.size();) {
+			if (_callbacks[i]) {
+				_callbacks[i](args...);
+				++i;
+			}
+			else {
+				_callbacks.erase(_callbacks.begin() + i);
 			}
 		}
 	}

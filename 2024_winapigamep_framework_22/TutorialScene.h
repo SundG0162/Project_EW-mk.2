@@ -8,7 +8,6 @@ public:
 	~TutorialScene();
 public:
 	void init() override;
-	void release() override;
 public:
 	void nextTutorial();
 private:
@@ -17,9 +16,7 @@ private:
 	Vector2 _panelSize;
 	WindowUI* _panelUI;
 	WindowUI* _textUI;
-	WindowUI* _nextBtn;
-	WindowUI* _exitBtn;
-	vector<Sprite*> _panelSprites;
 	vector<wstring> _tutorialTexts;
+	vector<Sprite*> _panelSprites;
 };
 
