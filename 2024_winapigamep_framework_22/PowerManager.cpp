@@ -1,9 +1,14 @@
 #include "pch.h"
 #include "PowerManager.h"
+#include "ResultManager.h"
 
 void PowerManager::modifyPower(int value)
 {
 	int prev = _power;
+	if (value > 0)
+	{
+		GET_SINGLETON(ResultManager)->modifyTotalPower(value);
+	}
 	_power += value;
 	OnPowerChangeEvent.invoke(prev, _power);
 }
