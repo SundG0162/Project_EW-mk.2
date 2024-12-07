@@ -78,7 +78,6 @@ void Enemy::update()
 void Enemy::render(HDC hdc)
 {
 	componentRender(hdc);
-	SpriteRenderer* sp = getComponent<SpriteRenderer>();
 }
 
 void Enemy::Move()

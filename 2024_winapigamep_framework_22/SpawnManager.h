@@ -11,7 +11,7 @@ class SpawnManager
 public:
 	void init();
 	void update();
-	const void addSpawnObject(SpawnInfo info) { spawnQueue.push(info); }
+	const void addSpawnObject(SpawnInfo info) { spawnQueue.push(info); resetTime(); }
 	void resetTime() { currentTime = 0; }
 	void setTarget(Object* target) { _target = target; }
 private:

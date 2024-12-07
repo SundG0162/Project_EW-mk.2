@@ -9,7 +9,6 @@
 void SpawnManager::init()
 {
 	currentTime = 0;
-	//_target = (Object*)GET_SINGLETON(PlayerManager)->getPlayer();
 }
 
 void SpawnManager::update()
