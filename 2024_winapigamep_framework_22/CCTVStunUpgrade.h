@@ -11,7 +11,7 @@ public:
 public:
 	void applyUpgrade() override;
 private:
-	float _modifyValues[1] = { 0.3f };
+	float _modifyValues[1] = { 0.15f };
 	StatComponent* _statComponent;
 };
 
