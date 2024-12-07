@@ -185,7 +185,7 @@ void Player::update()
 	}
 	if (GET_KEYDOWN(KEY_TYPE::E))
 	{
-		GET_SINGLETON(PowerManager)->modifyPower(1000);
+		modifyHP(-1);
 	}
 }
 
@@ -198,5 +198,9 @@ void Player::modifyHP(int value)
 {
 	int prev = _hp;
 	_hp += value;
+	if (value < 0)
+	{
+		GET_SINGLETON(ResourceManager)->play(L"PlayerHit");
+	}
 	OnHPChangeEvent.invoke(prev, _hp);
 }

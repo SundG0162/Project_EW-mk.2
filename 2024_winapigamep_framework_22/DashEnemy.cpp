@@ -6,7 +6,8 @@
 #include "StatComponent.h"
 #include "Stat.h"
 
-DashEnemy::DashEnemy(Object* target):Super(target)
+
+DashEnemy::DashEnemy()
 {
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();
 	sp->setSprite(GET_SINGLETON(ResourceManager)->getSprite(L"BasicEnemy"));
@@ -36,9 +37,6 @@ void DashEnemy::startSkill()
 {
 	if (toTarget.Length() < 50) return;
 	Vector2 dashLength = toTarget * stat->getStat(L"DashRatio")->getValue();
-
-	GET_SINGLETON(ResourceManager)->loadSound(L"DashSFX", L"Sound\\Dash.wav", false);
-	GET_SINGLETON(ResourceManager)->play(L"DashSFX");
 
 	DoMove(dashLength);
 	cout << "startdash" << std::endl;

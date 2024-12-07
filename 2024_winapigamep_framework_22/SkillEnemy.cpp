@@ -8,11 +8,6 @@
 
 SkillEnemy::SkillEnemy()
 {
-	cout << "this skillenemy is not created with target";
-}
-
-SkillEnemy::SkillEnemy(Object* target) : Super(target)
-{
 	stat->addStat(L"moveSpeed", new Stat(50.f));
 	stat->addStat(L"CoolTime", new Stat(3.f));
 	stat->addStat(L"SkilTime", new Stat(0.1f));

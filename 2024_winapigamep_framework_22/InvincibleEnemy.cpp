@@ -11,10 +11,6 @@
 
 InvincibleEnemy::InvincibleEnemy()
 {
-}
-
-InvincibleEnemy::InvincibleEnemy(Object* target) : Super(target)
-{
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
 	renderer->setScale({ 2,2 });
 	Texture* tex = GET_SINGLETON(ResourceManager)->getTexture(L"EnemySheet");
