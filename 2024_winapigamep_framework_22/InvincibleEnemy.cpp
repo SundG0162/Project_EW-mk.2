@@ -27,12 +27,12 @@ InvincibleEnemy::InvincibleEnemy()
 	}
 	{
 		auto vecsprite = utils::SpriteParser::textureToSprites(tex, { 0, 32 * 3 }, { 32,32 }, 2);
-		anim->createAnimation(L"move", vecsprite, 0.2f * 2);
+		anim->createAnimation(L"imove", vecsprite, 0.2f * 2);
 	}
-	anim->playAnimation(L"move", true);
+	anim->playAnimation(L"imove", true);
 	anim->findAnimation(L"invincibleEnd")->OnAnimationEndEvent += [this]() 
 		{
-			getComponent<Animator>()->playAnimation(L"move", true);
+			getComponent<Animator>()->playAnimation(L"imove", true);
 			getComponent<Collider>()->setOffset({ 0,0 });
 			stat->getStat(L"moveSpeed")->removeModifier(this);
 		};
