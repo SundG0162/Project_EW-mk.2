@@ -24,13 +24,13 @@ void Collider::lateUpdate()
 
 void Collider::render(HDC hDC)
 {
-	/*PEN_TYPE ePen = PEN_TYPE::GREEN;
+	PEN_TYPE ePen = PEN_TYPE::GREEN;
 	if (_showDebug)
 		ePen = PEN_TYPE::RED;
 	GDISelector pen(hDC, ePen);
 	GDISelector brush(hDC, BRUSH_TYPE::HOLLOW);
 	RECT_render(hDC, _position.x, _position.y,
-		_size.x, _size.y);*/
+		_size.x, _size.y);
 }
 
 void Collider::enterCollision(Collider* _other)

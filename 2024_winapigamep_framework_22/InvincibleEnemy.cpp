@@ -14,7 +14,7 @@ InvincibleEnemy::InvincibleEnemy()
 	SpriteRenderer* renderer = addComponent<SpriteRenderer>();
 	renderer->setScale({ 2,2 });
 	Texture* tex = GET_SINGLETON(ResourceManager)->getTexture(L"EnemySheet");
-	Animator* anim = addComponent<Animator>();
+	Animator* anim = getComponent<Animator>();
 
 	{
 		auto vecsprite = utils::SpriteParser::textureToSprites(tex, { 0, 32 * 2 }, { 32,32 }, 6);

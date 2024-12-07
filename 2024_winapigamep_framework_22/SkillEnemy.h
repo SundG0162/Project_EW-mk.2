@@ -6,7 +6,6 @@ class SkillEnemy :
     using Super = Enemy;
 public:
     SkillEnemy();
-    SkillEnemy(Object* target);
     virtual ~SkillEnemy();
 
     virtual void update() override;

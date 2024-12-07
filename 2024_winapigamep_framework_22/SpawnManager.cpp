@@ -24,7 +24,6 @@ void SpawnManager::update()
 	currentTime += DELTATIME;
 	if (topInfo.spawnTime < currentTime)
 	{
-		cout << "spawned" << endl;
 		GET_SINGLETON(EventManager)->createObject(topInfo.spawnTarget, LAYER::ENEMY);
 		Enemy* spawningObject;
 		if(spawningObject = dynamic_cast<Enemy*>(topInfo.spawnTarget))

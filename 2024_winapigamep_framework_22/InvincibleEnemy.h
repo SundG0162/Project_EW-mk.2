@@ -6,7 +6,7 @@ class InvincibleEnemy :
     using Super = SkillEnemy;
 public:
     InvincibleEnemy();
-    virtual ~InvincibleEnemy();
+    ~InvincibleEnemy();
 
     virtual void update() override;
     virtual void render(HDC hdc) override;
