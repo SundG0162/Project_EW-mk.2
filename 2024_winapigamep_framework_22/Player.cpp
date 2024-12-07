@@ -74,6 +74,7 @@ Player::~Player()
 
 void Player::update()
 {
+	if (GET_SINGLETON(Core)->isPaused()) return;
 	if (!_isCCTVLocked)
 	{
 		Vector2 movement = {};
@@ -149,10 +150,9 @@ void Player::update()
 		}
 		OnItemUseEvent.invoke(_currentItem, _priceMap[_currentItem]);
 	}
-	if (GET_KEYDOWN(KEY_TYPE::K))
+	if (GET_KEYDOWN(KEY_TYPE::F))
 	{
 		GET_SINGLETON(PopupManager)->popup(L"PowerGenerator", _position, false);
-		//GET_SINGLETON(PowerManager)->modifyPower(100);
 	}
 }
 

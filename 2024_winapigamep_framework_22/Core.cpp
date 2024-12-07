@@ -108,6 +108,13 @@ void Core::createGDI()
 	_colorPens[(UINT)PEN_TYPE::HOLLOW] = CreatePen(PS_NULL, 0, RGB(0, 0, 0));
 }
 
+void Core::setPause(bool pause)
+{
+	float timeScale = pause ? 0.f : 1.f;
+	GET_SINGLETON(TimeManager)->setTimeScale(timeScale);
+	_isPaused = pause;
+}
+
 void Core::onMessageProcess()
 {
 	OnMessageProcessEvent.invoke();

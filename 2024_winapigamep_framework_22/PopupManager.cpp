@@ -57,11 +57,11 @@ void PopupManager::initialize()
 		ui->setUI(panel);
 		ui->getWindow()->OnWindowOpenEvent += [ui]()
 			{
-				GET_SINGLETON(TimeManager)->setTimeScale(0.f);
+				GET_SINGLETON(Core)->setPause(true);
 			};
 		ui->getWindow()->OnTryWindowCloseEvent += [ui]()
 			{
-				GET_SINGLETON(TimeManager)->setTimeScale(1.f);
+				GET_SINGLETON(Core)->setPause(false);
 				GET_SINGLETON(PopupManager)->close(L"Pause", false);
 			};
 		addPopup(L"Pause", ui);

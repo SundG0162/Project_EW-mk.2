@@ -9,6 +9,7 @@ public:
 	~InGameScene();
 public:
 	void init() override;
+	void update() override;
 public:
 	void setupUI();
 private:

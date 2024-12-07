@@ -13,6 +13,8 @@ private:
 	void mainrender();
 	void createGDI();
 public:
+	void setPause(bool pause);
+public:
 	void onMessageProcess();
 	void setStopLoop(bool stop) { _isStopped = stop; }
 public:
@@ -28,9 +30,11 @@ public:
 	{
 		return _colorPens[(UINT)_eType];
 	}
+	bool isPaused() { return _isPaused; }
 public:
 	Action<> OnMessageProcessEvent;
 private:
+	bool _isPaused = false;
 	bool _isStopped = false;
 	HBRUSH _colorBrushes[(UINT)BRUSH_TYPE::END] = {};
 	HPEN _colorPens[(UINT)PEN_TYPE::END] = {};
