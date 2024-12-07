@@ -111,45 +111,70 @@ void Player::update()
 	}
 	if (GET_KEYDOWN(KEY_TYPE::SPACE) || GET_KEYDOWN(KEY_TYPE::ENTER))
 	{
-		if (!GET_SINGLETON(PowerManager)->trySpendPower(_priceMap[_currentItem]))
-		{
-			GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, false);
-			return;
-		}
 		switch (_currentItem)
 		{
 		case PLAYER_ITEM::CAMERA:
 		{
+			if (!GET_SINGLETON(PowerManager)->trySpendPower(_priceMap[_currentItem]))
+			{
+				GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, false);
+				return;
+			}
 			float size = _statComponent->getStat(L"CameraSize")->getValue();
+			_isCameraSpawned = false;
 			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, size]()
 				{
+					if (_isCameraSpawned)
+					{
+						GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+						return;
+					}
+					_isCameraSpawned = true;
 					Camera* camera = new Camera(_position, { size,size });
 					camera->initialize(this);
 					GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
-					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 				};
 			_priceMap[_currentItem] += 20;
 		}
 		break;
 		case PLAYER_ITEM::TORCH:
 		{
+			if (!GET_SINGLETON(PowerManager)->trySpendPower(_priceMap[_currentItem]))
+			{
+				GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, false);
+				return;
+			}
 			Vector2 mousePos = Vector2(GET_MOUSEPOS);
 			float size = _statComponent->getStat(L"TorchSize")->getValue();
-			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos, size]()
+			_isTorchSpawned = false;
+			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, size, mousePos]()
 				{
+					if (_isTorchSpawned)
+					{
+						GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+						return;
+					}
+					_isTorchSpawned = true;
 					Torch* torch = new Torch(_position, { size,size });
 					torch->initialize(this);
 					torch->setup(mousePos);
 					GET_SINGLETON(EventManager)->createObject(torch, LAYER::UI);
-					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 				};
 			_priceMap[_currentItem] += 20;
 		}
 		break;
 		case PLAYER_ITEM::UPGRADE:
 		{
-			_upgradeComponent->setRandomUpgrade();
-			_priceMap[_currentItem] += 40;
+			if (!_upgradeComponent->isUpgrading())
+			{
+				if (!GET_SINGLETON(PowerManager)->trySpendPower(_priceMap[_currentItem]))
+				{
+					GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, false);
+					return;
+				}
+				_upgradeComponent->setRandomUpgrade();
+				_priceMap[_currentItem] += 40;
+			}
 		}
 		}
 		OnItemUseEvent.invoke(_currentItem, _priceMap[_currentItem]);
@@ -157,6 +182,10 @@ void Player::update()
 	if (GET_KEYDOWN(KEY_TYPE::F))
 	{
 		GET_SINGLETON(PopupManager)->popup(L"PowerGenerator", _position, false);
+	}
+	if (GET_KEYDOWN(KEY_TYPE::E))
+	{
+		GET_SINGLETON(PowerManager)->modifyPower(1000);
 	}
 }
 
