@@ -5,6 +5,7 @@
 #include "SpinEnemy.h"
 #include "DashEnemy.h"
 #include "InvincibleEnemy.h"
+#include <iostream>
 
 void WaveManager::init()
 {
@@ -76,12 +77,13 @@ void WaveManager::init()
 
 void WaveManager::update()
 {
-	leftTime -= DELTATIME;
+
+	leftTime -= DELTATIME * 30;
 	if (leftTime <= 0)
 	{
 		//가능하면 시간이 지난다던지 종이 처서 소리가 난다던지 
 		//윈도우를 띄어서 메시지를 보내던지 시간이 지났다는걸 표시하고 싶음
-		if (wave > 10)
+		if (wave >= 10)
 			//무한 웨이브
 		{
 			waves.push_back({ 12.f,
@@ -104,14 +106,19 @@ void WaveManager::update()
 				)
 				});
 		}
-		leftTime = waves[++wave].waveContinueTime;
-		for (auto enemy : waves[wave].spawnEnemyList)
+		if (waves.size() > 0)
 		{
-			GET_SINGLETON(SpawnManager)->addSpawnObject({ enemy, 0.f });
-		}
-		for (auto info : waves[wave].spawnList)
-		{
-			GET_SINGLETON(SpawnManager)->addSpawnObject(info);
+			++wave;
+			leftTime = waves[0].waveContinueTime;
+			for (auto enemy : waves[0].spawnEnemyList)
+			{
+				GET_SINGLETON(SpawnManager)->addSpawnObject({ enemy, 0.f });
+			}
+			for (auto info : waves[0].spawnList)
+			{
+				GET_SINGLETON(SpawnManager)->addSpawnObject(info);
+			}
+			waves.erase(waves.begin());
 		}
 	}
 }

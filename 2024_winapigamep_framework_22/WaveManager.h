@@ -36,7 +36,7 @@ public:
 	int randSpawnNum()
 	{
 		int basenum = wave - 8;
-		basenum = utils::ExMath::getRandomValue(basenum / 3, basenum*2);
+		basenum = utils::ExMath::getRandomValue(basenum / 3, basenum/2);
 		return basenum;
 	}
 	int randSpawnTime()
