@@ -27,11 +27,14 @@ TitleScene::~TitleScene()
 void TitleScene::init()
 {
 	_setuped = false;
+	_setuped = false;
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
-			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
-			if (_setuped == true) return;
-			_setuped = true;
+			if (_setuped == true)
+			{
+				GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+				return;
+			}
 			_textUI = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 250 }, { 800, 300 }, WINDOW_TYPE::NEW, L"TitleText.exe");
 			{
 				TextUI* text = new TextUI();

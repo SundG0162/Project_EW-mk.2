@@ -37,11 +37,15 @@ void InGameScene::init()
 	_setuped = false;
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
-			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
-			if (_setuped == true) return;
+			if (_setuped == true)
+			{
+				GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+				return;
+			}
 			_setuped = true;
 			Vector2 position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 			Player* player = new Player(position, { 400,300 });
+			cout << "¾öÁØ½Ä...";
 			setupUI();
 			GET_SINGLETON(EventManager)->createObject(player, LAYER::PLAYER);
 		};

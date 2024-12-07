@@ -44,18 +44,27 @@ void PopupManager::initialize()
 #pragma region Pause
 	{
 		Vector2 panelPosition = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-		Vector2 panelSize = { 500,300 };
+		Vector2 panelSize = { 500,500 };
 		WindowUI* ui = new WindowUI(panelPosition, panelSize, WINDOW_TYPE::NEW, L"Pause.exe");
 		PanelUI* panel = new PanelUI();
 		panel->setPosition(panelPosition);
 		panel->setSize(panelSize);
-		TextUI* text = new TextUI();
-		text->setupFont(70);
-		text->setText(L"일시정지.");
-		text->setPosition({ panelSize.x / 2, panelSize.y / 2 - 35 });
-		panel->addUI(L"TitleText", text);
+		{
+			TextUI* text = new TextUI();
+			text->setupFont(70);
+			text->setText(L"일시정지.");
+			text->setPosition({ panelSize.x / 2, panelSize.y / 2 - 200 });
+			panel->addUI(L"TitleText", text);
+		}
+		{
+			TextUI* text = new TextUI();
+			text->setupFont(40);
+			text->setText(L"ESC를 눌러 계속하기\n닫아서 타이틀로");
+			text->setPosition({ panelSize.x / 2, panelSize.y / 2 - 30 });
+			panel->addUI(L"InfoText", text);
+		}
 		ui->setUI(panel);
-		ui->getWindow()->OnWindowOpenEvent += [ui]()
+		ui->getWindow()->OnWindowOpenEvent += [ui, panelPosition]()
 			{
 				GET_SINGLETON(Core)->setPause(true);
 			};
@@ -63,6 +72,7 @@ void PopupManager::initialize()
 			{
 				GET_SINGLETON(Core)->setPause(false);
 				GET_SINGLETON(PopupManager)->close(L"Pause", false);
+				GET_SINGLETON(EventManager)->changeScene(L"TitleScene");
 			};
 		addPopup(L"Pause", ui);
 		ui->getWindow()->closeWindow();
@@ -88,6 +98,11 @@ void PopupManager::initialize()
 		ui->getWindow()->OnWindowCloseEvent -= [ui]() {};
 	}
 #pragma endregion
+
+	for (auto& pair : _uiMap)
+	{
+		pair.second->getWindow()->setPriority(UI_PRIORITY + 10);
+	}
 }
 
 void PopupManager::release()
@@ -118,6 +133,7 @@ WindowUI* PopupManager::getPopup(const wstring& key)
 void PopupManager::popup(const wstring& key, const Vector2& position, bool withTween, float speed)
 {
 	WindowUI* wndUI = getPopup(key);
+	if (wndUI == nullptr) return;
 	if (!wndUI->getWindow()->isClosed())
 	{
 		wndUI->getWindow()->openTween(0.f, 3.f);

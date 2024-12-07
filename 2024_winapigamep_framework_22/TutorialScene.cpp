@@ -27,9 +27,11 @@ void TutorialScene::init()
 	_setuped = false;
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
-			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
-			if (_setuped) return;
-			_setuped = true;
+			if (_setuped == true)
+			{
+				GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+				return;
+			}
 			for (int i = 1; i <= 6; i++)
 			{
 				wstring name = std::format(L"TutorialPanel{0}", i);
