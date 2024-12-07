@@ -40,8 +40,8 @@ void TitleScene::init()
 				TextUI* text = new TextUI();
 				Vector2 size = _textUI->getSize();
 				text->setupFont(100);
-				text->setPosition({ size.x / 2, size.y / 3 });
-				text->setText(L"ProjectEW");
+				text->setPosition({ size.x / 2, size.y / 2 - 100 });
+				text->setText(L"Defender of\n The Dawn");
 				_textUI->setUI(text);
 			}
 
