@@ -8,6 +8,7 @@
 #include "Window.h"
 #include "SpriteRenderer.h"
 #include "SceneManager.h"
+#include "NewWindow.h"
 
 TitleScene::TitleScene()
 {
@@ -118,7 +119,7 @@ void TitleScene::init()
 	}
 	_exitBtn->getWindow()->OnTryWindowCloseEvent += [this]()
 		{
-			// 
+			
 		};
 
 	_textUI->getWindow()->setMoveable(false);
