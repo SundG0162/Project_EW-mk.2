@@ -39,6 +39,7 @@ void InGameScene::init()
 	_setuped = false;
 	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::UI, LAYER::ENEMY);
 	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::PLAYER, LAYER::ENEMY);
+	GET_SINGLETON(PowerManager)->initialize();
 	GET_SINGLETON(ResultManager)->initialize();
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
@@ -52,7 +53,7 @@ void InGameScene::init()
 			Player* player = new Player(position, { 400,300 });
 			setupUI();
 			GET_SINGLETON(EventManager)->createObject(player, LAYER::PLAYER);
-			player->OnHPChangeEvent += [this](int prev, int current) 
+			player->OnHPChangeEvent += [this](int prev, int current)
 				{
 					if (current == 0)
 					{
@@ -68,7 +69,14 @@ void InGameScene::update()
 	Scene::update();
 	if (GET_KEYDOWN(KEY_TYPE::ESC))
 	{
-		GET_SINGLETON(PopupManager)->popup(L"Pause", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, true, 2.f);
+		if (GET_SINGLETON(Core)->isPaused())
+		{
+			GET_SINGLETON(PopupManager)->close(L"Pause", false);
+		}
+		else
+		{
+			GET_SINGLETON(PopupManager)->popup(L"Pause", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, true, 2.f);
+		}
 	}
 }
 
@@ -94,7 +102,7 @@ void InGameScene::setupUI()
 		powerPanel->setUI(panelUI);
 		powerPanel->getWindow()->setMoveable(true);
 		powerPanel->getWindow()->setCloseable(false);
-		GET_SINGLETON(PowerManager)->OnPowerChangeEvent += [this, powerPanel](int prev, int current)
+		GET_SINGLETON(PowerManager)->OnPowerChangeEvent += [powerPanel](int prev, int current)
 			{
 				wstring value = std::format(L"{0}", current);
 				powerPanel->getUI<PanelUI>()->getUI<TextUI>(L"PowerText")->setText(value);
@@ -125,7 +133,7 @@ void InGameScene::setupUI()
 		hpUI->getWindow()->setMoveable(true);
 		hpUI->getWindow()->setCloseable(false);
 		Player* player = GET_SINGLETON(PlayerManager)->getPlayer();
-		player->OnHPChangeEvent += [this, hpUI](int prev, int current)
+		player->OnHPChangeEvent += [hpUI](int prev, int current)
 			{
 				if (prev > current)
 				{
@@ -186,12 +194,12 @@ void InGameScene::setupUI()
 		itemUI->getWindow()->setMoveable(true);
 		itemUI->getWindow()->setCloseable(false);
 		Player* player = GET_SINGLETON(PlayerManager)->getPlayer();
-		player->OnItemChangeEvent += [this, itemUI, offset, panelSize](PLAYER_ITEM item)
+		player->OnItemChangeEvent += [itemUI, offset, panelSize](PLAYER_ITEM item)
 			{
 				int x = 60 + offset * (int)item;
 				itemUI->getUI<PanelUI>()->getUI<ImageUI>(L"Select")->setPosition({ x, (int)panelSize.y / 2 + 10 });
 			};
-		player->OnItemUseEvent += [this, itemUI](PLAYER_ITEM item, int value)
+		player->OnItemUseEvent += [itemUI](PLAYER_ITEM item, int value)
 			{
 				wstring key = std::format(L"{0}Price", (int)item + 1);
 				wstring price = std::format(L"{0}", value);

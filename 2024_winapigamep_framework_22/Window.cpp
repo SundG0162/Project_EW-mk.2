@@ -108,11 +108,14 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	break;
 	case WM_CLOSE:
 	{
-		OnTryWindowCloseEvent.invoke();
 		if (_closeable)
 		{
 			OnWindowCloseEvent.invoke();
 			return DefWindowProc(hWnd, message, wParam, lParam);
+		}
+		else
+		{
+			OnTryWindowCloseEvent.invoke();
 		}
 	}
 	break;

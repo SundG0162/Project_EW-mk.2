@@ -152,6 +152,10 @@ void PopupManager::popup(const wstring& key, const Vector2& position, bool withT
 void PopupManager::close(const wstring& key, bool withTween, float speed)
 {
 	WindowUI* wndUI = getPopup(key);
+	if (key == L"Pause")
+	{
+		GET_SINGLETON(Core)->setPause(false);
+	}
 	if (withTween)
 	{
 		wndUI->getWindow()->closeTween(0.f, speed);

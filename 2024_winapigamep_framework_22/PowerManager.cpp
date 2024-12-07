@@ -2,6 +2,11 @@
 #include "PowerManager.h"
 #include "ResultManager.h"
 
+void PowerManager::initialize()
+{
+	OnPowerChangeEvent.clear();
+}
+
 void PowerManager::modifyPower(int value)
 {
 	int prev = _power;

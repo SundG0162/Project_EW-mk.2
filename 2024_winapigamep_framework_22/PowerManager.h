@@ -4,6 +4,8 @@ class PowerManager
 {
 	DECLARE_SINGLETON(PowerManager)
 public:
+	void initialize();
+public:
 	void modifyPower(int value);
 	bool trySpendPower(int value);
 public:
