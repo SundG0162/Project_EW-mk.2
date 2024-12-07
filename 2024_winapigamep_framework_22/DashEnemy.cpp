@@ -7,7 +7,7 @@
 #include "Stat.h"
 
 
-DashEnemy::DashEnemy(Object* target):Super(target)
+DashEnemy::DashEnemy()
 {
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();
 	sp->setSprite(GET_SINGLETON(ResourceManager)->getSprite(L"BasicEnemy"));

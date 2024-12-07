@@ -6,7 +6,7 @@ class DashEnemy :
 {
     using Super = SkillEnemy;
 public:
-    DashEnemy(Object* target);
+    DashEnemy();
     ~DashEnemy();
 
     virtual void update() override;
