@@ -23,6 +23,7 @@
 #include "Core.h"
 #include "EventManager.h"
 #include "PlayerManager.h"
+#include "ResultManager.h"
 
 InGameScene::InGameScene()
 {
@@ -35,6 +36,7 @@ InGameScene::~InGameScene()
 void InGameScene::init()
 {
 	_setuped = false;
+	GET_SINGLETON(ResultManager)->initialize();
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			if (_setuped == true)
@@ -45,7 +47,6 @@ void InGameScene::init()
 			_setuped = true;
 			Vector2 position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 			Player* player = new Player(position, { 400,300 });
-			cout << "¾öÁØ½Ä...";
 			setupUI();
 			GET_SINGLETON(EventManager)->createObject(player, LAYER::PLAYER);
 		};

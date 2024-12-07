@@ -4,6 +4,7 @@
 #include "TitleScene.h"
 #include "InGameScene.h"
 #include "TutorialScene.h"
+#include "ResultScene.h"
 #include "EventManager.h"
 #include "WindowManager.h"
 #include "PopupManager.h"
@@ -14,7 +15,8 @@ void SceneManager::init()
 	registerScene(L"TitleScene", std::make_shared<TitleScene>());
 	registerScene(L"InGameScene", std::make_shared<InGameScene>());
 	registerScene(L"TutorialScene", std::make_shared<TutorialScene>());
-	loadScene(L"TitleScene");
+	registerScene(L"ResultScene", std::make_shared<ResultScene>());
+	loadScene(L"ResultScene");
 }
 
 void SceneManager::update()

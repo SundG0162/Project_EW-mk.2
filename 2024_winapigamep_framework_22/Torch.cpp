@@ -7,9 +7,13 @@
 #include "WindowUI.h"
 #include "ResourceManager.h"
 #include "EventManager.h"
+#include "Player.h"
 #include "Animator.h"
 #include "Core.h"
 #include "SpriteRenderer.h"
+#include "StatComponent.h"
+#include "Stat.h"
+#include "Enemy.h"
 
 Torch::Torch(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"Torch.exe")
 {
@@ -41,6 +45,12 @@ Torch::~Torch()
 	}
 }
 
+void Torch::initialize(Player* player)
+{
+	PlayerDevice::initialize(player);
+	_statComponent = player->getComponent<StatComponent>();
+}
+
 void Torch::update()
 {
 	_timer += DELTATIME;
@@ -67,6 +77,7 @@ void Torch::update()
 		}
 		return;
 	}
+
 	float ratio = 1 - _timer / _duration;
 	if (!_bar->isDead())
 		_bar->getUI<BarUI>()->setFillAmount(ratio);
@@ -85,6 +96,25 @@ void Torch::update()
 void Torch::render(HDC hdc)
 {
 	componentRender(hdc);
+}
+
+void Torch::tryAttack()
+{
+	_attackTimer += DELTATIME;
+	if (_attackTimer >= _statComponent->getStat(L"TorchAttackSpeed")->getValue())
+	{
+		_attackTimer = 0.f;
+		attack();
+	}
+}
+
+void Torch::attack()
+{
+	int damage = _statComponent->getStat(L"TorchDamage")->getValue();
+	for (Enemy* enemy : _targets)
+	{
+		enemy->GetDamage(damage);
+	}
 }
 
 void Torch::setup(const Vector2& position)
