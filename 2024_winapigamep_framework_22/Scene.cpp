@@ -7,6 +7,7 @@
 #include "EventManager.h"
 Scene::Scene()
 {
+	_setuped = false;
 }
 
 Scene::~Scene()
@@ -44,7 +45,11 @@ void Scene::render(HDC hDC)
 	{
 		for (size_t j = 0; j < _objects[i].size();)
 		{
-			if (!_objects[i][j]->isDead())
+			if (_objects[i][j]->isDead())
+			{
+				_objects[i].erase(_objects[i].begin() + j);
+			}
+			else
 			{
 				Object* obj = _objects[i][j++];
 				WindowObject* win = dynamic_cast<WindowObject*>(obj);
@@ -63,10 +68,6 @@ void Scene::render(HDC hDC)
 				}
 				else
 					obj->render(hDC);
-			}
-			else
-			{
-				_objects[i].erase(_objects[i].begin() + j);
 			}
 		}
 	}

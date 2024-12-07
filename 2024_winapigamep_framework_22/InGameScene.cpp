@@ -20,6 +20,8 @@
 #include "UpgradeUI.h"
 #include "ResourceManager.h"
 #include "PopupManager.h"
+#include "Core.h"
+#include "EventManager.h"
 #include "PlayerManager.h"
 
 InGameScene::InGameScene()
@@ -32,18 +34,17 @@ InGameScene::~InGameScene()
 
 void InGameScene::init()
 {
-	Vector2 position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
-	Player* player = new Player(position, { 400,300 });
-	setupUI();
-	addObject(player, LAYER::PLAYER);
-
-#pragma region enemyspawn
-
-	{
-		InvincibleEnemy* basicEnemy = new InvincibleEnemy(player);
-		GET_SINGLETON(SpawnManager)->addSpawnObject({ basicEnemy, 1.1f });
-	}
-#pragma endregion
+	_setuped = false;
+	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
+		{
+			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+			if (_setuped) return;
+			_setuped = true;
+			Vector2 position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
+			Player* player = new Player(position, { 400,300 });
+			setupUI();
+			GET_SINGLETON(EventManager)->createObject(player, LAYER::PLAYER);
+		};
 }
 
 void InGameScene::setupUI()
@@ -73,7 +74,7 @@ void InGameScene::setupUI()
 				wstring value = std::format(L"{0}", current);
 				_powerPanel->getUI<PanelUI>()->getUI<TextUI>(L"PowerText")->setText(value);
 			};
-		addObject(_powerPanel, LAYER::UI);
+		GET_SINGLETON(EventManager)->createObject(_powerPanel, LAYER::UI);
 	}
 #pragma endregion
 #pragma region HPUI
@@ -112,7 +113,7 @@ void InGameScene::setupUI()
 					_hpUI->getUI<PanelUI>()->enableUI(key.c_str());
 				}
 			};
-		addObject(_hpUI, LAYER::UI);
+		GET_SINGLETON(EventManager)->createObject(_hpUI, LAYER::UI);
 	}
 #pragma endregion
 #pragma region ItemUI
@@ -171,7 +172,7 @@ void InGameScene::setupUI()
 				wstring price = std::format(L"{0}", value);
 				_itemUI->getUI<PanelUI>()->getUI<TextUI>(key)->setText(price);
 			};
-		addObject(_itemUI, LAYER::UI);
+		GET_SINGLETON(EventManager)->createObject(_itemUI, LAYER::UI);
 	}
 #pragma endregion
 }

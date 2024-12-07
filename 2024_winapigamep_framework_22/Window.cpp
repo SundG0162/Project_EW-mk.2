@@ -224,9 +224,10 @@ void Window::close()
 	GET_SINGLETON(EventManager)->deleteWindow(this);
 	HWND hWnd = _hWnd;
 	DestroyWindow(_hWnd);
-	GET_SINGLETON(Core)->OnMessageProcessEvent += [this, hWnd]()
+	auto wm = GET_SINGLETON(Core);
+	GET_SINGLETON(Core)->OnMessageProcessEvent += [wm, hWnd]()
 		{
-			GET_SINGLETON(Core)->OnMessageProcessEvent -= [this, hWnd]() {};
+			DestroyWindow(hWnd);
 			SendMessage(hWnd, WM_CLOSE, 0, 0);
 		};
 	_isDead = true;

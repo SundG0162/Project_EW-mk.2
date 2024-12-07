@@ -42,7 +42,8 @@ public:
 	{
 		return _objects[(UINT)_type];
 	}
-public:
+protected:
+	bool _setuped = false;
 	vector<Object*> _objects[(UINT)LAYER::END];
 };
 
