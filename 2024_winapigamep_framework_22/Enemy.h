@@ -18,12 +18,7 @@ public:
     void GetStunned(float time) ;
 
     void SetRandomPos() { setPosition((utils::ExMath::getRandomVector() + Vector2(0.5f, 0.5f)) * Vector2(SCREEN_WIDTH, SCREEN_HEIGHT)); }
-    void Setup() 
-    {
-        SetRandomPos();
-        _maxHealth = getComponent<StatComponent>()->getStat(L"maxHealth")->getValue();
-        _curHealth = _maxHealth;
-    }
+    void Setup();
     void SetTarget(Object* target) { _target = target; }
 
 protected:

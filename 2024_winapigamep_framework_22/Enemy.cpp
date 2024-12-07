@@ -95,3 +95,10 @@ void Enemy::GetStunned(float time)
 	_isMovable = false;
 }
 
+void Enemy::Setup()
+{
+	SetRandomPos();
+	_maxHealth = getComponent<StatComponent>()->getStat(L"maxHealth")->getValue();
+	_curHealth = _maxHealth;	
+}
+
