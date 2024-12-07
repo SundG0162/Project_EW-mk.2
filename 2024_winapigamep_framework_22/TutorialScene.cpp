@@ -15,7 +15,6 @@ TutorialScene::TutorialScene()
 	_currentIndex = -1;
 	_panelSize = { 512,512 };
 	_panelPosition = { (float)SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - _panelSize.y / 6 };
-	_textUI = nullptr;
 }
 
 TutorialScene::~TutorialScene()
@@ -24,7 +23,7 @@ TutorialScene::~TutorialScene()
 
 void TutorialScene::init()
 {
-	for (int i = 1; i <= 5; i++)
+	for (int i = 1; i <= 6; i++)
 	{
 		wstring name = std::format(L"TutorialPanel{0}", i);
 		_panelSprites.push_back(GET_SINGLETON(ResourceManager)->getSprite(name));
@@ -34,6 +33,7 @@ void TutorialScene::init()
 	_tutorialTexts.push_back(L"숫자 키를 눌러 아이템을 선택하고\n스페이스, 엔터키를 통해\n사용할 수 있습니다.");
 	_tutorialTexts.push_back(L"CCTV.exe로 적을 비추거나 아이템을 통해 바이러스를 잡을 수 있습니다.\n아, 참고로 CCTV가 공격할때마다 전력이 소모됩니다.");
 	_tutorialTexts.push_back(L"바이러스가 모니터에 3번 이상 도달할 경우 게임은 종료됩니다.");
+	_tutorialTexts.push_back(L"게임 도중에 F키를 눌러 발전기 창을 열 수 있습니다.\n꾸준히 돌리는게 좋지만 잘못 열었다간 CCTV가 조작 불가능해지니 조심하세요.");
 	_panelUI = new WindowUI(_panelPosition, _panelSize, WINDOW_TYPE::NEW, L"TutorialPanel.exe");
 	ImageUI* image = new ImageUI(nullptr);
 	image->setPosition({ _panelSize.x / 2, _panelSize.y / 2 });
@@ -90,6 +90,11 @@ void TutorialScene::init()
 	addObject(_nextBtn, LAYER::UI);
 	addObject(_exitBtn, LAYER::UI);
 	nextTutorial();
+}
+
+void TutorialScene::release()
+{
+	Scene::release();
 }
 
 void TutorialScene::nextTutorial()

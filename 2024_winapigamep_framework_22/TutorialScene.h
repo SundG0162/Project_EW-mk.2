@@ -8,6 +8,7 @@ public:
 	~TutorialScene();
 public:
 	void init() override;
+	void release() override;
 public:
 	void nextTutorial();
 private:

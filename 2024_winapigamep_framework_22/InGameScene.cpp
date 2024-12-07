@@ -174,5 +174,4 @@ void InGameScene::setupUI()
 		addObject(_itemUI, LAYER::UI);
 	}
 #pragma endregion
-
 }

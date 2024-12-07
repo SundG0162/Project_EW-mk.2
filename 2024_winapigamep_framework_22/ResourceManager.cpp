@@ -32,6 +32,7 @@ void ResourceManager::init()
 	loadTexture(L"TutorialPanel3", L"Texture\\TutorialPanel3.bmp");
 	loadTexture(L"TutorialPanel4", L"Texture\\TutorialPanel4.bmp");
 	loadTexture(L"TutorialPanel5", L"Texture\\TutorialPanel5.bmp");
+	loadTexture(L"TutorialPanel6", L"Texture\\TutorialPanel6.bmp");
 	loadTexture(L"EnemySheet", L"Texture\\EnemySheet.bmp");
 	loadTexture(L"Selected", L"Texture\\Selected.bmp");
 	loadTexture(L"TorchIcon", L"Texture\\TorchIcon.bmp");
