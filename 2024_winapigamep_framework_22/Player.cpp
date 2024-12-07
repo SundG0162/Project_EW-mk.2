@@ -181,10 +181,6 @@ void Player::update()
 	{
 		GET_SINGLETON(PopupManager)->popup(L"PowerGenerator", _position, false);
 	}
-	if (GET_KEYDOWN(KEY_TYPE::E))
-	{
-		modifyHP(-1);
-	}
 }
 
 void Player::render(HDC hdc)

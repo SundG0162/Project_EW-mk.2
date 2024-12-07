@@ -11,6 +11,7 @@
 #include "ResultManager.h"
 #include "Animator.h"
 #include "Stat.h"
+#include "Player.h"
 
 Enemy::Enemy()
 	: _moveVector(0.f, 0.f)
@@ -20,7 +21,23 @@ Enemy::Enemy()
 	, _stunTime(0.f)
 	, _target(nullptr)
 {
-	addComponent<Collider>(); // ���ڽ� ũ�� ����ȭ �������
+	Collider* collider = addComponent<Collider>();
+	collider->OnCollisionEnterEvent += [this](Collider* other) 
+		{
+			Object* obj = other->getOwner();
+			Player* player = dynamic_cast<Player*>(obj);
+			if (player)
+			{
+				player->modifyHP(-1);
+				GET_SINGLETON(PowerManager)->
+					modifyPower(getComponent<StatComponent>()->
+						getStat(L"powerEarnOnDead")->getValue());
+				_isDead = true;
+				GET_SINGLETON(ResultManager)->modifyTotalCaughtEnemy(1);
+				GET_SINGLETON(EventManager)->deleteObject(this);
+
+			}
+		};
 	SetRandomPos();
 	stat = addComponent<StatComponent>();
 	stat->addStat(L"moveSpeed", new Stat(20.f));
