@@ -121,12 +121,18 @@ void Player::update()
 				return;
 			}
 			float size = _statComponent->getStat(L"CameraSize")->getValue();
+			_isCameraSpawned = false;
 			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, size]()
 				{
+					if (_isCameraSpawned)
+					{
+						GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+						return;
+					}
+					_isCameraSpawned = true;
 					Camera* camera = new Camera(_position, { size,size });
 					camera->initialize(this);
 					GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
-					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 				};
 			_priceMap[_currentItem] += 20;
 		}
@@ -140,13 +146,19 @@ void Player::update()
 			}
 			Vector2 mousePos = Vector2(GET_MOUSEPOS);
 			float size = _statComponent->getStat(L"TorchSize")->getValue();
-			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos, size]()
+			_isTorchSpawned = false;
+			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, size, mousePos]()
 				{
+					if (_isTorchSpawned)
+					{
+						GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
+						return;
+					}
+					_isTorchSpawned = true;
 					Torch* torch = new Torch(_position, { size,size });
 					torch->initialize(this);
 					torch->setup(mousePos);
 					GET_SINGLETON(EventManager)->createObject(torch, LAYER::UI);
-					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
 				};
 			_priceMap[_currentItem] += 20;
 		}

@@ -13,6 +13,10 @@
 #include "CameraStunUpgrade.h"
 #include "CameraDamageUpgrade.h"
 #include "CameraCountUpgrade.h"
+#include "CameraSizeUpgrade.h"
+#include "TorchAttackSpeedUpgrade.h"
+#include "TorchDamageUpgrade.h"
+#include "TorchSizeUpgrade.h"
 #include "EventManager.h"
 #include "ResourceManager.h"
 
@@ -52,7 +56,7 @@ void UpgradeComponent::initialize()
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new AttackSpeedUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 공격속도 증가", L"CCTV.exe의 공격 딜레이가 감소합니다.");
+		Upgrade* upgrade = new AttackSpeedUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 공격속도 증가", L"CCTV.exe의 공격 딜레이가\n감소합니다.");
 		_upgrades.push_back(upgrade);
 	}
 	{
@@ -64,11 +68,23 @@ void UpgradeComponent::initialize()
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new CameraCountUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe 강화", L"Camera.exe의 캡처 속도가 증가합니다.");
+		Upgrade* upgrade = new CameraCountUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe 강화", L"Camera.exe의 캡처 속도가\n증가합니다.");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new CameraDamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe 데미지 증가", L"Camera.exe가 더욱 강해집니다.");
+		Upgrade* upgrade = new CameraSizeUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe 확장", L"Camera.exe가 더욱 넓어집니다.");
+		_upgrades.push_back(upgrade);
+	}
+	{
+		Upgrade* upgrade = new TorchAttackSpeedUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"TorchIcon"), L"Torch.exe 공격속도 증가", L"Torch.exe의 공격 딜레이가\n감소합니다.");
+		_upgrades.push_back(upgrade);
+	}
+	{
+		Upgrade* upgrade = new TorchDamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"TorchIcon"), L"Torch.exe 데미지 증가", L"Torch.exe가 더욱 강해집니다.");
+		_upgrades.push_back(upgrade);
+	}
+	{
+		Upgrade* upgrade = new TorchSizeUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"TorchIcon"), L"Torch.exe 확장", L"Torch.exe가 더욱 넓어집니다.");
 		_upgrades.push_back(upgrade);
 	}
 	Player* player = dynamic_cast<Player*>(getOwner());

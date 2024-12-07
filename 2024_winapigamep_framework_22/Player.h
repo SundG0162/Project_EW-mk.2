@@ -30,5 +30,7 @@ private:
 	int _hp;
 	int _maxHP;
 	bool _isCCTVLocked = false;
+	bool _isCameraSpawned = false;
+	bool _isTorchSpawned = false;
 };
 

@@ -171,6 +171,7 @@
     <ClInclude Include="BarUI.h" />
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="BasicEnemy.h" />
+    <ClInclude Include="CameraCountUpgrade.h" />
     <ClInclude Include="CameraDamageUpgrade.h" />
     <ClInclude Include="CameraSizeUpgrade.h" />
     <ClInclude Include="CameraStunUpgrade.h" />
@@ -228,6 +229,9 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TorchAttackSpeedUpgrade.h" />
+    <ClInclude Include="TorchDamageUpgrade.h" />
+    <ClInclude Include="TorchSizeUpgrade.h" />
     <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Upgrade.h" />
@@ -247,6 +251,7 @@
     <ClCompile Include="BarUI.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="BasicEnemy.cpp" />
+    <ClCompile Include="CameraCountUpgrade.cpp" />
     <ClCompile Include="CameraDamageUpgrade.cpp" />
     <ClCompile Include="CameraSizeUpgrade.cpp" />
     <ClCompile Include="CameraStunUpgrade.cpp" />
@@ -298,6 +303,9 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TorchAttackSpeedUpgrade.cpp" />
+    <ClCompile Include="TorchDamageUpgrade.cpp" />
+    <ClCompile Include="TorchSizeUpgrade.cpp" />
     <ClCompile Include="TutorialScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Upgrade.cpp" />
