@@ -78,7 +78,7 @@ void WaveManager::init()
 void WaveManager::update()
 {
 
-	leftTime -= DELTATIME * 30;
+	leftTime -= DELTATIME;
 	if (leftTime <= 0)
 	{
 		//가능하면 시간이 지난다던지 종이 처서 소리가 난다던지 
