@@ -12,7 +12,6 @@ public:
 	void init();
 	void update();
 	const void addSpawnObject(SpawnInfo info) { spawnQueue.push(info); }
-	void resetTime() { currentTime = 0; }
 private:
 	std::queue<SpawnInfo> spawnQueue;
 	float currentTime;
