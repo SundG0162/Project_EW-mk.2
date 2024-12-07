@@ -6,6 +6,7 @@
 #include "SpriteRenderer.h"
 #include "Sprite.h"
 #include "StatComponent.h"
+#include "PowerManager.h"
 #include "Stat.h"
 
 Enemy::Enemy()
@@ -16,20 +17,12 @@ Enemy::Enemy()
 	,_stunTime(0.f)
 	, _target(nullptr)
 {
-
-	/*Texture* texture = GET_SINGLETON(ResourceManager)->textureFind(L"Filename");
-	Sprite* sprite = utils::SpriteParser::textureToSprite(texture);
-	SpriteRenderer* spriteRenderer = addComponent<SpriteRenderer>();
-	spriteRenderer->setSprite(sprite);*/
-}
-
-Enemy::Enemy(Object* target)
-{
 	addComponent<Collider>(); // ���ڽ� ũ�� ����ȭ �������
 	SetRandomPos();
 	stat = addComponent<StatComponent>();
 	stat->addStat(L"moveSpeed", new Stat(20.f));
 	stat->addStat(L"maxHealth", new Stat(3.f));
+	stat->addStat(L"powerEarnOnDead", new Stat(1.f));
 	Setup();
 }
 
@@ -88,6 +81,9 @@ void Enemy::GetDamage(int damage)
 	_whiteTimer = 0.2f;
 	if (_curHealth <= 0)
 	{
+		GET_SINGLETON(PowerManager)->
+			modifyPower(getComponent<StatComponent>()->
+				getStat(L"powerEarnOnDead")->getValue());
 		_isDead = true;
 		GET_SINGLETON(EventManager)->deleteObject(this);
 	}

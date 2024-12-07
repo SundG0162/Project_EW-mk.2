@@ -228,6 +228,7 @@
     <ClInclude Include="UpgradeUI.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="WaveManager.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowManager.h" />
     <ClInclude Include="WindowObject.h" />
@@ -290,6 +291,7 @@
     <ClCompile Include="UpgradeComponent.cpp" />
     <ClCompile Include="UpgradeUI.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="WaveManager.cpp" />
     <ClCompile Include="Window.cpp" />
     <ClCompile Include="WindowManager.cpp" />
     <ClCompile Include="WindowObject.cpp" />

@@ -8,7 +8,6 @@ class Enemy :
 {
 public:
     Enemy();
-    Enemy(Object* target);
     virtual ~Enemy();
     // Inherited via Object
     virtual void update() override;
@@ -19,7 +18,7 @@ public:
     void GetDamage(int damage);
     void GetStunned(float time) ;
 
-    void SetRandomPos() { setPosition((utils::ExMath::getRandomVector() + Vector2(0.5f, 0.5f)) * Vector2(SCREEN_WIDTH, SCREEN_HEIGHT) / 3); }
+    void SetRandomPos() { setPosition((utils::ExMath::getRandomVector() + Vector2(0.5f, 0.5f)) * Vector2(SCREEN_WIDTH, SCREEN_HEIGHT)); }
     void Setup() 
     {
         SetRandomPos();

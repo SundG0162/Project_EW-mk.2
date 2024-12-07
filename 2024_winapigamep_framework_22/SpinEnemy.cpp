@@ -10,10 +10,6 @@
 
 SpinEnemy::SpinEnemy()
 {
-}
-
-SpinEnemy::SpinEnemy(Object* target) : Super(target)
-{
 	stat->addStat(L"SpinRatio", new Stat(1.5f));
 
 	SpriteRenderer* sp = addComponent<SpriteRenderer>();

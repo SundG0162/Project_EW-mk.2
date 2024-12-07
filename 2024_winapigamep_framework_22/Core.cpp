@@ -34,10 +34,10 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 	GET_SINGLETON(InputManager)->init();
 	GET_SINGLETON(ResourceManager)->init();
 	GET_SINGLETON(SceneManager)->init();
-	GET_SINGLETON(SpawnManager)->init();
-	GET_SINGLETON(WaveManager)->init();
 	GET_SINGLETON(PopupManager)->initialize();
 	GET_SINGLETON(EventManager)->update();
+	GET_SINGLETON(SpawnManager)->init();
+	GET_SINGLETON(WaveManager)->init();
 	GET_SINGLETON(CollisionManager)->checkReset();
 	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::UI, LAYER::ENEMY);
 	AddFontResource(L"Galmuri9 Regular.ttf");
