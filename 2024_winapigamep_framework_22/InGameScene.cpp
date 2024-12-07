@@ -49,6 +49,13 @@ void InGameScene::init()
 			Player* player = new Player(position, { 400,300 });
 			setupUI();
 			GET_SINGLETON(EventManager)->createObject(player, LAYER::PLAYER);
+			player->OnHPChangeEvent += [this](int prev, int current) 
+				{
+					if (current == 0)
+					{
+						GET_SINGLETON(EventManager)->changeScene(L"ResultScene");
+					}
+				};
 		};
 }
 
