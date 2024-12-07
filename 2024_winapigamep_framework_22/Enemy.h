@@ -1,7 +1,8 @@
 #pragma once
 #include "Object.h"
+#include "StatComponent.h"
+#include "Stat.h"
 class WindowObject;
-class StatComponent;
 class Enemy :
     public Object
 {
@@ -22,7 +23,7 @@ public:
     void Setup() 
     {
         SetRandomPos();
-        _maxHealth = getComponent<StatComponent>()->getStat("moveSpeed");
+        _maxHealth = getComponent<StatComponent>()->getStat(L"maxHealth")->getValue();
         _curHealth = _maxHealth;
     }
     void SetTarget(Object* target) { _target = target; }

@@ -29,7 +29,7 @@ Enemy::Enemy(Object* target)
 	SetRandomPos();
 	stat = addComponent<StatComponent>();
 	stat->addStat(L"moveSpeed", new Stat(20.f));
-	stat->addStat(L"maxHealth", new Stat(20.f));
+	stat->addStat(L"maxHealth", new Stat(3.f));
 	Setup();
 }
 

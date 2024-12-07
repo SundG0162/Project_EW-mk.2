@@ -22,22 +22,32 @@ public:
 
 
 public:
-	template <typename T>
-	void CreateAllocatedEnemy()//wave에 따른 스탯 증가 처리용 함수
+	int getHPIncByWave()
 	{
-		T enemy = new T;
-		StatComponent statCompo = enemy.getComponent<StatComponent>();
-		statCompo.getStat(L"")
+		int inc = 0;
+		inc += wave / 3;
+		if (wave > 5) inc += 1;
+		if (wave > 10) inc += 2;
+		if (wave > 15) inc += 3;
+		return inc;
 	}
 
-template <typename T>
+	template <typename T = Enemy>
+	void CreateAllocatedEnemy()//wave에 따른 스탯 증가 처리용 함수
+	{
+		T* enemy = new T;
+		StatComponent* statCompo = enemy->getComponent<StatComponent>();
+		statCompo->getStat(L"maxHealth")->addModifier(this, getHPIncByWave);
+	}
+
+	template <typename T>
 	vector<Enemy> getAllocEnemies(int number)
 	{
 		vector<Enemy> result;
 		for (int i = 0; i < number; i++)
 		{
 			{
-				T enemy = new T;
+				T enemy = CreateAllocatedEnemy<T>();
 				result.push_back(enemy);
 			}
 		}
@@ -50,7 +60,7 @@ template <typename T>
 		for (int i = 0; i < number; i++)
 		{
 			{
-				T enemy = new T;
+				T enemy = CreateAllocatedEnemy<T>();
 				result.push_back({ enemy, time });
 			}
 		}
@@ -63,13 +73,13 @@ template <typename T>
 		for (int i = 0; i < number; i++)
 		{
 			{
-				T enemy = new T;
+				T enemy = CreateAllocatedEnemy<T>();
 				result.push_back({ enemy, time * i });
 			}
 		}
 		return result;
 	}
-	// Base case for merging two vectors of the same type
+
 	template <typename T>
 	std::vector<T> mergeVectors(const std::vector<T>& A, const std::vector<T>& B) {
 		std::vector<T> merged;
@@ -79,7 +89,7 @@ template <typename T>
 		return merged;
 	}
 
-	// Variadic template for merging multiple vectors
+
 	template <typename T, typename... Rest>
 	std::vector<T> mergeVectors(const std::vector<T>& first, const Rest&... rest) {
 		return mergeVectors(first, mergeVectors(rest...));
@@ -88,4 +98,6 @@ private:
 	int wave = 0;
 	float leftTime = 0.f;
 	vector<WaveInfo> waves;
+	vector<SpawnInfo*> SIvectorforEmpty;
+	vector<Enemy*> EvectorforEmpty;
 };

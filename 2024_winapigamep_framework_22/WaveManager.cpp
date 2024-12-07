@@ -8,8 +8,6 @@
 
 void WaveManager::init()
 {
-	static vector<SpawnInfo> SIvectorforEmpty;
-	static vector<Enemy> EvectorforEmpty;
 
 #pragma region spawnData
 
@@ -18,22 +16,24 @@ void WaveManager::init()
 
 
 	//웨이브 1
-	waves.push_back({ 10.f, SIvectorforEmpty, getAllocEnemies<BasicEnemy>(1) });
+	waves.push_back({ 8.f, SIvectorforEmpty, getAllocEnemies<BasicEnemy>(1) });
 
 	//웨이브 2
 	waves.push_back({ 10.f, SIvectorforEmpty, getAllocEnemies<BasicEnemy>(2) });
 
+	//웨이브 3
 	waves.push_back({ 12.f,
 		mergeVectors(
-			getAllocEnemyInterval<DashEnemy>(2, 1f),
-			getAllocEnemies<BasicEnemy>(2, 1.5f)
-		), EvectorforEmpty;
-		});
+			getAllocEnemies<DashEnemy>(1),
+			getAllocEnemyInterval<BasicEnemy>(2, 1.5f)
+		), 	EvectorforEmpty});
+
+
 #pragma endregion
 
 }
 
-SpawnManager* sm = GET_SINGLETON(SpawnManager);
+
 
 void WaveManager::update()
 {
@@ -45,11 +45,11 @@ void WaveManager::update()
 		leftTime = waves[++wave];
 		for (auto enemy : waves[wave].spawnEnemyList)
 		{
-			sm->addSpawnObject({ enemy, 0.f });
+			GET_SINGLETON(SpawnManager)->addSpawnObject({ enemy, 0.f });
 		}
 		for (auto info : waves[wave].spawnList)
 		{
-			sm->addSpawnObject(info);
+			GET_SINGLETON(SpawnManager)->addSpawnObject(info);
 		}
 	}
 }
