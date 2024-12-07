@@ -111,15 +111,15 @@ void Player::update()
 	}
 	if (GET_KEYDOWN(KEY_TYPE::SPACE) || GET_KEYDOWN(KEY_TYPE::ENTER))
 	{
-		if (!GET_SINGLETON(PowerManager)->trySpendPower(_priceMap[_currentItem]))
-		{
-			GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, false);
-			return;
-		}
 		switch (_currentItem)
 		{
 		case PLAYER_ITEM::CAMERA:
 		{
+			if (!GET_SINGLETON(PowerManager)->trySpendPower(_priceMap[_currentItem]))
+			{
+				GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, false);
+				return;
+			}
 			float size = _statComponent->getStat(L"CameraSize")->getValue();
 			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, size]()
 				{
@@ -133,6 +133,11 @@ void Player::update()
 		break;
 		case PLAYER_ITEM::TORCH:
 		{
+			if (!GET_SINGLETON(PowerManager)->trySpendPower(_priceMap[_currentItem]))
+			{
+				GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, false);
+				return;
+			}
 			Vector2 mousePos = Vector2(GET_MOUSEPOS);
 			float size = _statComponent->getStat(L"TorchSize")->getValue();
 			GET_SINGLETON(Core)->OnMessageProcessEvent += [this, mousePos, size]()
@@ -148,8 +153,16 @@ void Player::update()
 		break;
 		case PLAYER_ITEM::UPGRADE:
 		{
-			_upgradeComponent->setRandomUpgrade();
-			_priceMap[_currentItem] += 40;
+			if (!_upgradeComponent->isUpgrading())
+			{
+				if (!GET_SINGLETON(PowerManager)->trySpendPower(_priceMap[_currentItem]))
+				{
+					GET_SINGLETON(PopupManager)->popup(L"NotEnoughPower", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, false);
+					return;
+				}
+				_upgradeComponent->setRandomUpgrade();
+				_priceMap[_currentItem] += 40;
+			}
 		}
 		}
 		OnItemUseEvent.invoke(_currentItem, _priceMap[_currentItem]);
@@ -157,6 +170,10 @@ void Player::update()
 	if (GET_KEYDOWN(KEY_TYPE::F))
 	{
 		GET_SINGLETON(PopupManager)->popup(L"PowerGenerator", _position, false);
+	}
+	if (GET_KEYDOWN(KEY_TYPE::E))
+	{
+		GET_SINGLETON(PowerManager)->modifyPower(1000);
 	}
 }
 

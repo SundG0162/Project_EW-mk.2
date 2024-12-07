@@ -167,9 +167,14 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="AnimationClip.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="AttackSpeedUpgrade.h" />
     <ClInclude Include="BarUI.h" />
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="BasicEnemy.h" />
+    <ClInclude Include="CameraDamageUpgrade.h" />
+    <ClInclude Include="CameraSizeUpgrade.h" />
+    <ClInclude Include="CameraStunUpgrade.h" />
+    <ClInclude Include="CCTVStunUpgrade.h" />
     <ClInclude Include="PowerGenerator.h" />
     <ClInclude Include="ResultManager.h" />
     <ClInclude Include="ResultScene.h" />
@@ -238,9 +243,14 @@
   <ItemGroup>
     <ClCompile Include="AnimationClip.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="AttackSpeedUpgrade.cpp" />
     <ClCompile Include="BarUI.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="BasicEnemy.cpp" />
+    <ClCompile Include="CameraDamageUpgrade.cpp" />
+    <ClCompile Include="CameraSizeUpgrade.cpp" />
+    <ClCompile Include="CameraStunUpgrade.cpp" />
+    <ClCompile Include="CCTVStunUpgrade.cpp" />
     <ClCompile Include="PowerGenerator.cpp" />
     <ClCompile Include="ResultManager.cpp" />
     <ClCompile Include="ResultScene.cpp" />
