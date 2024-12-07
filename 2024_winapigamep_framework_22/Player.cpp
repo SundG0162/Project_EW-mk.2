@@ -36,7 +36,7 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	Collider* collider = addComponent<Collider>();
 	collider->setSize({ 85,85 });
 	_statComponent = addComponent<StatComponent>();
-	Stat* damageStat = new Stat(1);
+	Stat* damageStat = new Stat(2);
 	_statComponent->addStat(L"Damage", damageStat);
 	Stat* sizeStat = new Stat(500);
 	_statComponent->addStat(L"Size", sizeStat);
@@ -54,6 +54,10 @@ Player::Player(const Vector2& position, const Vector2& size) : WindowObject(posi
 	_statComponent->addStat(L"CameraCount", cameraCountStat);
 	Stat* torchSizeStat = new Stat(300);
 	_statComponent->addStat(L"TorchSize", torchSizeStat);
+	Stat* torchDamageStat = new Stat(1);
+	_statComponent->addStat(L"TorchDamage", torchDamageStat);
+	Stat* torchAttackSpeedStat = new Stat(1.2f);
+	_statComponent->addStat(L"TorchAttackSpeed", torchAttackSpeedStat);
 	GET_SINGLETON(PlayerManager)->setPlayer(this);
 	_cctv = new CCTV(_position + Vector2(400, 0), { 500,500 });
 	_cctv->initialize(this);
