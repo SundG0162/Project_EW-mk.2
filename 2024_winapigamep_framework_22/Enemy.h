@@ -1,8 +1,7 @@
 #pragma once
 #include "Object.h"
-#include "StatComponent.h"
-#include "Stat.h"
 class WindowObject;
+class StatComponent;
 class Enemy :
     public Object
 {

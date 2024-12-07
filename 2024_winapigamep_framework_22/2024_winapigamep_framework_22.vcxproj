@@ -167,10 +167,18 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="AnimationClip.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="AttackSpeedUpgrade.h" />
     <ClInclude Include="BarUI.h" />
     <ClInclude Include="BaseWindow.h" />
     <ClInclude Include="BasicEnemy.h" />
+    <ClInclude Include="CameraCountUpgrade.h" />
+    <ClInclude Include="CameraDamageUpgrade.h" />
+    <ClInclude Include="CameraSizeUpgrade.h" />
+    <ClInclude Include="CameraStunUpgrade.h" />
+    <ClInclude Include="CCTVStunUpgrade.h" />
     <ClInclude Include="PowerGenerator.h" />
+    <ClInclude Include="ResultManager.h" />
+    <ClInclude Include="ResultScene.h" />
     <ClInclude Include="SizeUpgrade.h" />
     <ClInclude Include="Torch.h" />
     <ClInclude Include="Camera.h" />
@@ -221,6 +229,9 @@
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="TitleScene.h" />
+    <ClInclude Include="TorchAttackSpeedUpgrade.h" />
+    <ClInclude Include="TorchDamageUpgrade.h" />
+    <ClInclude Include="TorchSizeUpgrade.h" />
     <ClInclude Include="TutorialScene.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Upgrade.h" />
@@ -237,10 +248,18 @@
   <ItemGroup>
     <ClCompile Include="AnimationClip.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="AttackSpeedUpgrade.cpp" />
     <ClCompile Include="BarUI.cpp" />
     <ClCompile Include="BaseWindow.cpp" />
     <ClCompile Include="BasicEnemy.cpp" />
+    <ClCompile Include="CameraCountUpgrade.cpp" />
+    <ClCompile Include="CameraDamageUpgrade.cpp" />
+    <ClCompile Include="CameraSizeUpgrade.cpp" />
+    <ClCompile Include="CameraStunUpgrade.cpp" />
+    <ClCompile Include="CCTVStunUpgrade.cpp" />
     <ClCompile Include="PowerGenerator.cpp" />
+    <ClCompile Include="ResultManager.cpp" />
+    <ClCompile Include="ResultScene.cpp" />
     <ClCompile Include="SizeUpgrade.cpp" />
     <ClCompile Include="Torch.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -285,6 +304,9 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="TorchAttackSpeedUpgrade.cpp" />
+    <ClCompile Include="TorchDamageUpgrade.cpp" />
+    <ClCompile Include="TorchSizeUpgrade.cpp" />
     <ClCompile Include="TutorialScene.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="Upgrade.cpp" />

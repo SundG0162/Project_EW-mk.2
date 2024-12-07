@@ -14,6 +14,7 @@ public:
 	void render(HDC hDC) override;
 public:
 	void setRandomUpgrade();
+	bool isUpgrading() { return _upgradeFlag; }
 private:
 	vector<Upgrade*> _upgrades;
 	vector<Upgrade*> _finishedUpgrade;

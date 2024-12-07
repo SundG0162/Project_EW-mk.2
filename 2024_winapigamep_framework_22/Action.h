@@ -23,25 +23,25 @@ public:
 	}
 	void removeListener(const Callback& callback)
 	{
-		auto it = std::find_if(_callbacks.begin(), _callbacks.end(),
-			[&](const Callback& currentListener)
-			{
-				return currentListener.target<void(Args...)>() == callback.target<void(Args...)>();
-			});
-
-		if (it != _callbacks.end())
+		for (size_t i = 0; i < _callbacks.size();) 
 		{
-			_callbacks.erase(it);
+			if (_callbacks[i].target<void(Args...)>() == callback.target<void(Args...)>())
+			{
+				_callbacks.erase(_callbacks.begin() + i);
+				break;
+			}
 		}
 	}
 	void invoke(Args... args)
 	{
-
-		for (auto& callback : _callbacks)
+		for (size_t i = 0; i < _callbacks.size();) 
 		{
-			if (callback)
-			{
-				callback(args...);
+			if (_callbacks[i]) {
+				_callbacks[i](args...);
+				++i;
+			}
+			else {
+				_callbacks.erase(_callbacks.begin() + i);
 			}
 		}
 	}

@@ -13,7 +13,7 @@ void WindowManager::update()
 {
 	for (Window* window : _windows)
 	{
-		if (window->isDead())
+		if (window == nullptr || window->isDead())
 		{
 			auto iter = std::find(_windows.begin(), _windows.end(), window);
 			if (iter != _windows.end())
@@ -63,7 +63,7 @@ void WindowManager::release()
 {
 	for (Window* window : _windows)
 	{
-		if (window == nullptr) continue;
+		if (window == nullptr || !window->isDead()) continue;
 		window->close();
 		delete window;
 		window = nullptr;

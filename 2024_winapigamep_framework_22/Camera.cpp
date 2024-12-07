@@ -100,6 +100,7 @@ void Camera::update()
 			_window->setMoveable(false);
 			getComponent<SpriteRenderer>()->setSprite(nullptr);
 			GET_SINGLETON(EventManager)->createObject(_fadeOut, LAYER::EFFECT);
+			GET_SINGLETON(ResourceManager)->play(L"CameraCapture");
 			return;
 		}
 	}
