@@ -21,7 +21,7 @@ public:
 	void init();
 	void update();
 
-
+	void setWave(int wave) { this->wave = wave; }
 public:
 	int getHPIncByWave()
 	{

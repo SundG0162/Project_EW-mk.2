@@ -19,6 +19,8 @@ public:
 		{
 			ui = dynamic_cast<T*>(iter->second);
 		}
+		if (ui)
+			return ui;
 		iter = _disabledUiMap.find(key);
 		if (iter != _disabledUiMap.end())
 		{

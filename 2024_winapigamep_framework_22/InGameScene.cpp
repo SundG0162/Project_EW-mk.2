@@ -23,6 +23,7 @@
 #include "Core.h"
 #include "EventManager.h"
 #include "PlayerManager.h"
+#include "WaveManager.h"
 #include "ResultManager.h"
 #include "CollisionManager.h"
 
@@ -41,6 +42,7 @@ void InGameScene::init()
 	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::PLAYER, LAYER::ENEMY);
 	GET_SINGLETON(PowerManager)->initialize();
 	GET_SINGLETON(ResultManager)->initialize();
+	GET_SINGLETON(WaveManager)->setWave(0);
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			if (_setuped == true)

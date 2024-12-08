@@ -5,6 +5,7 @@
 void PowerManager::initialize()
 {
 	OnPowerChangeEvent.clear();
+	_power = 0;
 }
 
 void PowerManager::modifyPower(int value)
