@@ -109,16 +109,15 @@ void WaveManager::update()
 		if (waves.size() > 0)
 		{
 			++wave;
-			leftTime = waves[0].waveContinueTime;
-			for (auto enemy : waves[0].spawnEnemyList)
+			leftTime = waves[wave].waveContinueTime;
+			for (auto enemy : waves[wave].spawnEnemyList)
 			{
 				GET_SINGLETON(SpawnManager)->addSpawnObject({ enemy, 0.f });
 			}
-			for (auto info : waves[0].spawnList)
+			for (auto info : waves[wave].spawnList)
 			{
 				GET_SINGLETON(SpawnManager)->addSpawnObject(info);
 			}
-			waves.erase(waves.begin());
 		}
 	}
 }
