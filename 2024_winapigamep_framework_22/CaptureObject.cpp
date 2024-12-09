@@ -24,10 +24,19 @@ void CaptureObject::update()
 	for (int i = 0; i < _targets.size(); i++)
 	{
 		Enemy* enemy = _targets[i];
-		auto iter = std::find(_temp.begin(), _temp.end(), enemy);
+		vector<Enemy*>::iterator iter = std::find(_temp.begin(), _temp.end(), enemy);
+		
 		if (iter == _temp.end())
 		{
 			_targets.erase(std::find(_targets.begin(), _targets.end(), enemy));
+		}
+		else
+		{
+			Enemy* e = *iter;
+			if (e->isDead())
+			{
+				_targets.erase(std::find(_targets.begin(), _targets.end(), enemy));
+			}
 		}
 	}
 	_temp.clear();
@@ -49,7 +58,10 @@ void CaptureObject::handleOnCollisionStay(Collider* other)
 	Object* obj = other->getOwner();
 	Enemy* enemy = dynamic_cast<Enemy*>(obj);
 	if (enemy)
+	{
 		_temp.push_back(enemy);
+		cout << "호출되면 안됨";
+	}
 }
 
 void CaptureObject::handleOnCollisionExit(Collider* other)

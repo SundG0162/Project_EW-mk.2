@@ -18,6 +18,7 @@
 Torch::Torch(const Vector2& position, const Vector2& size) : CaptureObject(position, size, WINDOW_TYPE::COPY, L"Torch.exe")
 {
 	_duration = 10.f;
+	_attackTimer = 0.f;
 	_timer = 0.f;
 	_settingUp = true;
 	_bar = nullptr;
@@ -38,7 +39,7 @@ Torch::Torch(const Vector2& position, const Vector2& size) : CaptureObject(posit
 
 Torch::~Torch()
 {
-	if (!_bar->isDead())
+	if (_bar != nullptr && _bar->isDead())
 	{
 		GET_SINGLETON(EventManager)->deleteObject(_bar);
 		_bar = nullptr;
@@ -67,19 +68,21 @@ void Torch::update()
 			GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 				{
 					GET_SINGLETON(Core)->OnMessageProcessEvent -= [this]() {};
-					_bar = new WindowUI({ _position.x - 30, _position.y - _size.y / 3 }, { 320,40 }, WINDOW_TYPE::NEW, L"Ember.exe");
-					BarUI* bar = new BarUI({ _bar->getSize().x / 2, _bar->getSize().y / 2 }, { 320,40 });
+					_bar = new WindowUI({ _position.x - 30, _position.y - _size.y / 3 }, { 240,30 }, WINDOW_TYPE::NEW, L"Ember.exe");
+					BarUI* bar = new BarUI({ _bar->getSize().x / 2, _bar->getSize().y / 2 }, { 240,30 });
 					_bar->getWindow()->setMoveable(true);
 					_bar->getWindow()->setCloseable(true);
 					_bar->setUI(bar);
+					_bar->getWindow()->OnWindowCloseEvent += [this]() {_bar = nullptr; };
 					GET_SINGLETON(EventManager)->createObject(_bar, LAYER::UI);
 				};
 		}
 		return;
 	}
-	tryAttack();
+	if (!_window->isTweening())
+		tryAttack();
 	float ratio = 1 - _timer / _duration;
-	if (!_bar->isDead())
+	if (_bar != nullptr && !_bar->isDead())
 		_bar->getUI<BarUI>()->setFillAmount(ratio);
 	if (_timer >= _duration && !_window->isTweening())
 	{

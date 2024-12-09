@@ -16,8 +16,9 @@ void EventManager::update()
 
 void EventManager::deadObjectClear()
 {
-	for (void* obj : _deadObjects)
+	for (int i = 0; i < _deadObjects.size(); i++)
 	{
+		void* obj = _deadObjects[i];
 		if (obj != nullptr)
 		{
 			{
@@ -25,7 +26,7 @@ void EventManager::deadObjectClear()
 				if (ptr != nullptr)
 				{
 					delete ptr;
-					ptr = nullptr;
+					_deadObjects[i] = nullptr;
 					continue;
 				}
 			}
@@ -34,7 +35,7 @@ void EventManager::deadObjectClear()
 				if (ptr != nullptr)
 				{
 					delete ptr;
-					ptr = nullptr;
+					_deadObjects[i] = nullptr;
 				}
 			}
 		}

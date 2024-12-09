@@ -69,7 +69,7 @@ void CCTV::attack()
 		if (GET_SINGLETON(PowerManager)->trySpendPower(5))
 		{
 			int damage = _statComponent->getStat(L"Damage")->getValue();
-			int stunTime = _statComponent->getStat(L"AttackStun")->getValue();
+			float stunTime = _statComponent->getStat(L"AttackStun")->getValue();
 			for (Enemy* enemy : _targets)
 			{
 				enemy->GetDamage(damage);

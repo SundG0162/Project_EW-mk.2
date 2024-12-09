@@ -226,9 +226,7 @@ void Window::close()
 	SetWindowLongPtr(_hWnd, GWLP_USERDATA, 0);
 	GET_SINGLETON(EventManager)->deleteWindow(this);
 	HWND hWnd = _hWnd;
-	DestroyWindow(_hWnd);
-	auto wm = GET_SINGLETON(Core);
-	GET_SINGLETON(Core)->OnMessageProcessEvent += [wm, hWnd]()
+	GET_SINGLETON(Core)->OnMessageProcessEvent += [hWnd]()
 		{
 			SendMessage(hWnd, WM_CLOSE, 0, 0);
 		};

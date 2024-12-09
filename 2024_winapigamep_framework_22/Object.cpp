@@ -14,7 +14,7 @@ Object::~Object()
 {
 	for (Component* compo : _components)
 	{
-		SAFE_DELETE(compo);
+		delete compo;
 	}
 	_components.clear();
 }
