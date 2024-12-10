@@ -42,7 +42,7 @@ void InGameScene::init()
 	GET_SINGLETON(CollisionManager)->checkLayer(LAYER::PLAYER, LAYER::ENEMY);
 	GET_SINGLETON(PowerManager)->initialize();
 	GET_SINGLETON(ResultManager)->initialize();
-	GET_SINGLETON(WaveManager)->setWave(0);
+	GET_SINGLETON(WaveManager)->init();
 	GET_SINGLETON(Core)->OnMessageProcessEvent += [this]()
 		{
 			if (_setuped == true)
@@ -89,6 +89,7 @@ void InGameScene::release()
 {
 	Scene::release();
 	GET_SINGLETON(SpawnManager)->setStop(true);
+	GET_SINGLETON(WaveManager)->release();
 }
 
 void InGameScene::setupUI()

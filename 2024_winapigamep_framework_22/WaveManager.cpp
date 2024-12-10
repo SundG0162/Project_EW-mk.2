@@ -6,9 +6,11 @@
 #include "DashEnemy.h"
 #include "InvincibleEnemy.h"
 #include <iostream>
+#include "EventManager.h"
 
 void WaveManager::init()
 {
+	setWave(0);
 
 #pragma region spawnData
 
@@ -109,7 +111,7 @@ void WaveManager::update()
 		if (waves.size() > 0)
 		{
 			++wave;
-			leftTime = waves[wave].waveContinueTime;
+			leftTime = waves[0].waveContinueTime;
 			for (auto enemy : waves[wave].spawnEnemyList)
 			{
 				GET_SINGLETON(SpawnManager)->addSpawnObject({ enemy, 0.f });
@@ -118,10 +120,19 @@ void WaveManager::update()
 			{
 				GET_SINGLETON(SpawnManager)->addSpawnObject(info);
 			}
+			waves.erase(waves.begin());//소환 끝났으면 애들없에기
 		}
 	}
 }
 
 void WaveManager::release()
 {
+	for (auto info : waves)
+	{
+		for (Enemy* enemy : waves[wave].spawnEnemyList)
+		{
+			GET_SINGLETON(EventManager)->deleteObject(enemy);
+		}
+	}
+	waves.clear();
 }
