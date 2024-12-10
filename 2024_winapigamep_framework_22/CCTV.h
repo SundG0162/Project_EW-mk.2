@@ -15,6 +15,7 @@ public:
 	void render(HDC hdc) override;
 public:
 	void localMove(const Vector2& move);
+	void setPos(const Vector2& move);
 	void tryAttack();
 	void attack();
 public:

@@ -18,6 +18,7 @@ public:							\
 #define GET_KEYUP(key) KEY_CHECK(key, KEY_STATE::UP)
 #define GET_KEYDOWN(key) KEY_CHECK(key, KEY_STATE::DOWN)
 #define GET_KEY(key) KEY_CHECK(key, KEY_STATE::PRESS)
+#define GET_KEYNUM(key) KEY_CHECK(key, KEY_STATE::PRESS) || KEY_CHECK((KEY_TYPE)((int)key+9), KEY_STATE::PRESS)
 #define GET_MOUSEPOS GET_SINGLETON(InputManager)->getMousePos()
 #define GET_CENTERPOS(pos, size) {pos.x + size.x / 2, pos.y + size.y / 2}
 #define GET_LEFTTOPPOS(pos, size) {pos.x - size.x / 2, pos.y - size.y / 2}

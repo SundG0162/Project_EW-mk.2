@@ -80,7 +80,7 @@ void Player::update()
 	if (!_isCCTVLocked)
 	{
 		Vector2 movement = {};
-		if (GET_KEY(KEY_TYPE::W))
+		/*if (GET_KEY(KEY_TYPE::W))
 			movement.y -= 1;
 		if (GET_KEY(KEY_TYPE::A))
 			movement.x -= 1;
@@ -90,7 +90,33 @@ void Player::update()
 			movement.x += 1;
 		movement.Normalize();
 		movement *= 300 * DELTATIME;
-		_cctv->localMove(movement);
+		_cctv->localMove(movement);*/
+		int input = -1;
+		if (GET_KEYNUM(KEY_TYPE::NUM_7))
+			input = 0;
+		if (GET_KEYNUM(KEY_TYPE::NUM_4))
+			input = 1;
+		if (GET_KEYNUM(KEY_TYPE::NUM_1))
+			input = 2;
+		if (GET_KEYNUM(KEY_TYPE::NUM_8))
+			input = 3;
+		if (GET_KEYNUM(KEY_TYPE::NUM_5))
+			input = 4;
+		if (GET_KEYNUM(KEY_TYPE::NUM_2))
+			input = 5;
+		if (GET_KEYNUM(KEY_TYPE::NUM_9))
+			input = 6;
+		if (GET_KEYNUM(KEY_TYPE::NUM_6))
+			input = 7;
+		if (GET_KEYNUM(KEY_TYPE::NUM_3))
+			input = 8;
+		movement = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
+		int xOffset = input / 3;
+		int yOffset = input % 3;
+		--xOffset;
+		--yOffset;
+		movement += { 300 * xOffset, 300 * yOffset };
+		_cctv->setPos(movement);
 	}
 	if (GET_KEYDOWN(KEY_TYPE::NUM_1))
 	{

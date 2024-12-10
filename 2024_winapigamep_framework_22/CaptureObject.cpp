@@ -60,7 +60,6 @@ void CaptureObject::handleOnCollisionStay(Collider* other)
 	if (enemy)
 	{
 		_temp.push_back(enemy);
-		cout << "호출되면 안됨";
 	}
 }
 

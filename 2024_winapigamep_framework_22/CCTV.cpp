@@ -52,6 +52,12 @@ void CCTV::localMove(const Vector2& move)
 	_window->moveWindow(_position);
 }
 
+void CCTV::setPos(const Vector2& move)
+{
+	_position = move;
+	_window->moveWindow(_position);
+}
+
 void CCTV::tryAttack()
 {
 	_attackTimer += DELTATIME;
