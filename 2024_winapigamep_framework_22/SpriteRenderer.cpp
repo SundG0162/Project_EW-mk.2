@@ -14,7 +14,6 @@ SpriteRenderer::SpriteRenderer()
 
 SpriteRenderer::~SpriteRenderer()
 {
-    cout << endl << endl << "Breaked" << endl;
 }
 
 void SpriteRenderer::lateUpdate()

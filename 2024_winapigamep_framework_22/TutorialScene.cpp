@@ -24,7 +24,7 @@ TutorialScene::TutorialScene()
 		wstring name = std::format(L"TutorialPanel{0}", i);
 		_panelSprites.push_back(GET_SINGLETON(ResourceManager)->getSprite(name));
 	}
-	_tutorialTexts.push_back(L"WASD를 통해 CCTV.exe를 움직여 근처를 탐색할 수 있습니다.");
+	_tutorialTexts.push_back(L"WASD를 통해 CCTV.exe를 움직여 근처를 탐색할 수 있습니다.\nCCTV.exe는 기본적인 공격 수단입니다.");
 	_tutorialTexts.push_back(L"인게임에서 바이러스를 잡거나 발전기를 돌려 전력을 얻을 수 있습니다.\n전력을 통해 각종 기기를 업그레이드 할 수 있습니다.");
 	_tutorialTexts.push_back(L"숫자 키를 눌러 아이템을 선택하고\n스페이스, 엔터키를 통해\n사용할 수 있습니다.");
 	_tutorialTexts.push_back(L"CCTV.exe로 적을 비추거나 아이템을 통해 바이러스를 잡을 수 있습니다.\n아, 참고로 CCTV가 공격할때마다 전력이 소모됩니다.");

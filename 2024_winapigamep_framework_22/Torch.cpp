@@ -54,6 +54,7 @@ void Torch::initialize(Player* player)
 
 void Torch::update()
 {
+	CaptureObject::update();
 	_timer += DELTATIME;
 	if (_settingUp)
 	{

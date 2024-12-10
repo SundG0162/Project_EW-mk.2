@@ -41,7 +41,7 @@ Enemy::Enemy()
 	SetRandomPos();
 	stat = addComponent<StatComponent>();
 	stat->addStat(L"moveSpeed", new Stat(20.f));
-	stat->addStat(L"maxHealth", new Stat(3.f));
+	stat->addStat(L"maxHealth", new Stat(2.f));
 	//stat->addStat(L"powerEarnOnDead", new Stat(10.f));
 	Setup();
 
@@ -106,7 +106,6 @@ void Enemy::DoMove(Vector2& vec)
 
 void Enemy::GetDamage(int damage)
 {
-	cout << "getdamage";
 	_curHealth -= damage;
 	getComponent<SpriteRenderer>()->setWhiteness(true);
 	_whiteTimer = 0.2f;

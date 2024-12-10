@@ -25,7 +25,7 @@ void CaptureObject::update()
 	{
 		Enemy* enemy = _targets[i];
 		vector<Enemy*>::iterator iter = std::find(_temp.begin(), _temp.end(), enemy);
-		
+
 		if (iter == _temp.end())
 		{
 			_targets.erase(std::find(_targets.begin(), _targets.end(), enemy));
@@ -60,7 +60,6 @@ void CaptureObject::handleOnCollisionStay(Collider* other)
 	if (enemy)
 	{
 		_temp.push_back(enemy);
-		cout << "호출되면 안됨";
 	}
 }
 
