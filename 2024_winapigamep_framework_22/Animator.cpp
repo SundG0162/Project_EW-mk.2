@@ -63,3 +63,9 @@ void Animator::stopAnimation()
 {
 	_currentClip = nullptr;
 }
+
+void Animator::addAnimation(const wstring& name, AnimationClip* clip)
+{
+	clip->init(this);
+	_animationMap.insert({ name, clip });
+}

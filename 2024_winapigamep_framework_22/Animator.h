@@ -16,6 +16,7 @@ public:
 	AnimationClip* findAnimation(const wstring& name);
 	void playAnimation(const wstring& name, bool isRepeat, int repeatCount = 0);
 	void stopAnimation();
+	void addAnimation(const wstring& name, AnimationClip* clip);
 public:
 	const bool& IsRepeat() { return _isRepeat; }
 	const int& getRepeatCount() { return _repeatCount; }

@@ -176,6 +176,8 @@
     <ClInclude Include="CameraSizeUpgrade.h" />
     <ClInclude Include="CameraStunUpgrade.h" />
     <ClInclude Include="CCTVStunUpgrade.h" />
+    <ClInclude Include="Effect.h" />
+    <ClInclude Include="ExplodeEffect.h" />
     <ClInclude Include="PowerGenerator.h" />
     <ClInclude Include="ResultManager.h" />
     <ClInclude Include="ResultScene.h" />
@@ -257,6 +259,8 @@
     <ClCompile Include="CameraSizeUpgrade.cpp" />
     <ClCompile Include="CameraStunUpgrade.cpp" />
     <ClCompile Include="CCTVStunUpgrade.cpp" />
+    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="ExplodeEffect.cpp" />
     <ClCompile Include="PowerGenerator.cpp" />
     <ClCompile Include="ResultManager.cpp" />
     <ClCompile Include="ResultScene.cpp" />

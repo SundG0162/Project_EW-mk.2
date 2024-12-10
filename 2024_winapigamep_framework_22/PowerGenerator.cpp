@@ -65,9 +65,9 @@ void PowerGenerator::update()
 		PanelUI* panel = getUI<PanelUI>();
 		panel->disableUI(L"r" + _keys[_currentIndex]);
 		_currentIndex++;
+		GET_SINGLETON(PowerManager)->modifyPower(1);
 		if (_currentIndex >= 4)
 		{
-			GET_SINGLETON(PowerManager)->modifyPower(2);
 			_currentIndex = 0;
 		}
 		panel->enableUI(L"r" + _keys[_currentIndex]);
