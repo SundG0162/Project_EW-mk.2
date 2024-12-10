@@ -30,32 +30,31 @@ void TitleScene::init()
 				return;
 			}
 			_setuped = true;
-			WindowUI* textUI = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 - 250 }, { 800, 300 }, WINDOW_TYPE::NEW, L"TitleText.exe");
+			WindowUI* titleUI = new WindowUI({ SCREEN_WIDTH/2, SCREEN_HEIGHT / 2 - 150}, { 900, 400 }, WINDOW_TYPE::NEW, L"TitleText.exe");
 			{
-				TextUI* text = new TextUI();
-				Vector2 size = textUI->getSize();
-				text->setupFont(100);
-				text->setPosition({ size.x / 2, size.y / 2 - 100 });
-				text->setText(L"Defender of\n The Dawn");
-				textUI->setUI(text);
+				Sprite* sprite = GET_SINGLETON(ResourceManager)->getSprite(L"GameLogo");
+				ImageUI* image = new ImageUI(sprite);
+				image->setPosition({ titleUI->getSize().x / 2,titleUI->getSize().y / 2 });
+				image->getComponent<SpriteRenderer>()->setScale({ 5,5 });
+				titleUI->setUI(image);
 			}
 
-			WindowUI* explanationUI = new WindowUI({ SCREEN_WIDTH / 2 + 500, SCREEN_HEIGHT / 2 + 100 }, { 400, 100 }, WINDOW_TYPE::NEW, L"ExplanationText.exe");
+			WindowUI* explanationUI = new WindowUI({ SCREEN_WIDTH - 200, SCREEN_HEIGHT-200}, { 350, 100 }, WINDOW_TYPE::NEW, L"ExplanationText.exe");
 			{
 				TextUI* text = new TextUI();
 				Vector2 size = explanationUI->getSize();
 				text->setupFont(40);
-				text->setPosition({ size.x / 2, size.y / 3 });
+				text->setPosition({ size.x / 2, size.y / 2 - 20 });
 				text->setText(L"창을 닫아서 선택");
 				explanationUI->setUI(text);
 			}
 
-			WindowUI* startBtn = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 50 }, { 500, 100 }, WINDOW_TYPE::NEW, L"Start.exe");
+			WindowUI* startBtn = new WindowUI({ SCREEN_WIDTH / 2 - 500, SCREEN_HEIGHT / 2 + 170 }, { 450, 100 }, WINDOW_TYPE::NEW, L"Start.exe");
 			{
 				TextUI* text = new TextUI();
 				Vector2 size = startBtn->getSize();
 				text->setupFont(50);
-				text->setPosition({ size.x / 2, size.y / 3 });
+				text->setPosition({ size.x / 2, size.y / 2 - 25 });
 				text->setText(L"시작");
 				startBtn->setUI(text);
 			}
@@ -64,12 +63,12 @@ void TitleScene::init()
 					GET_SINGLETON(EventManager)->changeScene(L"InGameScene");
 				};
 
-			WindowUI* tutorialBtn = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 200 }, { 500, 100 }, WINDOW_TYPE::NEW, L"Tutorial.exe");
+			WindowUI* tutorialBtn = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 170 }, { 450, 100 }, WINDOW_TYPE::NEW, L"Tutorial.exe");
 			{
 				TextUI* text = new TextUI();
 				Vector2 size = tutorialBtn->getSize();
 				text->setupFont(50);
-				text->setPosition({ size.x / 2, size.y / 3 });
+				text->setPosition({ size.x / 2, size.y / 2 - 25 });
 				text->setText(L"튜토리얼");
 				tutorialBtn->setUI(text);
 			}
@@ -78,12 +77,12 @@ void TitleScene::init()
 					GET_SINGLETON(EventManager)->changeScene(L"TutorialScene");
 				};
 
-			WindowUI* exitBtn = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 + 350 }, { 500, 100 }, WINDOW_TYPE::NEW, L"Exit.exe");
+			WindowUI* exitBtn = new WindowUI({ SCREEN_WIDTH / 2 + 500, SCREEN_HEIGHT / 2 + 170 }, { 450, 100 }, WINDOW_TYPE::NEW, L"Exit.exe");
 			{
 				TextUI* text = new TextUI();
 				Vector2 size = exitBtn->getSize();
 				text->setupFont(50);
-				text->setPosition({ size.x / 2, size.y / 3 });
+				text->setPosition({ size.x / 2, size.y / 2 - 25 });
 				text->setText(L"나가기");
 				exitBtn->setUI(text);
 			}
@@ -92,8 +91,8 @@ void TitleScene::init()
 					PostQuitMessage(0);
 				};
 
-			textUI->getWindow()->setMoveable(false);
-			textUI->getWindow()->setCloseable(false);
+			titleUI->getWindow()->setMoveable(true);
+			titleUI->getWindow()->setCloseable(false);
 			explanationUI->getWindow()->setMoveable(true);
 			explanationUI->getWindow()->setCloseable(false);
 			startBtn->getWindow()->setMoveable(true);
@@ -102,13 +101,13 @@ void TitleScene::init()
 			tutorialBtn->getWindow()->setCloseable(false);
 			exitBtn->getWindow()->setMoveable(true);
 			exitBtn->getWindow()->setCloseable(false);
-			textUI->getWindow()->openTween(0.f);
+			titleUI->getWindow()->openTween(0.f);
 			explanationUI->getWindow()->openTween(0.f);
 			startBtn->getWindow()->openTween(0.f);
 			tutorialBtn->getWindow()->openTween(0.f);
 			exitBtn->getWindow()->openTween(0.f);
-			textUI->getWindow()->setPriority(-1);
-			GET_SINGLETON(EventManager)->createObject(textUI, LAYER::UI);
+			titleUI->getWindow()->setPriority(-1);
+			GET_SINGLETON(EventManager)->createObject(titleUI, LAYER::UI);
 			GET_SINGLETON(EventManager)->createObject(explanationUI, LAYER::UI);
 			GET_SINGLETON(EventManager)->createObject(startBtn, LAYER::UI);
 			GET_SINGLETON(EventManager)->createObject(tutorialBtn, LAYER::UI);
