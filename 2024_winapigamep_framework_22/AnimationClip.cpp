@@ -53,7 +53,7 @@ void AnimationClip::release()
 {
 	for (Sprite* sprite : _sprites)
 	{
-		SAFE_DELETE(sprite);
+		delete sprite;
 	}
 	_sprites.clear();
 }

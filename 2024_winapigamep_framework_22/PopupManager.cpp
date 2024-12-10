@@ -107,9 +107,10 @@ void PopupManager::initialize()
 
 void PopupManager::release()
 {
-	for (auto& pair : _uiMap)
+	map<wstring, WindowUI*>::iterator iter;
+	for (iter = _uiMap.begin(); iter != _uiMap.end(); ++iter)
 	{
-		delete pair.second;
+		delete iter->second;
 	}
 	_uiMap.clear();
 }

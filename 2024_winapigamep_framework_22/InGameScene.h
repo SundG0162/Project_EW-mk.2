@@ -10,6 +10,7 @@ public:
 public:
 	void init() override;
 	void update() override;
+	void release() override;
 public:
 	void setupUI();
 };

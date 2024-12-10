@@ -14,6 +14,7 @@ private:
 	void createGDI();
 public:
 	void setPause(bool pause);
+	void endGame() { _isGameEnd = true; }
 public:
 	void onMessageProcess();
 	void setStopLoop(bool stop) { _isStopped = stop; }
@@ -34,6 +35,7 @@ public:
 public:
 	Action<> OnMessageProcessEvent;
 private:
+	std::atomic<bool> _isGameEnd = false;
 	bool _isPaused = false;
 	bool _isStopped = false;
 	HBRUSH _colorBrushes[(UINT)BRUSH_TYPE::END] = {};

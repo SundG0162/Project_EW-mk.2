@@ -101,11 +101,14 @@ int BaseWindow::messageLoop()
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 		{
 			if (msg.message == WM_QUIT)
+			{
 				break;
+			}
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
 	}
+	GET_SINGLETON(Core)->endGame();
 	_mainLoopThread.detach();
 	GET_SINGLETON(Core)->cleanUp();
 	return (int)msg.wParam;

@@ -13,11 +13,8 @@ void SpawnManager::init()
 
 void SpawnManager::update()
 {
-	if (_target == nullptr)
-	{
-		_target = (Object*)GET_SINGLETON(PlayerManager)->getPlayer();
-		return;
-	}
+	if (_isStopped) return;
+	if (_target == nullptr) return;
 	if (spawnQueue.empty())return;
 	SpawnInfo topInfo = spawnQueue.front();
 	currentTime += DELTATIME;
@@ -29,4 +26,10 @@ void SpawnManager::update()
 			spawningObject->SetTarget(_target);
 		spawnQueue.pop();
 	}
+}
+
+void SpawnManager::setStop(bool isStopped)
+{
+	_isStopped = isStopped;
+	_target = isStopped ? nullptr : (Object*)GET_SINGLETON(PlayerManager)->getPlayer();
 }

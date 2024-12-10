@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "PanelUI.h"
+#include "EventManager.h"
 
 PanelUI::PanelUI()
 {
@@ -7,10 +8,17 @@ PanelUI::PanelUI()
 
 PanelUI::~PanelUI()
 {
-	for (auto& pair : _uiMap)
+	map<wstring, UI*>::iterator iter;
+	for (iter = _uiMap.begin(); iter != _uiMap.end(); ++iter)
 	{
-		delete pair.second;
+		delete iter->second;
 	}
+	_uiMap.clear();
+	for (iter = _disabledUiMap.begin(); iter != _disabledUiMap.end(); ++iter)
+	{
+		delete iter->second;
+	}
+	_disabledUiMap.clear();
 }
 
 void PanelUI::update()
@@ -47,7 +55,8 @@ void PanelUI::removeUI(const wstring& key)
 	auto iter = _uiMap.find(key);
 	if (iter != _uiMap.end())
 	{
-		iter->second->setDead();
+		GET_SINGLETON(EventManager)->deleteObject(iter->second);
+		_uiMap.erase(iter);
 	}
 }
 

@@ -9,7 +9,7 @@ StatComponent::~StatComponent()
 {
 	for (auto pair : _statMap)
 	{
-		SAFE_DELETE(pair.second);
+		delete pair.second;
 	}
 	_statMap.clear();
 }

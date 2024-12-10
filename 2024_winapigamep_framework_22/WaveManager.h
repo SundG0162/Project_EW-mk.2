@@ -20,8 +20,8 @@ class WaveManager
 public:
 	void init();
 	void update();
-
 	void setWave(int wave) { this->wave = wave; }
+	void release();
 public:
 	int getHPIncByWave()
 	{

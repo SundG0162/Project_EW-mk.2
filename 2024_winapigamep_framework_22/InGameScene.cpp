@@ -53,6 +53,7 @@ void InGameScene::init()
 			_setuped = true;
 			Vector2 position = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 			Player* player = new Player(position, { 400,300 });
+			GET_SINGLETON(SpawnManager)->setStop(false);
 			setupUI();
 			GET_SINGLETON(EventManager)->createObject(player, LAYER::PLAYER);
 			player->OnHPChangeEvent += [this](int prev, int current)
@@ -62,13 +63,15 @@ void InGameScene::init()
 						GET_SINGLETON(EventManager)->changeScene(L"ResultScene");
 					}
 				};
-			GET_SINGLETON(PowerManager)->modifyPower(100000);
+			GET_SINGLETON(PowerManager)->modifyPower(300);
 		};
 }
 
 void InGameScene::update()
 {
 	Scene::update();
+	GET_SINGLETON(SpawnManager)->update();
+	GET_SINGLETON(WaveManager)->update();
 	if (GET_KEYDOWN(KEY_TYPE::ESC))
 	{
 		if (GET_SINGLETON(Core)->isPaused())
@@ -80,6 +83,12 @@ void InGameScene::update()
 			GET_SINGLETON(PopupManager)->popup(L"Pause", { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, true, 2.f);
 		}
 	}
+}
+
+void InGameScene::release()
+{
+	Scene::release();
+	GET_SINGLETON(SpawnManager)->setStop(true);
 }
 
 void InGameScene::setupUI()

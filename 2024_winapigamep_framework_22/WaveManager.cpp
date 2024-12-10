@@ -121,3 +121,7 @@ void WaveManager::update()
 		}
 	}
 }
+
+void WaveManager::release()
+{
+}

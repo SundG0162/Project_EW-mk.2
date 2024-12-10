@@ -43,6 +43,7 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 }
 void Core::cleanUp()
 {
+	GET_SINGLETON(SceneManager)->getCurrentScene()->release();
 	GET_SINGLETON(PopupManager)->release();
 	GET_SINGLETON(ResourceManager)->release();
 	::DeleteDC(_hBackDC);	//createdcÇÑ°Å
@@ -61,7 +62,7 @@ void Core::cleanUp()
 
 void Core::gameLoop()
 {
-	while (true)
+	while (!_isGameEnd)
 	{
 		if (_isStopped)
 			continue;
@@ -80,8 +81,6 @@ void Core::mainupdate()
 	GET_SINGLETON(InputManager)->update();
 	GET_SINGLETON(CollisionManager)->update();
 	GET_SINGLETON(SceneManager)->update();
-	GET_SINGLETON(SpawnManager)->update();
-	GET_SINGLETON(WaveManager)->update();
 }
 
 void Core::mainrender()
