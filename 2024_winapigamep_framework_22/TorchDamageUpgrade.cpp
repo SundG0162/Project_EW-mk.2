@@ -6,7 +6,7 @@
 
 TorchDamageUpgrade::TorchDamageUpgrade(Sprite* icon, const wstring& title, const wstring& description) : Upgrade(icon, title, description)
 {
-	_maxLevel = 3;
+	_maxLevel = 2;
 }
 
 TorchDamageUpgrade::~TorchDamageUpgrade()

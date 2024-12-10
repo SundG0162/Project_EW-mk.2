@@ -6,7 +6,7 @@
 
 DamageUpgrade::DamageUpgrade(Sprite* icon, const wstring& title, const wstring& description) : Upgrade(icon, title, description)
 {
-	_maxLevel = 4;
+	_maxLevel = 5;
 }
 
 DamageUpgrade::~DamageUpgrade()

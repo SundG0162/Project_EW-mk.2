@@ -11,7 +11,7 @@ public:
 public:
 	void applyUpgrade() override;
 private:
-	int _modifyValues[3] = { 1,2,3 };
+	int _modifyValues[2] = { 2,3 };
 	StatComponent* _statComponent;
 };
 
