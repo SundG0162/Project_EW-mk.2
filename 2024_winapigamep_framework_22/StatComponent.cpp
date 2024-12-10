@@ -7,9 +7,10 @@ StatComponent::StatComponent()
 
 StatComponent::~StatComponent()
 {
-	for (auto pair : _statMap)
+	map<wstring, Stat*>::iterator iter;
+	for (iter = _statMap.begin(); iter != _statMap.end(); ++iter)
 	{
-		delete pair.second;
+		delete iter->second;
 	}
 	_statMap.clear();
 }
