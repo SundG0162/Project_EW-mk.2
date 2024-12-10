@@ -6,6 +6,7 @@
 #include "WindowManager.h"
 #include "EventManager.h"
 #include "Core.h"
+#include "ResourceManager.h"
 
 Window::Window(const Vector2& position, const Vector2& size, const wstring& name)
 	: _hWnd(nullptr)
@@ -108,6 +109,7 @@ LRESULT Window::handleMessage(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 	break;
 	case WM_CLOSE:
 	{
+		GET_SINGLETON(ResourceManager)->play(L"Snap");
 		if (_closeable)
 		{
 			OnWindowCloseEvent.invoke();
