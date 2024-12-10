@@ -21,6 +21,8 @@ public:
 	void setRepeat(bool repeat) { _isRepeat = repeat; }
 public:
 	Action<> OnAnimationEndEvent;
+public:
+	bool flag = false;
 private:
 	Animator* _animator;
 	SpriteRenderer* _spriteRenderer;

@@ -40,7 +40,7 @@ void AnimationClip::update()
 				return;
 			}
 		}
-		
+
 	}
 	_spriteRenderer->setSprite(_sprites[_currentFrame]);
 }

@@ -3,9 +3,11 @@
 #include "Animator.h"
 #include "AnimationClip.h"
 #include "EventManager.h"
+#include "SpriteRenderer.h"
 
 Effect::Effect()
 {
+	addComponent<SpriteRenderer>()->setScale({ 2,2});
 	_animator = addComponent<Animator>();
 }
 
@@ -36,6 +38,7 @@ void Effect::play(bool isRepeat)
 		_animator->findAnimation(L"Effect")->OnAnimationEndEvent += 
 			[this]()
 			{
+				cout << "¾ö..";
 				GET_SINGLETON(EventManager)->deleteObject(this);
 			};
 	}

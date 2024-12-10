@@ -12,6 +12,7 @@
 #include "Animator.h"
 #include "Stat.h"
 #include "Player.h"
+#include "ExplodeEffect.h"
 
 Enemy::Enemy()
 	: _moveVector(0.f, 0.f)
@@ -115,6 +116,9 @@ void Enemy::GetDamage(int damage)
 		GET_SINGLETON(PowerManager)->
 			modifyPower(getComponent<StatComponent>()->
 				getStat(L"powerEarnOnDead")->getValue());
+		ExplodeEffect* effect = new ExplodeEffect();
+		effect->setPosition(_position);
+		effect->play();
 		_isDead = true;
 		GET_SINGLETON(ResultManager)->modifyTotalCaughtEnemy(1);
 		GET_SINGLETON(EventManager)->deleteObject(this);
