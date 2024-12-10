@@ -46,6 +46,7 @@ void ResourceManager::init()
 	loadTexture(L"rS", L"Texture\\rS.bmp");
 	loadTexture(L"rD", L"Texture\\rD.bmp");
 	loadTexture(L"Rotate", L"Texture\\Rotate.bmp");
+	loadTexture(L"GameLogo", L"Texture\\GameLogo.bmp");
 
 	loadSound(L"CameraCapture", L"Sound\\CameraCapture.mp3", false);
 	loadSound(L"Dash", L"Sound\\Dash.mp3", false);
