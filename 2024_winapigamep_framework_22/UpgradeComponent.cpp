@@ -105,6 +105,7 @@ void UpgradeComponent::render(HDC hDC)
 void UpgradeComponent::setRandomUpgrade()
 {
 	if (_upgradeFlag || _upgrades.empty()) return;
+	GET_SINGLETON(ResourceManager)->play(L"Card");
 	int index = utils::ExMath::getRandomValue(0, _upgrades.size() - 1);
 	Upgrade* upgrade = _upgrades[index];
 	upgrade->applyUpgrade();

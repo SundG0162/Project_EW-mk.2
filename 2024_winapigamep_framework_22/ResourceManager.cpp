@@ -57,6 +57,7 @@ void ResourceManager::init()
 	loadSound(L"Snap", L"Sound\\Snap.mp3", false);
 	loadSound(L"Beep", L"Sound\\Beep.mp3", false);
 	loadSound(L"Spin", L"Sound\\Spin.mp3", false);
+	loadSound(L"BGM", L"Sound\\november.mp3", true);
 
 	for (auto pair : _textureMap)
 	{

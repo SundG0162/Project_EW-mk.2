@@ -12,6 +12,7 @@
 #include "TimeManager.h"
 #include "PanelUI.h"
 #include "WindowManager.h"
+#include "ResourceManager.h"
 #include "TextUI.h"
 #include "ImageUI.h"
 
@@ -30,7 +31,10 @@ void PopupManager::initialize()
 		text->setText(L"전력이 부족합니다.");
 		text->setPosition({ 165, 18 });
 		ui->setUI(text);
-
+		ui->getWindow()->OnWindowOpenEvent += [ui]()
+			{
+				GET_SINGLETON(ResourceManager)->play(L"Error");
+			};
 		ui->getWindow()->OnTryWindowCloseEvent += [ui]()
 			{
 				GET_SINGLETON(PopupManager)->close(L"NotEnoughPower", false);

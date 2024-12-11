@@ -91,6 +91,16 @@ void TitleScene::init()
 					PostQuitMessage(0);
 				};
 
+			WindowUI* copyrightWindow = new WindowUI({ SCREEN_WIDTH - 500, SCREEN_HEIGHT - 200 }, { 250, 50 }, WINDOW_TYPE::NEW, L"Copyright.exe");
+			{
+				TextUI* text = new TextUI();
+				Vector2 size = copyrightWindow->getSize();
+				text->setupFont(24);
+				text->setPosition({ size.x / 2, size.y / 2 - 12 });
+				text->setText(L"BGM by bensound.com");
+				copyrightWindow->setUI(text);
+			}
+
 			titleUI->getWindow()->setMoveable(true);
 			titleUI->getWindow()->setCloseable(false);
 			explanationUI->getWindow()->setMoveable(true);
@@ -101,16 +111,21 @@ void TitleScene::init()
 			tutorialBtn->getWindow()->setCloseable(false);
 			exitBtn->getWindow()->setMoveable(true);
 			exitBtn->getWindow()->setCloseable(false);
+			copyrightWindow->getWindow()->setMoveable(true);
+			copyrightWindow->getWindow()->setCloseable(true);
 			titleUI->getWindow()->openTween(0.f);
 			explanationUI->getWindow()->openTween(0.f);
 			startBtn->getWindow()->openTween(0.f);
 			tutorialBtn->getWindow()->openTween(0.f);
 			exitBtn->getWindow()->openTween(0.f);
+			copyrightWindow->getWindow()->openTween(0.f);
 			titleUI->getWindow()->setPriority(-1);
 			GET_SINGLETON(EventManager)->createObject(titleUI, LAYER::UI);
 			GET_SINGLETON(EventManager)->createObject(explanationUI, LAYER::UI);
 			GET_SINGLETON(EventManager)->createObject(startBtn, LAYER::UI);
 			GET_SINGLETON(EventManager)->createObject(tutorialBtn, LAYER::UI);
 			GET_SINGLETON(EventManager)->createObject(exitBtn, LAYER::UI);
+			GET_SINGLETON(EventManager)->createObject(copyrightWindow, LAYER::UI);
+			GET_SINGLETON(ResourceManager)->play(L"BGM");
 		};
 }
