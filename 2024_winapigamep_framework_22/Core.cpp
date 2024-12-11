@@ -36,8 +36,6 @@ bool Core::init(HWND _hwnd, HINSTANCE hInstance)
 	GET_SINGLETON(SceneManager)->init();
 	GET_SINGLETON(PopupManager)->initialize();
 	GET_SINGLETON(EventManager)->update();
-	GET_SINGLETON(SpawnManager)->init();
-	GET_SINGLETON(WaveManager)->init();
 	AddFontResource(L"Galmuri9 Regular.ttf");
 	return true;
 }

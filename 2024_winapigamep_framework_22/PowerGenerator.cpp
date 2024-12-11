@@ -7,6 +7,7 @@
 #include "SpriteRenderer.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
+#include "WaveManager.h"
 #include "Window.h"
 #include "PowerManager.h"
 
@@ -65,7 +66,8 @@ void PowerGenerator::update()
 		PanelUI* panel = getUI<PanelUI>();
 		panel->disableUI(L"r" + _keys[_currentIndex]);
 		_currentIndex++;
-		GET_SINGLETON(PowerManager)->modifyPower(1);
+		GET_SINGLETON(PowerManager)->modifyPower(GET_SINGLETON(WaveManager)->getWave()/5+1);
+		GET_SINGLETON(ResourceManager)->play(L"Spin");
 		if (_currentIndex >= 4)
 		{
 			_currentIndex = 0;

@@ -26,13 +26,14 @@ public:
 	int getHPIncByWave()
 	{
 		int inc = 0;
-		inc += wave / 3;
-		if (wave > 5) inc += 1;
-		if (wave > 10) inc += 2;
-		if (wave > 15) inc += 3;
+		if (wave > 10) inc += 1;
+		if (wave > 15) inc += 1;
+		if (wave > 20) inc += 1;
+		if (wave > 30) inc += 1;
+		if (wave > 40) inc += 1;
 		return inc;
 	}
-
+	int getWave() { return wave; }
 	int randSpawnNum()
 	{
 		int basenum = wave - 8;
@@ -53,6 +54,7 @@ public:
 		StatComponent* statCompo = enemy->getComponent<StatComponent>();
 		statCompo->getStat(L"maxHealth")->addModifier(this, getHPIncByWave());
 		statCompo->addStat(L"powerEarnOnDead", new Stat((int)pow(wave, 1.5f) + 10));
+		if (wave > 10) statCompo->getStat(L"moveSpeed")->addModifier(this, wave / 10.f);
 		enemy->Setup();
 		return enemy;
 	}

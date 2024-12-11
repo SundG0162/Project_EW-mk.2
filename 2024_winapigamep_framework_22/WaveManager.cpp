@@ -112,15 +112,18 @@ void WaveManager::update()
 		{
 			++wave;
 			leftTime = waves[0].waveContinueTime;
-			for (auto enemy : waves[wave].spawnEnemyList)
+			for (auto enemy : waves[0].spawnEnemyList)
 			{
 				GET_SINGLETON(SpawnManager)->addSpawnObject({ enemy, 0.f });
 			}
-			for (auto info : waves[wave].spawnList)
+			for (auto info : waves[0].spawnList)
 			{
 				GET_SINGLETON(SpawnManager)->addSpawnObject(info);
 			}
+			std::cout << "Before erase, waves size: " << waves.size() << std::endl;
 			waves.erase(waves.begin());//소환 끝났으면 애들없에기
+			std::cout << "After erase, waves size: " << waves.size() << std::endl;
+
 		}
 	}
 }
@@ -129,7 +132,7 @@ void WaveManager::release()
 {
 	for (auto info : waves)
 	{
-		for (Enemy* enemy : waves[wave].spawnEnemyList)
+		for (Enemy* enemy : info.spawnEnemyList)
 		{
 			GET_SINGLETON(EventManager)->deleteObject(enemy);
 		}

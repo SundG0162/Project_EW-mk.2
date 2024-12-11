@@ -7,6 +7,7 @@
 #include "TimeManager.h"
 #include "StatComponent.h"
 #include "WindowManager.h"
+#include "ResourceManager.h"
 #include "PowerManager.h"
 #include "Stat.h"
 
@@ -68,6 +69,7 @@ void CCTV::attack()
 	{
 		if (GET_SINGLETON(PowerManager)->trySpendPower(5))
 		{
+			GET_SINGLETON(ResourceManager)->play(L"Beep");
 			int damage = _statComponent->getStat(L"Damage")->getValue();
 			float stunTime = _statComponent->getStat(L"AttackStun")->getValue();
 			for (Enemy* enemy : _targets)
