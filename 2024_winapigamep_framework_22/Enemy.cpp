@@ -120,7 +120,7 @@ void Enemy::GetDamage(int damage)
 		effect->setPosition(_position);
 		effect->play();
 		_isDead = true;
-		GET_SINGLETON(ResourceManager)->play(L"RoundOver");
+		GET_SINGLETON(ResourceManager)->play(L"Die");
 		GET_SINGLETON(ResultManager)->modifyTotalCaughtEnemy(1);
 		GET_SINGLETON(EventManager)->deleteObject(this);
 	}
