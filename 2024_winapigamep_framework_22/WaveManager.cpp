@@ -7,6 +7,7 @@
 #include "InvincibleEnemy.h"
 #include <iostream>
 #include "EventManager.h"
+#include "ResourceManager.h"
 
 void WaveManager::init()
 {
@@ -110,6 +111,7 @@ void WaveManager::update()
 		}
 		if (waves.size() > 0)
 		{
+			GET_SINGLETON(ResourceManager)->play(L"RoundOver");
 			++wave;
 			leftTime = waves[0].waveContinueTime;
 			for (auto enemy : waves[0].spawnEnemyList)

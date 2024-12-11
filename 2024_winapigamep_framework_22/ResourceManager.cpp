@@ -58,6 +58,8 @@ void ResourceManager::init()
 	loadSound(L"Beep", L"Sound\\Beep.mp3", false);
 	loadSound(L"Spin", L"Sound\\Spin.mp3", false);
 	loadSound(L"BGM", L"Sound\\november.mp3", true);
+	loadSound(L"Die", L"Sound\\EnemyDie.mp3", false);
+	loadSound(L"RoundOver", L"Sound\\RoundOver.mp3", false);
 
 	for (auto pair : _textureMap)
 	{
