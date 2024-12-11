@@ -44,47 +44,47 @@ UpgradeComponent::~UpgradeComponent()
 void UpgradeComponent::initialize()
 {
 	{
-		Upgrade* upgrade = new DamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 데미지 증가", L"CCTV.exe가 더욱 강해집니다.");
+		Upgrade* upgrade = new DamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe Damage Up", L"CCTV.exe becomes stronger.");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new SizeUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 확장", L"CCTV.exe가 더욱 넓어집니다.");
+		Upgrade* upgrade = new SizeUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe Expand", L"CCTV.exe becomes wider.");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new CCTVStunUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 강화", L"CCTV.exe의 공격을 맞으면\n적이 잠시 멈춥니다.");
+		Upgrade* upgrade = new CCTVStunUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"Upgrade CCTV.exe", L"When attacked by CCTV.exe\nthe enemy will pause\nfor a moment.");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new AttackSpeedUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe 공격속도 증가", L"CCTV.exe의 공격 딜레이가\n감소합니다.");
+		Upgrade* upgrade = new AttackSpeedUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CCTVIcon"), L"CCTV.exe Attack Speed Up", L"CCTV.exe's attack delay\nis reduced.");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new CameraStunUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe 강화", L"Camera.exe가 적을 멈추는 시간이\n길어집니다.");
+		Upgrade* upgrade = new CameraStunUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Upgrade Camera.exe", L"CIncreases the amount of time\nCamera.exe stops enemies.");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new CameraDamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe 데미지 증가", L"Camera.exe가 더욱 강해집니다.");
+		Upgrade* upgrade = new CameraDamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe Damage Up", L"Camera.exe becomes stronger");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new CameraCountUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe 강화", L"Camera.exe의 캡처 속도가\n증가합니다.");
+		Upgrade* upgrade = new CameraCountUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Upgrade Camera.exe", L"Camera.exe's shooting speed\nincreases.");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new CameraSizeUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe 확장", L"Camera.exe가 더욱 넓어집니다.");
+		Upgrade* upgrade = new CameraSizeUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"CameraIcon"), L"Camera.exe Expand", L"Camera.exe becomes wider.");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new TorchAttackSpeedUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"TorchIcon"), L"Torch.exe 공격속도 증가", L"Torch.exe의 공격 딜레이가\n감소합니다.");
+		Upgrade* upgrade = new TorchAttackSpeedUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"TorchIcon"), L"Torch.exe Attack Speed Up", L"Torch.exe's attack delay\nis reduced.");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new TorchDamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"TorchIcon"), L"Torch.exe 데미지 증가", L"Torch.exe가 더욱 강해집니다.");
+		Upgrade* upgrade = new TorchDamageUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"TorchIcon"), L"Torch.exe Damage Up", L"Torch.exe becomes stronger");
 		_upgrades.push_back(upgrade);
 	}
 	{
-		Upgrade* upgrade = new TorchSizeUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"TorchIcon"), L"Torch.exe 확장", L"Torch.exe가 더욱 넓어집니다.");
+		Upgrade* upgrade = new TorchSizeUpgrade(GET_SINGLETON(ResourceManager)->getSprite(L"TorchIcon"), L"Torch.exe Expand", L"Torch.exe becomes wider.");
 		_upgrades.push_back(upgrade);
 	}
 	Player* player = dynamic_cast<Player*>(getOwner());

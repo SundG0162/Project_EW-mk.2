@@ -39,13 +39,13 @@ void TitleScene::init()
 				titleUI->setUI(image);
 			}
 
-			WindowUI* explanationUI = new WindowUI({ SCREEN_WIDTH - 200, SCREEN_HEIGHT-200}, { 350, 100 }, WINDOW_TYPE::NEW, L"ExplanationText.exe");
+			WindowUI* explanationUI = new WindowUI({ SCREEN_WIDTH - 300, SCREEN_HEIGHT-200}, { 500, 100 }, WINDOW_TYPE::NEW, L"ExplanationText.exe");
 			{
 				TextUI* text = new TextUI();
 				Vector2 size = explanationUI->getSize();
 				text->setupFont(40);
 				text->setPosition({ size.x / 2, size.y / 2 - 20 });
-				text->setText(L"창을 닫아서 선택");
+				text->setText(L"Close the window to select");
 				explanationUI->setUI(text);
 			}
 
@@ -55,7 +55,7 @@ void TitleScene::init()
 				Vector2 size = startBtn->getSize();
 				text->setupFont(50);
 				text->setPosition({ size.x / 2, size.y / 2 - 25 });
-				text->setText(L"시작");
+				text->setText(L"Start");
 				startBtn->setUI(text);
 			}
 			startBtn->getWindow()->OnTryWindowCloseEvent += [this]()
@@ -69,7 +69,7 @@ void TitleScene::init()
 				Vector2 size = tutorialBtn->getSize();
 				text->setupFont(50);
 				text->setPosition({ size.x / 2, size.y / 2 - 25 });
-				text->setText(L"튜토리얼");
+				text->setText(L"Tutorial");
 				tutorialBtn->setUI(text);
 			}
 			tutorialBtn->getWindow()->OnTryWindowCloseEvent += [this]()
@@ -83,7 +83,7 @@ void TitleScene::init()
 				Vector2 size = exitBtn->getSize();
 				text->setupFont(50);
 				text->setPosition({ size.x / 2, size.y / 2 - 25 });
-				text->setText(L"나가기");
+				text->setText(L"Exit");
 				exitBtn->setUI(text);
 			}
 			exitBtn->getWindow()->OnTryWindowCloseEvent += [this]()
@@ -91,7 +91,7 @@ void TitleScene::init()
 					PostQuitMessage(0);
 				};
 
-			WindowUI* copyrightWindow = new WindowUI({ SCREEN_WIDTH - 500, SCREEN_HEIGHT - 200 }, { 250, 50 }, WINDOW_TYPE::NEW, L"Copyright.exe");
+			WindowUI* copyrightWindow = new WindowUI({ SCREEN_WIDTH - 700, SCREEN_HEIGHT - 200 }, { 250, 50 }, WINDOW_TYPE::NEW, L"Copyright.exe");
 			{
 				TextUI* text = new TextUI();
 				Vector2 size = copyrightWindow->getSize();

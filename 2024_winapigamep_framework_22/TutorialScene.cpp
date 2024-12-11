@@ -24,12 +24,12 @@ TutorialScene::TutorialScene()
 		wstring name = std::format(L"TutorialPanel{0}", i);
 		_panelSprites.push_back(GET_SINGLETON(ResourceManager)->getSprite(name));
 	}
-	_tutorialTexts.push_back(L"WASD를 통해 CCTV.exe를 움직여 근처를 탐색할 수 있습니다.\nCCTV.exe는 기본적인 공격 수단입니다.");
-	_tutorialTexts.push_back(L"인게임에서 바이러스를 잡거나 발전기를 돌려 전력을 얻을 수 있습니다.\n전력을 통해 각종 기기를 업그레이드 할 수 있습니다.");
-	_tutorialTexts.push_back(L"숫자 키를 눌러 아이템을 선택하고\n스페이스, 엔터키를 통해\n사용할 수 있습니다.");
-	_tutorialTexts.push_back(L"CCTV.exe로 적을 비추거나 아이템을 통해 바이러스를 잡을 수 있습니다.\n아, 참고로 CCTV가 공격할때마다 전력이 소모됩니다.");
-	_tutorialTexts.push_back(L"바이러스가 모니터에 3번 이상 도달할 경우 게임은 종료됩니다.");
-	_tutorialTexts.push_back(L"게임 도중에 F키를 눌러 발전기 창을 열 수 있습니다.\n꾸준히 돌리는게 좋지만 잘못 열었다간 CCTV가 조작 불가능해지니 조심하세요.");
+	_tutorialTexts.push_back(L"You can move CCTV.exe around via WASD to explore the neighborhood.\nCCTV.exe is a basic attack vector.");
+	_tutorialTexts.push_back(L"In-game, you can get power by killing enemies or spinning a generator. \nPower allows you to upgrade various devices.");
+	_tutorialTexts.push_back(L"You can select items by pressing the number keys and use the \nspace and enter keys.");
+	_tutorialTexts.push_back(L"CCTV.exe can be used to illuminate enemies or catch viruses through items.\n Oh, and as a side note, each time CCTV attacks, it costs power.");
+	_tutorialTexts.push_back(L"The game will end if the enemy reaches the monitor more than 3 times.");
+	_tutorialTexts.push_back(L"You can open the generator window by pressing F during the game\nbut be careful not to open it incorrectly as it will render the CCTV inoperable.");
 }
 
 TutorialScene::~TutorialScene()
@@ -65,7 +65,7 @@ void TutorialScene::init()
 				Vector2 size = nextBtn->getSize();
 				text->setupFont(30);
 				text->setPosition({ size.x / 2,size.y / 4 });
-				text->setText(L"닫아서 다음으로");
+				text->setText(L"Close to next");
 				nextBtn->setUI(text);
 			}
 			nextBtn->getWindow()->setPriority(UI_PRIORITY + 2);
@@ -80,7 +80,7 @@ void TutorialScene::init()
 				Vector2 size = nextBtn->getSize();
 				text->setupFont(30);
 				text->setPosition({ size.x / 2,size.y / 4 });
-				text->setText(L"닫아서 나가기");
+				text->setText(L"Close to exit");
 				exitBtn->setUI(text);
 			}
 			exitBtn->getWindow()->setPriority(UI_PRIORITY + 2);

@@ -1,7 +1,7 @@
-함께 포함된 Galmuri9.ttf를 다운받아주세요. 다운 안받으면 게임이 못생겨집니다.
+Please download the included Galmuri9.ttf. If you don't download it, the game will be ugly.
 
-게임을 시작하면 Error.exe라는 이름의 흰색 창이 떠있는데 이름만 Error.exe지 단순 버그니까 그냥 꺼주세요.
+When you start the game, a white window named Error.exe will pop up, but it's just a bug and should be turned off.
 
-게임을 바탕화면에서 실행하는걸 권장합니다. 안 그러면 알트탭 잘못 눌렀을때 곤란해질 수 있어요.
+We recommend running the game on your desktop. Otherwise, you might get stuck on the wrong alt-tab.
 
-튜토리얼을 자세히 읽어주세요. 게임이 불친절 할 수 있습니다. 죄송합니다.
+Please read the tutorial carefully. The game can be unfriendly. We apologize for that.

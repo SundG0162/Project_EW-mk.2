@@ -28,7 +28,7 @@ void PopupManager::initialize()
 		WindowUI* ui = new WindowUI({ SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 }, { 330,70 }, WINDOW_TYPE::NEW, L"Error.exe");
 		TextUI* text = new TextUI();
 		text->setupFont(34);
-		text->setText(L"전력이 부족합니다.");
+		text->setText(L"Insufficient power.");
 		text->setPosition({ 165, 18 });
 		ui->setUI(text);
 		ui->getWindow()->OnWindowOpenEvent += [ui]()
@@ -56,14 +56,14 @@ void PopupManager::initialize()
 		{
 			TextUI* text = new TextUI();
 			text->setupFont(70);
-			text->setText(L"일시정지.");
+			text->setText(L"Pause");
 			text->setPosition({ panelSize.x / 2, panelSize.y / 2 - 200 });
 			panel->addUI(L"TitleText", text);
 		}
 		{
 			TextUI* text = new TextUI();
 			text->setupFont(40);
-			text->setText(L"ESC를 눌러 계속하기\n닫아서 타이틀로");
+			text->setText(L"Press ESC to continue\nClose to move to title");
 			text->setPosition({ panelSize.x / 2, panelSize.y / 2 - 30 });
 			panel->addUI(L"InfoText", text);
 		}
