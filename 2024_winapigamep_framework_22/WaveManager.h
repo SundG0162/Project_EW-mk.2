@@ -26,11 +26,11 @@ public:
 	int getHPIncByWave()
 	{
 		int inc = 0;
-		if (wave > 10) inc += 1;
-		if (wave > 15) inc += 1;
-		if (wave > 20) inc += 1;
-		if (wave > 30) inc += 1;
-		if (wave > 40) inc += 1;
+		if (wave > 10) inc += 2;
+		if (wave > 15) inc += 2;
+		if (wave > 20) inc += 2;
+		if (wave > 30) inc += 2;
+		if (wave > 40) inc += 2;
 		return inc;
 	}
 	int getWave() { return wave; }
@@ -53,7 +53,7 @@ public:
 		T* enemy = new T;
 		StatComponent* statCompo = enemy->getComponent<StatComponent>();
 		statCompo->getStat(L"maxHealth")->addModifier(this, getHPIncByWave());
-		statCompo->addStat(L"powerEarnOnDead", new Stat((int)pow(wave, 1.5f) + 10));
+		statCompo->addStat(L"powerEarnOnDead", new Stat((int)pow(wave, 1.2f) + 10));
 		if (wave > 10) statCompo->getStat(L"moveSpeed")->addModifier(this, wave / 10.f);
 		enemy->Setup();
 		return enemy;

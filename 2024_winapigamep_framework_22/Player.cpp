@@ -132,7 +132,7 @@ void Player::update()
 					camera->initialize(this);
 					GET_SINGLETON(EventManager)->createObject(camera, LAYER::UI);
 				};
-			_priceMap[_currentItem] += 20;
+			_priceMap[_currentItem] += 50;
 		}
 		break;
 		case PLAYER_ITEM::TORCH:
@@ -158,7 +158,7 @@ void Player::update()
 					torch->setup(mousePos);
 					GET_SINGLETON(EventManager)->createObject(torch, LAYER::PLAYER);
 				};
-			_priceMap[_currentItem] += 20;
+			_priceMap[_currentItem] += 50;
 		}
 		break;
 		case PLAYER_ITEM::UPGRADE:
@@ -171,7 +171,7 @@ void Player::update()
 					return;
 				}
 				_upgradeComponent->setRandomUpgrade();
-				_priceMap[_currentItem] += 40;
+				_priceMap[_currentItem] += 70;
 			}
 		}
 		}
